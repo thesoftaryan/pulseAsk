@@ -1,0 +1,22 @@
+:root {
+  /* Light theme */
+  --color-bg: #ffffff;
+  --color-level1-bg:#f8f8f8;
+  --color-level2-bg:#ffffff;
+  --color-text: #121212;
+  --color-primary: #4458af;
+  --color-primary-light: #6A7BC4;
+  --color-primary-extra-light: #a2addc;
+  --color-footer-text: #787474;
+}
+
+[data-theme="dark"] {
+  --color-bg: #191919;
+  --color-level1-bg:#000000;
+  --color-level2-bg:#191919;
+  --color-text: #ffffff;
+  --color-primary: #4458af;
+  --color-primary-light: #6A7BC4;
+  --color-primary-extra-light: #a2addc;
+  --color-border: #333333;
+}
