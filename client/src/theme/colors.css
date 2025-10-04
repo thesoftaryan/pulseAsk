@@ -1,22 +1,45 @@
+/* Light theme */
 :root {
-  /* Light theme */
+  /* Background */
   --color-bg: #ffffff;
   --color-level1-bg:#f8f8f8;
   --color-level2-bg:#ffffff;
-  --color-text: #121212;
+
+  /* Text */
+  --color-heading-text: #000000;
+  --color-subheading-text:#555555;
+
+  /* input */
+  --color-input-area : #f8f8f8;
+
+  /* Primary */
   --color-primary: #4458af;
   --color-primary-light: #6A7BC4;
   --color-primary-extra-light: #a2addc;
-  --color-footer-text: #787474;
-}
 
+  /* Border */
+  --color-border: #555555;
+}
+/* Dark Theme */
 [data-theme="dark"] {
+  /* Background */
   --color-bg: #191919;
   --color-level1-bg:#000000;
   --color-level2-bg:#191919;
-  --color-text: #ffffff;
-  --color-primary: #4458af;
-  --color-primary-light: #6A7BC4;
-  --color-primary-extra-light: #a2addc;
-  --color-border: #333333;
+
+  /* Text */
+  --color-heading-text: #ffffff;
+  --color-subheading-text:#979797;
+
+  /* input */
+  --color-input-area : #000000;
+
+
+  /* Primary */
+  --color-primary: #1aa5ae;
+  --color-primary-light: #51bfc6;
+  --color-primary-extra-light: #a1e8ed;
+
+  /* Border */
+  --color-border: #555555;
 }
