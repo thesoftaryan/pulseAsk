@@ -1,0 +1,22 @@
+.input-name{
+    display: flex;
+    background-color: var(--color-input-area);
+    color: var(--color-text);
+    height: var(--size-input-height);
+    border: 0rem;
+    border-radius: var(--size-radius-sm);
+    padding: var(--spacing-sm);
+    margin: var(--spacing-lg) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    transition: all 0.2s ease-in-out;
+}
+
+.input-name::placeholder {
+    color: var(--color-subheading-text);
+}
+
+.input-name:focus{
+    outline: none;
+    border: 1px solid var(--color-border);
+    transition: all 0.2s ease-in-out;
+}

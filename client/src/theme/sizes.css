@@ -2,4 +2,7 @@
   --size-button-height: 36px;
   --size-input-height: 36px;
   --size-container-width: 1200px;
+  --size-radius-sm:8px;
+  --size-radius-md:16px;
+  --size-radius-lg:24px;
 }

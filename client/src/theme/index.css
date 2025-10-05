@@ -2,3 +2,8 @@
 @import "./sizes.css";
 @import "./spacing.css";
 @import "./typography.css";
+
+*{
+    margin: 0px;
+    padding: 0px;
+}

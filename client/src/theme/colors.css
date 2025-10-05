@@ -6,6 +6,7 @@
   --color-level2-bg:#ffffff;
 
   /* Text */
+  --color-text: #000000;
   --color-heading-text: #000000;
   --color-subheading-text:#555555;
 
@@ -28,6 +29,7 @@
   --color-level2-bg:#191919;
 
   /* Text */
+  --color-text: #ffffff;
   --color-heading-text: #ffffff;
   --color-subheading-text:#979797;
 
