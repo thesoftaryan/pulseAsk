@@ -1,5 +1,7 @@
+import { useState } from "react";
 import InputFieldStyles from "./InputField.module.css";
-import ClosedPasswordIcon from "/src/assets/icons/password.svg?react"
+import ClosedPasswordIcon from "/src/assets/icons/password_hidden.svg?react"
+import ClearPasswordIcon from "/src/assets/icons/password_clear.svg?react"
 
 interface InputFieldProps{
     type?:string;
@@ -11,9 +13,12 @@ interface InputFieldProps{
 }
 
 const InputField: React.FC<InputFieldProps> = ({placeholder, type="text", value, onChange, name, disabled=false,})=>{
+    const [hidden, sethidden] = useState(type==="password");
     return <>
-        <input type={type} name={name} placeholder={placeholder} value={value} onChange={onChange} disabled={disabled} className={InputFieldStyles["input-name"]}/>
-        <ClosedPasswordIcon width={110} height={110} className={InputFieldStyles["svg-icon"]}/>
+        <div className={InputFieldStyles["input-wrapper"]}>
+            <input type={type==="password"? (hidden? type:"text"):type} name={name} placeholder={placeholder} value={value} onChange={onChange} disabled={disabled} className={InputFieldStyles["input-name"]}/>
+            { type === "password" && (hidden? <ClosedPasswordIcon className={InputFieldStyles["svg-icon"]} onClick={()=>{sethidden(!hidden)}}/> : <ClearPasswordIcon className={InputFieldStyles["svg-icon"]} onClick={()=>{sethidden(!hidden)}}/>)}
+        </div>
     </>;
 }
 

@@ -1,12 +1,20 @@
+.input-wrapper{
+    position: relative;
+    display:flex;
+    align-items: center;
+    width: 100%;
+}
+
+
 .input-name{
-    display: flex;
+    width: 100%;
     background-color: var(--color-input-area);
     color: var(--color-text);
     height: var(--size-input-height);
     border: 1px solid transparent;
     border-radius: var(--size-radius-sm);
     padding: var(--spacing-sm);
-    margin: var(--spacing-lg) var(--spacing-md);
+    margin: var(--spacing-md) var(--spacing-md);
     font-size: var(--font-size-sm);
     transition: all 0.2s ease-in-out;
 }
@@ -22,5 +30,9 @@
 }
 
 .svg-icon{
+    position: absolute;
+    right: var(--spacing-xl);
     color: var(--color-primary);
+    width: var(--size-icon-md);
+    height: var(--size-icon-md);
 }

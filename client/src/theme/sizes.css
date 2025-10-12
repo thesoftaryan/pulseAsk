@@ -1,8 +1,14 @@
 :root {
-  --size-button-height: 36px;
-  --size-input-height: 36px;
+  --size-button-height: 45px;
+  --size-input-height: 45px;
   --size-container-width: 1200px;
   --size-radius-sm:8px;
   --size-radius-md:16px;
   --size-radius-lg:24px;
+  
+
+  /* Icon Size */
+  --size-icon-sm:20px;
+  --size-icon-md:35px;
+  --size-icon-lg:50px;
 }
