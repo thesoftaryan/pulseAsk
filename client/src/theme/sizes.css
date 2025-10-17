@@ -2,6 +2,7 @@
   --size-button-height: 45px;
   --size-input-height: 45px;
   --size-container-width: 1200px;
+  --size-radius-xsm:4px;
   --size-radius-sm:8px;
   --size-radius-md:16px;
   --size-radius-lg:24px;
@@ -11,4 +12,9 @@
   --size-icon-sm:20px;
   --size-icon-md:35px;
   --size-icon-lg:50px;
+
+  /* CheckBox size */
+  --size-checkbox-sm:20px;
+  --size-checkbox-md:25px;
+  --size-checkbox-lg:30px;
 }

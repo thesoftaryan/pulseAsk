@@ -16,8 +16,8 @@ const InputField: React.FC<InputFieldProps> = ({placeholder, type="text", value,
     const [hidden, sethidden] = useState(type==="password");
     return <>
         <div className={InputFieldStyles["input-wrapper"]}>
-            <input type={type==="password"? (hidden? type:"text"):type} name={name} placeholder={placeholder} value={value} onChange={onChange} disabled={disabled} className={InputFieldStyles["input-name"]}/>
-            { type === "password" && (hidden? <ClosedPasswordIcon className={InputFieldStyles["svg-icon"]} onClick={()=>{sethidden(!hidden)}}/> : <ClearPasswordIcon className={InputFieldStyles["svg-icon"]} onClick={()=>{sethidden(!hidden)}}/>)}
+            <input type={type==="password"? (hidden? type:"text"):type} name={name} placeholder={placeholder} value={value} onChange={onChange} disabled={disabled} className={InputFieldStyles["input-field"]}/>
+            { type === "password" && (hidden? <ClosedPasswordIcon className={InputFieldStyles["eye-icon"]} onClick={()=>{sethidden(!hidden)}}/> : <ClearPasswordIcon className={InputFieldStyles["eye-icon"]} onClick={()=>{sethidden(!hidden)}}/>)}
         </div>
     </>;
 }

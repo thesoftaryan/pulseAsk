@@ -6,22 +6,19 @@
 }
 
 
-.input-name{
+.input-field{
     width: 100%;
     background-color: var(--color-input-area);
     color: var(--color-text);
     height: var(--size-input-height);
     border: 1px solid transparent;
     border-radius: var(--size-radius-sm);
-    padding: var(--spacing-sm);
-    margin: var(--spacing-md) var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin: var(--spacing-sm) var(--spacing-sm);
     font-size: var(--font-size-sm);
     transition: all 0.2s ease-in-out;
 }
 
-.input-name::placeholder {
-    color: var(--color-subheading-text);
-}
 
 .input-name:focus{
     outline: none;
@@ -29,7 +26,7 @@
     transition: all 0.2s ease-in-out;
 }
 
-.svg-icon{
+.eye-icon{
     position: absolute;
     right: var(--spacing-xl);
     color: var(--color-primary);

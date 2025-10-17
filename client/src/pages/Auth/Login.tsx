@@ -1,9 +1,13 @@
 import InputField from "../../components/common/InputField/InputField";
+import CheckBox from "../../components/common/checkBox/CheckBox";
 
 function Login(){
     return <>
-        <InputField placeholder="Email" type="email"/>
-        <InputField placeholder="Password" type="password"/>
+        <div className="container">
+            <InputField placeholder="Email" type="email"/>
+            <InputField placeholder="Password" type="password"/>
+            <CheckBox></CheckBox>
+        </div>
     </>;
 }
 
