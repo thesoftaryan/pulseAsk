@@ -1,11 +1,17 @@
 import CheckBoxStyle from "./CheckBox.module.css";
 
-const CheckBox = ()=>{
+interface CheckBoxProps{
+    text:React.ReactNode;
+    onChange?:(e:React.ChangeEvent<HTMLInputElement>)=>void;
+}
+
+
+const CheckBox:React.FC<CheckBoxProps> = ({text, onChange})=>{
     return (
         <>
             <div className={CheckBoxStyle["checkbox-wrapper"]}>
-                <input type="checkbox" className={CheckBoxStyle["checkbox"]}/>
-                <p>Remember me</p>
+                <input type="checkbox" className={CheckBoxStyle["checkbox"]} onChange={onChange}/>
+                <span className={CheckBoxStyle["checkbox-text"]}>{text}</span>
             </div>
         </>
     );

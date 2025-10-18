@@ -14,7 +14,7 @@
     border: 1px solid transparent;
     border-radius: var(--size-radius-sm);
     padding: var(--spacing-sm) var(--spacing-md);
-    margin: var(--spacing-sm) var(--spacing-sm);
+    margin: var(--spacing-sm);
     font-size: var(--font-size-sm);
     transition: all 0.2s ease-in-out;
 }

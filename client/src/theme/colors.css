@@ -7,8 +7,10 @@
 
   /* Text */
   --color-text: #000000;
+  --color-text-button:#ffffff;
   --color-heading-text: #000000;
   --color-subheading-text:#555555;
+
 
   /* input */
   --color-input-area : #f8f8f8;
@@ -30,6 +32,7 @@
 
   /* Text */
   --color-text: #ffffff;
+  --color-text-button:#ffffff;
   --color-heading-text: #ffffff;
   --color-subheading-text:#979797;
 

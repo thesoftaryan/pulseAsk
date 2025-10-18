@@ -1,0 +1,15 @@
+.button-wrapper{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.button{
+    width: 100%;
+    border: none;
+    border-radius: var(--size-radius-sm);
+    background-color: var(--color-primary);
+    color: var(--color-text-button);
+    margin: var(--spacing-sm);
+    padding: var(--spacing-md);
+    height: var(--size-button-height);
+}
