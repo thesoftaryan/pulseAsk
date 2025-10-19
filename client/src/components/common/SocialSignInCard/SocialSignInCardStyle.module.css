@@ -1,0 +1,33 @@
+.card-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 200px;
+
+
+    border-radius: var(--size-radius-sm);
+
+
+    margin: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    height: var(--size-button-height);
+
+    background-color: var(--color-level1-bg);
+
+}
+
+.icon{
+    margin: 0 var(--spacing-md);
+}
+
+.text{
+    font-size: var(--font-size-lg);
+    color: var(--color-subheading-text);
+    margin: 0 var(--spacing-md);
+}

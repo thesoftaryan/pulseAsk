@@ -17,6 +17,10 @@
   border-radius: var(--size-radius-xsm);
 }
 
+.checkbox:hover{
+  cursor: pointer;
+}
+
 .checkbox:checked {
   background-color: var(--color-primary);
 }

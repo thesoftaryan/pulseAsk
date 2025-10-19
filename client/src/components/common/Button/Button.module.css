@@ -5,11 +5,20 @@
 }
 .button{
     width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: var(--font-size-lg);
+
     border: none;
     border-radius: var(--size-radius-sm);
+
     background-color: var(--color-primary);
     color: var(--color-text-button);
+
     margin: var(--spacing-sm);
-    padding: var(--spacing-md);
+    padding: var(--spacing-lg);
     height: var(--size-button-height);
 }

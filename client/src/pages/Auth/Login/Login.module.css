@@ -1,0 +1,28 @@
+/* .container{
+    display: flex;
+    flex-direction: column;
+} */
+
+.header{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: var(--spacing-xxl);
+}
+
+.heading{
+    margin-top: var(--spacing-xxl);
+}
+
+.signup{
+    margin-top: var(--spacing-md);
+    color: var(--color-subheading-text);
+}
+
+.login-form{
+    margin-top: var(--spacing-xxxl);
+}
+
+
+
+
