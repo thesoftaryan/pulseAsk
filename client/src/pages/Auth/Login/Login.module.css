@@ -1,7 +1,42 @@
-/* .container{
+.container{
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.left-container{
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-wrapper{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-image{
+    object-fit: cover;
+}
+
+
+.right-container{
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-} */
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.login-form {
+  gap: var(--spacing-md);
+}
+
+
 
 .header{
     display: flex;

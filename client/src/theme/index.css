@@ -3,6 +3,8 @@
 @import "./spacing.css";
 @import "./typography.css";
 
+
+
 *{
     margin: 0rem;
     padding: 0rem;
@@ -12,6 +14,11 @@
 a{
     text-decoration: none;
     color: var(--color-primary);
+    cursor: pointer;
+}
+
+button{
+    cursor: pointer;
 }
 
 /* Gaps for GapBox */
