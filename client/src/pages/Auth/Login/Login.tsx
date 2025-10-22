@@ -6,8 +6,11 @@ import SocialSignInCard from "../../../components/common/SocialSignInCard/Social
 import GapBox from "../../../components/common/GapBox/GapBox";
 
 // SVG Icons
+import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
+import LeftChevronIcon from "../../../assets/icons/Chevron left.svg?react";
 import GoogleSocialSignInIcon from "../../../assets/icons/google.svg?react";
 import FacebookSocialSignInIcon from "../../../assets/icons/facebook.svg?react";
+
 
 // Images
 import BannerImageLight from "../../../assets/images/Authentication/banner-light.png";
@@ -24,6 +27,19 @@ function Login() {
             <div className={LoginStyle["left-container"]}>
                 <div className={LoginStyle["image-wrapper"]}>
                     <img src={BannerImageLight} alt="Banner-Image" className={LoginStyle["banner-image"]}/>
+                </div>
+                <div className={LoginStyle["left-container-header"]}>
+                    <div className={LoginStyle["main-icon"]}>
+                        <PulseAskIcon/>
+                    </div>
+                    <button className={LoginStyle["back-button"]}>
+                        <div className={LoginStyle["chevron-left"]}>
+                            <LeftChevronIcon/>
+                        </div>
+                        <div className={LoginStyle["back-button-text"]}>
+                            Back to Homepage
+                        </div>
+                    </button>
                 </div>
             </div>
 

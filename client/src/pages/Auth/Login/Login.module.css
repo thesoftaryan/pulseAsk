@@ -4,11 +4,53 @@
     width: 100%;
 }
 
+/* Left Container - Banner Image & Main Icon & Back Button */
+/* ======================================================= */
+
 .left-container{
+    position: relative;
     display: flex;
     overflow: hidden;
     justify-content: center;
     align-items: center;
+}
+
+.left-container-header{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    top: var(--spacing-md);
+}
+
+.main-icon{
+    display: flex;
+    margin-left: var(--spacing-md);
+}
+
+.back-button{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--color-bg);
+    padding: var(--spacing-sm);
+    margin: var(--spacing-md);
+    border: 0px;
+    border-radius: var(--size-radius-sm);
+    height: min-content;
+    user-select: none; 
+}
+
+.chevron-left{
+    display: flex;
+    margin-right: var(--spacing-xs);
+}
+
+.back-button-text{
+    color: var(--color-text);
+    font-size: var(--font-size-md);
+    margin-right: var(--spacing-sm);
 }
 
 .image-wrapper{
@@ -22,6 +64,13 @@
     object-fit: cover;
 }
 
+/* ======================================================= */
+
+
+
+
+/* Right Container - Login Form Components */
+/* ======================================================= */
 
 .right-container{
     flex-grow: 1;
@@ -58,6 +107,21 @@
     margin-top: var(--spacing-xxxl);
 }
 
+/* ======================================================= */
 
 
 
+/* ======================================================= */
+/* Media query for smaller screens */
+
+@media(max-width: 480px){
+    .left-container{
+        display: none;
+    }
+    .right-container{
+        margin: var(--spacing-md);
+    }
+    .heading{
+        margin-top: var(--spacing-md);
+    }
+}
