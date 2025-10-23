@@ -5,6 +5,11 @@
   --color-level1-bg:#f8f8f8;
   --color-level2-bg:#ffffff;
 
+  /* Primary */
+  --color-primary: #4458af;
+  --color-primary-light: #6A7BC4;
+  --color-primary-extra-light: #a2addc;
+
   /* Text */
   --color-text: #000000;
   --color-text-button:#ffffff;
@@ -15,10 +20,8 @@
   /* input */
   --color-input-area : #f8f8f8;
 
-  /* Primary */
-  --color-primary: #4458af;
-  --color-primary-light: #6A7BC4;
-  --color-primary-extra-light: #a2addc;
+  /* Icon */
+  --color-general-icon: #000000;
 
   /* Border */
   --color-border: #555555;
@@ -30,6 +33,11 @@
   --color-level1-bg:#000000;
   --color-level2-bg:#191919;
 
+  /* Primary */
+  --color-primary: #1aa5ae;
+  --color-primary-light: #51bfc6;
+  --color-primary-extra-light: #a1e8ed;
+
   /* Text */
   --color-text: #ffffff;
   --color-text-button:#ffffff;
@@ -39,11 +47,8 @@
   /* input */
   --color-input-area : #000000;
 
-
-  /* Primary */
-  --color-primary: #1aa5ae;
-  --color-primary-light: #51bfc6;
-  --color-primary-extra-light: #a1e8ed;
+  /* Icon */
+  --color-general-icon: #ffffff;
 
   /* Border */
   --color-border: #555555;

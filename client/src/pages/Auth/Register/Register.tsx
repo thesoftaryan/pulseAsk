@@ -13,54 +13,58 @@ import FacebookSocialSignInIcon from "../../../assets/icons/facebook.svg?react";
 
 
 // Images
-import BannerImageLight from "../../../assets/images/Authentication/banner-light.png";
-// import BannerImageDark from "../../../assets/images/Authentication/banner-dark.png";
+// import BannerImageLight from "../../../assets/images/Authentication/banner-light.png";
+import BannerImageDark from "../../../assets/images/Authentication/banner-dark.png";
 
 // Style
-import LoginStyle from "./Login.module.css";
+import RegisterStyle from "./Register.module.css";
 
 
 
-function Login() {
+function Register() {
     return <>
-        <div className={LoginStyle["container"]}>
-            <div className={LoginStyle["left-container"]}>
-                <div className={LoginStyle["image-wrapper"]}>
-                    <img src={BannerImageLight} alt="Banner-Image" className={LoginStyle["banner-image"]}/>
+        <div className={RegisterStyle["container"]}>
+            <div className={RegisterStyle["left-container"]}>
+                <div className={RegisterStyle["image-wrapper"]}>
+                    <img src={BannerImageDark} alt="Banner-Image" className={RegisterStyle["banner-image"]}/>
                 </div>
-                <div className={LoginStyle["left-container-header"]}>
-                    <div className={LoginStyle["main-icon"]}>
+                <div className={RegisterStyle["left-container-header"]}>
+                    <div className={RegisterStyle["main-icon"]}>
                         <PulseAskIcon/>
                     </div>
-                    <button className={LoginStyle["back-button"]}>
-                        <div className={LoginStyle["chevron-left"]}>
+                    <button className={RegisterStyle["back-button"]}>
+                        <div className={RegisterStyle["chevron-left"]}>
                             <LeftChevronIcon/>
                         </div>
-                        <div className={LoginStyle["back-button-text"]}>
+                        <div className={RegisterStyle["back-button-text"]}>
                             Back to Homepage
                         </div>
                     </button>
                 </div>
             </div>
 
-            <div className={LoginStyle["right-container"]}>
-                <div className={LoginStyle["header"]}>
-                    <h1 className={LoginStyle["heading"]}> Login to Account</h1>
-                    <p className={LoginStyle["signup"]}>Don't have an account? <a href="#">SignUp</a></p>
+            <div className={RegisterStyle["right-container"]}>
+                <div className={RegisterStyle["header"]}>
+                    <h1 className={RegisterStyle["heading"]}> Create an Account</h1>
+                    <p className={RegisterStyle["signup"]}>Already have an account? <a href="#">Login</a></p>
                 </div>
 
 
 
-                <form className={LoginStyle["login-form"]}>
+                <form className={RegisterStyle["register-form"]}>
+                    <div className={RegisterStyle["name-input-container"]}>
+                        <InputField placeholder="First Name"/>
+                        <InputField placeholder="Last Name"/>
+                    </div>
                     <InputField placeholder="Email" type="email" />
                     <InputField placeholder="Password" type="password" />
-                    <CheckBox text={"Remember me"}></CheckBox>
+                    <CheckBox text={"Agree to"} linkText="Terms & Conditions" link="https://google.com"></CheckBox>
 
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-medium"} />
 
-                    <Button text="Login"></Button>
-                    <Divider text="Or login with"></Divider>
+                    <Button text="Signup"></Button>
+                    <Divider text="Or Signup with"></Divider>
                     <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
                     <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
                 </form>
@@ -69,4 +73,4 @@ function Login() {
     </>;
 }
 
-export default Login;
+export default Register;

@@ -70,7 +70,7 @@
 
 
 
-/* Right Container - Login Form Components */
+/* Right Container - register Form Components */
 /* ======================================================= */
 
 .right-container{
@@ -82,11 +82,21 @@
     margin: 0 auto;
 }
 
+.register-form {
+  gap: var(--spacing-md);
+}
+
+
+.name-input-container{
+    display: flex;
+}
+
+
 .header{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-left: var(--spacing-xxl);
+    margin-left: var(--spacing-xl);
 }
 
 .heading{
@@ -99,7 +109,7 @@
     color: var(--color-subheading-text);
 }
 
-.login-form{
+.register-form{
     margin-top: var(--spacing-xxxl);
 }
 
