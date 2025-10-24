@@ -46,7 +46,7 @@ function Register() {
             <div className={RegisterStyle["right-container"]}>
                 <div className={RegisterStyle["header"]}>
                     <h1 className={RegisterStyle["heading"]}> Create an Account</h1>
-                    <p className={RegisterStyle["signup"]}>Already have an account? <a href="#">Login</a></p>
+                    <p className={RegisterStyle["login"]}>Already have an account? <a href="#">Login</a></p>
                 </div>
 
 
@@ -59,7 +59,7 @@ function Register() {
                     <InputField placeholder="Email" type="email" />
                     <InputField placeholder="Password" type="password" />
                     <CheckBox text={"Agree to"} linkText="Terms & Conditions" link="https://google.com"></CheckBox>
-
+                    
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-medium"} />
 

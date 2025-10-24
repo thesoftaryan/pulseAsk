@@ -9,10 +9,10 @@
 
 .left-container{
     position: relative;
-    display: flex;
+    /* display: flex; */
     overflow: hidden;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
 }
 
 .left-container-header{
@@ -25,7 +25,7 @@
 }
 
 .main-icon{
-    display: flex;
+    /* display: flex; */
     margin-left: var(--spacing-md);
 }
 
@@ -33,11 +33,15 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+
     background-color: var(--color-bg);
+
     padding: var(--spacing-sm);
     margin: var(--spacing-md);
+
     border: 0px;
     border-radius: var(--size-radius-sm);
+    
     height: min-content;
     user-select: none; 
 }
@@ -61,16 +65,16 @@
     align-items: center;
 }
 
-.banner-image{
+/* .banner-image{
     object-fit: cover;
-}
+} */
 
 /* ======================================================= */
 
 
 
 
-/* Right Container - Login Form Components */
+/* Right Container - login Form Components */
 /* ======================================================= */
 
 .right-container{
@@ -80,13 +84,14 @@
     justify-content: center;
     max-width: 500px;
     margin: 0 auto;
+    padding: 0 var(--spacing-sm);
 }
 
 .header{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-left: var(--spacing-xxl);
+    margin-left: var(--spacing-xl);
 }
 
 .heading{
@@ -103,6 +108,13 @@
     margin-top: var(--spacing-xxxl);
 }
 
+.name-input-container{
+    display: flex;
+}
+
+
+
+
 /* ======================================================= */
 
 
@@ -113,9 +125,6 @@
 @media(max-width: 480px){
     .left-container{
         display: none;
-    }
-    .right-container{
-        margin: var(--spacing-md);
     }
     .heading{
         margin-top: var(--spacing-md);
