@@ -9,10 +9,10 @@
 
 .left-container{
     position: relative;
-    /* display: flex; */
+    display: flex;
     overflow: hidden;
-    /* justify-content: center; */
-    /* align-items: center; */
+    justify-content: center;
+    align-items: center;
 }
 
 .left-container-header{
@@ -65,9 +65,9 @@
     align-items: center;
 }
 
-/* .banner-image{
+.banner-image{
     object-fit: cover;
-} */
+}
 
 /* ======================================================= */
 

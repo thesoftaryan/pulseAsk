@@ -61,7 +61,7 @@ function Register() {
                     <CheckBox text={"Agree to"} linkText="Terms & Conditions" link="https://google.com"></CheckBox>
                     
                     {/* Gaps are already defined in index.css inside theme directory */}
-                    <GapBox className={"gap-y-medium"} />
+                    <GapBox className={"gap-y-md"} />
 
                     <Button text="Signup"></Button>
                     <Divider text="Or Signup with"></Divider>

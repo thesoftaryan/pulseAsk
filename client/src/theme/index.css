@@ -42,6 +42,6 @@ button{
 
 /* Gaps for GapBox */
 
-.gap-y-medium{
+.gap-y-md{
     margin: var(--spacing-md) 0px;
 }

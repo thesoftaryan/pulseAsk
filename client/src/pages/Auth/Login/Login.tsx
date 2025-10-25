@@ -60,6 +60,10 @@ function Login() {
                     <GapBox className={"gap-y-medium"} />
 
                     <Button text="Login"></Button>
+
+                    <GapBox className={"gap-y-md"} />
+                    <a className={LoginStyle["forgot-password"]} href="#" target="_blank">Forgot password?</a>
+
                     <Divider text="Or login with"></Divider>
                     <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
                     <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
