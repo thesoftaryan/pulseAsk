@@ -45,3 +45,7 @@ button{
 .gap-y-md{
     margin: var(--spacing-md) 0px;
 }
+
+.gap-y-lg{
+    margin: var(--spacing-lg) 0px;
+}

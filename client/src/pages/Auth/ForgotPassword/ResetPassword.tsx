@@ -3,7 +3,7 @@ import Button from "../../../components/common/Button/Button";
 import GapBox from "../../../components/common/GapBox/GapBox";
 
 // Images
-import PulseAskIcon from "../../../assets/PulseAskIcon.svg"
+import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react"
 
 import ResetPasswordStyle from "./ResetPassword.module.css";
 
@@ -15,7 +15,7 @@ function ResetPassword(){
         <>
             <div className={ResetPasswordStyle["container"]}>
                 <div className={ResetPasswordStyle["header"]}>
-                    <img src={PulseAskIcon} alt="Icon" className={ResetPasswordStyle["icon"]}/>
+                    <PulseAskIcon className={ResetPasswordStyle["icon"]}/>
                 </div>
                 <div className={ResetPasswordStyle["inner-container"]}>
                     <h1 className={ResetPasswordStyle["heading"]}>
