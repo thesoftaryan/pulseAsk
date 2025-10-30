@@ -1,3 +1,8 @@
+// React Router
+import {Link} from "react-router-dom";
+
+
+// Components
 import InputField from "../../../components/common/InputField/InputField";
 import CheckBox from "../../../components/common/CheckBox/CheckBox";
 import Button from "../../../components/common/Button/Button";
@@ -20,8 +25,8 @@ import BannerImageLight from "../../../assets/images/Authentication/banner-light
 import LoginStyle from "./Login.module.css";
 
 
-
 function Login() {
+    // const navigate = useNavigate();
     return <>
         <div className={LoginStyle["container"]}>
             <div className={LoginStyle["left-container"]}>
@@ -46,7 +51,7 @@ function Login() {
             <div className={LoginStyle["right-container"]}>
                 <div className={LoginStyle["header"]}>
                     <h1 className={LoginStyle["heading"]}> Login to Account</h1>
-                    <p className={LoginStyle["signup"]}>Don't have an account? <a href="#">SignUp</a></p>
+                    <p className={LoginStyle["signup"]}>Don't have an account? <Link to="/auth/register">SignUp</Link></p>
                 </div>
 
 
@@ -62,7 +67,7 @@ function Login() {
                     <Button text="Login"></Button>
 
                     <GapBox className={"gap-y-md"} />
-                    <a className={LoginStyle["forgot-password"]} href="#" target="_blank">Forgot password?</a>
+                    <Link className={LoginStyle["forgot-password"]} to="/auth/forgot-password" >Forgot password?</Link>
 
                     <Divider text="Or login with"></Divider>
                     <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
