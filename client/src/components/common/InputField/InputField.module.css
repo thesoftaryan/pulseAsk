@@ -17,6 +17,7 @@
     margin: var(--spacing-sm);
     font-size: var(--font-size-sm);
     transition: all 0.2s ease-in-out;
+    user-select: none;
 }
 
 

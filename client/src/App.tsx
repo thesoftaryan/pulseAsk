@@ -12,7 +12,8 @@ import router from "./routes/AppRoutes";
 
 function App(){
   // Testing the dark Theme
-  // document.documentElement.setAttribute("data-theme", "dark");
+  document.documentElement.setAttribute("data-theme", "dark");
+  document.documentElement.removeAttribute("data-theme");
   // return (
   //   <>
   //     {/* <Register/> */}
