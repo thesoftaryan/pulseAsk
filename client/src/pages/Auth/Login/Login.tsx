@@ -56,7 +56,7 @@ function Login() {
 
 
 
-                <form className={LoginStyle["login-form"]}>
+                <form className={LoginStyle["login-form"]} >
                     <InputField placeholder="Email" type="email" />
                     <InputField placeholder="Password" type="password" />
                     <CheckBox text={"Remember me"}></CheckBox>
@@ -64,7 +64,7 @@ function Login() {
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-medium"} />
 
-                    <Button text="Login"></Button>
+                    <Button text="Login" onClick={()=>{console.log("Form is submitted.")}}/>
 
                     <GapBox className={"gap-y-md"} />
                     <Link className={LoginStyle["forgot-password"]} to="/auth/forgot-password" >Forgot password?</Link>

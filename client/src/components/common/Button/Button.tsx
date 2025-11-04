@@ -3,14 +3,15 @@ import ButtonStyle from "./Button.module.css"
 
 interface ButtonProps{
     text : string;
+    onClick? : React.MouseEventHandler<HTMLButtonElement>;
 }
 
 
-const Button:React.FC<ButtonProps> = ({text})=>{
+const Button:React.FC<ButtonProps> = ({text, onClick})=>{
     return (
         <>
             <div className={ButtonStyle["button-wrapper"]}>
-                <button type="button" className={ButtonStyle["button"]}>
+                <button type="button" onClick={onClick} className={ButtonStyle["button"]}>
                     {text}
                 </button>
             </div>
