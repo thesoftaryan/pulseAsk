@@ -25,6 +25,7 @@
 
   /* Border */
   --color-border: #555555;
+  --color-border-error:#DC3545;
 }
 /* Dark Theme */
 [data-theme="dark"] {

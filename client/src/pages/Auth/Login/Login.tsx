@@ -1,6 +1,9 @@
 // React Router
 import {Link} from "react-router-dom";
+import { useState } from "react";
 
+// Logical Parts
+import { loginFormValidator, type LoginFormData } from "./login.validator";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";
@@ -26,7 +29,35 @@ import LoginStyle from "./Login.module.css";
 
 
 function Login() {
-    // const navigate = useNavigate();
+    
+
+    // {**************** Validation of input : start ******************}
+
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState<Partial<LoginFormData>>({});
+
+    const handleLogin = ()=>{
+        const validation = loginFormValidator({email, password});
+        setError(validation);
+
+        if(validation.email?.length || validation.password?.length){
+            console.log(validation.email)
+            console.log(validation.password)
+            
+        }else{
+            // Trigger the Login Handler function from here
+        }
+
+    }
+
+
+
+    // {**************** Validation of input : End   ******************}
+
+
+
     return <>
         <div className={LoginStyle["container"]}>
             <div className={LoginStyle["left-container"]}>
@@ -56,15 +87,15 @@ function Login() {
 
 
 
-                <form className={LoginStyle["login-form"]} >
-                    <InputField placeholder="Email" type="email" />
-                    <InputField placeholder="Password" type="password" />
+                <div className={LoginStyle["login-form"]} >
+                    <InputField name="email" placeholder="Email" type="email" value={email} onChange={(e)=>{setEmail(e.target.value);}} isError={error.email?.length}/>
+                    <InputField name="password" placeholder="Password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value);}} isError={error.password?.length}/>
                     <CheckBox text={"Remember me"}></CheckBox>
 
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-medium"} />
 
-                    <Button text="Login" onClick={()=>{console.log("Form is submitted.")}}/>
+                    <Button text="Login" onClick={handleLogin}/>
 
                     <GapBox className={"gap-y-md"} />
                     <Link className={LoginStyle["forgot-password"]} to="/auth/forgot-password" >Forgot password?</Link>
@@ -72,7 +103,7 @@ function Login() {
                     <Divider text="Or login with"></Divider>
                     <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
                     <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
-                </form>
+                </div>
             </div>
         </div>
     </>;

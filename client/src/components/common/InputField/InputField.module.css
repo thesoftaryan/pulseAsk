@@ -27,6 +27,11 @@
     transition: all 0.2s ease-in-out;
 }
 
+.error-input-field{
+    transition: all 0.2s ease-in-out;
+    border: 1.5px solid var(--color-border-error);
+}
+
 .eye-icon{
     position: absolute;
     right: var(--spacing-xl);
