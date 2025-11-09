@@ -29,7 +29,7 @@
 
 .error-input-field{
     transition: all 0.2s ease-in-out;
-    border: 1.5px solid var(--color-border-error);
+    border: 1.5px solid var(--color-error);
 }
 
 .eye-icon{

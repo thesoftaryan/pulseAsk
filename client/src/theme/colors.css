@@ -5,6 +5,9 @@
   --color-level1-bg:#f8f8f8;
   --color-level2-bg:#ffffff;
 
+  /* General Purpose Colors */
+  --color-error:#DC3545;
+
   /* Primary */
   --color-primary: #4458af;
   --color-primary-light: #6A7BC4;
@@ -25,7 +28,6 @@
 
   /* Border */
   --color-border: #555555;
-  --color-border-error:#DC3545;
 }
 /* Dark Theme */
 [data-theme="dark"] {
@@ -33,6 +35,9 @@
   --color-bg: #191919;
   --color-level1-bg:#000000;
   --color-level2-bg:#191919;
+
+  /* General Purpose Colors */
+  --color-error:#DC3545;
 
   /* Primary */
   --color-primary: #1aa5ae;

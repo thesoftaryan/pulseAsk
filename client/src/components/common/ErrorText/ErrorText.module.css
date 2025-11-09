@@ -1,0 +1,11 @@
+.wrapper{
+    margin-left: var(--spacing-sm);
+    padding: var(--spacing-sm);
+}
+
+
+.error-text{
+    font-size: var(--font-size-sm);
+    color: var(--color-error);
+    overflow: hidden;
+}

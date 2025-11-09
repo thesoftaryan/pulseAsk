@@ -12,6 +12,7 @@ import Button from "../../../components/common/Button/Button";
 import Divider from "../../../components/common/Divider/Divider";
 import SocialSignInCard from "../../../components/common/SocialSignInCard/SocialSignInCard";
 import GapBox from "../../../components/common/GapBox/GapBox";
+import ErrorText from "../../../components/common/ErrorText/ErrorText";
 
 // SVG Icons
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
@@ -42,12 +43,9 @@ function Login() {
         const validation = loginFormValidator({email, password});
         setError(validation);
 
-        if(validation.email?.length || validation.password?.length){
-            console.log(validation.email)
-            console.log(validation.password)
-            
-        }else{
+        if(Object.keys(validation).length === 0){
             // Trigger the Login Handler function from here
+            // console.log("fine for initiating login");
         }
 
     }
@@ -89,7 +87,9 @@ function Login() {
 
                 <div className={LoginStyle["login-form"]} >
                     <InputField name="email" placeholder="Email" type="email" value={email} onChange={(e)=>{setEmail(e.target.value);}} isError={error.email?.length}/>
+                    {(error.email?.length) && <ErrorText message={error.email}/>}
                     <InputField name="password" placeholder="Password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value);}} isError={error.password?.length}/>
+                    {(error.password?.length) && <ErrorText message={error.password}/>}
                     <CheckBox text={"Remember me"}></CheckBox>
 
                     {/* Gaps are already defined in index.css inside theme directory */}
