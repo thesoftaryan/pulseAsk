@@ -5,15 +5,16 @@ interface CheckBoxProps{
     link?:string;
     linkText? : string;
     onChange?:(e:React.ChangeEvent<HTMLInputElement>)=>void;
-    value?:string | number | readonly string[] | undefined;
+    checked?:boolean;
+    isError?:boolean;
 }
 
 
-const CheckBox:React.FC<CheckBoxProps> = ({text, linkText, link, onChange, value})=>{
+const CheckBox:React.FC<CheckBoxProps> = ({text, linkText, link, onChange, checked, isError=false})=>{
     return (
         <>
             <div className={CheckBoxStyle["checkbox-wrapper"]}>
-                <input type="checkbox" className={CheckBoxStyle["checkbox"]} onChange={onChange} value={value}/>
+                <input type="checkbox" className={`${CheckBoxStyle["checkbox"]} ${(isError)? CheckBoxStyle["checkbox-error"]:""}`} onChange={onChange} checked={checked}/>
                 <span className={CheckBoxStyle["checkbox-text"]}>{text} <a href={link} target="_blank">{linkText}</a></span>
             </div>
         </>

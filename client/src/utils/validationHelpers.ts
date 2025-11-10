@@ -9,6 +9,6 @@ export const isStrongPassword = (password:string) : boolean => {
 }
 
 export const isValidName = (name:string) : boolean => {
-    const pattern = /[a-zA-Z].*/;
+    const pattern = /^[a-zA-Z]+$/;
     return pattern.test(name);
 }

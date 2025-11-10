@@ -5,7 +5,7 @@ export interface RegisterFormData{
     lastName:string;
     email:string;
     password:string;
-    agreement:string; // Needs to be confirmed with gpt the datatype
+    agreement:boolean;
 }
 
 export const registerFormValidator = (data : RegisterFormData)=>{
@@ -21,7 +21,7 @@ export const registerFormValidator = (data : RegisterFormData)=>{
     else if(data.password.length<8) errors.password="Atleast 8 characters required";
     else if(!isStrongPassword(data.password)) errors.password = "Use upper, lower, number & symbol";
    
-    if(!data.agreement) errors.firstName="You must agree to continue";
+    if(!data.agreement) errors.agreement=false;
 
     return errors;
 }

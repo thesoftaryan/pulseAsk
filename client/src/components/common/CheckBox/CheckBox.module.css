@@ -17,12 +17,17 @@
   border-radius: var(--size-radius-xsm);
 }
 
+.checkbox-error{
+  border: 1px solid var(--color-error);
+}
+
 .checkbox:hover{
   cursor: pointer;
 }
 
 .checkbox:checked {
   background-color: var(--color-primary);
+  border: none;
 }
 
 .checkbox:checked::after {
