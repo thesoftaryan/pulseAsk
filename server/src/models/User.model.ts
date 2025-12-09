@@ -1,44 +1,35 @@
 import {Schema, model, Document} from "mongoose";
 
-interface StripeConnection{
-    id : string;
-    userId: string;
-    stripeAccountId : string;
-    payoutsEnabled: Boolean;
-    chargesEnabled: Boolean;
-    stripeOnboardingUrl?: Boolean | null;
-    connectedAt: string;
-    lastSyncedAt?: string | null;    
-}
 
-interface PaypalConnection{
-    id : string;
-    userId : string;
-    paypalMerchantId : string;
-    connectionStatus : 'pending' | 'connected' | 'disconnected' | 'failed';
-    accessTokenExpiresAt? : string;
-    refreshTokenEncrypted? : string | null;
-    onboardingUrl? : string | null;
-    connectedAt? : string | null;
-    lastSyncedAt? : string | null;
-}
-
-export interface UserModel extends Document{
+export interface IUser extends Document{
     // ********** Profile Information ************ //
     firstName : string;
     lastName : string;
     email : string;
     password : string;
+    isVerified : boolean;
 
     //************* Social Information **********/
-    educationDegree : string;
-    college : string;
-    profileDescription : string;
-    instagramLink : string;
-    facebookLink : string;
-    linkedinLink : string;
-    youtubeLink : string;
-    tags : Schema.Types.ObjectId[];
+    // educationDegree : string;
+    // college : string;
+    // profileDescription : string;
+    // instagramLink : string;
+    // facebookLink : string;
+    // linkedinLink : string;
+    // youtubeLink : string;
+    // tags : Schema.Types.ObjectId[];
 }
 
-// Need to create schema and model
+
+const userSchema = new Schema<IUser>(
+    {
+        firstName : {type: String, required: true, trim: true},
+        lastName : {type : String, required: true, trim: true},
+        email : {type: String, required: true, trim: true, unique: true, lowercase: true},
+        password : {type: String, required: true},
+        isVerified : {type: Boolean, default: false},
+    },
+    {timestamps:true,}
+);
+
+export const User = model<IUser>("User", userSchema);
