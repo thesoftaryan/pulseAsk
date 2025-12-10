@@ -6,6 +6,6 @@ import {registerController, loginController} from "../controllers/auth.controlle
 const router = Router();
 
 router.post("/register", registerController);
-router.post("login", loginController);
+router.post("/login", loginController);
 
 export default router;
