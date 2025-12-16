@@ -4,6 +4,7 @@ import { useState } from "react";
 
 // Logical Parts
 import { registerFormValidator, type RegisterFormData } from "./Register.validator";
+import registerHandler from "./Register.handler";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";
@@ -43,11 +44,12 @@ function Register() {
 
 
     const handleRegister = ()=>{
-        const validation = registerFormValidator({firstName, lastName, email, password, agreement});
+        const data : RegisterFormData = {firstName, lastName, email, password, agreement};
+        const validation = registerFormValidator(data);
         setErrors(validation);
 
         if(Object.keys(validation).length===0){
-            // Call the register handler here
+            registerHandler(data);
         }
     }
 

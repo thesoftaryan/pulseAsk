@@ -4,6 +4,7 @@ import { useState } from "react";
 
 // Logical Parts
 import { loginFormValidator, type LoginFormData } from "./login.validator";
+import loginHandler from "./login.handler";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";
@@ -40,12 +41,12 @@ function Login() {
     const [error, setError] = useState<Partial<LoginFormData>>({});
 
     const handleLogin = ()=>{
-        const validation = loginFormValidator({email, password});
+        const data : LoginFormData = {email, password};
+        const validation = loginFormValidator(data);
         setError(validation);
 
         if(Object.keys(validation).length === 0){
-            // Trigger the Login Handler function from here
-            // console.log("fine for initiating login");
+            loginHandler(data);
         }
 
     }
