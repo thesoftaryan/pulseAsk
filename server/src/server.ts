@@ -20,7 +20,7 @@ connectDB()
 
     process.on("unhandledRejection", (error)=>{
         console.log("Unhandled Rejection encountered, shutting down...");
-    })
+    });
 })
 .catch((error)=>{
     console.error("Error connecting to Database!");
