@@ -9,6 +9,11 @@ import { STATUS } from "../constants/statusCodes";
 // Custom response structure
 import { successResponse, errorResponse} from "../utils/response";
 
+// validation logic
+import { isValidEmail, isStrongPassword, isValidName } from "../validations/auth.validation";
+import { error } from "console";
+import { configDotenv } from "dotenv";
+
 export const registerController = async (req: Request, res: Response)=>{
     try{
         
@@ -28,14 +33,14 @@ export const registerController = async (req: Request, res: Response)=>{
             password,
         });
 
-        successResponse(res, STATUS.SUCCESS.CREATED, "User registration successful", req.body, {
+        return successResponse(res, STATUS.SUCCESS.CREATED, "User registration successful", req.body, {
             uid : user._id.toString(),
             createdAt : user.createdAt.toISOString(),
         });
 
     }catch(error){
-        errorResponse(res, STATUS.SERVER_ERROR.INTERNAL, "Error Registering User", {
-            code : "",
+        return errorResponse(res, STATUS.SERVER_ERROR.INTERNAL, "Error Registering User", {
+            code : STATUS.SERVER_ERROR.INTERNAL.toString(),
             details : "Internal Server Error",
         });
     }
@@ -43,7 +48,20 @@ export const registerController = async (req: Request, res: Response)=>{
 
 export const loginController = async (req: Request, res: Response)=>{
     try{
-        console.log("Data received for login : ", req.body);
+        // console.log("Data received for login : ", req.body);
+        const {email, password} = req.body;
+
+        // We will see to shift this to a middleware in the auth routes
+        if(!isValidEmail(email) || !isStrongPassword(password)){
+            return errorResponse(res, STATUS.CLIENT_ERROR.BAD_REQUEST, "Invalid email or password", {
+                code:STATUS.CLIENT_ERROR.BAD_REQUEST.toString(),
+                details : "Invalid email or password",
+            },);
+        }
+
+
+
+
 
         res.status(201).json({
             success: true,
