@@ -1,14 +1,42 @@
-export const isValidEmail = (email:string) : boolean => {
-    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return pattern.test(email);
-}   
+import {LoginPayload, RegisterPayload} from "../types/auth.types";
+import { isValidName, isValidEmail, isStrongPassword } from "../utils/validation.util";
 
-export const isStrongPassword = (password:string) : boolean => {
-    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-    return pattern.test(password);
+export const validateRegister = (body : RegisterPayload)=>{
+    const errors : Record<string, string> = {};
+
+    const {firstName, lastName, email, password}  = body;
+
+    if(!isValidName(firstName)){
+        errors.firstName = "First Name is not valid";
+    }
+    if(!isValidName(lastName)){
+        errors.lastName = "Last Name is not valid";
+    }
+
+    if(!isValidEmail(email)){
+        errors.email = "Email is not valid";
+    }
+
+    if(!isStrongPassword(password)){
+        errors.email = "Password is not valid";
+    }
+    
+    return Object.keys(errors).length ? errors : null;
 }
 
-export const isValidName = (name:string) : boolean => {
-    const pattern = /^[a-zA-Z]+$/;
-    return pattern.test(name);
+export const validateLogin = (body : LoginPayload) => {
+    const errors : Record<string, string> = {};
+
+    const {email, password} = body;
+
+    if(!isValidEmail(email)){
+        errors.email = "Email is not valid";
+    }
+
+    if(!isStrongPassword(password)){
+        errors.email = "Password is not valid";
+    }
+    
+    return Object.keys(errors).length ? errors : null;
+
 }
