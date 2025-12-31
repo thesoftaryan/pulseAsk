@@ -7,19 +7,14 @@ import { User } from "../models/User.model";
 import { STATUS } from "../constants/statusCodes";
 
 // Custom response structure
-import { successResponse, errorResponse} from "../utils/response.util";
-
-// validation logic
-// import { isValidEmail, isStrongPassword, isValidName } from "../validations/auth.validation";
-
-import { error } from "console";
-import { configDotenv } from "dotenv";
+import { successResponse, errorResponse} from "../utils/response.util"
 
 // Payload Types
 import { LoginPayload, RegisterPayload } from "../types/auth.types";
 
 // Auth Services
-import { loginUser } from "../services/auth.service";
+import { loginUser, registerUser } from "../services/auth.service";
+import { ApiError } from "../utils/ApiError.util";
 
 export const registerController = async (req: Request, res: Response)=>{
     try{
@@ -33,22 +28,30 @@ export const registerController = async (req: Request, res: Response)=>{
 
         const payload = req.body as RegisterPayload;
 
-        const user = await User.create({
-            firstName : payload.firstName,
-            lastName : payload.lastName,
-            email : payload.email,
-            password : payload.password,
-        });
+        const user = await registerUser(payload);
 
-        return successResponse(res, STATUS.SUCCESS.CREATED, "User registration successful", req.body, {
-            uid : user._id.toString(),
-            createdAt : user.createdAt.toISOString(),
-        });
+        console.log(user);
 
+        return successResponse(
+            res,
+            STATUS.SUCCESS.CREATED,
+            "User registration successfull",
+            user,
+        );
     }catch(error){
-        return errorResponse(res, STATUS.SERVER_ERROR.INTERNAL, "Error Registering User", {
-            code : STATUS.SERVER_ERROR.INTERNAL.toString(),
-            details : "Internal Server Error",
+
+        if(error instanceof ApiError){
+            return errorResponse(
+                res,
+                error.statusCode,
+                error.message,
+                error.details,
+            );
+        }
+
+        return errorResponse(res, STATUS.SERVER_ERROR.INTERNAL, "Internal Server Error", {
+            code : "",
+            details : "Error Registering User",
         });
     }
 }
@@ -63,15 +66,27 @@ export const loginController = async (req: Request, res: Response)=>{
 
         console.log(user);
 
-
-
+        return successResponse(
+            res,
+            STATUS.SUCCESS.OK,
+            "User Login Successfull",
+            user,
+        );
 
     }catch(error){
-        console.log(error);
-        // console.log("some error occurred");
-        errorResponse(res, STATUS.SERVER_ERROR.INTERNAL, "Error Logging in User", {
+        if( error instanceof ApiError){
+            console.error("Error : ", `statusCode(${error.statusCode}) -> `, error.message);
+            return errorResponse(
+                res,
+                error.statusCode,
+                error.message,
+                error.details,
+            );
+        }
+
+        errorResponse(res, STATUS.SERVER_ERROR.INTERNAL, "Internal Server Error", {
             code : "",
-            details : "Internal Server Error",
+            details : "Error logging in the user",
         });
     }
 }

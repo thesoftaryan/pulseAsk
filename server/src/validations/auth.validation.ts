@@ -4,6 +4,11 @@ import { isValidName, isValidEmail, isStrongPassword } from "../utils/validation
 export const validateRegister = (body : RegisterPayload)=>{
     const errors : Record<string, string> = {};
 
+    if(!body || typeof body !== "object"){
+        errors.body = "Request Body is Required";
+        return errors;
+    }
+
     const {firstName, lastName, email, password}  = body;
 
     if(!isValidName(firstName)){
@@ -18,7 +23,7 @@ export const validateRegister = (body : RegisterPayload)=>{
     }
 
     if(!isStrongPassword(password)){
-        errors.email = "Password is not valid";
+        errors.password = "Password is not valid";
     }
     
     return Object.keys(errors).length ? errors : null;
@@ -27,6 +32,11 @@ export const validateRegister = (body : RegisterPayload)=>{
 export const validateLogin = (body : LoginPayload) => {
     const errors : Record<string, string> = {};
 
+    if(!body || typeof body !== "object"){
+        errors.body = "Request Body is Required";
+        return errors;
+    }
+
     const {email, password} = body;
 
     if(!isValidEmail(email)){
@@ -34,7 +44,7 @@ export const validateLogin = (body : LoginPayload) => {
     }
 
     if(!isStrongPassword(password)){
-        errors.email = "Password is not valid";
+        errors.password = "Password is not valid";
     }
     
     return Object.keys(errors).length ? errors : null;

@@ -9,7 +9,7 @@ import {validateLogin, validateRegister} from "../validations/auth.validation";
 // Router instance is a complete middleware and routing system
 const router = Router();
 
-router.post("/register", validate(validateRegister), registerController);
+router.post("/register",validate(validateRegister), registerController);
 router.post("/login", validate(validateLogin), loginController);
 
 export default router;
