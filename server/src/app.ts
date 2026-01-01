@@ -1,6 +1,9 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+
 import authRoutes from "./routes/auth.routes";
+import { errorMiddleware } from "./middlewares/error.middleware";
 
 const app = express();
 
@@ -8,10 +11,14 @@ const app = express();
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true,
-}))
+}));
 
 // To make our app able to parse JSON request format
 app.use(express.json());
+
+// To make our app able to parse the sent cookies
+app.use(cookieParser());
+
 
 // Check
 app.get("/", (req, res)=>{
@@ -25,5 +32,7 @@ app.use("/auth", authRoutes);
 app.use((req, res)=>{
     res.status(404).json({message:"Route not Found"});
 });
+
+app.use(errorMiddleware);
 
 export default app;

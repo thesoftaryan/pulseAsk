@@ -1,4 +1,4 @@
-import './config/env'
+import './config/env';
 import { connectDB } from "./config/db";
 import app from "./app";
 
@@ -8,7 +8,7 @@ connectDB()
 .then(()=>{
     console.log("Database Connected Successfully!");
 
-    const server = app.listen(PORT, ()=>{
+    app.listen(PORT, ()=>{
         console.log(`Server running on port ${PORT}`);
     });
 
@@ -20,6 +20,7 @@ connectDB()
 
     process.on("unhandledRejection", (error)=>{
         console.log("Unhandled Rejection encountered, shutting down...");
+        process.exit(1);
     });
 })
 .catch((error)=>{

@@ -1,7 +1,7 @@
 import {LoginPayload, RegisterPayload} from "../types/auth.types";
 import { isValidName, isValidEmail, isStrongPassword } from "../utils/validation.util";
 
-export const validateRegister = (body : RegisterPayload)=>{
+export const validateRegister = (body : RegisterPayload) => {
     const errors : Record<string, string> = {};
 
     if(!body || typeof body !== "object"){
@@ -48,5 +48,4 @@ export const validateLogin = (body : LoginPayload) => {
     }
     
     return Object.keys(errors).length ? errors : null;
-
 }
