@@ -1,8 +1,5 @@
 import {Request, Response} from "express";
 
-// User Model
-import { User } from "../models/User.model";
-
 // Custom status codes for http responses
 import { STATUS } from "../constants/statusCodes";
 
@@ -56,7 +53,7 @@ export const loginController = async (req: Request, res: Response)=>{
         httpOnly:true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
-        // 14 days
+        // 14 days (in milliseconds)
         maxAge: 14 * 24 * 60 * 60 * 1000,
     });
 
