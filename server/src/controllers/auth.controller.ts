@@ -13,6 +13,10 @@ import { LoginPayload, RegisterPayload } from "../types/auth.types";
 import { loginUser, registerUser } from "../services/auth.service";
 import { signToken } from "../utils/jwt.util";
 
+export const googleOAuthController = async (req:Request, res : Response)=>{
+    // Google oAuth Goes Here
+}
+
 export const registerController = async (req: Request, res: Response)=>{
     // This will just print [object, object] because when using
     // backticks javascript does : req.body.toString() and

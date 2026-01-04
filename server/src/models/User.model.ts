@@ -11,7 +11,10 @@ export interface IUser extends Document{
     isVerified : boolean;
     createdAt : Date;
 
-    //************* Social Information **********/
+    // *********** Auth Provider *************** //
+    authProvider : String;
+
+    //************* Social Information ********** //
     // educationDegree : string;
     // college : string;
     // profileDescription : string;
@@ -25,11 +28,40 @@ export interface IUser extends Document{
 
 const userSchema = new Schema<IUser>(
     {
-        firstName : {type: String, required: true, trim: true},
-        lastName : {type : String, required: true, trim: true},
-        email : {type: String, required: true, trim: true, unique: true, lowercase: true},
-        password : {type: String, required: true, select : false},
-        isVerified : {type: Boolean, default: false},
+        // ********** Profile Information ************ //
+        firstName : {
+            type: String, 
+            required: true, 
+            trim: true
+        },
+        lastName : {
+            type : String,
+            required: true, 
+            trim: true
+        },
+        email : {
+            type: String,
+            required: true, 
+            trim: true, 
+            unique: true, 
+            lowercase: true
+        },
+        password : {
+            type: String, 
+            required: false, 
+            select : false
+        },
+        isVerified : {
+            type: Boolean, 
+            default: false
+        },
+
+        // *********** Auth Provider *************** //
+        authProvider : {
+            type : String,
+            enum : ["local", "google"],
+            default : "local",
+        },
     },
     {timestamps:true,}
 );
