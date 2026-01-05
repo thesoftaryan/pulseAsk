@@ -19,3 +19,8 @@ export const registerUser = ( data : RegisterData) => {
 export const loginUser = ( data : LoginData )=>{
     return api.post("/auth/login", data);
 }
+
+export const socialSignIn = ()=>{
+    // Need to change it....
+    return api.get("/auth/google");
+}

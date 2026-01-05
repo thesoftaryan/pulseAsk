@@ -13,6 +13,10 @@ import { LoginPayload, RegisterPayload } from "../types/auth.types";
 import { loginUser, registerUser } from "../services/auth.service";
 import { signToken } from "../utils/jwt.util";
 
+export const googleOAuthCallbackController = async (req : Request, res : Response) => {
+    // Google oAuth Callback Goes Here
+}
+
 export const googleOAuthController = async (req:Request, res : Response)=>{
     // Google oAuth Goes Here
 }

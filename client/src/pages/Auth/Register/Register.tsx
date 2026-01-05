@@ -19,7 +19,7 @@ import ErrorText from "../../../components/common/ErrorText/ErrorText";
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 import LeftChevronIcon from "../../../assets/icons/Chevron left.svg?react";
 import GoogleSocialSignInIcon from "../../../assets/icons/google.svg?react";
-import FacebookSocialSignInIcon from "../../../assets/icons/facebook.svg?react";
+// import FacebookSocialSignInIcon from "../../../assets/icons/facebook.svg?react";
 
 
 // Images
@@ -115,7 +115,7 @@ function Register() {
                     <Button text="Signup" onClick={handleRegister}/>
                     <Divider text="Or Signup with"></Divider>
                     <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
-                    <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
+                    {/* <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} /> */}
                 </form>
             </div>
         </div>

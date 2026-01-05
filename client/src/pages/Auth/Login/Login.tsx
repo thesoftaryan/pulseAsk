@@ -4,7 +4,7 @@ import { useState } from "react";
 
 // Logical Parts
 import { loginFormValidator, type LoginFormData } from "./login.validator";
-import loginHandler from "./login.handler";
+import {loginHandler, socialLoginHandler} from "./login.handler";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";
@@ -19,7 +19,7 @@ import ErrorText from "../../../components/common/ErrorText/ErrorText";
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 import LeftChevronIcon from "../../../assets/icons/Chevron left.svg?react";
 import GoogleSocialSignInIcon from "../../../assets/icons/google.svg?react";
-import FacebookSocialSignInIcon from "../../../assets/icons/facebook.svg?react";
+// import FacebookSocialSignInIcon from "../../../assets/icons/facebook.svg?react";
 
 
 // Images
@@ -102,8 +102,8 @@ function Login() {
                     <Link className={LoginStyle["forgot-password"]} to="/auth/forgot-password" >Forgot password?</Link>
 
                     <Divider text="Or login with"></Divider>
-                    <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
-                    <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
+                    <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={socialLoginHandler} />
+                    {/* <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} /> */}
                 </div>
             </div>
         </div>
