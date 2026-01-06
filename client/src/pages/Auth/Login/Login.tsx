@@ -102,7 +102,7 @@ function Login() {
                     <Link className={LoginStyle["forgot-password"]} to="/auth/forgot-password" >Forgot password?</Link>
 
                     <Divider text="Or login with"></Divider>
-                    <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={socialLoginHandler} />
+                    <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={()=>{socialLoginHandler("google");}} />
                     {/* <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} /> */}
                 </div>
             </div>

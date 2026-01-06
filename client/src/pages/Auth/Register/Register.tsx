@@ -4,7 +4,7 @@ import { useState } from "react";
 
 // Logical Parts
 import { registerFormValidator, type RegisterFormData } from "./Register.validator";
-import registerHandler from "./Register.handler";
+import {registerHandler, socialRegisterHandler} from "./Register.handler";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";
@@ -114,7 +114,7 @@ function Register() {
 
                     <Button text="Signup" onClick={handleRegister}/>
                     <Divider text="Or Signup with"></Divider>
-                    <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} />
+                    <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { socialRegisterHandler("google"); }} />
                     {/* <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} /> */}
                 </form>
             </div>

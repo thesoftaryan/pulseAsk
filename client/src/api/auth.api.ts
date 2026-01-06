@@ -20,7 +20,6 @@ export const loginUser = ( data : LoginData )=>{
     return api.post("/auth/login", data);
 }
 
-export const socialSignIn = ()=>{
-    // Need to change it....
-    return api.get("/auth/google");
+export const socialSignIn = (provider : "google")=>{
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/${provider}`;
 }

@@ -1,4 +1,7 @@
 import { loginUser, socialSignIn } from "../../../api/auth.api";
+
+// Types
+import type { OAuthProvider } from "../../../types/auth";
 import type { LoginFormData } from "./login.validator";
 
 export const loginHandler = async (data : LoginFormData)=>{
@@ -14,11 +17,6 @@ export const loginHandler = async (data : LoginFormData)=>{
     }
 }
 
-export const socialLoginHandler = async ()=>{
-    try{
-        const response = await socialSignIn();
-        console.log("response : ", response);
-    }catch(error){
-        console.error("Error social signin : ", error);
-    }
+export const socialLoginHandler = (provider : OAuthProvider)=>{
+    socialSignIn(provider);
 }

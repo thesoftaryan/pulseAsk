@@ -1,7 +1,10 @@
-import { registerUser } from "../../../api/auth.api";
+import { registerUser, socialSignIn } from "../../../api/auth.api";
+
+// Types
+import type { OAuthProvider } from "../../../types/auth";
 import type { RegisterFormData } from "./Register.validator";
 
-const registerHandler = async (data : RegisterFormData) => {
+export const registerHandler = async (data : RegisterFormData) => {
     try{
         const response = await registerUser({
             firstName : data.firstName,
@@ -16,4 +19,6 @@ const registerHandler = async (data : RegisterFormData) => {
     }
 }
 
-export default registerHandler;
+export const socialRegisterHandler = (provider : OAuthProvider)=>{
+    socialSignIn(provider);
+}
