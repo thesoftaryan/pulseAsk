@@ -15,6 +15,9 @@ import { loginUser, registerUser } from "../services/auth.service";
 import { signToken } from "../utils/jwt.util";
 import { User } from "../models/User.model";
 
+// verification
+import { sendVerificationMail } from "../services/email.service";
+
 export const googleOAuthCallbackController = async (req : Request, res : Response) => {
     const code = req.query.code as string;
     // console.log("google callback code: ", code);
@@ -100,6 +103,8 @@ export const registerController = async (req: Request, res: Response)=>{
     const payload = req.body as RegisterPayload;
 
     const user = await registerUser(payload);
+
+    sendVerificationMail(user.email, "just-a-test-token");
 
     console.log(user);
 
