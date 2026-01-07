@@ -11,8 +11,12 @@ export interface IUser extends Document{
     isVerified : boolean;
     createdAt : Date;
 
+    // *********** Security ******************** //
+    emailVerified : boolean;
+
     // *********** Auth Provider *************** //
     authProvider : String;
+    providerId : string;
 
     //************* Social Information ********** //
     // educationDegree : string;
@@ -56,12 +60,21 @@ const userSchema = new Schema<IUser>(
             default: false
         },
 
+        // *********** Security ******************** //
+        emailVerified : {
+            type: Boolean,
+            default: false
+        },
+
         // *********** Auth Provider *************** //
         authProvider : {
             type : String,
             enum : ["local", "google"],
             default : "local",
         },
+        providerId : {
+            type : String,
+        }
     },
     {timestamps:true,}
 );

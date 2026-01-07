@@ -9,3 +9,22 @@ export interface RegisterPayload{
     email : string;
     password : string;
 }
+
+export interface GoogleTokenResponse {
+    access_token: string;
+    expires_in: number;
+    refresh_token?:string;
+    scope: string;
+    token_type: "Bearer";
+    id_token?: string;
+}
+
+export interface GoogleUserInfo {
+    sub: string;            // Google Unique user ID
+    name: string;
+    given_name?: string;
+    picture?: string;
+    email : string;
+    email_verified : boolean;
+    family_name?: string;
+}

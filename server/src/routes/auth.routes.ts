@@ -9,8 +9,8 @@ import {validateLogin, validateRegister} from "../validations/auth.validation";
 // Router instance is a complete middleware and routing system
 const router = Router();
 
-router.post("/google", googleOAuthController);
-router.post("/google/callback", googleOAuthCallbackController);
+router.get("/google", googleOAuthController);
+router.get("/google/callback", googleOAuthCallbackController);
 router.post("/register",validate(validateRegister), registerController);
 router.post("/login", validate(validateLogin), loginController);
 router.post("/logout", logoutController);
