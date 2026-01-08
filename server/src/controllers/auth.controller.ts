@@ -5,7 +5,7 @@ import axios from "axios";
 import { STATUS } from "../constants/statusCodes";
 
 // Custom response structure
-import { successResponse} from "../utils/response.util"
+import { errorResponse, successResponse} from "../utils/response.util"
 
 // Types
 import { LoginPayload, RegisterPayload, GoogleTokenResponse, GoogleUserInfo } from "../types/auth.types";
@@ -17,6 +17,9 @@ import { User } from "../models/User.model";
 
 // verification
 import { sendVerificationMail } from "../services/email.service";
+import { generateHash } from "../utils/hash.util";
+import { triggerAsyncId } from "async_hooks";
+
 
 export const googleOAuthCallbackController = async (req : Request, res : Response) => {
     const code = req.query.code as string;
@@ -92,6 +95,48 @@ export const googleOAuthController = (req:Request, res : Response)=>{
     return res.redirect(googleAuthURL);
 }
 
+export const emailVerificationController = async (req : Request, res : Response)=>{
+    const {token} = req.query;
+
+    if(!token){
+        return errorResponse(
+            res,
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            "Invalid verification link",
+        );
+    }
+
+    const hashedToken = generateHash(token as string);
+
+    const user = await User.findOne({
+        emailVerificationToken : hashedToken,
+        emailVerificationExpires: {$gt: Date.now()},
+    });
+
+    if(!user){
+        return errorResponse(
+            res,
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            "Verification link is invalid or expired",
+        );
+    }
+
+    user.emailVerified = true;
+    user.emailVerificationToken = undefined;
+    user.emailVerificationExpires = undefined;
+
+    await user.save();
+
+    // we have to create a redirection instead of sending response
+    // or instead we can create a custom error and throw error from here
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Email verified successfully",
+    );
+
+}
+
 export const registerController = async (req: Request, res: Response)=>{
     // This will just print [object, object] because when using
     // backticks javascript does : req.body.toString() and
@@ -102,19 +147,19 @@ export const registerController = async (req: Request, res: Response)=>{
 
     const payload = req.body as RegisterPayload;
 
-    const user = await registerUser(payload);
+    const {user, rawToken} = await registerUser(payload);
 
-    sendVerificationMail(user.email, "just-a-test-token");
+    sendVerificationMail(user.email, rawToken);
 
     console.log(user);
 
     return successResponse(
         res,
         STATUS.SUCCESS.CREATED,
-        "User registration successfull",
+        "User registration successfull, Please verify your email.",
         user,
     );
-}
+};
 
 export const loginController = async (req: Request, res: Response)=>{
     const payload = req.body as LoginPayload;

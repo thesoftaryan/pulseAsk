@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {googleOAuthController, googleOAuthCallbackController, registerController, loginController, logoutController} from "../controllers/auth.controller";
+import {googleOAuthController, googleOAuthCallbackController, registerController, loginController, logoutController, emailVerificationController} from "../controllers/auth.controller";
 
 // validation middleware
 import { validate } from "../middlewares/validation.middleware";
@@ -11,6 +11,9 @@ const router = Router();
 
 router.get("/google", googleOAuthController);
 router.get("/google/callback", googleOAuthCallbackController);
+
+router.get("/verify-email", emailVerificationController);
+
 router.post("/register",validate(validateRegister), registerController);
 router.post("/login", validate(validateLogin), loginController);
 router.post("/logout", logoutController);

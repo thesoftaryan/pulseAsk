@@ -1,7 +1,10 @@
 import bcrypt from "bcrypt";
 import { User } from "../models/User.model";
-import { ApiError } from "../utils/ApiError.util";
+import { ApiError } from "../utils/apiError.util";
 import { STATUS } from "../constants/statusCodes";
+
+// Verification Part
+import { generateRandomToken } from "../utils/token.util";
 
 // importing types of Payload
 import { LoginPayload, RegisterPayload } from "../types/auth.types";
@@ -24,18 +27,24 @@ export const registerUser = async (payload : RegisterPayload) => {
         );
     }
 
+    const {rawToken, hashedToken} = generateRandomToken();
+
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await User.create({
         firstName,
         lastName,
-        email,
         password : hashedPassword,
+        email,
+        emailVerificationToken : hashedToken,
+        emailVerificationExpires : new Date(
+            Date.now() + 10*60*1000 // 10 minutes
+        ),
     });
 
     user.password = undefined as unknown as string;
 
-    return user;
+    return {user, rawToken};
 };
 
 

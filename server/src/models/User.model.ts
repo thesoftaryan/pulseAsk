@@ -13,6 +13,8 @@ export interface IUser extends Document{
 
     // *********** Security ******************** //
     emailVerified : boolean;
+    emailVerificationToken : string | undefined;
+    emailVerificationExpires : Date | undefined;
 
     // *********** Auth Provider *************** //
     authProvider : String;
@@ -64,6 +66,12 @@ const userSchema = new Schema<IUser>(
         emailVerified : {
             type: Boolean,
             default: false
+        },
+        emailVerificationToken : {
+            type: String,
+        },
+        emailVerificationExpires : {
+            type: Date,
         },
 
         // *********** Auth Provider *************** //
