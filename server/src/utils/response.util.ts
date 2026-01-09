@@ -32,3 +32,10 @@ export const errorResponse = <T>(
         error,
     });
 };
+
+export const redirectResponse = <T>(
+    res: Response,
+    url : string
+)=>{
+    res.redirect(url);
+}

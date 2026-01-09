@@ -2,13 +2,13 @@ import {Request, Response, NextFunction} from "express";
 import { STATUS } from "../constants/statusCodes";
 import { errorResponse } from "../utils/response.util";
 
-type ValidatorFunction = (body : any) => Record<string, string> | null;
+type ValidatorFunction = (body : any) => Record<string, string>;
 
 export const validate = (validator : ValidatorFunction) => 
     (req : Request, res : Response, next : NextFunction) => {
         // console.log("inside validation middleware");
         const errors = validator(req.body);
-        if(errors){
+        if(Object.keys(errors).length >0){
             return errorResponse(
                 res,
                 STATUS.CLIENT_ERROR.BAD_REQUEST,

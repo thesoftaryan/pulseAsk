@@ -11,7 +11,7 @@ export const sendVerificationMail = async (email: string, token: string)=>{
       <h2>Welcome to PulseAsk 👋</h2>
       <p>Please verify your email by clicking the link below:</p>
       <a href="${verificationURL}">Verify Email</a>
-      <p>This link expires in 24 hours.</p>
+      <p>This link expires in 10 minutes.</p>
     `,
     });
 };

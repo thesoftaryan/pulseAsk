@@ -5,7 +5,7 @@ import axios from "axios";
 import { STATUS } from "../constants/statusCodes";
 
 // Custom response structure
-import { errorResponse, successResponse} from "../utils/response.util"
+import { errorResponse, successResponse, redirectResponse} from "../utils/response.util"
 
 // Types
 import { LoginPayload, RegisterPayload, GoogleTokenResponse, GoogleUserInfo } from "../types/auth.types";
@@ -26,7 +26,7 @@ export const googleOAuthCallbackController = async (req : Request, res : Respons
     // console.log("google callback code: ", code);
     
     if(!code){
-        return res.redirect(`${process.env.CLIENT_URL}/login`);
+        return redirectResponse(res, `${process.env.CLIENT_URL}/login`);
     }
 
     const tokenResponse = await axios.post<GoogleTokenResponse>("https://oauth2.googleapis.com/token",{
@@ -61,7 +61,7 @@ export const googleOAuthCallbackController = async (req : Request, res : Respons
             firstName : googleUser.given_name,
             lastName : googleUser.family_name,
             email: googleUser.email,
-            provider: "google",
+            authProvider: "google",
             providerId : googleUser.sub,
             password : null,
             emailVerified : true,
@@ -92,17 +92,16 @@ export const googleOAuthController = (req:Request, res : Response)=>{
         prompt: "consent", 
     });
     const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
-    return res.redirect(googleAuthURL);
+    return redirectResponse(res, googleAuthURL);
 }
 
 export const emailVerificationController = async (req : Request, res : Response)=>{
     const {token} = req.query;
 
     if(!token){
-        return errorResponse(
+        return redirectResponse(
             res,
-            STATUS.CLIENT_ERROR.BAD_REQUEST,
-            "Invalid verification link",
+            `${process.env.CLIENT_URL}/auth/verify-email?status=invalid`,
         );
     }
 
@@ -114,10 +113,9 @@ export const emailVerificationController = async (req : Request, res : Response)
     });
 
     if(!user){
-        return errorResponse(
+        return redirectResponse(
             res,
-            STATUS.CLIENT_ERROR.BAD_REQUEST,
-            "Verification link is invalid or expired",
+            `${process.env.CLIENT_URL}/auth/verify-email?status=expired`,
         );
     }
 
@@ -127,12 +125,9 @@ export const emailVerificationController = async (req : Request, res : Response)
 
     await user.save();
 
-    // we have to create a redirection instead of sending response
-    // or instead we can create a custom error and throw error from here
-    return successResponse(
+    return redirectResponse(
         res,
-        STATUS.SUCCESS.OK,
-        "Email verified successfully",
+        `${process.env.CLIENT_URL}/auth/verify-email?status=success`,
     );
 
 }
@@ -204,4 +199,20 @@ export const logoutController = (req : Request, res : Response)=>{
         STATUS.SUCCESS.OK,
         "Logged out successfully",
     );
+}
+
+export const forgotPasswordController = async (req : Request, res : Response) => {
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "If account exists, a reset link has been sent.",
+    );
+}
+
+export const resetPasswordController = async (req : Request, res : Response) => {
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Password changed successfully",
+    )
 }

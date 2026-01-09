@@ -12,21 +12,21 @@ export const validateRegister = (body : RegisterPayload) => {
     const {firstName, lastName, email, password}  = body;
 
     if(!isValidName(firstName)){
-        errors.firstName = "First Name is not valid";
+        errors.firstName = "Invalid First Name";
     }
     if(!isValidName(lastName)){
-        errors.lastName = "Last Name is not valid";
+        errors.lastName = "Invalid Last Name";
     }
 
     if(!isValidEmail(email)){
-        errors.email = "Email is not valid";
+        errors.email = "Invalid Email";
     }
 
     if(!isStrongPassword(password)){
-        errors.password = "Password is not valid";
+        errors.password = "Invalid Password";
     }
     
-    return Object.keys(errors).length ? errors : null;
+    return errors;
 }
 
 export const validateLogin = (body : LoginPayload) => {
@@ -40,12 +40,49 @@ export const validateLogin = (body : LoginPayload) => {
     const {email, password} = body;
 
     if(!isValidEmail(email)){
-        errors.email = "Email is not valid";
+        errors.email = "Invalid email";
     }
 
     if(!isStrongPassword(password)){
-        errors.password = "Password is not valid";
+        errors.password = "Invalid password";
     }
     
-    return Object.keys(errors).length ? errors : null;
+    return errors;
+}
+
+export const validateForgotPassword = (body : {email : string}) => {
+    const errors : Record<string, string> = {};
+
+    if(!body || typeof body !== "object"){
+        errors.body = "Request Body is Required";
+        return errors;
+    }
+
+    const {email} = body;
+
+    if(!isValidEmail(email)){
+        errors.email = "Invalid email";
+    }
+
+    return errors;
+}
+
+export const validateResetPassword = (body : {token : string, password : string})=>{
+    const errors : Record<string, string> = {};
+
+    if(!body || typeof body !== "object"){
+        errors.body = "Request Body is Required";
+        return errors;
+    }
+
+    const {token, password} = body;
+
+    if(!isStrongPassword(password)){
+        errors.password = "Invalid password";
+    }
+    if(!token || !token.length){
+        errors.token = "Invalid token";
+    }
+
+    return errors;
 }

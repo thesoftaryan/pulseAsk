@@ -1,9 +1,9 @@
 import {Router} from "express";
-import {googleOAuthController, googleOAuthCallbackController, registerController, loginController, logoutController, emailVerificationController} from "../controllers/auth.controller";
+import {googleOAuthController, googleOAuthCallbackController, registerController, loginController, logoutController, emailVerificationController, forgotPasswordController, resetPasswordController} from "../controllers/auth.controller";
 
 // validation middleware
 import { validate } from "../middlewares/validation.middleware";
-import {validateLogin, validateRegister} from "../validations/auth.validation";
+import {validateForgotPassword, validateLogin, validateRegister, validateResetPassword} from "../validations/auth.validation";
 
 // Router is modular, mountable route handler.
 // Router instance is a complete middleware and routing system
@@ -17,5 +17,8 @@ router.get("/verify-email", emailVerificationController);
 router.post("/register",validate(validateRegister), registerController);
 router.post("/login", validate(validateLogin), loginController);
 router.post("/logout", logoutController);
+
+router.post("/forgot-password", validate(validateForgotPassword), forgotPasswordController);
+router.post("/reset-password", validate(validateResetPassword), resetPasswordController);
 
 export default router;
