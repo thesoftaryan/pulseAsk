@@ -1,12 +1,7 @@
 import { isValidName, isStrongPassword, isValidEmail } from "../../../utils/validationHelpers";
 
-export interface RegisterFormData{
-    firstName:string;
-    lastName:string;
-    email:string;
-    password:string;
-    agreement:boolean;
-}
+import type {RegisterFormData} from "../../../types/auth";
+
 
 export const registerFormValidator = (data : RegisterFormData)=>{
     const errors : Partial<RegisterFormData> = {};

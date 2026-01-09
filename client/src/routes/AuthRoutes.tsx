@@ -5,7 +5,7 @@ import type { RouteObject } from "react-router-dom";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import ForgotPassword from "../pages/Auth/ForgotPassword/ForgotPassword";
-import ResetPassword from "../pages/Auth/ForgotPassword/ResetPassword";
+import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
 import VerifyEmail from "../pages/Auth/VerifyEmail/VerifyEmail";
 
 

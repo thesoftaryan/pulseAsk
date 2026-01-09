@@ -3,8 +3,10 @@ import {Link} from "react-router-dom";
 import { useState } from "react";
 
 // Logical Parts
-import { registerFormValidator, type RegisterFormData } from "./Register.validator";
+import { registerFormValidator } from "./Register.validator";
 import {registerHandler, socialRegisterHandler} from "./Register.handler";
+// Types
+import type { RegisterFormData } from "../../../types/auth";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";

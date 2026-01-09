@@ -1,9 +1,6 @@
 import { isValidEmail, isStrongPassword } from "../../../utils/validationHelpers";
 
-export interface LoginFormData{
-    email:string;
-    password:string;
-}
+import type { LoginFormData } from "../../../types/auth";
 
 export const loginFormValidator = (data : LoginFormData) => {
     const errors:{email?:string; password?: string} = {};

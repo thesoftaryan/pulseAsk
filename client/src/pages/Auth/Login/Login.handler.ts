@@ -2,7 +2,7 @@ import { loginUser, socialSignIn } from "../../../api/auth.api";
 
 // Types
 import type { OAuthProvider } from "../../../types/auth";
-import type { LoginFormData } from "./login.validator";
+import type { LoginFormData } from "../../../types/auth";
 
 export const loginHandler = async (data : LoginFormData)=>{
     try{

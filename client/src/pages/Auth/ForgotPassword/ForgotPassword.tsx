@@ -1,3 +1,10 @@
+// React Parts
+import { useState } from "react";
+
+// Types
+import type { ForgotPasswordFormData } from "../../../types/auth";
+
+// Components
 import InputField from "../../../components/common/InputField/InputField";
 import Button from "../../../components/common/Button/Button";
 import GapBox from "../../../components/common/GapBox/GapBox";
@@ -5,12 +12,29 @@ import GapBox from "../../../components/common/GapBox/GapBox";
 // Images
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg"
 
+// Stylesheet
 import ForgotPasswordStyle from "./ForgotPassword.module.css";
+import { forgotPasswordValidator } from "./ForgotPassword.validator";
+import { forgotPasswordHandler } from "./ForgotPassword.handler";
+import ErrorText from "../../../components/common/ErrorText/ErrorText";
 
 
 
 
 function ForgotPassword(){
+    const [email, setEmail] = useState("");
+    const [errors, setErrors] = useState<Partial<ForgotPasswordFormData>>({});
+
+    const handleForgotPassword = ()=>{
+        const data : ForgotPasswordFormData = {email};
+        const error = forgotPasswordValidator(data);
+        setErrors(error);
+
+        if(Object.keys(error).length === 0){
+            forgotPasswordHandler(data);
+        }
+    }
+
     return (
         <>
             <div className={ForgotPasswordStyle["container"]}>
@@ -24,9 +48,10 @@ function ForgotPassword(){
                     <GapBox className="gap-y-md"></GapBox>
                     
                     <div className={ForgotPasswordStyle["form"]}>
-                        <InputField placeholder="Email Address"/>
+                        <InputField placeholder="Email Address" type="email" onChange={(e)=>{setEmail(e.target.value)}}/>
+                        {errors.email?.length && <ErrorText message={errors.email}/>}
                         <GapBox className="gap-y-md"></GapBox>
-                        <Button text="Send Link"/>
+                        <Button text="Send Link" onClick={handleForgotPassword}/>
                     </div>
                 </div>
             </div>
