@@ -10,6 +10,10 @@ export interface RegisterPayload{
     password : string;
 }
 
+export interface ForgotPasswordPayload{
+    email : string;
+}
+
 export interface GoogleTokenResponse {
     access_token: string;
     expires_in: number;

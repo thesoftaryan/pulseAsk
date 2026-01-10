@@ -8,6 +8,7 @@ import type { ForgotPasswordFormData } from "../../../types/auth";
 import InputField from "../../../components/common/InputField/InputField";
 import Button from "../../../components/common/Button/Button";
 import GapBox from "../../../components/common/GapBox/GapBox";
+import ErrorText from "../../../components/common/ErrorText/ErrorText";
 
 // Images
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg"
@@ -16,7 +17,6 @@ import PulseAskIcon from "../../../assets/PulseAskIcon.svg"
 import ForgotPasswordStyle from "./ForgotPassword.module.css";
 import { forgotPasswordValidator } from "./ForgotPassword.validator";
 import { forgotPasswordHandler } from "./ForgotPassword.handler";
-import ErrorText from "../../../components/common/ErrorText/ErrorText";
 
 
 

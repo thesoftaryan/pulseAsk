@@ -1,3 +1,4 @@
+import type { ForgotPasswordFormData } from "../types/auth";
 import api from "./axios";
 
 interface RegisterData{
@@ -12,14 +13,18 @@ interface LoginData{
     password : string;
 }
 
-export const registerUser = ( data : RegisterData) => {
+export const registerUserAPI = ( data : RegisterData) => {
     return api.post("/auth/register", data);
 }
 
-export const loginUser = ( data : LoginData )=>{
+export const loginUserAPI = ( data : LoginData )=>{
     return api.post("/auth/login", data);
 }
 
-export const socialSignIn = (provider : "google")=>{
+export const socialSignInAPI = (provider : "google")=>{
     window.location.href = `${import.meta.env.VITE_API_URL}/auth/${provider}`;
+}
+
+export const forgotPasswordAPI = (data : ForgotPasswordFormData) => {
+    return api.post("/auth/forgot-password", data);
 }

@@ -8,17 +8,16 @@ import { STATUS } from "../constants/statusCodes";
 import { errorResponse, successResponse, redirectResponse} from "../utils/response.util"
 
 // Types
-import { LoginPayload, RegisterPayload, GoogleTokenResponse, GoogleUserInfo } from "../types/auth.types";
+import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo } from "../types/auth.types";
 
 // Auth Services
-import { loginUser, registerUser } from "../services/auth.service";
+import { forgotPassword, loginUser, registerUser } from "../services/auth.service";
 import { signToken } from "../utils/jwt.util";
 import { User } from "../models/User.model";
 
 // verification
-import { sendVerificationMail } from "../services/email.service";
+import { sendResetPasswordMail, sendVerificationMail } from "../services/email.service";
 import { generateHash } from "../utils/hash.util";
-import { triggerAsyncId } from "async_hooks";
 
 
 export const googleOAuthCallbackController = async (req : Request, res : Response) => {
@@ -202,6 +201,13 @@ export const logoutController = (req : Request, res : Response)=>{
 }
 
 export const forgotPasswordController = async (req : Request, res : Response) => {
+    
+    const data = req.body as ForgotPasswordPayload;
+    
+    const token = await forgotPassword(data);
+
+    sendResetPasswordMail(data.email, token);
+
     return successResponse(
         res,
         STATUS.SUCCESS.OK,

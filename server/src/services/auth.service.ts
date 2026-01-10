@@ -7,11 +7,11 @@ import { STATUS } from "../constants/statusCodes";
 import { generateRandomToken } from "../utils/token.util";
 
 // importing types of Payload
-import { LoginPayload, RegisterPayload } from "../types/auth.types";
+import { ForgotPasswordPayload, LoginPayload, RegisterPayload } from "../types/auth.types";
 
 
 /**
- * 
+ * Register Service for pulseAsk
  * @param payload : RegisterPayload -> data received over http
  * @returns user : User Model -> Newly created user
  */
@@ -83,3 +83,31 @@ export const loginUser = async (payload : LoginPayload) => {
     user.password = undefined as unknown as string;
     return user;
 };
+
+
+/**
+ * Forgot Password Service for pulseAsk
+ * @param payload of Type ForgotPasswordPayload
+ * @returns Token for resetting password
+ */
+export const forgotPassword = async ( payload : ForgotPasswordPayload)=>{
+    const {email} = payload;
+
+    const user = await User.findOne({email});
+
+    if(!user){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            "Error sending link",
+        );
+    }
+
+    const {rawToken, hashedToken} = generateRandomToken(email);
+
+    user.resetPasswordToken = hashedToken;
+    user.resetPasswordExpires = new Date(Date.now() + 10*60*1000);//10 minutes
+
+    await user.save();
+
+    return rawToken;
+}

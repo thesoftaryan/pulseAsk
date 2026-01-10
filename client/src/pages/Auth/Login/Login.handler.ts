@@ -1,4 +1,4 @@
-import { loginUser, socialSignIn } from "../../../api/auth.api";
+import { loginUserAPI, socialSignInAPI } from "../../../api/auth.api";
 
 // Types
 import type { OAuthProvider } from "../../../types/auth";
@@ -6,10 +6,7 @@ import type { LoginFormData } from "../../../types/auth";
 
 export const loginHandler = async (data : LoginFormData)=>{
     try{
-        const response = await loginUser({
-            email : data.email,
-            password : data.password,
-        });
+        const response = await loginUserAPI(data);
 
         console.log("Response : ", response.data);
     }catch(error){
@@ -18,5 +15,5 @@ export const loginHandler = async (data : LoginFormData)=>{
 }
 
 export const socialLoginHandler = (provider : OAuthProvider)=>{
-    socialSignIn(provider);
+    socialSignInAPI(provider);
 }

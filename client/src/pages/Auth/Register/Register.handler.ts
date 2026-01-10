@@ -1,17 +1,11 @@
-import { registerUser, socialSignIn } from "../../../api/auth.api";
+import { registerUserAPI, socialSignInAPI } from "../../../api/auth.api";
 
 // Types
-import type { OAuthProvider } from "../../../types/auth";
-import type { RegisterFormData } from "./Register.validator";
+import type { OAuthProvider, RegisterFormData } from "../../../types/auth";
 
 export const registerHandler = async (data : RegisterFormData) => {
     try{
-        const response = await registerUser({
-            firstName : data.firstName,
-            lastName : data.lastName,
-            email : data.email,
-            password : data.password,
-        });
+        const response = await registerUserAPI(data);
         
         console.log("Response : ", response.data);
     }catch(error){
@@ -20,5 +14,5 @@ export const registerHandler = async (data : RegisterFormData) => {
 }
 
 export const socialRegisterHandler = (provider : OAuthProvider)=>{
-    socialSignIn(provider);
+    socialSignInAPI(provider);
 }
