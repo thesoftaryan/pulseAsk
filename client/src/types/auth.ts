@@ -16,3 +16,9 @@ export interface RegisterFormData{
 export interface ForgotPasswordFormData{
     email : string;
 }
+
+export interface ResetPasswordFormData{
+    password : string;
+    confirmPassword? : string;
+    token : string|null;
+}

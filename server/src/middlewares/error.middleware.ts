@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from "express";
-import { ApiError } from "../utils/apiError.util";
+import { ApiError, RedirectError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
-import { errorResponse } from "../utils/response.util";
+import { errorResponse, redirectResponse } from "../utils/response.util";
 
 export const errorMiddleware = (err : unknown, req : Request, res : Response, next : NextFunction)=>{
     if( err instanceof ApiError){
@@ -12,6 +12,13 @@ export const errorMiddleware = (err : unknown, req : Request, res : Response, ne
             err.message,
             err.details,
         );
+    }
+
+    if(err instanceof RedirectError){
+        return redirectResponse(
+            res,
+            err.redirectionURL,
+        )
     }
 
     // For any syntax error of JSON request

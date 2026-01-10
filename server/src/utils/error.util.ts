@@ -15,3 +15,14 @@ export class ApiError extends Error{
     }
 
 }
+
+export class RedirectError extends Error{
+    public redirectionURL : string;
+
+    constructor(redirectionURL:string){
+        super();
+        this.redirectionURL = redirectionURL;
+
+        Object.setPrototypeOf(this, RedirectError.prototype);
+    }
+}

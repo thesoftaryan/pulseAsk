@@ -1,4 +1,4 @@
-import {LoginPayload, RegisterPayload} from "../types/auth.types";
+import {ForgotPasswordPayload, LoginPayload, RegisterPayload, ResetPasswordPayload} from "../types/auth.types";
 import { isValidName, isValidEmail, isStrongPassword } from "../utils/validation.util";
 
 export const validateRegister = (body : RegisterPayload) => {
@@ -50,7 +50,7 @@ export const validateLogin = (body : LoginPayload) => {
     return errors;
 }
 
-export const validateForgotPassword = (body : {email : string}) => {
+export const validateForgotPassword = (body : ForgotPasswordPayload) => {
     const errors : Record<string, string> = {};
 
     if(!body || typeof body !== "object"){
@@ -67,7 +67,7 @@ export const validateForgotPassword = (body : {email : string}) => {
     return errors;
 }
 
-export const validateResetPassword = (body : {token : string, password : string})=>{
+export const validateResetPassword = (body : ResetPasswordPayload)=>{
     const errors : Record<string, string> = {};
 
     if(!body || typeof body !== "object"){
@@ -75,7 +75,7 @@ export const validateResetPassword = (body : {token : string, password : string}
         return errors;
     }
 
-    const {token, password} = body;
+    const {password, token} = body;
 
     if(!isStrongPassword(password)){
         errors.password = "Invalid password";

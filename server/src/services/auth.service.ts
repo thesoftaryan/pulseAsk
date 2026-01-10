@@ -1,13 +1,15 @@
 import bcrypt from "bcrypt";
 import { User } from "../models/User.model";
-import { ApiError } from "../utils/apiError.util";
+import { ApiError, RedirectError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
+import { redirectResponse } from "../utils/response.util";
 
 // Verification Part
 import { generateRandomToken } from "../utils/token.util";
 
 // importing types of Payload
-import { ForgotPasswordPayload, LoginPayload, RegisterPayload } from "../types/auth.types";
+import { ForgotPasswordPayload, LoginPayload, RegisterPayload, ResetPasswordPayload } from "../types/auth.types";
+import { generateHash } from "../utils/hash.util";
 
 
 /**
@@ -84,6 +86,38 @@ export const loginUser = async (payload : LoginPayload) => {
     return user;
 };
 
+/**
+ * Email verification service for pulseAsk
+ * @param token of the type string
+ * @returns Nothing
+ */
+export const verifyEmail = async (token : any) =>{
+
+    if(!token){
+        throw new RedirectError(
+            `${process.env.CLIENT_URL}/auth/verify-email?status=invalid`,
+        );
+    }
+
+    const hashedToken = generateHash(token as string);
+
+    const user = await User.findOne({
+        emailVerificationToken : hashedToken,
+        emailVerificationExpires: {$gt: Date.now()},
+    });
+
+    if(!user){
+        throw new RedirectError(
+            `${process.env.CLIENT_URL}/auth/verify-email?status=expired`,
+        );
+    }
+
+    user.emailVerified = true;
+    user.emailVerificationToken = undefined;
+    user.emailVerificationExpires = undefined;
+
+    await user.save();
+}
 
 /**
  * Forgot Password Service for pulseAsk
@@ -110,4 +144,33 @@ export const forgotPassword = async ( payload : ForgotPasswordPayload)=>{
     await user.save();
 
     return rawToken;
+}
+
+/**
+ * Reset Password Service for pulseAsk
+ * @param payload of Type ResetPasswordPayload
+ * @return Nothing
+ */
+export const resetPassword = async (data : ResetPasswordPayload)=>{
+    const {password, token} = data;
+
+    const hashedToken = generateHash(token);
+
+    const user = await User.findOne({
+        resetPasswordToken : hashedToken,
+        resetPasswordExpires : {$gt : Date.now()},
+    });
+
+    if(!user){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            "Reset Link is expired or invalid",
+        );
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    user.password = hashedPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
 }

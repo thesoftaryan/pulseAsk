@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from "express";
 
 import { verifyToken } from "../utils/jwt.util";
-import { ApiError } from "../utils/apiError.util";
+import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
 
 

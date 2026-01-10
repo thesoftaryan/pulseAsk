@@ -8,16 +8,15 @@ import { STATUS } from "../constants/statusCodes";
 import { errorResponse, successResponse, redirectResponse} from "../utils/response.util"
 
 // Types
-import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo } from "../types/auth.types";
+import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload } from "../types/auth.types";
 
 // Auth Services
-import { forgotPassword, loginUser, registerUser } from "../services/auth.service";
+import { forgotPassword, loginUser, registerUser, resetPassword, verifyEmail } from "../services/auth.service";
 import { signToken } from "../utils/jwt.util";
 import { User } from "../models/User.model";
 
 // verification
 import { sendResetPasswordMail, sendVerificationMail } from "../services/email.service";
-import { generateHash } from "../utils/hash.util";
 
 
 export const googleOAuthCallbackController = async (req : Request, res : Response) => {
@@ -97,32 +96,7 @@ export const googleOAuthController = (req:Request, res : Response)=>{
 export const emailVerificationController = async (req : Request, res : Response)=>{
     const {token} = req.query;
 
-    if(!token){
-        return redirectResponse(
-            res,
-            `${process.env.CLIENT_URL}/auth/verify-email?status=invalid`,
-        );
-    }
-
-    const hashedToken = generateHash(token as string);
-
-    const user = await User.findOne({
-        emailVerificationToken : hashedToken,
-        emailVerificationExpires: {$gt: Date.now()},
-    });
-
-    if(!user){
-        return redirectResponse(
-            res,
-            `${process.env.CLIENT_URL}/auth/verify-email?status=expired`,
-        );
-    }
-
-    user.emailVerified = true;
-    user.emailVerificationToken = undefined;
-    user.emailVerificationExpires = undefined;
-
-    await user.save();
+    verifyEmail(token);
 
     return redirectResponse(
         res,
@@ -216,6 +190,11 @@ export const forgotPasswordController = async (req : Request, res : Response) =>
 }
 
 export const resetPasswordController = async (req : Request, res : Response) => {
+    
+    const data = req.body as ResetPasswordPayload;
+
+    resetPassword(data);
+    
     return successResponse(
         res,
         STATUS.SUCCESS.OK,

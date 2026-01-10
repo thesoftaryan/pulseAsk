@@ -1,4 +1,4 @@
-import type { ForgotPasswordFormData } from "../types/auth";
+import type { ForgotPasswordFormData, ResetPasswordFormData } from "../types/auth";
 import api from "./axios";
 
 interface RegisterData{
@@ -27,4 +27,8 @@ export const socialSignInAPI = (provider : "google")=>{
 
 export const forgotPasswordAPI = (data : ForgotPasswordFormData) => {
     return api.post("/auth/forgot-password", data);
+}
+
+export const resetPasswordAPI = (data : ResetPasswordFormData)=>{
+    return api.post("/auth/reset-password", {password: data.password, token: data.token});
 }
