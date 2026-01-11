@@ -4,13 +4,16 @@ import { loginUserAPI, socialSignInAPI } from "../../../api/auth.api";
 import type { OAuthProvider } from "../../../types/auth";
 import type { LoginFormData } from "../../../types/auth";
 
+// Toast
+import toast from "react-hot-toast";
+
 export const loginHandler = async (data : LoginFormData)=>{
     try{
         const response = await loginUserAPI(data);
 
         console.log("Response : ", response.data);
     }catch(error){
-        console.error("Error logging in the user : ", error);
+        toast.error(`Error logging in the user`);
     }
 }
 

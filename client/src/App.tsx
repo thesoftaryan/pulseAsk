@@ -9,6 +9,7 @@ import "./theme/index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/AppRoutes";
 
+import {Toaster} from "react-hot-toast";
 
 function App(){
   // Testing the dark Theme
@@ -23,7 +24,12 @@ function App(){
   //     <VerifyEmail/>
   //   </>
   // );
-  return <RouterProvider router={router}/>;
+  return (
+    <>
+    <RouterProvider router={router}/>
+    <Toaster/>
+    </>
+  );
 }
 
 export default App
