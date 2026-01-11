@@ -18,7 +18,7 @@ export const errorMiddleware = (err : unknown, req : Request, res : Response, ne
         return redirectResponse(
             res,
             err.redirectionURL,
-        )
+        );
     }
 
     // For any syntax error of JSON request

@@ -24,13 +24,14 @@ import ErrorText from "../../../components/common/ErrorText/ErrorText";
 
 function ResetPassword(){
 
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get("token");
+    
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState<Partial<ResetPasswordFormData>>({});
 
     const handleReset = ()=>{
-        const [searchParams] = useSearchParams();
-        const token = searchParams.get("token");
         const data = {password, confirmPassword, token};
         const error = resetPasswordValidator(data);
         setErrors(error);

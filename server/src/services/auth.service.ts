@@ -8,7 +8,7 @@ import { redirectResponse } from "../utils/response.util";
 import { generateRandomToken } from "../utils/token.util";
 
 // importing types of Payload
-import { ForgotPasswordPayload, LoginPayload, RegisterPayload, ResetPasswordPayload } from "../types/auth.types";
+import { ForgotPasswordPayload, LoginPayload, RegisterPayload, ResetPasswordPayload, VerifyEmailPayload } from "../types/auth.types";
 import { generateHash } from "../utils/hash.util";
 
 
@@ -120,6 +120,32 @@ export const verifyEmail = async (token : any) =>{
 }
 
 /**
+ * Resend email verification link service for pulseAsk
+ * @param payload of type VerifyEmailPayload
+ * @returns rawToken:string which is then sent to the user via email
+ */
+export const resendEmailVerificationLink = async (payload : VerifyEmailPayload)=>{
+    const {email} = payload;
+
+    const user = await User.findOne({email});
+
+    if(!user){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            "Error sending link",
+        );
+    }
+
+    const {rawToken, hashedToken} = generateRandomToken();
+
+    user.emailVerificationToken = hashedToken;
+    user.emailVerificationExpires = new Date(Date.now() + 10*60*1000); // 10 minutes
+
+    await user.save();
+    return rawToken;
+}
+
+/**
  * Forgot Password Service for pulseAsk
  * @param payload of Type ForgotPasswordPayload
  * @returns Token for resetting password
@@ -136,7 +162,7 @@ export const forgotPassword = async ( payload : ForgotPasswordPayload)=>{
         );
     }
 
-    const {rawToken, hashedToken} = generateRandomToken(email);
+    const {rawToken, hashedToken} = generateRandomToken();
 
     user.resetPasswordToken = hashedToken;
     user.resetPasswordExpires = new Date(Date.now() + 10*60*1000);//10 minutes
@@ -151,8 +177,8 @@ export const forgotPassword = async ( payload : ForgotPasswordPayload)=>{
  * @param payload of Type ResetPasswordPayload
  * @return Nothing
  */
-export const resetPassword = async (data : ResetPasswordPayload)=>{
-    const {password, token} = data;
+export const resetPassword = async (payload : ResetPasswordPayload)=>{
+    const {password, token} = payload;
 
     const hashedToken = generateHash(token);
 
@@ -173,4 +199,6 @@ export const resetPassword = async (data : ResetPasswordPayload)=>{
     user.password = hashedPassword;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
+
+    await user.save();
 }

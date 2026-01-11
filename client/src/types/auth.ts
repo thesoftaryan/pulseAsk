@@ -22,3 +22,7 @@ export interface ResetPasswordFormData{
     confirmPassword? : string;
     token : string|null;
 }
+
+export interface VerifyEmailFormData{
+    email : string;
+}

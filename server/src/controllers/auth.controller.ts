@@ -8,10 +8,10 @@ import { STATUS } from "../constants/statusCodes";
 import { errorResponse, successResponse, redirectResponse} from "../utils/response.util"
 
 // Types
-import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload } from "../types/auth.types";
+import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload, VerifyEmailPayload } from "../types/auth.types";
 
 // Auth Services
-import { forgotPassword, loginUser, registerUser, resetPassword, verifyEmail } from "../services/auth.service";
+import { forgotPassword, loginUser, registerUser, resendEmailVerificationLink, resetPassword, verifyEmail } from "../services/auth.service";
 import { signToken } from "../utils/jwt.util";
 import { User } from "../models/User.model";
 
@@ -96,13 +96,27 @@ export const googleOAuthController = (req:Request, res : Response)=>{
 export const emailVerificationController = async (req : Request, res : Response)=>{
     const {token} = req.query;
 
-    verifyEmail(token);
+    await verifyEmail(token);
 
     return redirectResponse(
         res,
         `${process.env.CLIENT_URL}/auth/verify-email?status=success`,
     );
 
+}
+
+export const verifyEmailController = async (req:Request, res:Response)=>{
+    const data = req.body as VerifyEmailPayload;
+
+    const token = await resendEmailVerificationLink(data);
+
+    sendVerificationMail(data.email, token);
+
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "If account exists, a verification link has been sent.",
+    );
 }
 
 export const registerController = async (req: Request, res: Response)=>{
@@ -193,7 +207,7 @@ export const resetPasswordController = async (req : Request, res : Response) => 
     
     const data = req.body as ResetPasswordPayload;
 
-    resetPassword(data);
+    await resetPassword(data);
     
     return successResponse(
         res,

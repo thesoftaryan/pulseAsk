@@ -1,4 +1,4 @@
-import {ForgotPasswordPayload, LoginPayload, RegisterPayload, ResetPasswordPayload} from "../types/auth.types";
+import {ForgotPasswordPayload, LoginPayload, RegisterPayload, ResetPasswordPayload, VerifyEmailPayload} from "../types/auth.types";
 import { isValidName, isValidEmail, isStrongPassword } from "../utils/validation.util";
 
 export const validateRegister = (body : RegisterPayload) => {
@@ -84,5 +84,22 @@ export const validateResetPassword = (body : ResetPasswordPayload)=>{
         errors.token = "Invalid token";
     }
 
+    return errors;
+}
+
+export const validateVerifyEmail = (body : VerifyEmailPayload)=>{
+    const errors : Record<string, string> = {};
+
+    if(!body || typeof body !== "object"){
+        errors.body = "Request Body is Required";
+        return errors;
+    }
+
+    const {email} = body;
+
+    if(!isValidEmail(email)){
+        errors.email = "Invalid email";
+    }
+    
     return errors;
 }

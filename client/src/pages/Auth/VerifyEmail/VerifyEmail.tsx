@@ -1,11 +1,38 @@
+// React
+import { useState } from "react";
+
+//Type
+import type { VerifyEmailFormData } from "../../../types/auth";
+
+// Stylesheet
 import VerifyEmailStyle from "./VerifyEmail.module.css";
 
+// Components
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 import InputField from "../../../components/common/InputField/InputField";
 import Button from "../../../components/common/Button/Button";
 import GapBox from "../../../components/common/GapBox/GapBox";
+import { verifyEmailValidator } from "./VerifyEmail.validator";
+import { verifyEmailHandler } from "./VerifyEmail.handler";
+import ErrorText from "../../../components/common/ErrorText/ErrorText";
+
 
 function VerifyEmail(){
+
+    const [email, setEmail] = useState("");
+    const [errors, setErrors] = useState<Partial<VerifyEmailFormData>>({});
+
+
+    const handleVerifyEmail = ()=>{
+        const data = {email};
+        const error = verifyEmailValidator(data);
+        setErrors(error);
+
+        if(Object.keys(error).length === 0){
+            verifyEmailHandler(data);
+        }
+    }
+
     return (
         <>
         <div className={VerifyEmailStyle["container"]}>
@@ -13,14 +40,13 @@ function VerifyEmail(){
                 <PulseAskIcon className={VerifyEmailStyle["icon"]}/>
             </div>
             <div className={VerifyEmailStyle["inner-container"]}>
-                <h1 className={VerifyEmailStyle["heading"]}> Verify Your Email</h1>
+                <h1 className={VerifyEmailStyle["heading"]}> Resend Verification Link</h1>
                 <GapBox className="gap-y-lg"/>
                 
-                <InputField placeholder="Enter Verification Code"/>
+                <InputField placeholder="Enter your email" onChange={(e)=>{setEmail(e.target.value)}}/>
+                {errors.email && <ErrorText message={errors.email}/>}
                 <GapBox className="gap-y-md"/>
-                <a href="#" className={VerifyEmailStyle["resend-link"]}>Resend Verification Code</a>
-                <GapBox className="gap-y-md"/>
-                <Button text="Verify"/>
+                <Button text="Resend Link" onClick={handleVerifyEmail}/>
             </div>
         </div>
         </>

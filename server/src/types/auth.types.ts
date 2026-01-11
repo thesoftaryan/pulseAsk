@@ -19,6 +19,10 @@ export interface ResetPasswordPayload{
     token : string;
 }
 
+export interface VerifyEmailPayload{
+    email : string;
+}
+
 export interface GoogleTokenResponse {
     access_token: string;
     expires_in: number;

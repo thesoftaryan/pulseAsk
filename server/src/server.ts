@@ -14,12 +14,12 @@ connectDB()
 
     // Shutdown on unexpected errors
     process.on("uncaughtException", (error)=>{
-        console.log("Uncaught Exception encountered, shutting down...");
+        console.log("Uncaught Exception encountered, shutting down...\n", error);
         process.exit(1);
     });
 
     process.on("unhandledRejection", (error)=>{
-        console.log("Unhandled Rejection encountered, shutting down...");
+        console.log("Unhandled Rejection encountered, shutting down...\n", error);
         process.exit(1);
     });
 })
