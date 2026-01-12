@@ -26,6 +26,12 @@ export const errorResponse = <T>(
         details? : string,
     },
 ) => {
+    if(!error){
+        error = {
+            code: statusCode.toString(),
+            details : message,
+        }
+    }
     return res.status(statusCode).json({
         success : false,
         message,

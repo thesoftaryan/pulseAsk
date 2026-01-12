@@ -25,7 +25,7 @@ export const registerUser = async (payload : RegisterPayload) => {
     if(userCheck){
         throw new ApiError(
             STATUS.CLIENT_ERROR.CONFLICT,
-            "User with this email already exists",
+            "Email already exists",
         );
     }
 
@@ -79,6 +79,15 @@ export const loginUser = async (payload : LoginPayload) => {
             "Invalid email or password",
         );
     }
+
+
+    if(!user.emailVerified){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.UNAUTHORIZED,
+            "You need to verify your email to continue.",
+        )
+    }
+
     // because we don't want anyone else to know about the password
     // we are using unknown because undefined can't be directly
     // typecasted as string

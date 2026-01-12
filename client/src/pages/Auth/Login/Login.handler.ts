@@ -13,7 +13,10 @@ export const loginHandler = async (data : LoginFormData)=>{
 
         console.log("Response : ", response.data);
     }catch(error){
-        toast.error(`Error logging in the user`);
+        console.log(error);
+        toast.error(`Error logging in the user`, {
+            duration : 10000,
+        });
     }
 }
 
