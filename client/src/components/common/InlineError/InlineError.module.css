@@ -1,4 +1,5 @@
 .wrapper{
+    display: flex;
     margin-left: var(--spacing-sm);
     padding: var(--spacing-sm);
 }
@@ -8,4 +9,10 @@
     font-size: var(--font-size-sm);
     color: var(--color-error);
     overflow: hidden;
+    margin-left: var(--spacing-sm);
+}
+
+.error-icon{
+    height: var(--size-icon-sm);
+    width: var(--size-icon-sm);
 }

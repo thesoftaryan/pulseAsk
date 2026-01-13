@@ -8,7 +8,7 @@ import type { ForgotPasswordFormData } from "../../../types/auth";
 import InputField from "../../../components/common/InputField/InputField";
 import Button from "../../../components/common/Button/Button";
 import GapBox from "../../../components/common/GapBox/GapBox";
-import ErrorText from "../../../components/common/ErrorText/ErrorText";
+import ErrorText from "../../../components/common/InlineError/InlineError";
 
 // Images
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg"

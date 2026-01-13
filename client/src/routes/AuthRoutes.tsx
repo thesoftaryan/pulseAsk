@@ -8,16 +8,17 @@ import ForgotPassword from "../pages/Auth/ForgotPassword/ForgotPassword";
 import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
 import VerifyEmail from "../pages/Auth/VerifyEmail/VerifyEmail";
 
+import { authRoutes } from "./routesConstants";
 
 
 const AuthRoutes : RouteObject[]=[
-    {path:"/auth/login", element:<Login/>},
-    {path:"/auth/register", element:<Register/>},
+    {path:authRoutes.login, element:<Login/>},
+    {path:authRoutes.register, element:<Register/>},
 
-    {path:"/auth/forgot-password", element:<ForgotPassword/>},
-    {path:"/auth/reset-password", element:<ResetPassword/>},
+    {path:authRoutes.forgotPassword, element:<ForgotPassword/>},
+    {path:authRoutes.resetPassword, element:<ResetPassword/>},
 
-    {path:"/auth/verify-email", element:<VerifyEmail/>},
+    {path:authRoutes.verifyEmail, element:<VerifyEmail/>},
 ];
 
 export default AuthRoutes;

@@ -1,5 +1,4 @@
 export interface ApiError{
-    success : boolean,
     message : string,
     error?:{
         code : string,
@@ -8,7 +7,6 @@ export interface ApiError{
 }
 
 export interface ApiSuccess<T>{
-    success : boolean,
     message : string,
     data? : T,
     meta? : Record<string, string>,

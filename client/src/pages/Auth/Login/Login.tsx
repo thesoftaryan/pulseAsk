@@ -2,6 +2,9 @@
 import {Link} from "react-router-dom";
 import { useState } from "react";
 
+// Routes
+import { authRoutes } from "../../../routes/routesConstants";
+
 // Logical Parts
 import { loginFormValidator } from "./Login.validator";
 import {loginHandler, socialLoginHandler} from "./Login.handler";
@@ -15,7 +18,7 @@ import Button from "../../../components/common/Button/Button";
 import Divider from "../../../components/common/Divider/Divider";
 import SocialSignInCard from "../../../components/common/SocialSignInCard/SocialSignInCard";
 import GapBox from "../../../components/common/GapBox/GapBox";
-import ErrorText from "../../../components/common/ErrorText/ErrorText";
+import ErrorText from "../../../components/common/InlineError/InlineError";
 
 // SVG Icons
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
@@ -83,7 +86,7 @@ function Login() {
             <div className={LoginStyle["right-container"]}>
                 <div className={LoginStyle["header"]}>
                     <h1 className={LoginStyle["heading"]}> Login to Account</h1>
-                    <p className={LoginStyle["signup"]}>Don't have an account? <Link to="/auth/register">SignUp</Link></p>
+                    <p className={LoginStyle["signup"]}>Don't have an account? <Link to={authRoutes.register}>SignUp</Link></p>
                 </div>
 
 

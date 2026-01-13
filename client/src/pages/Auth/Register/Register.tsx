@@ -2,9 +2,13 @@
 import {Link} from "react-router-dom";
 import { useState } from "react";
 
+// Routes
+import { authRoutes } from "../../../routes/routesConstants";
+
 // Logical Parts
 import { registerFormValidator } from "./Register.validator";
 import {registerHandler, socialRegisterHandler} from "./Register.handler";
+
 // Types
 import type { RegisterFormData } from "../../../types/auth";
 
@@ -15,7 +19,7 @@ import Button from "../../../components/common/Button/Button";
 import Divider from "../../../components/common/Divider/Divider";
 import SocialSignInCard from "../../../components/common/SocialSignInCard/SocialSignInCard";
 import GapBox from "../../../components/common/GapBox/GapBox";
-import ErrorText from "../../../components/common/ErrorText/ErrorText";
+import ErrorText from "../../../components/common/InlineError/InlineError";
 
 // SVG Icons
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
@@ -86,7 +90,7 @@ function Register() {
             <div className={RegisterStyle["right-container"]}>
                 <div className={RegisterStyle["header"]}>
                     <h1 className={RegisterStyle["heading"]}> Create an Account</h1>
-                    <p className={RegisterStyle["login"]}>Already have an account? <Link to="/auth/login">Login</Link></p>
+                    <p className={RegisterStyle["login"]}>Already have an account? <Link to={authRoutes.login}>Login</Link></p>
                 </div>
 
 

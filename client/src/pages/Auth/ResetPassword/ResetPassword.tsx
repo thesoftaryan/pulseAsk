@@ -17,7 +17,8 @@ import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react"
 
 // Stylesheet
 import ResetPasswordStyle from "./ResetPassword.module.css";
-import ErrorText from "../../../components/common/ErrorText/ErrorText";
+import ErrorText from "../../../components/common/InlineError/InlineError";
+import InlineError from "../../../components/common/InlineError/InlineError";
 
 
 
@@ -52,6 +53,8 @@ function ResetPassword(){
                         Create New Password
                     </h1>
                     <GapBox className="gap-y-md"></GapBox>
+
+                    {errors.token && <InlineError message={errors.token}/>}
                     
                     <div className={ResetPasswordStyle["form"]}>
                         <InputField isError={errors.password?.length} type="password" placeholder="Enter New Password" onChange={(e)=>{setPassword(e.target.value)}}/>
