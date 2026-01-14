@@ -3,7 +3,7 @@ export const authRoutes = {
     register : "/auth/register",
 
     forgotPassword : "/auth/forgot-password",
-    resetPassword : "/auth/resetPassword",
+    resetPassword : "/auth/reset-password",
 
     verifyEmail : "/auth/verify-email",
 }

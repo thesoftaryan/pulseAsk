@@ -9,19 +9,16 @@ import type { OAuthProvider } from "../../../types/auth";
 import type { LoginFormData } from "../../../types/auth";
 
 // Toast
-import toast from "react-hot-toast";
+import { showToast } from "../../../utils/toast.util";
 
 export const loginHandler = async (data: LoginFormData) => {
     try {
         const response = await loginUserAPI(data);
         const parsedResponse = parseSuccessResponse(response);
-        // console.log("Parsed Response : ", parsedResponse);
-        toast.success(parsedResponse.message);
+        showToast.success(parsedResponse.message);
     } catch (error) {
-        // console.log(error);
         const parsedResponse = parseErrorResponse(error as AxiosError);
-        // console.log("Parsed Response : ", parsedResponse);
-        toast.error(parsedResponse.message);
+        showToast.error(parsedResponse.message);
     }
 }
 

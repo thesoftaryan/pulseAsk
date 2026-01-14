@@ -1,5 +1,5 @@
 import type { VerifyEmailFormData } from "../../../types/auth";
-import { isValidEmail } from "../../../utils/validationHelpers";
+import { isValidEmail } from "../../../utils/validationHelpers.util";
 
 export const verifyEmailValidator = (data : VerifyEmailFormData)=>{
     const errors : Record<string, string> = {};

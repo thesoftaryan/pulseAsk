@@ -1,4 +1,4 @@
-import { isStrongPassword } from "../../../utils/validationHelpers";
+import { isStrongPassword } from "../../../utils/validationHelpers.util";
 
 // Type
 import type { ResetPasswordFormData } from "../../../types/auth";

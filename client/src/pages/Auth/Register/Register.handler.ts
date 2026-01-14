@@ -5,17 +5,17 @@ import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiR
 import type { OAuthProvider, RegisterFormData } from "../../../types/auth";
 
 // Toast
-import toast from "react-hot-toast";
+import { showToast } from "../../../utils/toast.util";
 
 export const registerHandler = async (data : RegisterFormData) => {
     try{
         const response = await registerUserAPI(data);
         const parsedResponse = parseSuccessResponse(response);
-        toast.success(parsedResponse.message);
+        showToast.success(parsedResponse.message);
     }catch(error){
         // console.error("Error registering the user : ", error);
         const parsedResponse = parseErrorResponse(error);
-        toast.error(parsedResponse.message)
+        showToast.error(parsedResponse.message)
     }
 }
 

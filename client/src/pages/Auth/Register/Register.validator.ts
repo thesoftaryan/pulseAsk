@@ -1,4 +1,4 @@
-import { isValidName, isStrongPassword, isValidEmail } from "../../../utils/validationHelpers";
+import { isValidName, isStrongPassword, isValidEmail } from "../../../utils/validationHelpers.util";
 
 import type {RegisterFormData} from "../../../types/auth";
 

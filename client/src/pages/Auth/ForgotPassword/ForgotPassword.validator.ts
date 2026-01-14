@@ -1,5 +1,5 @@
 import type { ForgotPasswordFormData } from "../../../types/auth";
-import { isValidEmail } from "../../../utils/validationHelpers";
+import { isValidEmail } from "../../../utils/validationHelpers.util";
 
 export const forgotPasswordValidator = (data : ForgotPasswordFormData)=>{
     const errors : Record<string, string> = {};
