@@ -1,6 +1,6 @@
 // React
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 // Logical Parts
 import { resetPasswordValidator } from "./ResetPassword.validator";
@@ -17,8 +17,10 @@ import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react"
 
 // Stylesheet
 import ResetPasswordStyle from "./ResetPassword.module.css";
-import ErrorText from "../../../components/common/InlineError/InlineError";
 import InlineError from "../../../components/common/InlineError/InlineError";
+
+// Routes
+import { authRoutes } from "../../../routes/routesConstants";
 
 
 
@@ -54,13 +56,20 @@ function ResetPassword(){
                     </h1>
                     <GapBox className="gap-y-md"></GapBox>
 
-                    {errors.token && <InlineError message={errors.token}/>}
+                    {errors.token && 
+                    <>
+                    <div className={ResetPasswordStyle["token-error"]}>
+                        <InlineError message={errors.token}/>
+                        <Link to={authRoutes.forgotPassword}> Request new link</Link>
+                    </div>
+                    </>
+                    }
                     
                     <div className={ResetPasswordStyle["form"]}>
                         <InputField isError={errors.password?.length} type="password" placeholder="Enter New Password" onChange={(e)=>{setPassword(e.target.value)}}/>
-                        {errors.password && <ErrorText message={errors.password}/>}
+                        {errors.password && <InlineError message={errors.password}/>}
                         <InputField isError={errors.confirmPassword?.length} type="password" placeholder="Confirm Password" onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
-                        {errors.confirmPassword && <ErrorText message={errors.confirmPassword}/>}
+                        {errors.confirmPassword && <InlineError message={errors.confirmPassword}/>}
                         <GapBox className="gap-y-md"></GapBox>
                         <Button text="Reset password" onClick={handleReset}/>
                     </div>

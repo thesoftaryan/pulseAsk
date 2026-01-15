@@ -13,7 +13,6 @@ export const registerHandler = async (data : RegisterFormData) => {
         const parsedResponse = parseSuccessResponse(response);
         showToast.success(parsedResponse.message);
     }catch(error){
-        // console.error("Error registering the user : ", error);
         const parsedResponse = parseErrorResponse(error);
         showToast.error(parsedResponse.message)
     }

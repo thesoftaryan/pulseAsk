@@ -10,7 +10,8 @@ const baseStyle : ToastOptions = {
 
         background : color.colorLevel1Bg,
         color : color.colorText,
-    }
+    },
+    duration : 3000,
 };
 
 export const showToast = {

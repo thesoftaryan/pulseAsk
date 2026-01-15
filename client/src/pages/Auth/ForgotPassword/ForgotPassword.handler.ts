@@ -1,11 +1,22 @@
+// Backend Api
 import { forgotPasswordAPI } from "../../../api/auth.api";
+
+// Types
 import type { ForgotPasswordFormData } from "../../../types/auth";
+
+// Response parser
+import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
+
+// Toast
+import { showToast } from "../../../utils/toast.util";
 
 export const forgotPasswordHandler = async (data : ForgotPasswordFormData)=>{
     try{
         const response = await forgotPasswordAPI(data);
-        console.log("Forgot Password Response", response);
+        const parsedResponse = parseSuccessResponse(response);
+        showToast.success(parsedResponse.message);
     }catch(error){
-        console.error("Forgot Password Error: ",error);
+        const parsedResponse = parseErrorResponse(error);
+        showToast.error(parsedResponse.message);
     }
 }

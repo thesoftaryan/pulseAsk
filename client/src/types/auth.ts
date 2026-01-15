@@ -25,4 +25,5 @@ export interface ResetPasswordFormData{
 
 export interface VerifyEmailFormData{
     email : string;
+    status?: string;
 }

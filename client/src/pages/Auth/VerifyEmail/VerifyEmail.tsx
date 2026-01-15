@@ -12,13 +12,16 @@ import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 import InputField from "../../../components/common/InputField/InputField";
 import Button from "../../../components/common/Button/Button";
 import GapBox from "../../../components/common/GapBox/GapBox";
+import InlineError from "../../../components/common/InlineError/InlineError";
 import { verifyEmailValidator } from "./VerifyEmail.validator";
 import { verifyEmailHandler } from "./VerifyEmail.handler";
-import ErrorText from "../../../components/common/InlineError/InlineError";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { authRoutes } from "../../../routes/routesConstants";
 
 
 function VerifyEmail(){
+
+    const navigator = useNavigate();
 
     const [searchParams] = useSearchParams();
     const status = searchParams.get("status");
@@ -47,11 +50,14 @@ function VerifyEmail(){
             {
                 (!status || status!=="success")?  
                 <>
+                    <InlineError message="Invalid or expired link"/>
+                    <GapBox className="gap-y-md"/>
+
                     <h1 className={VerifyEmailStyle["heading"]}> Resend Verification Link</h1>
                     <GapBox className="gap-y-lg"/>
                     
                     <InputField placeholder="Enter your email" onChange={(e)=>{setEmail(e.target.value)}}/>
-                    {errors.email && <ErrorText message={errors.email}/>}
+                    {errors.email && <InlineError message={errors.email}/>}
                     <GapBox className="gap-y-md"/>
                     <Button text="Resend Link" onClick={handleVerifyEmail}/>
                 </>
@@ -59,7 +65,7 @@ function VerifyEmail(){
                 <>
                     <h2 className={VerifyEmailStyle["heading"]}> Email verification successfull, you can now login.</h2>
                     <GapBox className="gap-y-md"/>
-                    <Button text="Login" onClick={()=>{}}/>
+                    <Button text="Login" onClick={()=>{navigator(authRoutes.login)}}/>
                 </>
             }
             </div>

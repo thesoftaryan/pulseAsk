@@ -14,5 +14,5 @@
 
 .error-icon{
     height: var(--size-icon-sm);
-    width: var(--size-icon-sm);
+    /* width: var(--size-icon-sm); */
 }

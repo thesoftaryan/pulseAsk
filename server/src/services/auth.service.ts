@@ -84,7 +84,7 @@ export const loginUser = async (payload : LoginPayload) => {
     if(!user.emailVerified){
         throw new ApiError(
             STATUS.CLIENT_ERROR.UNAUTHORIZED,
-            "You need to verify your email to continue.",
+            "Verify your email to continue",
         )
     }
 

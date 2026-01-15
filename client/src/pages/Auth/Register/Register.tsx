@@ -19,7 +19,7 @@ import Button from "../../../components/common/Button/Button";
 import Divider from "../../../components/common/Divider/Divider";
 import SocialSignInCard from "../../../components/common/SocialSignInCard/SocialSignInCard";
 import GapBox from "../../../components/common/GapBox/GapBox";
-import ErrorText from "../../../components/common/InlineError/InlineError";
+import InlineError from "../../../components/common/InlineError/InlineError";
 
 // SVG Icons
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
@@ -99,21 +99,21 @@ function Register() {
                     <div className={RegisterStyle["name-input-container"]}>
                         <span>
                             <InputField name="firstName" placeholder="First Name" onChange={(e)=>{setFirstName(e.target.value)}} value={firstName} isError={errors.firstName?.length}/>
-                            {(errors.firstName?.length) && <ErrorText message={errors.firstName}/>}
+                            {(errors.firstName?.length) && <InlineError message={errors.firstName}/>}
                         </span>
                         <span>
                             <InputField name="lastName" placeholder="Last Name"  onChange={(e)=>{setLastName(e.target.value)}} value={lastName} isError={errors.lastName?.length}/>
-                            {(errors.lastName?.length) && <ErrorText message={errors.lastName}/>}
+                            {(errors.lastName?.length) && <InlineError message={errors.lastName}/>}
                         </span>
                     </div>
                     <InputField placeholder="Email" type="email"  onChange={(e)=>{setEmail(e.target.value)}} value={email} isError={errors.email?.length}/>
-                    {(errors.email?.length) && <ErrorText message={errors.email}/>}
+                    {(errors.email?.length) && <InlineError message={errors.email}/>}
 
                     <InputField placeholder="Password" type="password"  onChange={(e)=>{setPassword(e.target.value)}} value={password} isError={errors.password?.length}/>
-                    {(errors.password?.length) && <ErrorText message={errors.password}/>}
+                    {(errors.password?.length) && <InlineError message={errors.password}/>}
 
                     <CheckBox text={"Agree to"} linkText="Terms & Conditions" link=""  onChange={(e)=>{setAgreement(e.target.checked)}}  checked={agreement} isError={(!agreement && ("agreement" in errors))}/>
-                    {(!agreement && ("agreement" in errors)) && <ErrorText message={"You must agree to continue"}/>}
+                    {(!agreement && ("agreement" in errors)) && <InlineError message={"You must agree to continue"}/>}
 
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-md"} />

@@ -8,7 +8,7 @@ import type { ForgotPasswordFormData } from "../../../types/auth";
 import InputField from "../../../components/common/InputField/InputField";
 import Button from "../../../components/common/Button/Button";
 import GapBox from "../../../components/common/GapBox/GapBox";
-import ErrorText from "../../../components/common/InlineError/InlineError";
+import InlineError from "../../../components/common/InlineError/InlineError";
 
 // Images
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg"
@@ -49,7 +49,7 @@ function ForgotPassword(){
                     
                     <div className={ForgotPasswordStyle["form"]}>
                         <InputField isError={errors.email?.length} placeholder="Email Address" type="email" onChange={(e)=>{setEmail(e.target.value)}}/>
-                        {errors.email?.length && <ErrorText message={errors.email}/>}
+                        {errors.email?.length && <InlineError message={errors.email}/>}
                         <GapBox className="gap-y-md"></GapBox>
                         <Button text="Send Link" onClick={handleForgotPassword}/>
                     </div>
