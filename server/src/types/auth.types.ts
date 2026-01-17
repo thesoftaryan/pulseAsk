@@ -1,6 +1,11 @@
+export interface RefreshTokenPayload{
+    refresh_token : string;
+}
+
 export interface LoginPayload{
     email : string;
     password : string;
+    rememberMe : boolean;
 }
 
 export interface RegisterPayload{

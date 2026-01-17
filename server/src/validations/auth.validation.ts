@@ -14,15 +14,15 @@ export const validateRegister = (body : RegisterPayload) => {
     if(!isValidName(firstName)){
         errors.firstName = "Invalid First Name";
     }
-    if(!isValidName(lastName)){
+    else if(!isValidName(lastName)){
         errors.lastName = "Invalid Last Name";
     }
 
-    if(!isValidEmail(email)){
+    else if(!isValidEmail(email)){
         errors.email = "Invalid Email";
     }
 
-    if(!isStrongPassword(password)){
+    else if(!isStrongPassword(password)){
         errors.password = "Invalid Password";
     }
     
@@ -37,14 +37,20 @@ export const validateLogin = (body : LoginPayload) => {
         return errors;
     }
 
-    const {email, password} = body;
+    const {email, password, rememberMe} = body;
+
+    console.log("Login remember : ", rememberMe);
 
     if(!isValidEmail(email)){
         errors.email = "Invalid email";
     }
 
-    if(!isStrongPassword(password)){
+    else if(!isStrongPassword(password)){
         errors.password = "Invalid password";
+    }
+
+    else if(rememberMe===undefined){
+        errors.rememberMe = "RememberMe is required2";
     }
     
     return errors;

@@ -6,8 +6,10 @@ dotenv.config();
 //   throw new Error("JWT_SECRET is not defined");
 // }
 const requiredEnvVars = [
-    "JWT_SECRET",
-    "JWT_EXPIRES_IN",
+    "JWT_ACCESS_TOKEN_SECRET",
+    "JWT_ACCESS_TOKEN_EXPIRES_IN",
+    "JWT_REFRESH_TOKEN_SECRET",
+    "JWT_REFRESH_TOKEN_EXPIRES_IN",
     "MONGO_URI",
 ];
 

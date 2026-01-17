@@ -2,15 +2,26 @@ import bcrypt from "bcrypt";
 import { User } from "../models/User.model";
 import { ApiError, RedirectError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
-import { redirectResponse } from "../utils/response.util";
 
 // Verification Part
 import { generateRandomToken } from "../utils/token.util";
 
 // importing types of Payload
-import { ForgotPasswordPayload, LoginPayload, RegisterPayload, ResetPasswordPayload, VerifyEmailPayload } from "../types/auth.types";
+import { ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPayload, ResetPasswordPayload, VerifyEmailPayload } from "../types/auth.types";
 import { generateHash } from "../utils/hash.util";
+import { signToken, verifyToken } from "../utils/jwt.util";
 
+
+/**
+ * Refresh Token Service for pulseAsk
+ * @param payload of type RefreshTokenPayload
+ * @returns new access token
+ */
+export const refreshTokenService = async (payload : RefreshTokenPayload)=>{
+    const data = verifyToken(payload.refresh_token,"refresh") as Object;
+    const newAccessToken = signToken(data, "access");
+    return newAccessToken;
+}
 
 /**
  * Register Service for pulseAsk

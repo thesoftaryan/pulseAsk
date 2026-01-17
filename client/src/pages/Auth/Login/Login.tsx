@@ -43,10 +43,11 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState<Partial<LoginFormData>>({});
 
     const handleLogin = ()=>{
-        const data : LoginFormData = {email, password};
+        const data : LoginFormData = {email, password, rememberMe};
         const validation = loginFormValidator(data);
         setError(validation);
 
@@ -96,7 +97,7 @@ function Login() {
                     {(error.email?.length) && <InlineError message={error.email}/>}
                     <InputField name="password" placeholder="Password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value);}} isError={error.password?.length}/>
                     {(error.password?.length) && <InlineError message={error.password}/>}
-                    <CheckBox text={"Remember me"}></CheckBox>
+                    <CheckBox text={"Remember me"} onChange={(e)=>{setRememberMe(e.target.checked)}}/>
 
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-medium"} />

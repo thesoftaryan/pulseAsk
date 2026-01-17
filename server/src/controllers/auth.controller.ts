@@ -8,10 +8,10 @@ import { STATUS } from "../constants/statusCodes";
 import { errorResponse, successResponse, redirectResponse} from "../utils/response.util"
 
 // Types
-import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload, VerifyEmailPayload } from "../types/auth.types";
+import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload, VerifyEmailPayload, RefreshTokenPayload } from "../types/auth.types";
 
 // Auth Services
-import { forgotPassword, loginUser, registerUser, resendEmailVerificationLink, resetPassword, verifyEmail } from "../services/auth.service";
+import { forgotPassword, loginUser, refreshTokenService, registerUser, resendEmailVerificationLink, resetPassword, verifyEmail } from "../services/auth.service";
 import { signToken } from "../utils/jwt.util";
 import { User } from "../models/User.model";
 
@@ -69,7 +69,7 @@ export const googleOAuthCallbackController = async (req : Request, res : Respons
     const token = signToken({
         uid : user._id,
         email: user.email,
-    });
+    }, "access");
 
     return res
     .cookie("access_token", token, {
@@ -78,7 +78,7 @@ export const googleOAuthCallbackController = async (req : Request, res : Respons
         sameSite: "strict",
     })
     .redirect(`${process.env.CLIENT_URL}/home`);
-}
+};
 
 export const googleOAuthController = (req:Request, res : Response)=>{
     const params = new URLSearchParams({
@@ -91,33 +91,27 @@ export const googleOAuthController = (req:Request, res : Response)=>{
     });
     const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
     return redirectResponse(res, googleAuthURL);
-}
+};
 
-export const emailVerificationController = async (req : Request, res : Response)=>{
-    const {token} = req.query;
 
-    await verifyEmail(token);
-
-    return redirectResponse(
-        res,
-        `${process.env.CLIENT_URL}/auth/verify-email?status=success`,
-    );
-
-}
-
-export const verifyEmailController = async (req:Request, res:Response)=>{
-    const data = req.body as VerifyEmailPayload;
-
-    const token = await resendEmailVerificationLink(data);
-
-    sendVerificationMail(data.email, token);
-
+export const refreshTokenController = async (req : Request, res : Response)=>{
+    // Presence of refreshToken is already verified in the auth validator middleware
+    const refreshToken = req.cookies?.refresh_token as RefreshTokenPayload;
+    const newAccessToken = refreshTokenService(refreshToken);
+    res.cookie("access_token", newAccessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        // 15 minutes (in milliseconds)
+        maxAge: 15 * 60 * 1000,
+    });
+    
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
-        "If account exists, a verification link has been sent.",
+        "Access token refreshed",
     );
-}
+};
 
 export const registerController = async (req: Request, res: Response)=>{
     // This will just print [object, object] because when using
@@ -126,15 +120,15 @@ export const registerController = async (req: Request, res: Response)=>{
     // console.log(`Data received for register : ${req.body}`);
     // Correct :
     // console.log("Data received for register : ", req.body);
-
+    
     const payload = req.body as RegisterPayload;
-
+    
     const {user, rawToken} = await registerUser(payload);
-
+    
     sendVerificationMail(user.email, rawToken);
-
+    
     console.log(user);
-
+    
     return successResponse(
         res,
         STATUS.SUCCESS.CREATED,
@@ -147,25 +141,35 @@ export const loginController = async (req: Request, res: Response)=>{
     const payload = req.body as LoginPayload;
     
     const user = await loginUser(payload);
-
+    
     // console.log(user);
-
+    
     const tokenPayload = {
         uid : user._id,
         email: user.email,
     }
-
-    const token = signToken(tokenPayload);
-
-    res.cookie("access_token", token, {
+    
+    const accessToken = signToken(tokenPayload, "access");
+    const refreshToken = signToken(tokenPayload, "refresh");
+    
+    res.cookie("access_token", accessToken, {
         httpOnly:true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
-        // 14 days (in milliseconds)
-        maxAge: 14 * 24 * 60 * 60 * 1000,
+        // 15 minutes (in milliseconds)
+        maxAge: 15 * 60 * 1000,
     });
-
-
+    
+    res.cookie("refresh_token", refreshToken, {
+        httpOnly : true,
+        secure : process.env.NODE_ENV==="production",
+        sameSite: "strict",
+        // 30 days (in milliseconds)
+        // undefined is used to create a session cookie
+        maxAge : payload.rememberMe? 30*24*60*60*1000 : undefined,
+    });
+    
+    
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
@@ -177,7 +181,7 @@ export const loginController = async (req: Request, res: Response)=>{
             lastName : user.lastName,
         }
     );
-}
+};
 
 export const logoutController = (req : Request, res : Response)=>{
     res.clearCookie("access_token");
@@ -186,27 +190,54 @@ export const logoutController = (req : Request, res : Response)=>{
         STATUS.SUCCESS.OK,
         "Logged out successfully",
     );
-}
+};
+
+
+export const resendEmailVerificationLinkController = async (req:Request, res:Response)=>{
+    const data = req.body as VerifyEmailPayload;
+    
+    const token = await resendEmailVerificationLink(data);
+    
+    sendVerificationMail(data.email, token);
+    
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "If account exists, a verification link has been sent.",
+    );
+};
+
+export const emailVerificationController = async (req : Request, res : Response)=>{
+    const {token} = req.query;
+
+    await verifyEmail(token);
+
+    return redirectResponse(
+        res,
+        `${process.env.CLIENT_URL}/auth/verify-email?status=success`,
+    );
+
+};
 
 export const forgotPasswordController = async (req : Request, res : Response) => {
     
     const data = req.body as ForgotPasswordPayload;
     
     const token = await forgotPassword(data);
-
+    
     sendResetPasswordMail(data.email, token);
-
+    
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "If account exists, a reset link has been sent.",
     );
-}
+};
 
 export const resetPasswordController = async (req : Request, res : Response) => {
     
     const data = req.body as ResetPasswordPayload;
-
+    
     await resetPassword(data);
     
     return successResponse(
@@ -214,4 +245,4 @@ export const resetPasswordController = async (req : Request, res : Response) => 
         STATUS.SUCCESS.OK,
         "Password changed successfully",
     )
-}
+};

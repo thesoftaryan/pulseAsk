@@ -1,7 +1,7 @@
-import type { VerifyEmailFormData } from "../../../types/auth";
+import type { ResendVerificationEmailFormData } from "../../../types/auth";
 import { isValidEmail } from "../../../utils/validationHelpers.util";
 
-export const verifyEmailValidator = (data : VerifyEmailFormData)=>{
+export const verifyEmailValidator = (data : ResendVerificationEmailFormData)=>{
     const errors : Record<string, string> = {};
 
     const {email} = data;

@@ -1,23 +1,13 @@
-import type { ForgotPasswordFormData, ResetPasswordFormData, VerifyEmailFormData } from "../types/auth";
+import type { RegisterFormData, LoginFormData, ForgotPasswordFormData, ResetPasswordFormData, ResendVerificationEmailFormData } from "../types/auth";
 import api from "./axios";
 
-interface RegisterData{
-    firstName : string;
-    lastName : string;
-    email : string;
-    password : string;
-}
 
-interface LoginData{
-    email : string;
-    password : string;
-}
 
-export const registerUserAPI = ( data : RegisterData) => {
+export const registerUserAPI = ( data : RegisterFormData) => {
     return api.post("/auth/register", data);
 }
 
-export const loginUserAPI = ( data : LoginData )=>{
+export const loginUserAPI = ( data : LoginFormData )=>{
     return api.post("/auth/login", data);
 }
 
@@ -33,6 +23,6 @@ export const resetPasswordAPI = (data : ResetPasswordFormData)=>{
     return api.post("/auth/reset-password", {password: data.password, token: data.token});
 }
 
-export const verifyEmailAPI = (data : VerifyEmailFormData) => {
-    return api.post("/auth/verify-email", data);
+export const verifyEmailAPI = (data : ResendVerificationEmailFormData) => {
+    return api.post("/auth/resend-verification-email", data);
 }
