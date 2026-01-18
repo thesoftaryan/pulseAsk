@@ -8,7 +8,7 @@ import { STATUS } from "../constants/statusCodes";
 import { errorResponse, successResponse, redirectResponse} from "../utils/response.util"
 
 // Types
-import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload, VerifyEmailPayload, RefreshTokenPayload } from "../types/auth.types";
+import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload, VerifyEmailPayload, RefreshTokenPayload, TokenData } from "../types/auth.types";
 
 // Auth Services
 import { forgotPassword, loginUser, refreshTokenService, registerUser, resendEmailVerificationLink, resetPassword, verifyEmail } from "../services/auth.service";
@@ -66,16 +66,24 @@ export const googleOAuthCallbackController = async (req : Request, res : Respons
         });
     }
 
-    const token = signToken({
+    const tokenPayload = {
         uid : user._id,
-        email: user.email,
-    }, "access");
+        email : user.email,
+    } as TokenData;
+
+    const accessToken = signToken(tokenPayload, "access");
+    const refreshToken = signToken(tokenPayload, "refresh");
 
     return res
-    .cookie("access_token", token, {
+    .cookie("access_token", accessToken, {
         httpOnly:true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
+    })
+    .cookie("refresh_token", refreshToken, {
+        httpOnly : true,
+        secure : process.env.NODE_ENV === "production",
+        sameSite : "strict",
     })
     .redirect(`${process.env.CLIENT_URL}/home`);
 };
@@ -95,9 +103,15 @@ export const googleOAuthController = (req:Request, res : Response)=>{
 
 
 export const refreshTokenController = async (req : Request, res : Response)=>{
-    // Presence of refreshToken is already verified in the auth validator middleware
-    const refreshToken = req.cookies?.refresh_token as RefreshTokenPayload;
-    const newAccessToken = refreshTokenService(refreshToken);
+    const refreshToken = req.cookies?.refresh_token;
+    if(!refreshToken){
+        return errorResponse(
+            res,
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            "Refresh token is required",
+        );
+    }
+    const newAccessToken = await refreshTokenService({refresh_token : refreshToken});
     res.cookie("access_token", newAccessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -147,7 +161,7 @@ export const loginController = async (req: Request, res: Response)=>{
     const tokenPayload = {
         uid : user._id,
         email: user.email,
-    }
+    } as TokenData;
     
     const accessToken = signToken(tokenPayload, "access");
     const refreshToken = signToken(tokenPayload, "refresh");
@@ -166,7 +180,7 @@ export const loginController = async (req: Request, res: Response)=>{
         sameSite: "strict",
         // 30 days (in milliseconds)
         // undefined is used to create a session cookie
-        maxAge : payload.rememberMe? 30*24*60*60*1000 : undefined,
+        maxAge : payload.remember_me? 30*24*60*60*1000 : undefined,
     });
     
     
@@ -185,10 +199,15 @@ export const loginController = async (req: Request, res: Response)=>{
 
 export const logoutController = (req : Request, res : Response)=>{
     res.clearCookie("access_token");
+    res.clearCookie("refresh_token");
+    // return redirectResponse(
+    //     res,
+    //     `${process.env.CLIENT_URL}/auth/login`
+    // );
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
-        "Logged out successfully",
+        "Logout successful",
     );
 };
 

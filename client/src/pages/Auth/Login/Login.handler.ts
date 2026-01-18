@@ -11,11 +11,12 @@ import type { LoginFormData } from "../../../types/auth";
 // Toast
 import { showToast } from "../../../utils/toast.util";
 
-export const loginHandler = async (data: LoginFormData) => {
+export const loginHandler = async (data: LoginFormData, onSuccess?: ()=>void) => {
     try {
         const response = await loginUserAPI(data);
         const parsedResponse = parseSuccessResponse(response);
         showToast.success(parsedResponse.message);
+        onSuccess?.();
     } catch (error) {
         const parsedResponse = parseErrorResponse(error as AxiosError);
         showToast.error(parsedResponse.message);

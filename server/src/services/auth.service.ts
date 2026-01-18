@@ -7,7 +7,7 @@ import { STATUS } from "../constants/statusCodes";
 import { generateRandomToken } from "../utils/token.util";
 
 // importing types of Payload
-import { ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPayload, ResetPasswordPayload, VerifyEmailPayload } from "../types/auth.types";
+import { ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPayload, ResetPasswordPayload, TokenData, VerifyEmailPayload } from "../types/auth.types";
 import { generateHash } from "../utils/hash.util";
 import { signToken, verifyToken } from "../utils/jwt.util";
 
@@ -18,9 +18,22 @@ import { signToken, verifyToken } from "../utils/jwt.util";
  * @returns new access token
  */
 export const refreshTokenService = async (payload : RefreshTokenPayload)=>{
-    const data = verifyToken(payload.refresh_token,"refresh") as Object;
-    const newAccessToken = signToken(data, "access");
-    return newAccessToken;
+    try{
+        // console.log("payload.refresh_token : ",payload.refresh_token);
+        const data = verifyToken(payload.refresh_token,"refresh") as TokenData;
+        const tokenPayload = {
+            uid : data.uid,
+            email : data.email,
+        };
+        const newAccessToken = signToken(tokenPayload, "access");
+        return newAccessToken;
+    }catch(error){
+        // console.error("refresh error : ", error);
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.UNAUTHORIZED,
+            "Refresh token invalid or expired",
+        );
+    }
 }
 
 /**
@@ -29,7 +42,9 @@ export const refreshTokenService = async (payload : RefreshTokenPayload)=>{
  * @returns user : User Model -> Newly created user
  */
 export const registerUser = async (payload : RegisterPayload) => {
-    const {firstName, lastName, email, password} = payload;
+    const {email, password} = payload;
+    const firstName = payload.first_name;
+    const lastName = payload.last_name;
 
     const userCheck = await User.findOne({email});
 

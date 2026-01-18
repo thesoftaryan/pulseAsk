@@ -3,12 +3,12 @@ export type OAuthProvider = "google";
 export interface LoginFormData{
     email:string;
     password:string;
-    rememberMe : boolean;
+    remember_me : boolean;
 }
 
 export interface RegisterFormData{
-    firstName:string;
-    lastName:string;
+    first_name:string;
+    last_name:string;
     email:string;
     password:string;
     agreement:boolean;
@@ -20,7 +20,7 @@ export interface ForgotPasswordFormData{
 
 export interface ResetPasswordFormData{
     password : string;
-    confirmPassword? : string;
+    confirm_password? : string;
     token : string|null;
 }
 

@@ -7,3 +7,7 @@ export const authRoutes = {
 
     verifyEmail : "/auth/verify-email",
 }
+
+export const homeRoutes = {
+    home : "/home",
+}

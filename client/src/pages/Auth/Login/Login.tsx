@@ -1,9 +1,9 @@
 // React Router
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 
 // Routes
-import { authRoutes } from "../../../routes/routesConstants";
+import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
 
 // Logical Parts
 import { loginFormValidator } from "./Login.validator";
@@ -37,6 +37,7 @@ import LoginStyle from "./Login.module.css";
 
 function Login() {
     
+    const navigate = useNavigate();
 
     // {**************** Validation of input : start ******************}
 
@@ -46,13 +47,13 @@ function Login() {
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState<Partial<LoginFormData>>({});
 
-    const handleLogin = ()=>{
-        const data : LoginFormData = {email, password, rememberMe};
+    const handleLogin =async ()=>{
+        const data : LoginFormData = {email, password, remember_me : rememberMe};
         const validation = loginFormValidator(data);
         setError(validation);
 
         if(Object.keys(validation).length === 0){
-            loginHandler(data);
+            await loginHandler(data, ()=>{navigate(homeRoutes.home, {replace:true});});
         }
 
     }

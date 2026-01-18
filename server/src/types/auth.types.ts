@@ -1,16 +1,23 @@
+import { Types } from "mongoose";
+
 export interface RefreshTokenPayload{
     refresh_token : string;
+}
+
+export interface TokenData{
+    uid : Types.ObjectId;
+    email : string;
 }
 
 export interface LoginPayload{
     email : string;
     password : string;
-    rememberMe : boolean;
+    remember_me : boolean;
 }
 
 export interface RegisterPayload{
-    firstName : string;
-    lastName : string;
+    first_name : string;
+    last_name : string;
     email : string;
     password : string;
 }

@@ -68,8 +68,8 @@ function ResetPassword(){
                     <div className={ResetPasswordStyle["form"]}>
                         <InputField isError={errors.password?.length} type="password" placeholder="Enter New Password" onChange={(e)=>{setPassword(e.target.value)}}/>
                         {errors.password && <InlineError message={errors.password}/>}
-                        <InputField isError={errors.confirmPassword?.length} type="password" placeholder="Confirm Password" onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
-                        {errors.confirmPassword && <InlineError message={errors.confirmPassword}/>}
+                        <InputField isError={errors.confirm_password?.length} type="password" placeholder="Confirm Password" onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
+                        {errors.confirm_password && <InlineError message={errors.confirm_password}/>}
                         <GapBox className="gap-y-md"></GapBox>
                         <Button text="Reset password" onClick={handleReset}/>
                     </div>

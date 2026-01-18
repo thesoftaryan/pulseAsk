@@ -11,6 +11,10 @@ export const loginUserAPI = ( data : LoginFormData )=>{
     return api.post("/auth/login", data);
 }
 
+export const logoutUserAPI = ()=>{
+    return api.post("/auth/logout");
+}
+
 export const socialSignInAPI = (provider : "google")=>{
     window.location.href = `${import.meta.env.VITE_API_URL}/auth/${provider}`;
 }

@@ -1,4 +1,4 @@
-import {ForgotPasswordPayload, LoginPayload, RegisterPayload, ResetPasswordPayload, VerifyEmailPayload} from "../types/auth.types";
+import {ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPayload, ResetPasswordPayload, VerifyEmailPayload} from "../types/auth.types";
 import { isValidName, isValidEmail, isStrongPassword } from "../utils/validation.util";
 
 export const validateRegister = (body : RegisterPayload) => {
@@ -9,7 +9,10 @@ export const validateRegister = (body : RegisterPayload) => {
         return errors;
     }
 
-    const {firstName, lastName, email, password}  = body;
+    const firstName = body.first_name;
+    const lastName = body.last_name;
+    const email = body.email;
+    const password = body.password;
 
     if(!isValidName(firstName)){
         errors.firstName = "Invalid First Name";
@@ -37,9 +40,10 @@ export const validateLogin = (body : LoginPayload) => {
         return errors;
     }
 
-    const {email, password, rememberMe} = body;
+    const {email, password} = body;
+    const rememberMe = body.remember_me;
 
-    console.log("Login remember : ", rememberMe);
+    // console.log("Login remember : ", rememberMe);
 
     if(!isValidEmail(email)){
         errors.email = "Invalid email";
@@ -50,7 +54,7 @@ export const validateLogin = (body : LoginPayload) => {
     }
 
     else if(rememberMe===undefined){
-        errors.rememberMe = "RememberMe is required2";
+        errors.rememberMe = "Remember me is required";
     }
     
     return errors;
