@@ -1,7 +1,6 @@
-import { socialSignInAPI } from "../../../api/auth.api";
-
 // Service
 import { loginService } from "../../../services/auth/login.service";
+import { socialSignInService } from "../../../services/auth/socialSignIn.service";
 
 // Types
 import type { OAuthProvider } from "../../../types/auth";
@@ -21,5 +20,5 @@ export const loginHandler = async (data: LoginFormData, onSuccess?: ()=>void) =>
 }
 
 export const socialLoginHandler = (provider: OAuthProvider) => {
-    socialSignInAPI(provider);
+    socialSignInService(provider);
 }

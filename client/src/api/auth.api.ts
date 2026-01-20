@@ -16,7 +16,7 @@ export const logoutUserAPI = ()=>{
 }
 
 export const socialSignInAPI = (provider : "google")=>{
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/${provider}`;
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/${provider}`;
 }
 
 export const forgotPasswordAPI = (data : ForgotPasswordFormData) => {

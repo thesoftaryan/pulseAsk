@@ -79,11 +79,16 @@ export const googleOAuthCallbackController = async (req : Request, res : Respons
         httpOnly:true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
+        // 15 minutes (in milliseconds)
+        maxAge: 15 * 60 * 1000,
     })
     .cookie("refresh_token", refreshToken, {
         httpOnly : true,
         secure : process.env.NODE_ENV === "production",
         sameSite : "strict",
+        // 30 days (in milliseconds)
+        // undefined is used to create a session cookie
+        maxAge : 30*24*60*60*1000,
     })
     .redirect(`${process.env.CLIENT_URL}/home`);
 };

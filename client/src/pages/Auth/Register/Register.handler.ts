@@ -1,5 +1,5 @@
-import { socialSignInAPI } from "../../../api/auth.api";
 import { registerService } from "../../../services/auth/register.service";
+import { socialSignInService } from "../../../services/auth/socialSignIn.service";
 
 // Types
 import type { OAuthProvider, RegisterFormData } from "../../../types/auth";
@@ -17,5 +17,5 @@ export const registerHandler = async (data : RegisterFormData) => {
 }
 
 export const socialRegisterHandler = (provider : OAuthProvider)=>{
-    socialSignInAPI(provider);
+    socialSignInService(provider);
 }
