@@ -58,8 +58,6 @@ function Login() {
 
     }
 
-
-
     // {**************** Validation of input : End   ******************}
 
 

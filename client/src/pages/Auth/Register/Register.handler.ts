@@ -1,5 +1,5 @@
-import { registerUserAPI, socialSignInAPI } from "../../../api/auth.api";
-import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
+import { socialSignInAPI } from "../../../api/auth.api";
+import { registerService } from "../../../services/auth/register.service";
 
 // Types
 import type { OAuthProvider, RegisterFormData } from "../../../types/auth";
@@ -8,13 +8,11 @@ import type { OAuthProvider, RegisterFormData } from "../../../types/auth";
 import { showToast } from "../../../utils/toast.util";
 
 export const registerHandler = async (data : RegisterFormData) => {
-    try{
-        const response = await registerUserAPI(data);
-        const parsedResponse = parseSuccessResponse(response);
-        showToast.success(parsedResponse.message);
-    }catch(error){
-        const parsedResponse = parseErrorResponse(error);
-        showToast.error(parsedResponse.message)
+    const response = await registerService(data);
+    if(response.success){
+        showToast.success(response.message);
+    }else{
+        showToast.error(response.message)
     }
 }
 

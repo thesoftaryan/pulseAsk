@@ -1,5 +1,4 @@
 import { logoutUserAPI } from "../../api/auth.api";
-import { authRoutes } from "../../routes/routesConstants";
 
 export const Home = ()=>{
     
@@ -8,7 +7,7 @@ export const Home = ()=>{
             await logoutUserAPI();
             window.location.href = "http://localhost:5173/auth/login";
         }catch(error){
-            console.log("logout failed", error);
+            console.log("logout : ", error);
         }
     }
 

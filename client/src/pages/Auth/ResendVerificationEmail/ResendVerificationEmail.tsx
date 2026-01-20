@@ -14,7 +14,7 @@ import Button from "../../../components/common/Button/Button";
 import GapBox from "../../../components/common/GapBox/GapBox";
 import InlineError from "../../../components/common/InlineError/InlineError";
 import { verifyEmailValidator } from "./ResendVerificationEmail.validator";
-import { verifyEmailHandler } from "./ResendVerificationEmail.handler";
+import { resendVerificationEmailHandler } from "./ResendVerificationEmail.handler";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { authRoutes } from "../../../routes/routesConstants";
 
@@ -36,7 +36,7 @@ function ResendVerificationEmail(){
         setErrors(error);
 
         if(Object.keys(error).length === 0){
-            verifyEmailHandler(data);
+            resendVerificationEmailHandler(data);
         }
     }
 

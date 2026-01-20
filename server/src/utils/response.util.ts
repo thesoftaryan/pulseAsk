@@ -21,13 +21,13 @@ export const errorResponse = <T>(
     res : Response,
     statusCode : number,
     message : string,
-    error?: {
+    meta?: {
         code? : string,
         details? : string,
     },
 ) => {
-    if(!error){
-        error = {
+    if(!meta){
+        meta = {
             code: statusCode.toString(),
             details : message,
         }
@@ -35,7 +35,7 @@ export const errorResponse = <T>(
     return res.status(statusCode).json({
         success : false,
         message,
-        error,
+        meta,
     });
 };
 

@@ -1,13 +1,6 @@
-export interface ApiError{
+export interface ApiResponse<T>{
+    success : boolean,
     message : string,
-    error?:{
-        code : string,
-        details : string,
-    }
-}
-
-export interface ApiSuccess<T>{
-    message : string,
-    data? : T,
-    meta? : Record<string, string>,
+    data ? : T,
+    meta ? : Record<string, string>
 }

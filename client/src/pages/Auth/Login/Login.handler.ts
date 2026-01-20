@@ -1,8 +1,7 @@
-import type { AxiosError } from "axios";
-import { loginUserAPI, socialSignInAPI } from "../../../api/auth.api";
+import { socialSignInAPI } from "../../../api/auth.api";
 
-// Response Parse
-import { parseSuccessResponse, parseErrorResponse } from "../../../services/apiResponseParser.service";
+// Service
+import { loginService } from "../../../services/auth/login.service";
 
 // Types
 import type { OAuthProvider } from "../../../types/auth";
@@ -12,14 +11,12 @@ import type { LoginFormData } from "../../../types/auth";
 import { showToast } from "../../../utils/toast.util";
 
 export const loginHandler = async (data: LoginFormData, onSuccess?: ()=>void) => {
-    try {
-        const response = await loginUserAPI(data);
-        const parsedResponse = parseSuccessResponse(response);
-        showToast.success(parsedResponse.message);
+    const response = await loginService(data);
+    if(response.success) {
+        showToast.success(response.message);
         onSuccess?.();
-    } catch (error) {
-        const parsedResponse = parseErrorResponse(error as AxiosError);
-        showToast.error(parsedResponse.message);
+    } else{
+        showToast.error(response.message);
     }
 }
 

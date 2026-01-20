@@ -1,23 +1,18 @@
-// Backend Api
-import { verifyEmailAPI } from "../../../api/auth.api";
+// Backend Service
+import { resendVerificationEmailService } from "../../../services/auth/resendVerificationEmail.service";
 
 // Types
-import type { VerifyEmailFormData } from "../../../types/auth";
-
-// Reponse Parser
-import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
+import type { ResendVerificationEmailFormData } from "../../../types/auth";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";
 
 
-export const verifyEmailHandler = async (data : VerifyEmailFormData)=>{
-    try{
-        const response = await verifyEmailAPI(data);
-        const parsedResponse = parseSuccessResponse(response);
-        showToast.success(parsedResponse.message);
-    }catch(error){
-        const parsedResponse = parseErrorResponse(error);
-        showToast.error(parsedResponse.message);
+export const resendVerificationEmailHandler = async (data : ResendVerificationEmailFormData)=>{
+    const response = await resendVerificationEmailService(data);
+    if(response.success){
+        showToast.success(response.message);
+    }else{
+        showToast.error(response.message);
     }
 }

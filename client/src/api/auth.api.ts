@@ -27,6 +27,6 @@ export const resetPasswordAPI = (data : ResetPasswordFormData)=>{
     return api.post("/auth/reset-password", {password: data.password, token: data.token});
 }
 
-export const verifyEmailAPI = (data : ResendVerificationEmailFormData) => {
+export const resendVerificationEmailAPI = (data : ResendVerificationEmailFormData) => {
     return api.post("/auth/resend-verification-email", data);
 }
