@@ -7,7 +7,6 @@ import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
 
 // Logical Parts
 import { loginFormValidator } from "./Login.validator";
-import {loginHandler, socialLoginHandler} from "./Login.handler";
 // Types
 import type { LoginFormData } from "../../../types/auth.types";
 
@@ -33,14 +32,17 @@ import BannerImageLight from "../../../assets/images/Authentication/banner-light
 
 // Style
 import LoginStyle from "./Login.module.css";
+import { useLoginHandler } from "./Login.handler";
 
 
 function Login() {
     
     const navigate = useNavigate();
 
-    // {**************** Validation of input : start ******************}
+    
 
+    // {**************** Logical Part : start ******************}
+    const {loginHandler, socialLoginHandler} = useLoginHandler();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -58,7 +60,7 @@ function Login() {
 
     }
 
-    // {**************** Validation of input : End   ******************}
+    // {**************** Logical Part : End   ******************}
 
 
 

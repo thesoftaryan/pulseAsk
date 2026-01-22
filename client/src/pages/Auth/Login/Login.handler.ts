@@ -1,5 +1,7 @@
+import { loginUserThunk } from "../../../store/auth/thunks/login.thunk";
+import { useAppDispatch } from "../../../hooks/store.hooks";
+
 // Service
-import { loginService } from "../../../services/auth/login.service";
 import { socialSignInService } from "../../../services/auth/socialSignIn.service";
 
 // Types
@@ -9,16 +11,26 @@ import type { LoginFormData } from "../../../types/auth.types";
 // Toast
 import { showToast } from "../../../utils/toast.util";
 
-export const loginHandler = async (data: LoginFormData, onSuccess?: ()=>void) => {
-    const response = await loginService(data);
-    if(response.success) {
-        showToast.success(response.message);
-        onSuccess?.();
-    } else{
-        showToast.error(response.message);
-    }
-}
+export const useLoginHandler = ()=>{
+    const dispatch = useAppDispatch();
 
-export const socialLoginHandler = (provider: OAuthProvider) => {
-    socialSignInService(provider);
+    const loginHandler = async (data: LoginFormData, onSuccess?: ()=>void) => {
+        try{
+            await dispatch(loginUserThunk(data)).unwrap();
+            showToast.success("Login successful");
+            onSuccess?.();
+        }catch(error : any){
+            showToast.error(error?.message ?? "Something went wrong");
+        }
+
+    }
+
+    const socialLoginHandler = (provider: OAuthProvider) => {
+        socialSignInService(provider);
+    }
+
+    return {
+        loginHandler,
+        socialLoginHandler,
+    }
 }
