@@ -1,7 +1,7 @@
 // Backend Service
 import { resetPasswordService } from "../../../services/auth/resetPassword.service";
 // Types
-import type { ResetPasswordFormData } from "../../../types/auth";
+import type { ResetPasswordFormData } from "../../../types/auth.types";
 // Toast
 import { showToast } from "../../../utils/toast.util";
 

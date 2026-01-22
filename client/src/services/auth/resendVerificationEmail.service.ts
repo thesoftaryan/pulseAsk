@@ -1,6 +1,6 @@
 import { resendVerificationEmailAPI } from "../../api/auth.api";
-import type { ApiResponse } from "../../types/apiResponse";
-import type { ResendVerificationEmailFormData } from "../../types/auth";
+import type { ApiResponse } from "../../types/apiResponse.types";
+import type { ResendVerificationEmailFormData } from "../../types/auth.types";
 import { parseErrorResponse, parseSuccessResponse } from "../apiResponseParser.service";
 
 export const resendVerificationEmailService = async (data : ResendVerificationEmailFormData) : Promise<ApiResponse<unknown>> =>{

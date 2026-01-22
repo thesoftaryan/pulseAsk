@@ -1,6 +1,6 @@
 import { forgotPasswordAPI } from "../../api/auth.api";
-import type { ApiResponse } from "../../types/apiResponse";
-import type { ForgotPasswordFormData } from "../../types/auth";
+import type { ApiResponse } from "../../types/apiResponse.types";
+import type { ForgotPasswordFormData } from "../../types/auth.types";
 import { parseErrorResponse, parseSuccessResponse } from "../apiResponseParser.service";
 
 

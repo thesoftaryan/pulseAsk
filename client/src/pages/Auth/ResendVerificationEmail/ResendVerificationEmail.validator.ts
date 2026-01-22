@@ -1,4 +1,4 @@
-import type { ResendVerificationEmailFormData } from "../../../types/auth";
+import type { ResendVerificationEmailFormData } from "../../../types/auth.types";
 import { isValidEmail } from "../../../utils/validationHelpers.util";
 
 export const verifyEmailValidator = (data : ResendVerificationEmailFormData)=>{

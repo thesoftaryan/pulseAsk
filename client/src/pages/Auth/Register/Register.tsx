@@ -10,7 +10,7 @@ import { registerFormValidator } from "./Register.validator";
 import {registerHandler, socialRegisterHandler} from "./Register.handler";
 
 // Types
-import type { RegisterFormData } from "../../../types/auth";
+import type { RegisterFormData } from "../../../types/auth.types";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";

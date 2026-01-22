@@ -2,7 +2,7 @@
 import { resendVerificationEmailService } from "../../../services/auth/resendVerificationEmail.service";
 
 // Types
-import type { ResendVerificationEmailFormData } from "../../../types/auth";
+import type { ResendVerificationEmailFormData } from "../../../types/auth.types";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";

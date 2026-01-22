@@ -5,7 +5,7 @@ import { Link, useSearchParams } from "react-router-dom";
 // Logical Parts
 import { resetPasswordValidator } from "./ResetPassword.validator";
 import { resetPasswordHandler } from "./ResetPassword.handler";
-import type { ResetPasswordFormData } from "../../../types/auth";
+import type { ResetPasswordFormData } from "../../../types/auth.types";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";

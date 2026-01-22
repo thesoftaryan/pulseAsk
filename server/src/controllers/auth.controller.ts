@@ -17,6 +17,7 @@ import { User } from "../models/User.model";
 
 // verification
 import { sendResetPasswordMail, sendVerificationMail } from "../services/email.service";
+import { UserResponse } from "../types/user.types";
 
 
 export const googleOAuthCallbackController = async (req : Request, res : Response) => {
@@ -152,7 +153,6 @@ export const registerController = async (req: Request, res: Response)=>{
         res,
         STATUS.SUCCESS.CREATED,
         "User registration successfull, Please verify your email.",
-        user,
     );
 };
 
@@ -188,16 +188,18 @@ export const loginController = async (req: Request, res: Response)=>{
         maxAge : payload.remember_me? 30*24*60*60*1000 : undefined,
     });
     
-    
+    const userData : UserResponse = {
+                uid : user._id.toString(),
+                email : user.email,
+                first_name : user.firstName,
+                last_name : user.lastName,
+            };
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "User Login Successfull",
         {
-            uid : user._id,
-            email : user.email,
-            firstName : user.firstName,
-            lastName : user.lastName,
+            user : userData,
         }
     );
 };

@@ -2,7 +2,7 @@
 import { forgotPasswordService } from "../../../services/auth/forgotPassword.service";
 
 // Types
-import type { ForgotPasswordFormData } from "../../../types/auth";
+import type { ForgotPasswordFormData } from "../../../types/auth.types";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";

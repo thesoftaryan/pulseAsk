@@ -1,6 +1,6 @@
 import { resetPasswordAPI } from "../../api/auth.api";
-import type { ApiResponse } from "../../types/apiResponse";
-import type { ResetPasswordFormData } from "../../types/auth";
+import type { ApiResponse } from "../../types/apiResponse.types";
+import type { ResetPasswordFormData } from "../../types/auth.types";
 import { parseErrorResponse, parseSuccessResponse } from "../apiResponseParser.service";
 
 export const resetPasswordService = async (data : ResetPasswordFormData) : Promise<ApiResponse<unknown>> => {

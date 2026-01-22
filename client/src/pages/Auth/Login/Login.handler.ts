@@ -3,8 +3,8 @@ import { loginService } from "../../../services/auth/login.service";
 import { socialSignInService } from "../../../services/auth/socialSignIn.service";
 
 // Types
-import type { OAuthProvider } from "../../../types/auth";
-import type { LoginFormData } from "../../../types/auth";
+import type { OAuthProvider } from "../../../types/auth.types";
+import type { LoginFormData } from "../../../types/auth.types";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";

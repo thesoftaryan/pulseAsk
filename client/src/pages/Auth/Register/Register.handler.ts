@@ -2,7 +2,7 @@ import { registerService } from "../../../services/auth/register.service";
 import { socialSignInService } from "../../../services/auth/socialSignIn.service";
 
 // Types
-import type { OAuthProvider, RegisterFormData } from "../../../types/auth";
+import type { OAuthProvider, RegisterFormData } from "../../../types/auth.types";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";

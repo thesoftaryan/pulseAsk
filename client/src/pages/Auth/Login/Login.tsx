@@ -9,7 +9,7 @@ import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
 import { loginFormValidator } from "./Login.validator";
 import {loginHandler, socialLoginHandler} from "./Login.handler";
 // Types
-import type { LoginFormData } from "../../../types/auth";
+import type { LoginFormData } from "../../../types/auth.types";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";

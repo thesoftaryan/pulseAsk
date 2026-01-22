@@ -1,4 +1,4 @@
-import type { ForgotPasswordFormData } from "../../../types/auth";
+import type { ForgotPasswordFormData } from "../../../types/auth.types";
 import { isValidEmail } from "../../../utils/validationHelpers.util";
 
 export const forgotPasswordValidator = (data : ForgotPasswordFormData)=>{
