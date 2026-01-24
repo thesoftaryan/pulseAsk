@@ -33,6 +33,7 @@ import BannerImageLight from "../../../assets/images/Authentication/banner-light
 // Style
 import LoginStyle from "./Login.module.css";
 import { useLoginHandler } from "./Login.handler";
+import { useAppSelector } from "../../../hooks/store.hooks";
 
 
 function Login() {
@@ -44,18 +45,20 @@ function Login() {
     // {**************** Logical Part : start ******************}
     const {loginHandler, socialLoginHandler} = useLoginHandler();
 
+    const status = useAppSelector(state => state.auth.status);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState<Partial<LoginFormData>>({});
 
-    const handleLogin =async ()=>{
+    const handleLogin = ()=>{
         const data : LoginFormData = {email, password, remember_me : rememberMe};
         const validation = loginFormValidator(data);
         setError(validation);
 
         if(Object.keys(validation).length === 0){
-            await loginHandler(data, ()=>{navigate(homeRoutes.home, {replace:true});});
+            loginHandler(data, ()=>{navigate(homeRoutes.home, {replace:true});});
         }
 
     }
@@ -87,6 +90,7 @@ function Login() {
 
             <div className={LoginStyle["right-container"]}>
                 <div className={LoginStyle["header"]}>
+                    {status}
                     <h1 className={LoginStyle["heading"]}> Login to Account</h1>
                     <p className={LoginStyle["signup"]}>Don't have an account? <Link to={authRoutes.register}>SignUp</Link></p>
                 </div>

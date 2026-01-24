@@ -7,7 +7,6 @@ import { authRoutes } from "../../../routes/routesConstants";
 
 // Logical Parts
 import { registerFormValidator } from "./Register.validator";
-import {registerHandler, socialRegisterHandler} from "./Register.handler";
 
 // Types
 import type { RegisterFormData } from "../../../types/auth.types";
@@ -34,12 +33,18 @@ import BannerImageDark from "../../../assets/images/Authentication/banner-dark.p
 
 // Style
 import RegisterStyle from "./Register.module.css";
+import { useRegisterHandler } from "./Register.handler";
+import { useAppSelector } from "../../../hooks/store.hooks";
 
 
 function Register() {
 
 
-    // {**************** Validation of input : start ******************}
+    // {**************** Registration Logic : start ******************}
+
+    const {registerHandler, socialRegisterHandler} = useRegisterHandler();
+
+    const authState = useAppSelector(state => state.auth.status);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -60,7 +65,7 @@ function Register() {
     }
 
 
-    // {**************** Validation of input : end ******************}
+    // {**************** Registration Logic : end ******************}
 
 
 
@@ -89,6 +94,7 @@ function Register() {
 
             <div className={RegisterStyle["right-container"]}>
                 <div className={RegisterStyle["header"]}>
+                    {authState}
                     <h1 className={RegisterStyle["heading"]}> Create an Account</h1>
                     <p className={RegisterStyle["login"]}>Already have an account? <Link to={authRoutes.login}>Login</Link></p>
                 </div>

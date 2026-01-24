@@ -3,16 +3,14 @@ import { loginService } from "../../../services/auth/login.service";
 
 import { parseSuccessResponse, parseErrorResponse } from "../../../services/apiResponseParser.service";
 import type { LoginFormData } from "../../../types/auth.types";
-import type { ApiError, LoginResponseData } from "../../../types/apiResponse.types";
-import type { User } from "../../../types/user.types";
+import type { ApiError, ApiResponse, LoginResponseData } from "../../../types/apiResponse.types";
 
-export const loginUserThunk = createAsyncThunk<User, LoginFormData,{rejectValue : ApiError}>(
+export const loginUserThunk = createAsyncThunk<ApiResponse<LoginResponseData>, LoginFormData,{rejectValue : ApiError}>(
     "auth/login",
-    async (data : LoginFormData, {rejectWithValue})=>{
+    async (data, {rejectWithValue})=>{
         try{
             const response = await loginService(data);
-            const parsed = parseSuccessResponse<LoginResponseData>(response);
-            return parsed.data!.user;
+            return parseSuccessResponse<LoginResponseData>(response);
         }catch(error){
             return rejectWithValue(parseErrorResponse(error));
         }

@@ -7,6 +7,7 @@ import { socialSignInService } from "../../../services/auth/socialSignIn.service
 // Types
 import type { OAuthProvider } from "../../../types/auth.types";
 import type { LoginFormData } from "../../../types/auth.types";
+import type { ApiError } from "../../../types/apiResponse.types";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";
@@ -16,11 +17,12 @@ export const useLoginHandler = ()=>{
 
     const loginHandler = async (data: LoginFormData, onSuccess?: ()=>void) => {
         try{
-            await dispatch(loginUserThunk(data)).unwrap();
-            showToast.success("Login successful");
+            const response = await dispatch(loginUserThunk(data)).unwrap();
+            showToast.success(response.message);
             onSuccess?.();
-        }catch(error : any){
-            showToast.error(error?.message ?? "Something went wrong");
+        }catch(error){
+            const err = error as ApiError
+            showToast.error(err.message);
         }
 
     }
