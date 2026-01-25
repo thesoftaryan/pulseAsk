@@ -1,4 +1,4 @@
-import { loginUserThunk } from "../../../store/auth/thunks/login.thunk";
+import { loginThunk } from "../../../store/auth/thunks/login.thunk";
 import { useAppDispatch } from "../../../hooks/store.hooks";
 
 // Service
@@ -17,7 +17,7 @@ export const useLoginHandler = ()=>{
 
     const loginHandler = async (data: LoginFormData, onSuccess?: ()=>void) => {
         try{
-            const response = await dispatch(loginUserThunk(data)).unwrap();
+            const response = await dispatch(loginThunk(data)).unwrap();
             showToast.success(response.message);
             onSuccess?.();
         }catch(error){

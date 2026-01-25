@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../../../hooks/store.hooks";
 import { socialSignInService } from "../../../services/auth/socialSignIn.service";
-import { registerUserThunk } from "../../../store/auth/thunks/register.thunk";
+import { registerThunk } from "../../../store/auth/thunks/register.thunk";
 import type { ApiError } from "../../../types/apiResponse.types";
 
 // Types
@@ -15,7 +15,7 @@ export const useRegisterHandler = ()=>{
 
     const registerHandler = async (data : RegisterFormData) => {
         try{
-            const response = await dispatch(registerUserThunk(data)).unwrap();
+            const response = await dispatch(registerThunk(data)).unwrap();
             showToast.success(response.message);
         }catch(error){
             const err = error as ApiError;

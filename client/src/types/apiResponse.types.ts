@@ -1,10 +1,10 @@
 import type { User } from "./user.types"
 
 export interface ApiResponse<T>{
-    success : boolean,
-    message : string,
-    data ? : T,
-    meta ? : Record<string, string>
+    success : boolean;
+    message : string;
+    data ? : T;
+    meta ? : Record<string, string>;
 }
 
 export interface ApiError{
@@ -14,5 +14,9 @@ export interface ApiError{
 }
 
 export interface LoginResponseData{
-    user : User
+    user : User;
+}
+
+export interface NoDataResponse{
+    
 }

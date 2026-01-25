@@ -5,7 +5,7 @@ import { parseSuccessResponse, parseErrorResponse } from "../../../services/apiR
 import type { LoginFormData } from "../../../types/auth.types";
 import type { ApiError, ApiResponse, LoginResponseData } from "../../../types/apiResponse.types";
 
-export const loginUserThunk = createAsyncThunk<ApiResponse<LoginResponseData>, LoginFormData,{rejectValue : ApiError}>(
+export const loginThunk = createAsyncThunk<ApiResponse<LoginResponseData>, LoginFormData,{rejectValue : ApiError}>(
     "auth/login",
     async (data, {rejectWithValue})=>{
         try{

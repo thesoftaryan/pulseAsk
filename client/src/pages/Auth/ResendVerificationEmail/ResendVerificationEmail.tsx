@@ -14,31 +14,40 @@ import Button from "../../../components/common/Button/Button";
 import GapBox from "../../../components/common/GapBox/GapBox";
 import InlineError from "../../../components/common/InlineError/InlineError";
 import { verifyEmailValidator } from "./ResendVerificationEmail.validator";
-import { resendVerificationEmailHandler } from "./ResendVerificationEmail.handler";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { authRoutes } from "../../../routes/routesConstants";
+import { useResendVerficationEmailHandler } from "./ResendVerificationEmail.handler";
 
 
 function ResendVerificationEmail(){
 
-    const navigator = useNavigate();
 
-    const [searchParams] = useSearchParams();
-    const status = searchParams.get("status");
+        // {**************** ResendVerificationEmail Logic : start ******************}
+            const navigator = useNavigate();
 
-    const [email, setEmail] = useState("");
-    const [errors, setErrors] = useState<Partial<ResendVerificationEmailFormData>>({});
+            const [searchParams] = useSearchParams();
+            const status = searchParams.get("status");
+
+            const {resendVerificationEmailHandler} = useResendVerficationEmailHandler();
+
+            const [email, setEmail] = useState("");
+            const [errors, setErrors] = useState<Partial<ResendVerificationEmailFormData>>({});
 
 
-    const handleResendVerificationEmail = ()=>{
-        const data = {email};
-        const error = verifyEmailValidator(data);
-        setErrors(error);
+            const handleResendVerificationEmail = ()=>{
+                const data = {email};
+                const error = verifyEmailValidator(data);
+                setErrors(error);
 
-        if(Object.keys(error).length === 0){
-            resendVerificationEmailHandler(data);
-        }
-    }
+                if(Object.keys(error).length === 0){
+                    resendVerificationEmailHandler(data);
+                }
+            }
+
+        // {**************** ResendVerificationEmail Logic : end ******************}
+    
+
+
 
     return (
         <>

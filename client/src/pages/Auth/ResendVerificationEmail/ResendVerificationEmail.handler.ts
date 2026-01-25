@@ -1,5 +1,8 @@
 // Backend Service
-import { resendVerificationEmailService } from "../../../services/auth/resendVerificationEmail.service";
+import { useAppDispatch } from "../../../hooks/store.hooks";
+
+import { resendVerificationEmailThunk } from "../../../store/auth/thunks/resendVerificationEmail.thunk";
+import type { ApiError } from "../../../types/apiResponse.types";
 
 // Types
 import type { ResendVerificationEmailFormData } from "../../../types/auth.types";
@@ -8,11 +11,20 @@ import type { ResendVerificationEmailFormData } from "../../../types/auth.types"
 import { showToast } from "../../../utils/toast.util";
 
 
-export const resendVerificationEmailHandler = async (data : ResendVerificationEmailFormData)=>{
-    const response = await resendVerificationEmailService(data);
-    if(response.success){
-        showToast.success(response.message);
-    }else{
-        showToast.error(response.message);
+export const useResendVerficationEmailHandler = ()=>{
+    
+    const dispatch = useAppDispatch();
+
+    const resendVerificationEmailHandler = async (data : ResendVerificationEmailFormData)=>{
+        try{
+            const response = await dispatch(resendVerificationEmailThunk(data)).unwrap();
+            showToast.success(response.message);
+        }catch(error){
+            const err = error as ApiError;
+            showToast.error(err.message);    
+        }
     }
+
+    return {resendVerificationEmailHandler};
 }
+

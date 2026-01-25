@@ -16,12 +16,18 @@ import PulseAskIcon from "../../../assets/PulseAskIcon.svg"
 // Stylesheet
 import ForgotPasswordStyle from "./ForgotPassword.module.css";
 import { forgotPasswordValidator } from "./ForgotPassword.validator";
-import { forgotPasswordHandler } from "./ForgotPassword.handler";
+import { useForgotPasswordHandler } from "./ForgotPassword.handler";
 
 
 
 
 function ForgotPassword(){
+
+
+    // {**************** Registration Logic : start ******************}
+    
+    const {forgotPasswordHandler} = useForgotPasswordHandler();
+
     const [email, setEmail] = useState("");
     const [errors, setErrors] = useState<Partial<ForgotPasswordFormData>>({});
 
@@ -34,6 +40,10 @@ function ForgotPassword(){
             forgotPasswordHandler(data);
         }
     }
+
+    // {**************** Registration Logic : end ******************}
+
+
 
     return (
         <>

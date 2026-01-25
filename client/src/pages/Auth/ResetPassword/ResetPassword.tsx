@@ -4,7 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 
 // Logical Parts
 import { resetPasswordValidator } from "./ResetPassword.validator";
-import { resetPasswordHandler } from "./ResetPassword.handler";
+import { useResetPasswordHandler } from "./ResetPassword.handler";
 import type { ResetPasswordFormData } from "../../../types/auth.types";
 
 // Components
@@ -27,22 +27,31 @@ import { authRoutes } from "../../../routes/routesConstants";
 
 function ResetPassword(){
 
-    const [searchParams] = useSearchParams();
-    const token = searchParams.get("token");
+        // {**************** ResetPassword Logic : start ******************}
+        
+            const [searchParams] = useSearchParams();
+            const token = searchParams.get("token");
+            
+            const {resetPasswordHandler} = useResetPasswordHandler();
+
+            const [password, setPassword] = useState("");
+            const [confirmPassword, setConfirmPassword] = useState("");
+            const [errors, setErrors] = useState<Partial<ResetPasswordFormData>>({});
+
+            const handleReset = ()=>{
+                const data = {password, confirm_password: confirmPassword, token};
+                const error = resetPasswordValidator(data);
+                setErrors(error);
+
+                if(Object.keys(error).length === 0){
+                    resetPasswordHandler(data);
+                }
+            }
     
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [errors, setErrors] = useState<Partial<ResetPasswordFormData>>({});
+        // {**************** ResetPassword Logic : end ******************}
+    
 
-    const handleReset = ()=>{
-        const data = {password, confirmPassword, token};
-        const error = resetPasswordValidator(data);
-        setErrors(error);
 
-        if(Object.keys(error).length === 0){
-            resetPasswordHandler(data);
-        }
-    }
 
     return (
         <>

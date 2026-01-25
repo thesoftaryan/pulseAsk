@@ -2,8 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import type { AuthState } from "../../types/redux/auth.redux.types";
 
-import { loginUserThunk } from "./thunks/login.thunk";
-import { registerUserThunk } from "./thunks/register.thunk";
+import { loginThunk } from "./thunks/login.thunk";
+import { registerThunk } from "./thunks/register.thunk";
+import { logoutThunk } from "./thunks/logout.thunk";
+import { forgotPasswordThunk } from "./thunks/forgotPassword.thunk";
+import { resendVerificationEmailThunk } from "./thunks/resendVerificationEmail.thunk";
+import { resetPasswordThunk } from "./thunks/resetPassword.thunk";
 
 const initialState : AuthState = {
     isAuthenticated: false,
@@ -23,31 +27,81 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
         // auth/login thunk reducer
-        .addCase(loginUserThunk.pending, (state)=>{
+        .addCase(loginThunk.pending, (state)=>{
             state.status = "loading";
             state.error = null;
         })
-        .addCase(loginUserThunk.fulfilled, (state, action)=>{
+        .addCase(loginThunk.fulfilled, (state, action)=>{
             state.isAuthenticated = true;
             state.user = action.payload.data!.user;
             state.status = "authenticated";
             state.error = null;
         })
-        .addCase(loginUserThunk.rejected, (state, action)=>{
+        .addCase(loginThunk.rejected, (state, action)=>{
             state.isAuthenticated = false;
             state.user = null;
             state.status = "unauthenticated";
             state.error = action.payload!.message;
         })
         // auth/register thunk reducer
-        .addCase(registerUserThunk.pending, (state)=>{
+        .addCase(registerThunk.pending, (state)=>{
             state.status = "loading";
             state.error = null;
         })
-        .addCase(registerUserThunk.fulfilled, (state)=>{
+        .addCase(registerThunk.fulfilled, (state)=>{
             state.status = "idle";
         })
-        .addCase(registerUserThunk.rejected, (state, action)=>{
+        .addCase(registerThunk.rejected, (state, action)=>{
+            state.status = "idle";
+            state.error = action.payload!.message;
+        })
+        // auth/logout thunk reducer
+        .addCase(logoutThunk.pending, (state)=>{
+            state.status = "loading";
+            state.error = null;
+        })
+        .addCase(logoutThunk.fulfilled, (state)=>{
+            state.status = "unauthenticated";
+            state.user = null;
+        })
+        .addCase(logoutThunk.rejected, (state, action)=>{
+            state.status = "idle";
+            state.error = action.payload!.message;
+        })
+        // auth/forgotPassword thunk reducer
+        .addCase(forgotPasswordThunk.pending, (state)=>{
+            state.status = "loading";
+            state.error = null;
+        })
+        .addCase(forgotPasswordThunk.fulfilled, (state)=>{
+            state.status = "idle";
+            state.error = null;
+        })
+        .addCase(forgotPasswordThunk.rejected, (state, action)=>{
+            state.status = "idle";
+            state.error = action.payload!.message;
+        })
+        // auth/resendVerificationEmail thunk reducer
+        .addCase(resendVerificationEmailThunk.pending, (state)=>{
+            state.status = "loading";
+            state.error = null;
+        })
+        .addCase(resendVerificationEmailThunk.fulfilled, (state)=>{
+            state.status = "idle";
+        })
+        .addCase(resendVerificationEmailThunk.rejected, (state, action)=>{
+            state.status = "idle";
+            state.error = action.payload!.message;
+        })
+        // auth/resetPassword thunk reducer
+        .addCase(resetPasswordThunk.pending, (state)=>{
+            state.status = "loading";
+            state.error = null;
+        })
+        .addCase(resetPasswordThunk.fulfilled, (state)=>{
+            state.status = "idle";
+        })
+        .addCase(resetPasswordThunk.rejected, (state, action)=>{
             state.status = "idle";
             state.error = action.payload!.message;
         })
