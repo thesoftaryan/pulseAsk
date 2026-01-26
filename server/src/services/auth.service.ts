@@ -109,7 +109,7 @@ export const loginUser = async (payload : LoginPayload) => {
 
     if(!user.emailVerified){
         throw new ApiError(
-            STATUS.CLIENT_ERROR.UNAUTHORIZED,
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
             "Verify your email to continue",
         )
     }
@@ -169,6 +169,13 @@ export const resendEmailVerificationLink = async (payload : VerifyEmailPayload)=
             STATUS.CLIENT_ERROR.BAD_REQUEST,
             "Error sending link",
         );
+    }
+
+    if(user.emailVerified){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            "Email is already verified",
+        )
     }
 
     const {rawToken, hashedToken} = generateRandomToken();

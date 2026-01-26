@@ -13,7 +13,7 @@ import {googleOAuthController,
 // validation middleware
 import { validate } from "../middlewares/validation.middleware";
 import {validateForgotPassword, validateLogin, validateRegister, validateResetPassword, validateVerifyEmail} from "../validations/auth.validation";
-import { verify } from "jsonwebtoken";
+
 
 // Router is modular, mountable route handler.
 // Router instance is a complete middleware and routing system

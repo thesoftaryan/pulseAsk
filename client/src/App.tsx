@@ -6,12 +6,15 @@ import "./theme/index.css";
 // import VerifyEmail from "./pages/Auth/VerifyEmail/VerifyEmail";
 
 
-import { RouterProvider } from "react-router-dom";
-import router from "./routes/AppRoutes";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import {Toaster} from "react-hot-toast";
+import { useEffect } from "react";
+import { useAppDispatch } from "./hooks/store.hooks";
+import { logoutThunk } from "./store/auth/thunks/logout.thunk";
+import { authRoutes } from "./routes/routesConstants";
 
-function App(){
+const App = ()=>{
   // Testing the dark Theme
   document.documentElement.setAttribute("data-theme", "dark");
   document.documentElement.removeAttribute("data-theme");
@@ -24,9 +27,23 @@ function App(){
   //     <VerifyEmail/>
   //   </>
   // );
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    const handler = ()=>{
+      dispatch(logoutThunk());
+      navigate(authRoutes.login, {replace : true});
+    };
+    document.addEventListener("auth/logout", handler);
+    return ()=>{
+      document.removeEventListener("auth/logout", handler);
+    }
+  }, [dispatch]);
+
   return (
     <>
-    <RouterProvider router={router}/>
+    <Outlet/>
     <Toaster/>
     </>
   );

@@ -113,7 +113,7 @@ export const refreshTokenController = async (req : Request, res : Response)=>{
     if(!refreshToken){
         return errorResponse(
             res,
-            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            STATUS.CLIENT_ERROR.UNAUTHORIZED,
             "Refresh token is required",
         );
     }

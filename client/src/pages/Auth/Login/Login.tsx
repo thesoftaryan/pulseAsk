@@ -33,7 +33,6 @@ import BannerImageLight from "../../../assets/images/Authentication/banner-light
 import LoginStyle from "./Login.module.css";
 import { useLoginHandler } from "./Login.handler";
 
-
 function Login() {
     
     const navigate = useNavigate();

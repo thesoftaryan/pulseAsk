@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+import homeRoutes from "./routes/home.routes";
 import authRoutes from "./routes/auth.routes";
 import { errorMiddleware } from "./middlewares/error.middleware";
 
@@ -24,6 +25,9 @@ app.use(cookieParser());
 app.get("/", (req, res)=>{
     res.send("PulseAsk's backend pulse is perfectly fine!");
 });
+
+// ********** Home Route *********** \\
+app.use("/home", homeRoutes);
 
 // ********** Auth Route *********** \\
 app.use("/auth", authRoutes);

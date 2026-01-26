@@ -4,7 +4,7 @@ import type { ApiError, ApiResponse, NoDataResponse } from "../../../types/apiRe
 import { logoutService } from "../../../services/auth/logout.service";
 
 
-export const logoutThunk = createAsyncThunk<ApiResponse<NoDataResponse>, unknown, {rejectValue : ApiError}>(
+export const logoutThunk = createAsyncThunk<ApiResponse<NoDataResponse>, void, {rejectValue : ApiError}>(
     "auth/logout",
     async (_, {rejectWithValue})=>{
         try{

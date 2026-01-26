@@ -1,0 +1,11 @@
+import {Request, Response} from "express";
+import { STATUS } from "../constants/statusCodes"
+import { successResponse } from "../utils/response.util"
+
+export const HomeController = async (req : Request, res : Response)=>{
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "This is main content",
+    );
+}
