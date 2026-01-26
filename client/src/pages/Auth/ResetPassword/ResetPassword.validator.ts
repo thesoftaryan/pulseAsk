@@ -19,7 +19,6 @@ export const resetPasswordValidator = (data : ResetPasswordFormData) => {
     else if(password !== confirm_password){
         errors.confirm_password = "Password doesn't match";
     }
-
-
+    
     return errors;
 }

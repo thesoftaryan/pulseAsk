@@ -21,6 +21,7 @@ import InlineError from "../../../components/common/InlineError/InlineError";
 
 // Routes
 import { authRoutes } from "../../../routes/routesConstants";
+import { BackButton } from "../../../components/common/BackButton/BackButton";
 
 
 
@@ -58,6 +59,7 @@ function ResetPassword(){
             <div className={ResetPasswordStyle["container"]}>
                 <div className={ResetPasswordStyle["header"]}>
                     <PulseAskIcon className={ResetPasswordStyle["icon"]}/>
+                    <BackButton text={"Go Back"} level1={true}/>
                 </div>
                 <div className={ResetPasswordStyle["inner-container"]}>
                     <h1 className={ResetPasswordStyle["heading"]}>

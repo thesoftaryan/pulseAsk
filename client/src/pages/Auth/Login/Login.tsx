@@ -21,7 +21,6 @@ import InlineError from "../../../components/common/InlineError/InlineError";
 
 // SVG Icons
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
-import LeftChevronIcon from "../../../assets/icons/Chevron left.svg?react";
 import GoogleSocialSignInIcon from "../../../assets/icons/google.svg?react";
 // import FacebookSocialSignInIcon from "../../../assets/icons/facebook.svg?react";
 
@@ -33,7 +32,6 @@ import BannerImageLight from "../../../assets/images/Authentication/banner-light
 // Style
 import LoginStyle from "./Login.module.css";
 import { useLoginHandler } from "./Login.handler";
-import { useAppSelector } from "../../../hooks/store.hooks";
 
 
 function Login() {
@@ -44,8 +42,6 @@ function Login() {
 
     // {**************** Logical Part : start ******************}
     const {loginHandler, socialLoginHandler} = useLoginHandler();
-
-    const status = useAppSelector(state => state.auth.status);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -77,22 +73,13 @@ function Login() {
                     <div className={LoginStyle["main-icon"]}>
                         <PulseAskIcon/>
                     </div>
-                    <button className={LoginStyle["back-button"]}>
-                        <div className={LoginStyle["chevron-left"]}>
-                            <LeftChevronIcon/>
-                        </div>
-                        <div className={LoginStyle["back-button-text"]}>
-                            Back to Homepage
-                        </div>
-                    </button>
                 </div>
             </div>
 
             <div className={LoginStyle["right-container"]}>
                 <div className={LoginStyle["header"]}>
-                    {status}
                     <h1 className={LoginStyle["heading"]}> Login to Account</h1>
-                    <p className={LoginStyle["signup"]}>Don't have an account? <Link to={authRoutes.register}>SignUp</Link></p>
+                    <p className={LoginStyle["signup"]}>Don't have an account? <Link replace={true} to={authRoutes.register}>SignUp</Link></p>
                 </div>
 
 

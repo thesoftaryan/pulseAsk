@@ -11,12 +11,13 @@ import GapBox from "../../../components/common/GapBox/GapBox";
 import InlineError from "../../../components/common/InlineError/InlineError";
 
 // Images
-import PulseAskIcon from "../../../assets/PulseAskIcon.svg"
+import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react"
 
 // Stylesheet
 import ForgotPasswordStyle from "./ForgotPassword.module.css";
 import { forgotPasswordValidator } from "./ForgotPassword.validator";
 import { useForgotPasswordHandler } from "./ForgotPassword.handler";
+import { BackButton } from "../../../components/common/BackButton/BackButton";
 
 
 
@@ -24,7 +25,7 @@ import { useForgotPasswordHandler } from "./ForgotPassword.handler";
 function ForgotPassword(){
 
 
-    // {**************** Registration Logic : start ******************}
+    // {**************** ForgotPassword Logic : start ******************}
     
     const {forgotPasswordHandler} = useForgotPasswordHandler();
 
@@ -41,7 +42,7 @@ function ForgotPassword(){
         }
     }
 
-    // {**************** Registration Logic : end ******************}
+    // {**************** ForgotPassword Logic : end ******************}
 
 
 
@@ -49,7 +50,8 @@ function ForgotPassword(){
         <>
             <div className={ForgotPasswordStyle["container"]}>
                 <div className={ForgotPasswordStyle["header"]}>
-                    <img src={PulseAskIcon} alt="Icon" className={ForgotPasswordStyle["icon"]}/>
+                    <PulseAskIcon className={ForgotPasswordStyle["icon"]}/>
+                    <BackButton text={"Go Back"} level1={true} extraClass={ForgotPasswordStyle["back-button"]}/>
                 </div>
                 <div className={ForgotPasswordStyle["inner-container"]}>
                     <h1 className={ForgotPasswordStyle["heading"]}>

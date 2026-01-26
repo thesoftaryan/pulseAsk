@@ -1,0 +1,32 @@
+.back-button{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: var(--color-bg);
+
+    padding: var(--spacing-sm);
+    margin: var(--spacing-md);
+
+    border: 0px;
+    border-radius: var(--size-radius-sm);
+    
+    height: min-content;
+    user-select: none; 
+}
+
+.chevron-left{
+    display: flex;
+    margin-right: var(--spacing-xs);
+    color: var(--color-general-icon);
+}
+
+.back-button-text{
+    color: var(--color-text);
+    font-size: var(--font-size-md);
+    margin-right: var(--spacing-sm);
+}
+
+.level1{
+    background-color: var(--color-level1-bg);
+}

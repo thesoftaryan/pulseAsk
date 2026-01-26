@@ -17,6 +17,7 @@ import { verifyEmailValidator } from "./ResendVerificationEmail.validator";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { authRoutes } from "../../../routes/routesConstants";
 import { useResendVerficationEmailHandler } from "./ResendVerificationEmail.handler";
+import { BackButton } from "../../../components/common/BackButton/BackButton";
 
 
 function ResendVerificationEmail(){
@@ -52,9 +53,10 @@ function ResendVerificationEmail(){
     return (
         <>
         <div className={ResendVerificationEmailStyle["container"]}>
-            <div className={ResendVerificationEmailStyle["header"]}>
-                <PulseAskIcon className={ResendVerificationEmailStyle["icon"]}/>
-            </div>
+                <div className={ResendVerificationEmailStyle["header"]}>
+                    <PulseAskIcon className={ResendVerificationEmailStyle["icon"]}/>
+                    <BackButton text={"Go Back"} level1={true}/>
+                </div>
             <div className={ResendVerificationEmailStyle["inner-container"]}>
             {
                 (!status || status!=="success")?  

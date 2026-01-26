@@ -22,7 +22,6 @@ import InlineError from "../../../components/common/InlineError/InlineError";
 
 // SVG Icons
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
-import LeftChevronIcon from "../../../assets/icons/Chevron left.svg?react";
 import GoogleSocialSignInIcon from "../../../assets/icons/google.svg?react";
 // import FacebookSocialSignInIcon from "../../../assets/icons/facebook.svg?react";
 
@@ -34,7 +33,6 @@ import BannerImageDark from "../../../assets/images/Authentication/banner-dark.p
 // Style
 import RegisterStyle from "./Register.module.css";
 import { useRegisterHandler } from "./Register.handler";
-import { useAppSelector } from "../../../hooks/store.hooks";
 
 
 function Register() {
@@ -43,8 +41,6 @@ function Register() {
     // {**************** Registration Logic : start ******************}
 
     const {registerHandler, socialRegisterHandler} = useRegisterHandler();
-
-    const authState = useAppSelector(state => state.auth.status);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -81,22 +77,13 @@ function Register() {
                     <div className={RegisterStyle["main-icon"]}>
                         <PulseAskIcon/>
                     </div>
-                    <button className={RegisterStyle["back-button"]}>
-                        <div className={RegisterStyle["chevron-left"]}>
-                            <LeftChevronIcon/>
-                        </div>
-                        <div className={RegisterStyle["back-button-text"]}>
-                            Back to Homepage
-                        </div>
-                    </button>
                 </div>
             </div>
 
             <div className={RegisterStyle["right-container"]}>
                 <div className={RegisterStyle["header"]}>
-                    {authState}
                     <h1 className={RegisterStyle["heading"]}> Create an Account</h1>
-                    <p className={RegisterStyle["login"]}>Already have an account? <Link to={authRoutes.login}>Login</Link></p>
+                    <p className={RegisterStyle["login"]}>Already have an account? <Link replace={true} to={authRoutes.login}>Login</Link></p>
                 </div>
 
 
