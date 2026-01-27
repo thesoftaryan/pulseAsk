@@ -22,6 +22,7 @@ import InlineError from "../../../components/common/InlineError/InlineError";
 // Routes
 import { authRoutes } from "../../../routes/routesConstants";
 import { BackButton } from "../../../components/common/BackButton/BackButton";
+import { useAppSelector } from "../../../hooks/store.hooks";
 
 
 
@@ -32,6 +33,8 @@ function ResetPassword(){
         
             const [searchParams] = useSearchParams();
             const token = searchParams.get("token");
+            
+            const state = useAppSelector(state => state.auth);
             
             const {resetPasswordHandler} = useResetPasswordHandler();
 
@@ -82,7 +85,7 @@ function ResetPassword(){
                         <InputField isError={errors.confirm_password?.length} type="password" placeholder="Confirm Password" onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
                         {errors.confirm_password && <InlineError message={errors.confirm_password}/>}
                         <GapBox className="gap-y-md"></GapBox>
-                        <Button text="Reset password" onClick={handleReset}/>
+                        <Button text="Reset password" onClick={handleReset} disabled={state.status==="loading"}/>
                     </div>
                 </div>
             </div>

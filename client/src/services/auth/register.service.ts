@@ -1,7 +1,7 @@
-import { registerUserAPI } from "../../api/auth.api";
+import { registerAPI } from "../../api/auth.api";
 
 import type { RegisterFormData } from "../../types/auth.types";
 
 export const registerService = async (data : RegisterFormData)=>{
-    return registerUserAPI(data);
+    return registerAPI(data);
 }

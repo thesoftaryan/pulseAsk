@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "./hooks/store.hooks";
 import { logoutThunk } from "./store/auth/thunks/logout.thunk";
 import { authRoutes } from "./routes/routesConstants";
+import { checkAuthThunk } from "./store/auth/thunks/checkAuthThunk";
 
 const App = ()=>{
   // Testing the dark Theme
@@ -29,6 +30,10 @@ const App = ()=>{
   // );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    dispatch(checkAuthThunk())
+  }, []);
 
   useEffect(()=>{
     const handler = ()=>{

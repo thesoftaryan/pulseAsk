@@ -2,16 +2,19 @@ import type { RegisterFormData, LoginFormData, ForgotPasswordFormData, ResetPass
 import api from "./axios";
 
 
+export const checkAuthAPI = () => {
+    return api.get("/auth/me");
+}
 
-export const registerUserAPI = ( data : RegisterFormData) => {
+export const registerAPI = ( data : RegisterFormData) => {
     return api.post("/auth/register", data);
 }
 
-export const loginUserAPI = ( data : LoginFormData )=>{
+export const loginAPI = ( data : LoginFormData )=>{
     return api.post("/auth/login", data);
 }
 
-export const logoutUserAPI = ()=>{
+export const logoutAPI = ()=>{
     return api.post("/auth/logout");
 }
 

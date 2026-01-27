@@ -28,6 +28,10 @@
 
   /* Border */
   --color-border: #555555;
+
+  /* Button */
+  --color-button-primary : #4458af;
+  --color-button-disabled :  #a2addc;
 }
 /* Dark Theme */
 [data-theme="dark"] {
@@ -58,4 +62,8 @@
 
   /* Border */
   --color-border: #555555;
+
+  /* Button */
+  --color-button-primary : #1aa5ae;
+  --color-button-disabled :  #a1e8ed;
 }

@@ -18,6 +18,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { authRoutes } from "../../../routes/routesConstants";
 import { useResendVerficationEmailHandler } from "./ResendVerificationEmail.handler";
 import { BackButton } from "../../../components/common/BackButton/BackButton";
+import { useAppSelector } from "../../../hooks/store.hooks";
 
 
 function ResendVerificationEmail(){
@@ -29,6 +30,8 @@ function ResendVerificationEmail(){
             const [searchParams] = useSearchParams();
             const status = searchParams.get("status");
 
+            const state = useAppSelector(state => state.auth);
+            
             const {resendVerificationEmailHandler} = useResendVerficationEmailHandler();
 
             const [email, setEmail] = useState("");
@@ -76,7 +79,7 @@ function ResendVerificationEmail(){
                 <>
                     <h2 className={ResendVerificationEmailStyle["heading"]}> Email verification successfull, you can now login.</h2>
                     <GapBox className="gap-y-md"/>
-                    <Button text="Login" onClick={()=>{navigator(authRoutes.login)}}/>
+                    <Button text="Login" onClick={()=>{navigator(authRoutes.login)}} disabled={state.status==="loading"}/>
                 </>
             }
             </div>

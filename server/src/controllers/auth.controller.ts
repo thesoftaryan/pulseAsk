@@ -11,7 +11,7 @@ import { errorResponse, successResponse, redirectResponse} from "../utils/respon
 import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload, VerifyEmailPayload, RefreshTokenPayload, TokenData } from "../types/auth.types";
 
 // Auth Services
-import { forgotPassword, loginUser, refreshTokenService, registerUser, resendEmailVerificationLink, resetPassword, verifyEmail } from "../services/auth.service";
+import { forgotPassword, loginUser, meService, refreshTokenService, registerUser, resendEmailVerificationLink, resetPassword, verifyEmail } from "../services/auth.service";
 import { signToken } from "../utils/jwt.util";
 import { User } from "../models/User.model";
 
@@ -145,10 +145,10 @@ export const registerController = async (req: Request, res: Response)=>{
     
     const {user, rawToken} = await registerUser(payload);
     
-    sendVerificationMail(user.email, rawToken);
-    
     console.log(user);
     
+    await sendVerificationMail(user.email, rawToken);
+
     return successResponse(
         res,
         STATUS.SUCCESS.CREATED,
@@ -184,8 +184,8 @@ export const loginController = async (req: Request, res: Response)=>{
         secure : process.env.NODE_ENV==="production",
         sameSite: "strict",
         // 30 days (in milliseconds)
-        // undefined is used to create a session cookie
-        maxAge : payload.remember_me? 30*24*60*60*1000 : undefined,
+        // 60 minutes for refresh_token cookie
+        maxAge : payload.remember_me? 30*24*60*60*1000 : 60*60*1000,
     });
     
     const userData : UserResponse = {
@@ -220,7 +220,7 @@ export const resendEmailVerificationLinkController = async (req:Request, res:Res
     
     const token = await resendEmailVerificationLink(data);
     
-    sendVerificationMail(data.email, token);
+    await sendVerificationMail(data.email, token);
     
     return successResponse(
         res,
@@ -247,7 +247,7 @@ export const forgotPasswordController = async (req : Request, res : Response) =>
     
     const token = await forgotPassword(data);
     
-    sendResetPasswordMail(data.email, token);
+    await sendResetPasswordMail(data.email, token);
     
     return successResponse(
         res,
@@ -268,3 +268,22 @@ export const resetPasswordController = async (req : Request, res : Response) => 
         "Password changed successfully",
     )
 };
+
+export const meController = async (req : Request, res : Response) => {
+    const payload = req.user!;
+    const user = await meService(payload);
+    const userData : UserResponse = {
+            uid : user!._id.toString(),
+            email : user!.email,
+            first_name : user!.firstName,
+            last_name : user!.lastName,
+        };
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "User fetched successfully",
+        {
+            user : userData
+        }
+    );
+}

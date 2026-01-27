@@ -18,6 +18,7 @@ import ForgotPasswordStyle from "./ForgotPassword.module.css";
 import { forgotPasswordValidator } from "./ForgotPassword.validator";
 import { useForgotPasswordHandler } from "./ForgotPassword.handler";
 import { BackButton } from "../../../components/common/BackButton/BackButton";
+import { useAppSelector } from "../../../hooks/store.hooks";
 
 
 
@@ -27,6 +28,9 @@ function ForgotPassword(){
 
     // {**************** ForgotPassword Logic : start ******************}
     
+
+    const state = useAppSelector(state => state.auth);
+
     const {forgotPasswordHandler} = useForgotPasswordHandler();
 
     const [email, setEmail] = useState("");
@@ -63,7 +67,7 @@ function ForgotPassword(){
                         <InputField isError={errors.email?.length} placeholder="Email Address" type="email" onChange={(e)=>{setEmail(e.target.value)}}/>
                         {errors.email?.length && <InlineError message={errors.email}/>}
                         <GapBox className="gap-y-md"></GapBox>
-                        <Button text="Send Link" onClick={handleForgotPassword}/>
+                        <Button text="Send Link" onClick={handleForgotPassword} disabled={state.status==="loading"} />
                     </div>
                 </div>
             </div>

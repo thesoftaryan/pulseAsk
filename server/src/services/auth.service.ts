@@ -10,6 +10,7 @@ import { generateRandomToken } from "../utils/token.util";
 import { ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPayload, ResetPasswordPayload, TokenData, VerifyEmailPayload } from "../types/auth.types";
 import { generateHash } from "../utils/hash.util";
 import { signToken, verifyToken } from "../utils/jwt.util";
+import { sendVerificationMail } from "./email.service";
 
 
 /**
@@ -217,7 +218,7 @@ export const forgotPassword = async ( payload : ForgotPasswordPayload)=>{
 /**
  * Reset Password Service for pulseAsk
  * @param payload of Type ResetPasswordPayload
- * @return Nothing
+ * @returns Nothing
  */
 export const resetPassword = async (payload : ResetPasswordPayload)=>{
     const {password, token} = payload;
@@ -243,4 +244,20 @@ export const resetPassword = async (payload : ResetPasswordPayload)=>{
     user.resetPasswordExpires = undefined;
 
     await user.save();
+}
+
+/**
+ * Fetches the user
+ * @param payload of Type TokenData
+ * @returns the user with that credentials
+ */
+export const meService = async (payload : TokenData)=>{
+    const user = User.findById(payload.uid);
+    if(!user){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            "User not found",
+        );
+    }
+    return user;
 }

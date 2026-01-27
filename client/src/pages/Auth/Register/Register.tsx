@@ -1,9 +1,9 @@
 // React Router
-import {Link} from "react-router-dom";
-import { useState } from "react";
+import {Link, useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
 
 // Routes
-import { authRoutes } from "../../../routes/routesConstants";
+import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
 
 // Logical Parts
 import { registerFormValidator } from "./Register.validator";
@@ -33,12 +33,22 @@ import BannerImageDark from "../../../assets/images/Authentication/banner-dark.p
 // Style
 import RegisterStyle from "./Register.module.css";
 import { useRegisterHandler } from "./Register.handler";
+import { useAppSelector } from "../../../hooks/store.hooks";
 
 
 function Register() {
 
+    const navigate = useNavigate();
 
     // {**************** Registration Logic : start ******************}
+
+    const state = useAppSelector(state => state.auth);
+
+    useEffect(()=>{
+        if(state.isAuthenticated){
+            navigate(homeRoutes.home, {replace:true});
+        }
+    }, [state.isAuthenticated]);
 
     const {registerHandler, socialRegisterHandler} = useRegisterHandler();
 
@@ -111,7 +121,7 @@ function Register() {
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-md"} />
 
-                    <Button text="Signup" onClick={handleRegister}/>
+                    <Button text="Signup" onClick={handleRegister}  disabled={state.status==="loading"}/>
                     <Divider text="Or Signup with"></Divider>
                     <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { socialRegisterHandler("google"); }} />
                     {/* <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} /> */}

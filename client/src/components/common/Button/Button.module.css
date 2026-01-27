@@ -15,10 +15,17 @@
     border: none;
     border-radius: var(--size-radius-sm);
 
-    background-color: var(--color-primary);
+    background-color: var(--color-button-primary);
     color: var(--color-text-button);
 
     margin: var(--spacing-sm);
     padding: var(--spacing-lg);
     height: var(--size-button-height);
+
+    transition-duration: 200ms;
+}
+
+.disabled{
+    background-color: var(--color-button-disabled);
+    transition-duration: 200ms;
 }

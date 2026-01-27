@@ -13,7 +13,7 @@ export interface ApiError{
     meta? : Record<string, string>;
 }
 
-export interface LoginResponseData{
+export interface UserResponseData{
     user : User;
 }
 

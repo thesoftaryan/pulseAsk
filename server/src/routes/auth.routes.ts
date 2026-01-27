@@ -8,11 +8,13 @@ import {googleOAuthController,
     forgotPasswordController, 
     resetPasswordController, 
     resendEmailVerificationLinkController, 
-    refreshTokenController} from "../controllers/auth.controller";
+    refreshTokenController,
+    meController} from "../controllers/auth.controller";
 
 // validation middleware
 import { validate } from "../middlewares/validation.middleware";
 import {validateForgotPassword, validateLogin, validateRegister, validateResetPassword, validateVerifyEmail} from "../validations/auth.validation";
+import { authMiddleware } from "../middlewares/auth.middleware";
 
 
 // Router is modular, mountable route handler.
@@ -21,6 +23,8 @@ const router = Router();
 
 router.get("/google", googleOAuthController);
 router.get("/google/callback", googleOAuthCallbackController);
+
+router.get("/me", authMiddleware, meController);
 
 router.get("/verify-email", emailVerificationController);
 router.post("/resend-verification-email", validate(validateVerifyEmail), resendEmailVerificationLinkController);

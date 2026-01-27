@@ -1,6 +1,6 @@
 // React Router
 import {Link, useNavigate} from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Routes
 import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
@@ -32,14 +32,23 @@ import BannerImageLight from "../../../assets/images/Authentication/banner-light
 // Style
 import LoginStyle from "./Login.module.css";
 import { useLoginHandler } from "./Login.handler";
+import { useAppSelector } from "../../../hooks/store.hooks";
 
 function Login() {
     
     const navigate = useNavigate();
 
-    
-
     // {**************** Logical Part : start ******************}
+
+    const state = useAppSelector(state => state.auth);
+
+    useEffect(()=>{
+        if(state.isAuthenticated){
+            navigate(homeRoutes.home, {replace:true});
+        }
+    }, [state.isAuthenticated]);
+
+
     const {loginHandler, socialLoginHandler} = useLoginHandler();
 
     const [email, setEmail] = useState("");
@@ -53,7 +62,7 @@ function Login() {
         setError(validation);
 
         if(Object.keys(validation).length === 0){
-            loginHandler(data, ()=>{navigate(homeRoutes.home, {replace:true});});
+            loginHandler(data);
         }
 
     }
@@ -93,7 +102,7 @@ function Login() {
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-medium"} />
 
-                    <Button text="Login" onClick={handleLogin}/>
+                    <Button text="Login" onClick={handleLogin} disabled={state.status==="loading"}/>
 
                     <GapBox className={"gap-y-md"} />
                     <Link className={LoginStyle["forgot-password"]} to="/auth/forgot-password" >Forgot password?</Link>

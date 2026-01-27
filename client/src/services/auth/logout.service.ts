@@ -1,5 +1,5 @@
-import { logoutUserAPI } from "../../api/auth.api"
+import { logoutAPI } from "../../api/auth.api"
 
 export const logoutService = async ()=>{
-    return logoutUserAPI();
+    return logoutAPI();
 }

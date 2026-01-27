@@ -1,10 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import { logoutUserAPI } from "../../api/auth.api";
-import { authRoutes } from "../../routes/routesConstants";
 import { useEffect, useState } from "react";
 import { useHomeHandler } from "./Home.handler";
+import { logoutThunk } from "../../store/auth/thunks/logout.thunk";
+import { useAppDispatch } from "../../hooks/store.hooks";
+import { useNavigate } from "react-router-dom";
+import { authRoutes } from "../../routes/routesConstants";
 
 export const Home = ()=>{
+    const dispatch = useAppDispatch();
+
     const navigate = useNavigate();
 
     const {homeHandler} = useHomeHandler();
@@ -16,8 +19,8 @@ export const Home = ()=>{
 
     const handleLogOut = async ()=>{
         try{
-            await logoutUserAPI();
-            navigate(authRoutes.login);
+            dispatch(logoutThunk()).unwrap();
+            navigate(authRoutes.login, {replace:true});
         }catch(error){
             console.log("logout : ", error);
         }

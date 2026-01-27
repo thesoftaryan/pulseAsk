@@ -8,6 +8,7 @@ import { logoutThunk } from "./thunks/logout.thunk";
 import { forgotPasswordThunk } from "./thunks/forgotPassword.thunk";
 import { resendVerificationEmailThunk } from "./thunks/resendVerificationEmail.thunk";
 import { resetPasswordThunk } from "./thunks/resetPassword.thunk";
+import { checkAuthThunk } from "./thunks/checkAuthThunk";
 
 const initialState : AuthState = {
     isAuthenticated: false,
@@ -62,6 +63,7 @@ const authSlice = createSlice({
         })
         .addCase(logoutThunk.fulfilled, (state)=>{
             state.status = "unauthenticated";
+            state.isAuthenticated = false;
             state.user = null;
         })
         .addCase(logoutThunk.rejected, (state, action)=>{
@@ -103,6 +105,22 @@ const authSlice = createSlice({
         })
         .addCase(resetPasswordThunk.rejected, (state, action)=>{
             state.status = "idle";
+            state.error = action.payload!.message;
+        })
+        //
+        .addCase(checkAuthThunk.pending, (state)=>{
+            state.status = "loading";
+            state.error = null;
+        })
+        .addCase(checkAuthThunk.fulfilled, (state, action)=>{
+            state.isAuthenticated = true;
+            state.status = "authenticated";
+            state.user = action.payload.data!.user;
+        })
+        .addCase(checkAuthThunk.rejected, (state, action)=>{
+            state.isAuthenticated = false;
+            state.user = null;
+            state.status = "unauthenticated";
             state.error = action.payload!.message;
         })
 
