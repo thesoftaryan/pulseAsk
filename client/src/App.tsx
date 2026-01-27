@@ -14,22 +14,23 @@ import { useAppDispatch } from "./hooks/store.hooks";
 import { logoutThunk } from "./store/auth/thunks/logout.thunk";
 import { authRoutes } from "./routes/routesConstants";
 import { checkAuthThunk } from "./store/auth/thunks/checkAuthThunk";
+import { useApplyTheme } from "./hooks/useApplyTheme.hook";
+// import { toggleTheme } from "./store/theme/theme.slice";
 
 const App = ()=>{
-  // Testing the dark Theme
-  document.documentElement.setAttribute("data-theme", "dark");
-  document.documentElement.removeAttribute("data-theme");
-  // return (
-  //   <>
-  //     {/* <Register/> */}
-  //     {/* <Login/> */}
-  //     {/* <ForgotPassword/> */}
-  //     {/* <ResetPassword/> */}
-  //     <VerifyEmail/>
-  //   </>
-  // );
+
+  useApplyTheme();
+ 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  /*
+  Checking for theme toggle
+  */
+  // const theme = useAppSelector(state=>state.theme.theme);
+
+  // Setting up initial theme
+  
 
   useEffect(()=>{
     dispatch(checkAuthThunk())
@@ -48,6 +49,9 @@ const App = ()=>{
 
   return (
     <>
+    {/* <button onClick={() => dispatch(toggleTheme())}>
+      {theme === "dark" ? "🌙 Dark" : "☀️ Light"}
+    </button> */}
     <Outlet/>
     <Toaster/>
     </>

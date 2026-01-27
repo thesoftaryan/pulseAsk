@@ -27,7 +27,7 @@ import GoogleSocialSignInIcon from "../../../assets/icons/google.svg?react";
 
 
 // Images
-// import BannerImageLight from "../../../assets/images/Authentication/banner-light.png";
+import BannerImageLight from "../../../assets/images/Authentication/banner-light.png";
 import BannerImageDark from "../../../assets/images/Authentication/banner-dark.png";
 
 // Style
@@ -43,6 +43,7 @@ function Register() {
     // {**************** Registration Logic : start ******************}
 
     const state = useAppSelector(state => state.auth);
+    const theme = useAppSelector(state=>state.theme.theme);
 
     useEffect(()=>{
         if(state.isAuthenticated){
@@ -81,7 +82,7 @@ function Register() {
         <div className={RegisterStyle["container"]}>
             <div className={RegisterStyle["left-container"]}>
                 <div className={RegisterStyle["image-wrapper"]}>
-                    <img src={BannerImageDark} alt="Banner-Image" className={RegisterStyle["banner-image"]}/>
+                    <img src={(theme==="dark")?BannerImageDark:BannerImageLight} alt="Banner-Image" className={RegisterStyle["banner-image"]}/>
                 </div>
                 <div className={RegisterStyle["left-container-header"]}>
                     <div className={RegisterStyle["main-icon"]}>

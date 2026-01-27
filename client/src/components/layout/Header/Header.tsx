@@ -1,0 +1,37 @@
+import HeaderStyles from "./Header.module.css";
+import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
+
+import HomeIcon from "../../../assets/icons/header/home.svg?react";
+import TagIcon from "../../../assets/icons/tag.svg?react"
+
+import SearchIcon from "../../../assets/icons/header/search.svg?react";
+
+import NotificationIcon from "../../../assets/icons/header/notification.svg?react";
+import MessageIcon from "../../../assets/icons/header/message.svg?react";
+
+
+export const Header = ()=>{
+    return (
+        <>
+            <header className={HeaderStyles["header"]}>
+                <PulseAskIcon className={HeaderStyles["icon"]}/>
+                <div className={HeaderStyles["left-container"]}>
+                    <HomeIcon/>
+                    <TagIcon/>
+                </div>
+                <div className={HeaderStyles["middle-container"]}>
+                    <div className={HeaderStyles["search-box"]}>
+                        <input type="text" placeholder="Search for questions, answer, persons..." className={HeaderStyles["search-input"]}>
+                            
+                        </input>
+                        <SearchIcon/>
+                    </div>
+                </div>
+                <div className={HeaderStyles["right-container"]}>
+                    <NotificationIcon/>
+                    <MessageIcon/>
+                </div>
+            </header>
+        </>
+    );
+}

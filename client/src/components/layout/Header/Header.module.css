@@ -1,0 +1,58 @@
+.header{
+    display: flex;
+    justify-content: space-evenly;
+    
+    padding: var(--spacing-sm);
+    /* width : 100%; */
+
+}
+
+.left-container{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: orange;    
+}
+
+.middle-container{
+    flex-grow: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: greenyellow;
+}
+
+.right-container{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: violet;
+}
+
+.search-box{
+    border: 1px solid var(--color-border);
+    border-radius:  var(--size-radius-lg);
+    background-color: var(--color-input-area);
+    /* padding: var(--spacing-sm) var(--spacing-md); */
+    /* flex-grow: 1; */
+}
+
+/* .search-input{
+    border: none;    
+    height: var(--size-input-height);
+} */
+
+.search-input{
+    border: none;
+    /* width: 100%; */
+    background-color: var(--color-input-area);
+    color: var(--color-text);
+    height: var(--size-input-height);
+    border-radius:  var(--size-radius-lg);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+}

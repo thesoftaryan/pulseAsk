@@ -27,7 +27,7 @@ import GoogleSocialSignInIcon from "../../../assets/icons/google.svg?react";
 
 // Images
 import BannerImageLight from "../../../assets/images/Authentication/banner-light.png";
-// import BannerImageDark from "../../../assets/images/Authentication/banner-dark.png";
+import BannerImageDark from "../../../assets/images/Authentication/banner-dark.png";
 
 // Style
 import LoginStyle from "./Login.module.css";
@@ -41,6 +41,7 @@ function Login() {
     // {**************** Logical Part : start ******************}
 
     const state = useAppSelector(state => state.auth);
+    const theme = useAppSelector(state=>state.theme.theme);
 
     useEffect(()=>{
         if(state.isAuthenticated){
@@ -75,7 +76,7 @@ function Login() {
         <div className={LoginStyle["container"]}>
             <div className={LoginStyle["left-container"]}>
                 <div className={LoginStyle["image-wrapper"]}>
-                    <img src={BannerImageLight} alt="Banner-Image" className={LoginStyle["banner-image"]}/>
+                    <img src={(theme==="dark")?BannerImageDark:BannerImageLight} alt="Banner-Image" className={LoginStyle["banner-image"]}/>
                 </div>
                 <div className={LoginStyle["left-container-header"]}>
                     <div className={LoginStyle["main-icon"]}>
