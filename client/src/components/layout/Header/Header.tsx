@@ -14,7 +14,7 @@ export const Header = ()=>{
     return (
         <>
             <header className={HeaderStyles["header"]}>
-                <PulseAskIcon className={HeaderStyles["icon"]}/>
+                <PulseAskIcon className={HeaderStyles["site-icon"]}/>
                 <div className={HeaderStyles["left-container"]}>
                     <HomeIcon/>
                     <TagIcon/>
@@ -24,7 +24,9 @@ export const Header = ()=>{
                         <input type="text" placeholder="Search for questions, answer, persons..." className={HeaderStyles["search-input"]}>
                             
                         </input>
-                        <SearchIcon/>
+                        <div className={HeaderStyles["search-icon-container"]}>
+                            <SearchIcon className={HeaderStyles["search-icon"]}/>
+                        </div>
                     </div>
                 </div>
                 <div className={HeaderStyles["right-container"]}>
