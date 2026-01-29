@@ -14,6 +14,7 @@
 
   /* Icon Size */
   --size-icon-sm:20px;
+  --size-icon-lsm: 27px;
   --size-icon-md:35px;
   --size-icon-lg:50px;
   --size-icon-xl:65px;
@@ -22,4 +23,9 @@
   --size-checkbox-sm:20px;
   --size-checkbox-md:25px;
   --size-checkbox-lg:30px;
+
+  /* Border size */
+  --size-border-sm: 1px;
+  --size-border-md: 2px;
+  --size-border-lg: 3px;
 }

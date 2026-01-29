@@ -16,8 +16,8 @@ export const Header = ()=>{
             <header className={HeaderStyles["header"]}>
                 <PulseAskIcon className={HeaderStyles["site-icon"]}/>
                 <div className={HeaderStyles["left-container"]}>
-                    <HomeIcon/>
-                    <TagIcon/>
+                    <HomeIcon className={HeaderStyles["icon"]}/>
+                    <TagIcon className={HeaderStyles["icon"]}/>
                 </div>
                 <div className={HeaderStyles["middle-container"]}>
                     <div className={HeaderStyles["search-box"]}>
@@ -30,8 +30,9 @@ export const Header = ()=>{
                     </div>
                 </div>
                 <div className={HeaderStyles["right-container"]}>
-                    <NotificationIcon/>
-                    <MessageIcon/>
+                    <NotificationIcon className={HeaderStyles["icon"]}/>
+                    <MessageIcon className={HeaderStyles["icon"]}/>
+                    <MessageIcon className={HeaderStyles["icon"]}/>
                 </div>
             </header>
         </>
