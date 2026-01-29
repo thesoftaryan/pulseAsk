@@ -81,8 +81,14 @@
     background-color: var(--color-primary);
 }
 
+.user-action{
+    background-color: var(--color-primary-extra-light);
+    position: absolute;
+    display: block;
+}
 
-@media (max-width : 480px) {
+
+@media (max-width : 600px) {
     /* .right-container, .left-container{
         display: none;
     } */

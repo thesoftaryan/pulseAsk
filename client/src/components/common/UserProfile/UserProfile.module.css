@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    border: var(--size-border-xlg) solid var(--color-primary);
+    border-radius: 40%;
+}
+
+.profile-image{
+    width: var(--size-icon-xmd);
+    height: var(--size-icon-xmd);
+    border-radius: 40%;
+    object-fit: cover;
+}

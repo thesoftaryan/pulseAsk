@@ -1,3 +1,5 @@
+import { UserProfile } from "../../common/UserProfile/UserProfile";
+
 import HeaderStyles from "./Header.module.css";
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 
@@ -9,8 +11,18 @@ import SearchIcon from "../../../assets/icons/header/search.svg?react";
 import NotificationIcon from "../../../assets/icons/header/notification.svg?react";
 import MessageIcon from "../../../assets/icons/header/message.svg?react";
 
+import LightTheme from "../../../assets/icons/header/lightTheme.svg?react";
+import DarkTheme from "../../../assets/icons/header/darkTheme.svg?react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/store.hooks";
+
+import { toggleTheme } from "../../../store/theme/theme.slice";
+
 
 export const Header = ()=>{
+
+    const theme = useAppSelector(state=>state.theme.theme);
+    const dispatch = useAppDispatch();
+
     return (
         <>
             <header className={HeaderStyles["header"]}>
@@ -30,9 +42,19 @@ export const Header = ()=>{
                     </div>
                 </div>
                 <div className={HeaderStyles["right-container"]}>
+                    {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyles["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyles["icon"]}/>}
                     <NotificationIcon className={HeaderStyles["icon"]}/>
                     <MessageIcon className={HeaderStyles["icon"]}/>
-                    <MessageIcon className={HeaderStyles["icon"]}/>
+                    <div className="user-profile">
+                        <UserProfile/>
+                        <div className={HeaderStyles["user-action"]}>
+                            <ul>
+                                <li>Profile</li>
+                                <li>Settings</li>
+                                <li>Something</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </header>
         </>

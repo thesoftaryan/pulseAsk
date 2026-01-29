@@ -16,6 +16,7 @@
   --size-icon-sm:20px;
   --size-icon-lsm: 27px;
   --size-icon-md:35px;
+  --size-icon-xmd: 43px;
   --size-icon-lg:50px;
   --size-icon-xl:65px;
 
@@ -28,4 +29,6 @@
   --size-border-sm: 1px;
   --size-border-md: 2px;
   --size-border-lg: 3px;
+  --size-border-xlg: 4px;
+  --size-border-xxlg: 5px;
 }
