@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 import { UserProfile } from "../../common/UserProfile/UserProfile";
 
 import HeaderStyles from "./Header.module.css";
@@ -23,6 +25,22 @@ export const Header = ()=>{
     const theme = useAppSelector(state=>state.theme.theme);
     const dispatch = useAppDispatch();
 
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const profileRef = useRef<HTMLDivElement>(null);
+
+    useEffect(()=>{
+        const handleClickOutside = (event : MouseEvent)=>{
+            if(profileRef.current && !profileRef.current.contains(event.target as Node)){
+                setIsProfileOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return ()=>{
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    }, []);
+
     return (
         <>
             <header className={HeaderStyles["header"]}>
@@ -45,15 +63,19 @@ export const Header = ()=>{
                     {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyles["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyles["icon"]}/>}
                     <NotificationIcon className={HeaderStyles["icon"]}/>
                     <MessageIcon className={HeaderStyles["icon"]}/>
-                    <div className="user-profile">
-                        <UserProfile/>
-                        <div className={HeaderStyles["user-action"]}>
-                            <ul>
-                                <li>Profile</li>
-                                <li>Settings</li>
-                                <li>Something</li>
-                            </ul>
-                        </div>
+                    <div ref={profileRef} className="profile-wrapper">
+                        <UserProfile className={HeaderStyles["user-profile"]} onClick={()=>{setIsProfileOpen((isOpen)=>!isOpen)}}/>
+                        {
+                            isProfileOpen && (
+                            <div className={HeaderStyles["user-action"]}>
+                                <ul>
+                                    <li>Profile</li>
+                                    <li>Settings</li>
+                                    <li>Something</li>
+                                </ul>
+                            </div>
+                            )
+                        }
                     </div>
                 </div>
             </header>
