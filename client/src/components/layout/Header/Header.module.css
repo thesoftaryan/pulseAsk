@@ -83,8 +83,14 @@
     background-color: var(--color-primary);
 }
 
-.profile-wrapper{
+/* .profile-wrapper{
     position: relative;    
+} */
+
+.profile-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .user-profile{
@@ -92,12 +98,15 @@
 }
 
 .user-action{
-    margin-top: var(--spacing-sm);
     position: absolute;
-    right: var(--spacing-sm);
+
+    margin-top: var(--spacing-sm);
     border-radius: var(--size-radius-md);
-    z-index: 1000;
     background-color: var(--color-level1-bg);
+    
+    right: 0;
+    top: 100%; 
+    z-index: 1000;
 }
 
 .user-action ul{
@@ -109,10 +118,11 @@
 .user-action li{
     padding: var(--spacing-md);
     color: var(--color-text);
+    border-radius: var(--size-radius-md);
     cursor: pointer;
 }
 
-.ui-action li:hover{
+.user-action li:hover{
     background-color: var(--color-primary-extra-light);
 }
 

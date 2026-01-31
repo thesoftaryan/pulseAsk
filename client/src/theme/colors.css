@@ -26,6 +26,8 @@
 
   /* Icon */
   --color-general-icon: #000000;
+  --color-button-level1-icon:#000000;
+  --color-button-icon: #ffffff;
 
   /* Border */
   --color-border: #555555;
@@ -61,6 +63,8 @@
 
   /* Icon */
   --color-general-icon: #ffffff;
+  --color-button-level1-icon:#ffffff;
+  --color-button-icon: #ffffff;
 
   /* Border */
   --color-border: #555555;

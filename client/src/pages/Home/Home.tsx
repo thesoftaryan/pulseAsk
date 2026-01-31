@@ -5,6 +5,13 @@ import { useAppDispatch, useAppSelector } from "../../hooks/store.hooks";
 import { useNavigate } from "react-router-dom";
 import { authRoutes } from "../../routes/routesConstants";
 import { Header } from "../../components/layout/Header/Header";
+import Button from "../../components/common/Button/Button";
+
+import ExploreIcon from "../../assets/icons/home/explore.svg?react";
+import QuestionIcon from "../../assets/icons/home/question.svg?react";
+import { QuickAsk } from "./QuickAsk/QuickAsk";
+
+import HomeStyles from "./Home.module.css";
 
 export const Home = ()=>{
     const dispatch = useAppDispatch();
@@ -41,11 +48,19 @@ export const Home = ()=>{
         <div className="container">
             <div className="header">
                 <Header/>
+                <div className={HomeStyles["ask-question-section"]}>
+                    <div className={HomeStyles["quick-ask-section"]}>
+                        <QuickAsk/>
+                    </div>
+                    <div className={HomeStyles["explore-and-ask"]}>
+                        <Button level1={true} Icon={ExploreIcon} text="Explore" onClick={handleLogOut}/>
+                        <Button level1={false} Icon={QuestionIcon} text="Ask question" onClick={handleLogOut}/>
+                    </div>
+                </div>
                 Something
             </div>
         </div>
         <p>You are logged in!</p>
-        <button onClick={handleLogOut}>logout</button>
         <p>{backendMessage}</p>
         </>
     );

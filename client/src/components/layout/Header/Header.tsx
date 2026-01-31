@@ -63,7 +63,7 @@ export const Header = ()=>{
                     {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyles["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyles["icon"]}/>}
                     <NotificationIcon className={HeaderStyles["icon"]}/>
                     <MessageIcon className={HeaderStyles["icon"]}/>
-                    <div ref={profileRef} className="profile-wrapper">
+                    <div ref={profileRef} className={HeaderStyles["profile-wrapper"]}>
                         <UserProfile className={HeaderStyles["user-profile"]} onClick={()=>{setIsProfileOpen((isOpen)=>!isOpen)}}/>
                         {
                             isProfileOpen && (

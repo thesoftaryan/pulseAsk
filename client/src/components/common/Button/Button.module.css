@@ -25,6 +25,24 @@
     transition-duration: 200ms;
 }
 
+.level1{
+    background-color: var(--color-level1-bg);
+    color: var(--color-text);
+}
+
+.icon{
+    height: var(--size-icon-lsm);
+    width: var(--size-icon-lsm);
+    color: var(--color-button-icon);
+    fill: var(--color-button-icon);
+    margin-right: var(--spacing-md);
+}
+
+.level1 .icon{
+    color: var(--color-button-level1-icon);
+    fill: var(--color-button-level1-icon);
+}
+
 .disabled{
     background-color: var(--color-button-disabled);
     transition-duration: 200ms;
