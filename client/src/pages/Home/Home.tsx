@@ -45,19 +45,18 @@ export const Home = ()=>{
 
     return (
         <>
-        <div className="container">
-            <div className="header">
+        <div className={HomeStyles["container"]}>
+            <div className={HomeStyles["header"]}>
                 <Header/>
-                <div className={HomeStyles["ask-question-section"]}>
-                    <div className={HomeStyles["quick-ask-section"]}>
-                        <QuickAsk/>
-                    </div>
-                    <div className={HomeStyles["explore-and-ask"]}>
-                        <Button level1={true} Icon={ExploreIcon} text="Explore" onClick={handleLogOut}/>
-                        <Button level1={false} Icon={QuestionIcon} text="Ask question" onClick={handleLogOut}/>
-                    </div>
+            </div>
+            <div className={HomeStyles["ask-question-section"]}>
+                <div className={HomeStyles["quick-ask-section"]}>
+                    <QuickAsk/>
                 </div>
-                Something
+                <div className={HomeStyles["explore-and-ask"]}>
+                    <Button isSmall={true} level1={true} Icon={ExploreIcon} text="Explore" onClick={handleLogOut}/>
+                    <Button isSmall={true} level1={false} Icon={QuestionIcon} text="Ask question" onClick={handleLogOut}/>
+                </div>
             </div>
         </div>
         <p>You are logged in!</p>

@@ -20,9 +20,14 @@
 
     margin: var(--spacing-sm);
     padding: var(--spacing-lg);
-    height: var(--size-button-height);
+    height: var(--size-small-button-height);
 
     transition-duration: 200ms;
+}
+
+.small{
+    height: var(--size-small-button-height);
+    font-size: var(--font-size-sm);
 }
 
 .level1{

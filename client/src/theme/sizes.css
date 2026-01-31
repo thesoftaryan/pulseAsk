@@ -1,7 +1,10 @@
 :root {
   
+  /* Button Size */
   --size-button-height: 45px;
+  --size-small-button-height: 35px;
 
+  /* Input Size */
   --size-input-height: 45px;
 
   --size-container-width: 1200px;

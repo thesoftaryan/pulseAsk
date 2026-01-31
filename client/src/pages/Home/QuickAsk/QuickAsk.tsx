@@ -6,9 +6,7 @@ export const QuickAsk = ()=>{
         <>
             <div className={QuickAskStyles["container"]}>
                 <div className={QuickAskStyles["ask-box"]}>
-                    <div className={QuickAskStyles["profile-icon"]}>
-                        <UserProfile/>
-                    </div>
+                    <UserProfile className={QuickAskStyles["profile-icon"]}/>
                     <div className={QuickAskStyles["text"]}>
                         Quick Ask a Question ..
                     </div>

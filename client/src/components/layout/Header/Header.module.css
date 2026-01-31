@@ -46,10 +46,16 @@
     align-items: center;
     justify-content: space-between;
     max-width: 500px;
-    border: var(--size-border-md) solid var(--color-primary);
+    border: var(--size-border-md) solid transparent;
     border-radius:  var(--size-radius-lg);
     background-color: var(--color-input-area);
     padding: 0 var(--spacing-sm);
+    /* transition-duration: 200ms ease-in; */
+}
+
+.search-box:focus-within{
+    /* transition-duration: 200ms ease-in; */
+    border: var(--size-border-md) solid var(--color-primary);
 }
 
 .search-input{
