@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { UserProfile } from "../../common/UserProfile/UserProfile";
 
-import HeaderStyles from "./Header.module.css";
+import HeaderStyle from "./Header.module.css";
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 
 import HomeIcon from "../../../assets/icons/header/home.svg?react";
@@ -18,12 +18,16 @@ import DarkTheme from "../../../assets/icons/header/darkTheme.svg?react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store.hooks";
 
 import { toggleTheme } from "../../../store/theme/theme.slice";
+import { logoutThunk } from "../../../store/auth/thunks/logout.thunk";
+import { useNavigate } from "react-router-dom";
+import { authRoutes } from "../../../routes/routesConstants";
 
 
 export const Header = ()=>{
 
     const theme = useAppSelector(state=>state.theme.theme);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const profileRef = useRef<HTMLDivElement>(null);
@@ -41,37 +45,46 @@ export const Header = ()=>{
         }
     }, []);
 
+    const handleLogout = async ()=>{
+        try{
+            dispatch(logoutThunk()).unwrap();
+            navigate(authRoutes.login, {replace:true});
+        }catch(error){
+            console.log("logout : ", error);
+        }
+    }
+
     return (
         <>
-            <header className={HeaderStyles["header"]}>
-                <PulseAskIcon className={HeaderStyles["site-icon"]}/>
-                <div className={HeaderStyles["left-container"]}>
-                    <HomeIcon className={HeaderStyles["icon"]}/>
-                    <TagIcon className={HeaderStyles["icon"]}/>
+            <header className={HeaderStyle["header"]}>
+                <PulseAskIcon className={HeaderStyle["site-icon"]}/>
+                <div className={HeaderStyle["left-container"]}>
+                    <HomeIcon className={HeaderStyle["icon"]}/>
+                    <TagIcon className={HeaderStyle["icon"]}/>
                 </div>
-                <div className={HeaderStyles["middle-container"]}>
-                    <div className={HeaderStyles["search-box"]}>
-                        <input type="text" placeholder="Search for questions, answer, persons..." className={HeaderStyles["search-input"]}>
+                <div className={HeaderStyle["middle-container"]}>
+                    <div className={HeaderStyle["search-box"]}>
+                        <input type="text" placeholder="Search for questions, answer, persons..." className={HeaderStyle["search-input"]}>
                             
                         </input>
-                        <div className={HeaderStyles["search-icon-container"]}>
-                            <SearchIcon className={HeaderStyles["search-icon"]}/>
+                        <div className={HeaderStyle["search-icon-container"]}>
+                            <SearchIcon className={HeaderStyle["search-icon"]}/>
                         </div>
                     </div>
                 </div>
-                <div className={HeaderStyles["right-container"]}>
-                    {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyles["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyles["icon"]}/>}
-                    <NotificationIcon className={HeaderStyles["icon"]}/>
-                    <MessageIcon className={HeaderStyles["icon"]}/>
-                    <div ref={profileRef} className={HeaderStyles["profile-wrapper"]}>
-                        <UserProfile className={HeaderStyles["user-profile"]} onClick={()=>{setIsProfileOpen((isOpen)=>!isOpen)}}/>
+                <div className={HeaderStyle["right-container"]}>
+                    {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>}
+                    <NotificationIcon className={HeaderStyle["icon"]}/>
+                    <MessageIcon className={HeaderStyle["icon"]}/>
+                    <div ref={profileRef} className={HeaderStyle["profile-wrapper"]}>
+                        <UserProfile className={HeaderStyle["user-profile"]} onClick={()=>{setIsProfileOpen((isOpen)=>!isOpen)}}/>
                         {
                             isProfileOpen && (
-                            <div className={HeaderStyles["user-action"]}>
+                            <div className={HeaderStyle["user-action"]}>
                                 <ul>
                                     <li>Profile</li>
                                     <li>Settings</li>
-                                    <li>Something</li>
+                                    <li onClick={handleLogout}>Logout</li>
                                 </ul>
                             </div>
                             )

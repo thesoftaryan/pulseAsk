@@ -147,8 +147,8 @@
         padding: 0;
     }
     .icon{
-        height: var(--size-icon-lsm);
-        width: var(--size-icon-lsm);
+        height: var(--size-icon-ls);
+        width: var(--size-icon-ls);
     }
     .site-icon{
         height: var(--size-icon-lg);

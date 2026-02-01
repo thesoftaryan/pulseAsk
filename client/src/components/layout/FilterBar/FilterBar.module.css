@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 100%; */
+}
+
+.buttons{
+    display: flex;
+    margin-left: var(--spacing-xl);
+    min-width: 300px;
+}
+
+.line{
+    flex-grow: 1;
+    margin-right: var(--spacing-xxl);
+    margin-left: var(--spacing-sm);
+    border-top: var(--size-border-sm) solid var(--color-border-light);
+}

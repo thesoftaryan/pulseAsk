@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHomeHandler } from "./Home.handler";
-import { logoutThunk } from "../../store/auth/thunks/logout.thunk";
-import { useAppDispatch, useAppSelector } from "../../hooks/store.hooks";
+import { useAppSelector } from "../../hooks/store.hooks";
 import { useNavigate } from "react-router-dom";
 import { authRoutes } from "../../routes/routesConstants";
 import { Header } from "../../components/layout/Header/Header";
@@ -11,10 +10,10 @@ import ExploreIcon from "../../assets/icons/home/explore.svg?react";
 import QuestionIcon from "../../assets/icons/home/question.svg?react";
 import { QuickAsk } from "./QuickAsk/QuickAsk";
 
-import HomeStyles from "./Home.module.css";
+import HomeStyle from "./Home.module.css";
+import { FilterBar } from "../../components/layout/FilterBar/FilterBar";
 
 export const Home = ()=>{
-    const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
 
@@ -34,29 +33,23 @@ export const Home = ()=>{
         }
     }, [state.isAuthenticated]);
 
-    const handleLogOut = async ()=>{
-        try{
-            dispatch(logoutThunk()).unwrap();
-            navigate(authRoutes.login, {replace:true});
-        }catch(error){
-            console.log("logout : ", error);
-        }
-    }
-
     return (
         <>
-        <div className={HomeStyles["container"]}>
-            <div className={HomeStyles["header"]}>
+        <div className={HomeStyle["container"]}>
+            <div className={HomeStyle["header"]}>
                 <Header/>
             </div>
-            <div className={HomeStyles["ask-question-section"]}>
-                <div className={HomeStyles["quick-ask-section"]}>
+            <div className={HomeStyle["ask-question-section"]}>
+                <div className={HomeStyle["quick-ask-section"]}>
                     <QuickAsk/>
                 </div>
-                <div className={HomeStyles["explore-and-ask"]}>
-                    <Button isSmall={true} level1={true} Icon={ExploreIcon} text="Explore" onClick={handleLogOut}/>
-                    <Button isSmall={true} level1={false} Icon={QuestionIcon} text="Ask question" onClick={handleLogOut}/>
+                <div className={HomeStyle["explore-and-ask"]}>
+                    <Button isSmall={true} level1={true} Icon={ExploreIcon} text="Explore" onClick={()=>{}}/>
+                    <Button isSmall={true} level1={false} Icon={QuestionIcon} text="Ask question" onClick={()=>{}}/>
                 </div>
+            </div>
+            <div className={HomeStyle["filters-section"]}>
+                <FilterBar/>
             </div>
         </div>
         <p>You are logged in!</p>

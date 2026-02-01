@@ -14,7 +14,7 @@
   height: var(--size-checkbox-sm);
   
   border: 1px solid var(--color-border);
-  border-radius: var(--size-radius-xsm);
+  border-radius: var(--size-radius-xs);
 }
 
 .checkbox-error{

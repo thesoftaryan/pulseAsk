@@ -1,0 +1,49 @@
+.button-wrapper{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.button{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: var(--font-size-md);
+
+    border: none;
+    border-radius: var(--size-radius-lg);
+
+    background-color: var(--color-level1-bg);
+    color: var(--color-text);
+
+    margin: var(--spacing-sm);
+    padding: var(--spacing-md);
+    height: var(--size-button-height-sm);
+
+    transition-duration: 200ms;
+}
+
+.active{
+    color: var(--color-text-button);
+    background-color: var(--color-button-primary);    
+}
+
+.active .icon{
+    color: var(--color-button-icon);
+    fill: var(--color-button-icon);
+}
+
+.icon{
+    height: var(--size-icon-sm);
+    width: var(--size-icon-sm);
+    color: var(--color-general-icon);
+    fill: var(--color-general-icon);
+    margin-right: var(--spacing-md);
+}
+
+.disabled{
+    background-color: var(--color-button-disabled);
+    transition-duration: 200ms;
+}

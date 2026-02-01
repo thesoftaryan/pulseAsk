@@ -14,12 +14,24 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    /* background-color: red; */
     max-width: 900px;
+    margin-top: var(--spacing-xl);
 }
 .quick-ask-section{
-    flex-grow: 4;
+    flex-grow: 3;
 }
 .explore-and-ask{
     display: flex;
+}
+
+
+.filters-section{
+    width: 100%;
+    margin-top: var(--spacing-lg);
+}
+
+@media (max-width:700px) {
+    .ask-question-section{
+        flex-direction: column;
+    }
 }

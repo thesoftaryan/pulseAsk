@@ -32,6 +32,7 @@
 
   /* Border */
   --color-border: #555555;
+  --color-border-light: #D1D5DB;
 
   /* Button */
   --color-button-primary : #4458af;
@@ -53,9 +54,9 @@
   --color-primary-extra-light: #a1e8ed;
 
   /* Text */
-  --color-text: #ffffff;
-  --color-text-over-primary: #ffffff;
-  --color-text-button:#ffffff;
+  --color-text: #EDEDED;
+  --color-text-over-primary: #EDEDED;
+  --color-text-button:#EDEDED;
   --color-heading-text: #ffffff;
   --color-subheading-text:#979797;
 
@@ -63,12 +64,13 @@
   --color-input-area : #000000;
 
   /* Icon */
-  --color-general-icon: #ffffff;
-  --color-button-level1-icon:#ffffff;
-  --color-button-icon: #ffffff;
+  --color-general-icon: #EDEDED;
+  --color-button-level1-icon:#EDEDED;
+  --color-button-icon: #EDEDED;
 
   /* Border */
   --color-border: #555555;
+  --color-border-light: #555555;
 
   /* Button */
   --color-button-primary : #1aa5ae;

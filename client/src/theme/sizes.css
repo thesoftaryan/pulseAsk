@@ -2,13 +2,14 @@
   
   /* Button Size */
   --size-button-height: 45px;
-  --size-small-button-height: 35px;
+  --size-button-height-sm: 35px;
 
   /* Input Size */
   --size-input-height: 45px;
+  --size-input-height-sm:37px;
 
   --size-container-width: 1200px;
-  --size-radius-xsm:4px;
+  --size-radius-xs:4px;
   --size-radius-sm:8px;
   --size-radius-md:16px;
   --size-radius-lg:24px;
@@ -17,9 +18,9 @@
 
   /* Icon Size */
   --size-icon-sm:20px;
-  --size-icon-lsm: 27px;
+  --size-icon-ls: 27px;
   --size-icon-md:35px;
-  --size-icon-xmd: 43px;
+  --size-icon-xm: 43px;
   --size-icon-lg:50px;
   --size-icon-xl:65px;
 
@@ -32,6 +33,6 @@
   --size-border-sm: 1px;
   --size-border-md: 2px;
   --size-border-lg: 3px;
-  --size-border-xlg: 4px;
-  --size-border-xxlg: 5px;
+  --size-border-xl: 4px;
+  --size-border-xxl: 5px;
 }

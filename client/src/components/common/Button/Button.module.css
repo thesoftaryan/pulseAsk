@@ -20,13 +20,13 @@
 
     margin: var(--spacing-sm);
     padding: var(--spacing-lg);
-    height: var(--size-small-button-height);
+    height: var(--size-button-height);
 
     transition-duration: 200ms;
 }
 
 .small{
-    height: var(--size-small-button-height);
+    height: var(--size-button-height-sm);
     font-size: var(--font-size-sm);
 }
 
@@ -36,8 +36,8 @@
 }
 
 .icon{
-    height: var(--size-icon-lsm);
-    width: var(--size-icon-lsm);
+    height: var(--size-icon-ls);
+    width: var(--size-icon-ls);
     color: var(--color-button-icon);
     fill: var(--color-button-icon);
     margin-right: var(--spacing-md);

@@ -1,13 +1,15 @@
 import { UserProfile } from "../../../components/common/UserProfile/UserProfile";
-import QuickAskStyles from "./QuickAsk.module.css"
+import QuickAskStyle from "./QuickAsk.module.css"
 
 export const QuickAsk = ()=>{
     return (
         <>
-            <div className={QuickAskStyles["container"]}>
-                <div className={QuickAskStyles["ask-box"]}>
-                    <UserProfile className={QuickAskStyles["profile-icon"]}/>
-                    <div className={QuickAskStyles["text"]}>
+            <div className={QuickAskStyle["container"]}>
+                <div className={QuickAskStyle["ask-box"]}>
+                    <div className={QuickAskStyle["profile-icon-wrapper"]}>
+                        <UserProfile className={QuickAskStyle["profile-icon"]}/>
+                    </div>
+                    <div className={QuickAskStyle["text"]}>
                         Quick Ask a Question ..
                     </div>
                 </div>

@@ -5,15 +5,20 @@
 }
 
 .ask-box{
+    background-color: var(--color-level1-bg);
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    border: var(--size-border-sm) solid var(--color-border);
+    justify-content: flex-start;
+    border: var(--size-border-sm) solid var(--color-border-light);
     border-radius: var(--size-radius-md);
     padding: var(--spacing-sm);
     flex-grow: 1;
     max-width: 500px;
-    height: var(--size-input-height);
+    height: var(--size-input-height-sm);
+}
+
+.profile-icon-wrapper{
+    margin-left: var(--spacing-xsm);
 }
 
 .profile-icon{
@@ -23,5 +28,6 @@
 
 .text{
     font-size: var(--font-size-md);
-    color: var(--color-placeholder-text)
+    color: var(--color-placeholder-text);
+    margin: 0 var(--spacing-lg);
 }
