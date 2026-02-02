@@ -12,6 +12,7 @@ import { QuickAsk } from "./QuickAsk/QuickAsk";
 
 import HomeStyle from "./Home.module.css";
 import { FilterBar } from "../../components/layout/FilterBar/FilterBar";
+import { Question } from "../../components/common/Question/Question";
 
 export const Home = ()=>{
 
@@ -50,6 +51,9 @@ export const Home = ()=>{
             </div>
             <div className={HomeStyle["filters-section"]}>
                 <FilterBar/>
+            </div>
+            <div className="question-section">
+                <Question/>
             </div>
         </div>
         <p>You are logged in!</p>

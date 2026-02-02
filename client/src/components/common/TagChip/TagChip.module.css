@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-sm);
+    background-color: var(--color-level1-bg);
+    border-radius: var(--size-radius-sm);
+}
+
+.left{
+    margin-right: var(--spacing-sm);
+}
+.circle{
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+}
+
+.right{
+    /* margin-left: var(--spacing-sm); */
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+}
