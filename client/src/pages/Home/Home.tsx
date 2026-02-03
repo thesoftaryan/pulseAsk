@@ -52,8 +52,8 @@ export const Home = ()=>{
             <div className={HomeStyle["filters-section"]}>
                 <FilterBar/>
             </div>
-            <div className="question-section">
-                <Question/>
+            <div className={HomeStyle["question-section"]}>
+                <Question title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
             </div>
         </div>
         <p>You are logged in!</p>

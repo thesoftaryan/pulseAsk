@@ -3,8 +3,13 @@
     justify-content: center;
     align-items: center;
     padding: var(--spacing-sm);
-    background-color: var(--color-level1-bg);
+    margin-left: var(--spacing-sm);
+    background-color: var(--color-level2-bg);
     border-radius: var(--size-radius-sm);
+}
+
+.level1{
+    background-color: var(--color-level1-bg);
 }
 
 .left{

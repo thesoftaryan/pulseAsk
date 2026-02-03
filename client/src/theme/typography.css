@@ -8,6 +8,8 @@
   --font-size-xl: 1.5rem;
   --font-size-xxl: 2rem;
 
+  --font-heading: var(--font-size-xl);
+
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;

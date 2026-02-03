@@ -1,0 +1,106 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-sm);
+    border-radius: var(--size-radius-ls);
+    background-color: var(--color-level1-bg); 
+    color: var(--color-text);
+}
+
+/* Header : Start */
+
+.header{
+    display: flex;
+    align-items: center;
+    padding-top: var(--spacing-sm);
+    /* background-color: red; */
+}
+
+.header .title{
+    flex-grow: 2;
+    font-size: var(--font-heading);
+}
+
+.header .actions{
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0 var(--spacing-sm);
+    /* background-color: aquamarine; */
+}
+
+.header .action-icon-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm);
+    background-color: var(--color-level2-bg);
+    border-radius: var(--size-radius-sm);
+}
+
+.header .action-icon{
+    height: var(--size-icon-ls);
+    width: var(--size-icon-ls);
+}
+
+.header .meta-data{
+    margin: 0 var(--spacing-sm);
+    color: var(--color-placeholder-text);
+}
+
+/* Header : Ends */
+
+/* Footer : Starts */
+
+.footer{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.icon{
+    height: var(--size-icon-ls);
+    width: var(--size-icon-ls);
+
+    color: var(--color-primary);
+    margin-left: var(--spacing-sm);
+}
+
+.tags{
+    flex-grow: 1;
+    display: flex;
+    margin-left: var(--spacing-md);
+}
+
+/* Footer : Ends */
+
+
+/* No Answer Component : Start*/
+.answer-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-sm);
+    background-color: var(--color-level2-bg);
+    border-radius: var(--size-radius-ls);
+    margin: var(--spacing-md) 0;
+}
+
+.rank-icon{
+    height: var(--size-icon-lg);
+    width: var(--size-icon-lg);
+    padding: 0 var(--spacing-sm);
+}
+
+.message{
+    flex-grow: 1;
+    padding: 0 var(--spacing-lg);
+    font-size: var(--font-size-lg);
+}
+
+.answer-now-button{
+    max-width: 200px;
+}
+
+/* No Answer Component : End */

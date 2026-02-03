@@ -1,7 +1,6 @@
 .button-wrapper{
     display: flex;
     align-items: center;
-    width: 100%;
 }
 .button{
     width: 100%;
