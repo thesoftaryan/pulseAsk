@@ -42,9 +42,7 @@ export const Question:React.FC<QuestionInterface> = ({title, best_answer})=>{
                 </div>
                 <div className={QuestionStyle["answer-wrapper"]}>
                 {
-                    (best_answer)?
-                    "Answer Component will be here"
-                    :
+                    (best_answer)??
                     <NoAnswerMessage/>
                 }
                 </div>

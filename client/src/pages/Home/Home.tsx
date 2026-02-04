@@ -13,6 +13,8 @@ import { QuickAsk } from "./QuickAsk/QuickAsk";
 import HomeStyle from "./Home.module.css";
 import { FilterBar } from "../../components/layout/FilterBar/FilterBar";
 import { Question } from "../../components/common/Question/Question";
+import type { AnswerInterface } from "../../types/answer.types";
+import { Answer } from "../../components/common/Answer/Answer";
 
 export const Home = ()=>{
 
@@ -34,6 +36,12 @@ export const Home = ()=>{
         }
     }, [state.isAuthenticated]);
 
+    const answerObj : AnswerInterface = {
+        author : {uid: "2", email: "thesoftaryan@gmail.com", first_name:"Aryan", last_name:"Maurya"},
+        content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
+    }
+
+
     return (
         <>
         <div className={HomeStyle["container"]}>
@@ -53,7 +61,8 @@ export const Home = ()=>{
                 <FilterBar/>
             </div>
             <div className={HomeStyle["question-section"]}>
-                <Question title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                <Question best_answer={<Answer author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
             </div>
         </div>
         <p>You are logged in!</p>

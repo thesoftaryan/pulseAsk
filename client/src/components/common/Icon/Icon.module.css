@@ -1,0 +1,19 @@
+.action-icon-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm);
+    background-color: var(--color-level1-bg);
+    border-radius: var(--size-radius-sm);
+    color: var(--color-text);
+}
+
+.action-icon{
+    height: var(--size-icon-ls);
+    width: var(--size-icon-ls);
+}
+
+.text{
+    margin-left: var(--spacing-sm);
+    font-size: var(--font-size-md);
+}

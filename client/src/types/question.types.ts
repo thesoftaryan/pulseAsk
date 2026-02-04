@@ -1,4 +1,4 @@
-import type { AnswerInterface } from "./answer.types";
+import type { ReactElement } from "react";
 import type { User } from "./user.types";
 
 interface TagInterface{
@@ -7,8 +7,9 @@ interface TagInterface{
 }
 
 export interface QuestionInterface{
+    id : string;
     author : User;
     title : string;
     tags? : Array<TagInterface>;
-    best_answer? : AnswerInterface;
+    best_answer? : ReactElement<any, any>;
 }
