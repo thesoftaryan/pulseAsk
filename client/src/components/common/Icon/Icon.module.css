@@ -8,12 +8,24 @@
     color: var(--color-text);
 }
 
+.level2{
+    background-color: var(--color-level2-bg);
+}
+
 .action-icon{
     height: var(--size-icon-ls);
     width: var(--size-icon-ls);
 }
 
+.active-icon{
+    color: var(--color-primary);
+}
+
+.danger-icon{
+    color: var(--color-error);
+}
+
 .text{
-    margin-left: var(--spacing-sm);
+    margin: 0 var(--spacing-sm);
     font-size: var(--font-size-md);
 }

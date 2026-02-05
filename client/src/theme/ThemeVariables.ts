@@ -12,6 +12,10 @@ export const color = {
   /* =========================
      General Purpose
   ========================= */
+  colorGold : "#FAA629",
+  colorSilver: "#E6ECEF",
+  colorBronze: "#CE7430",
+
   colorSuccess: "#28A745",
   colorSuccessLight: "#D4EDDA",
 

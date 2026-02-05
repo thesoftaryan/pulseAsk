@@ -1,0 +1,64 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    color: var(--color-text);
+    padding: var(--spacing-sm);
+}
+
+
+/* Header : Start */
+
+.header{
+    display: flex;
+    justify-content: flex-start;
+    /* background-color: cadetblue; */
+    margin-bottom: var(--spacing-md);
+}
+
+.user-data{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    margin-left: var(--spacing-md);
+    font-size: var(--font-size-lg);
+}
+
+.user-education{
+    font-size: var(--font-size-sm);
+    color: var(--color-subheading-text);
+}
+
+/* Header : End */
+
+
+/* Answer Wrapper : Start */
+
+.answer-wrapper{
+    padding: var(--spacing-sm);
+}
+
+/* Answer Wrapper : End */
+
+/* Footer : Start */
+
+.footer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-md);
+}
+.left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Footer : End */

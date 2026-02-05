@@ -15,6 +15,7 @@ import { FilterBar } from "../../components/layout/FilterBar/FilterBar";
 import { Question } from "../../components/common/Question/Question";
 import type { AnswerInterface } from "../../types/answer.types";
 import { Answer } from "../../components/common/Answer/Answer";
+import { Leaderboard } from "./Leaderboard/Leaderboard";
 
 export const Home = ()=>{
 
@@ -48,6 +49,7 @@ export const Home = ()=>{
             <div className={HomeStyle["header"]}>
                 <Header/>
             </div>
+            {/* <div className="mainContent"></div> */}
             <div className={HomeStyle["ask-question-section"]}>
                 <div className={HomeStyle["quick-ask-section"]}>
                     <QuickAsk/>
@@ -60,9 +62,14 @@ export const Home = ()=>{
             <div className={HomeStyle["filters-section"]}>
                 <FilterBar/>
             </div>
-            <div className={HomeStyle["question-section"]}>
-                <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
-                <Question best_answer={<Answer author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+            <div className={HomeStyle["question-leaderboard-section"]}>
+                <div className={HomeStyle["question-section"]}>
+                    <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                    <Question best_answer={<Answer author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                </div>
+                <div className={HomeStyle["leaderboard-section"]}>
+                    <Leaderboard/>
+                </div>
             </div>
         </div>
         <p>You are logged in!</p>

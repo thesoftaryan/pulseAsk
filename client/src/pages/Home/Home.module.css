@@ -4,7 +4,7 @@
     align-items: center;
     margin: 0px;
     padding: 0px;
-    width: 100%;
+    /* width: 100%; */
 }
 .header{
     width: 100%;
@@ -30,6 +30,11 @@
     margin-top: var(--spacing-lg);
 }
 
+
+.question-leaderboard-section{
+    display: flex;
+}
+
 .question-section{
     width: 100%;
 }
@@ -37,5 +42,9 @@
 @media (max-width:700px) {
     .ask-question-section{
         flex-direction: column;
+    }
+    .question-leaderboard-section{
+        flex-direction: column;
+        align-items: flex-start;
     }
 }

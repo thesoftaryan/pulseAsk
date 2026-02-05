@@ -9,6 +9,7 @@ import RankIcon from "../../../assets/icons/general/rank.svg?react";
 
 import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
+import { Icon } from "../Icon/Icon";
 
 const NoAnswerMessage = ()=>{
     return (
@@ -31,12 +32,8 @@ export const Question:React.FC<QuestionInterface> = ({title, best_answer})=>{
                         {title}
                     </div>
                     <div className={QuestionStyle["actions"]}>
-                        <div className={QuestionStyle["action-icon-container"]}>
-                            <ReportIcon  className={QuestionStyle["action-icon"]}/>
-                        </div>
-                        <div className={QuestionStyle["action-icon-container"]}>
-                            <BookmarkIcon  className={QuestionStyle["action-icon"]}/>
-                        </div>
+                        <Icon level2={true} IconData={ReportIcon}/>
+                        <Icon level2={true} IconData={BookmarkIcon}/>
                     </div>
                     <div className={QuestionStyle["meta-data"]}>2h ago</div>
                 </div>

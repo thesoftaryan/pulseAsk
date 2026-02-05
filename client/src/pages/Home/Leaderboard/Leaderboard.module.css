@@ -1,0 +1,88 @@
+.container{
+    display: flex;    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-ls);
+    background-color: var(--color-level1-bg);
+    border-radius: var(--size-radius-md);
+}
+
+
+.header{
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.heading{
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    margin-left: var(--spacing-ls);
+}
+
+.leaderboard-icon{
+    height: var(--size-icon-xm);
+    width: var(--size-icon-xm);
+}
+
+.rankings{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+.rank-list-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: var(--spacing-sm) 0;
+}
+
+.left .rank{
+    height: var(--size-icon-xm);
+    width: var(--size-icon-xm);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right{
+    display: flex;
+    margin-left: var(--spacing-sm);
+}
+
+
+
+.user-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin-left: var(--spacing-sm);
+}
+
+.user-name{
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+}
+
+.user-reputation{
+    display: flex;
+}
+
+.reputation-icon{
+    height: var(--size-icon-sm);
+    width: var(--size-icon-sm);
+    color: var(--color-primary);
+}
+
+.reputation-count{
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
