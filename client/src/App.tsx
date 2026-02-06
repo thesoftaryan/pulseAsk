@@ -49,9 +49,6 @@ const App = ()=>{
 
   return (
     <>
-    {/* <button onClick={() => dispatch(toggleTheme())}>
-      {theme === "dark" ? "🌙 Dark" : "☀️ Light"}
-    </button> */}
     <Outlet/>
     <Toaster/>
     </>

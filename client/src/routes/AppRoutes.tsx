@@ -3,6 +3,7 @@ import AuthRoutes from "./AuthRoutes";
 import { authRoutes, homeRoutes } from "./routesConstants";
 import { Home } from "../pages/Home/Home";
 import App from "../App";
+import { MainLayout } from "../components/layout/MainLayout/MainLayout";
 
 
 const router = createBrowserRouter([
@@ -13,7 +14,12 @@ const router = createBrowserRouter([
 
             ...AuthRoutes,
 
-            {path:"/home", element: <Home/>},
+            {
+              element: <MainLayout/>,
+              children:[
+                {path: homeRoutes.home, element: <Home/>},
+              ]  
+            },
 
             {path:"*", element:<Navigate to={authRoutes.login} replace/>}
         ],

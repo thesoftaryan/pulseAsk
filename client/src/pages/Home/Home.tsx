@@ -3,7 +3,6 @@ import { useHomeHandler } from "./Home.handler";
 import { useAppSelector } from "../../hooks/store.hooks";
 import { useNavigate } from "react-router-dom";
 import { authRoutes } from "../../routes/routesConstants";
-import { Header } from "../../components/layout/Header/Header";
 import Button from "../../components/common/Button/Button";
 
 import ExploreIcon from "../../assets/icons/home/explore.svg?react";
@@ -46,9 +45,6 @@ export const Home = ()=>{
     return (
         <>
         <div className={HomeStyle["container"]}>
-            <div className={HomeStyle["header"]}>
-                <Header/>
-            </div>
             {/* <div className="mainContent"></div> */}
             <div className={HomeStyle["ask-question-section"]}>
                 <div className={HomeStyle["quick-ask-section"]}>
