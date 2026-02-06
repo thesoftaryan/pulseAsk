@@ -6,6 +6,7 @@
     background-color: var(--color-level1-bg);
     border-radius: var(--size-radius-sm);
     color: var(--color-text);
+    cursor: pointer;
 }
 
 .level2{
@@ -15,6 +16,7 @@
 .action-icon{
     height: var(--size-icon-ls);
     width: var(--size-icon-ls);
+    color: var(--color-general-icon);
 }
 
 .active-icon{

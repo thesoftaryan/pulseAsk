@@ -3,9 +3,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-ls);
+    padding: var(--spacing-ls) var(--spacing-md);
     background-color: var(--color-level1-bg);
     border-radius: var(--size-radius-md);
+    color: var(--color-text);
+    min-width: 250px;
 }
 
 

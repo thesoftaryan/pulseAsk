@@ -1,10 +1,11 @@
 .container{
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-sm);
+    padding: var(--spacing-md);
     border-radius: var(--size-radius-ls);
     background-color: var(--color-level1-bg); 
     color: var(--color-text);
+    max-width: 1300px;
 }
 
 /* Header : Start */

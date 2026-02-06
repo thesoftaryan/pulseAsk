@@ -59,18 +59,23 @@ export const Home = ()=>{
                     <Button isSmall={true} level1={false} Icon={QuestionIcon} text="Ask question" onClick={()=>{}}/>
                 </div>
             </div>
-            <div className={HomeStyle["filters-section"]}>
-                <FilterBar/>
-            </div>
-            <div className={HomeStyle["question-leaderboard-section"]}>
-                <div className={HomeStyle["question-section"]}>
-                    <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
-                    <Question best_answer={<Answer author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+
+            <div className={HomeStyle["main-section"]}>
+                <div className={HomeStyle["filters-section"]}>
+                    <FilterBar/>
                 </div>
-                <div className={HomeStyle["leaderboard-section"]}>
-                    <Leaderboard/>
+                <div className={HomeStyle["question-leaderboard-section"]}>
+                    <div className={HomeStyle["question-section"]}>
+                        <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                        <Question best_answer={<Answer author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                    </div>
+                    <div className={HomeStyle["leaderboard-section"]}>
+                        <Leaderboard/>
+                    </div>
                 </div>
             </div>
+
+
         </div>
         <p>You are logged in!</p>
         <p>{backendMessage}</p>
