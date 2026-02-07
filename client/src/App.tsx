@@ -10,7 +10,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 import {Toaster} from "react-hot-toast";
 import { useEffect } from "react";
-import { useAppDispatch } from "./hooks/store.hooks";
+import { useAppDispatch } from "./hooks/store.hook";
 import { logoutThunk } from "./store/auth/thunks/logout.thunk";
 import { authRoutes } from "./routes/routesConstants";
 import { checkAuthThunk } from "./store/auth/thunks/checkAuthThunk";

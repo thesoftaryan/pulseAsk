@@ -1,5 +1,5 @@
 // Backend Service
-import { useAppDispatch } from "../../../hooks/store.hooks";
+import { useAppDispatch } from "../../../hooks/store.hook";
 
 import { forgotPasswordThunk } from "../../../store/auth/thunks/forgotPassword.thunk";
 import type { ApiError } from "../../../types/apiResponse.types";

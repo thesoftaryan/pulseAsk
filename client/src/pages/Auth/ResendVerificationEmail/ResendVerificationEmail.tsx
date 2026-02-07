@@ -18,7 +18,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { authRoutes } from "../../../routes/routesConstants";
 import { useResendVerficationEmailHandler } from "./ResendVerificationEmail.handler";
 import { BackButton } from "../../../components/common/BackButton/BackButton";
-import { useAppSelector } from "../../../hooks/store.hooks";
+import { useAppSelector } from "../../../hooks/store.hook";
 
 
 function ResendVerificationEmail(){

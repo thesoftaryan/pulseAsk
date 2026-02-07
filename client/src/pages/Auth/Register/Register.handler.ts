@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../../../hooks/store.hooks";
+import { useAppDispatch } from "../../../hooks/store.hook";
 import { socialSignInService } from "../../../services/auth/socialSignIn.service";
 import { registerThunk } from "../../../store/auth/thunks/register.thunk";
 import type { ApiError } from "../../../types/apiResponse.types";

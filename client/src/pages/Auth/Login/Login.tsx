@@ -32,7 +32,7 @@ import BannerImageDark from "../../../assets/images/Authentication/banner-dark.p
 // Style
 import LoginStyle from "./Login.module.css";
 import { useLoginHandler } from "./Login.handler";
-import { useAppSelector } from "../../../hooks/store.hooks";
+import { useAppSelector } from "../../../hooks/store.hook";
 
 function Login() {
     

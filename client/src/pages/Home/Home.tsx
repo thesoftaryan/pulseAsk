@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import { useHomeHandler } from "./Home.handler";
-import { useAppSelector } from "../../hooks/store.hooks";
+import { useEffect } from "react";
+// import { useHomeHandler } from "./Home.handler";
+import { useAppSelector } from "../../hooks/store.hook";
 import { useNavigate } from "react-router-dom";
 import { authRoutes } from "../../routes/routesConstants";
 import Button from "../../components/common/Button/Button";
 
 import ExploreIcon from "../../assets/icons/home/explore.svg?react";
 import QuestionIcon from "../../assets/icons/home/question.svg?react";
+import AddIcon from "../../assets/icons/general/add.svg?react";
 import { QuickAsk } from "./QuickAsk/QuickAsk";
 
 import HomeStyle from "./Home.module.css";
@@ -22,12 +23,12 @@ export const Home = ()=>{
 
     const state = useAppSelector(state => state.auth);
 
-    const {homeHandler} = useHomeHandler();
-    const [backendMessage, setBackendMessage] = useState("");
+    // const {homeHandler} = useHomeHandler();
+    // const [backendMessage, setBackendMessage] = useState("");
 
-    useEffect(()=>{
-        homeHandler(setBackendMessage);
-    }, []);
+    // useEffect(()=>{
+    //     homeHandler(setBackendMessage);
+    // }, []);
 
 
     useEffect(()=>{
@@ -64,17 +65,17 @@ export const Home = ()=>{
                     <div className={HomeStyle["question-section"]}>
                         <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
                         <Question best_answer={<Answer author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+
+                        <div className={HomeStyle["load-more-button"]}>
+                            <Button text="Load More" isSmall={true} level1={true} Icon={AddIcon}/>
+                        </div>
                     </div>
                     <div className={HomeStyle["leaderboard-section"]}>
                         <Leaderboard/>
                     </div>
                 </div>
             </div>
-
-
         </div>
-        <p>You are logged in!</p>
-        <p>{backendMessage}</p>
         </>
     );
 }

@@ -22,7 +22,7 @@ import InlineError from "../../../components/common/InlineError/InlineError";
 // Routes
 import { authRoutes } from "../../../routes/routesConstants";
 import { BackButton } from "../../../components/common/BackButton/BackButton";
-import { useAppSelector } from "../../../hooks/store.hooks";
+import { useAppSelector } from "../../../hooks/store.hook";
 
 
 

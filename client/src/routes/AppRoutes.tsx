@@ -4,6 +4,7 @@ import { authRoutes, homeRoutes } from "./routesConstants";
 import { Home } from "../pages/Home/Home";
 import App from "../App";
 import { MainLayout } from "../components/layout/MainLayout/MainLayout";
+import { Tag } from "../pages/Tag/Tag";
 
 
 const router = createBrowserRouter([
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
               element: <MainLayout/>,
               children:[
                 {path: homeRoutes.home, element: <Home/>},
+                {path: homeRoutes.tag, element: <Tag/>},
               ]  
             },
 

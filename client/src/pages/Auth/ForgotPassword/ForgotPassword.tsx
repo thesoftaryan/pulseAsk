@@ -18,7 +18,7 @@ import ForgotPasswordStyle from "./ForgotPassword.module.css";
 import { forgotPasswordValidator } from "./ForgotPassword.validator";
 import { useForgotPasswordHandler } from "./ForgotPassword.handler";
 import { BackButton } from "../../../components/common/BackButton/BackButton";
-import { useAppSelector } from "../../../hooks/store.hooks";
+import { useAppSelector } from "../../../hooks/store.hook";
 
 
 

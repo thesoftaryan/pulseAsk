@@ -33,7 +33,7 @@ import BannerImageDark from "../../../assets/images/Authentication/banner-dark.p
 // Style
 import RegisterStyle from "./Register.module.css";
 import { useRegisterHandler } from "./Register.handler";
-import { useAppSelector } from "../../../hooks/store.hooks";
+import { useAppSelector } from "../../../hooks/store.hook";
 
 
 function Register() {

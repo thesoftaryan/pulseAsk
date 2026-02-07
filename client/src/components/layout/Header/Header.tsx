@@ -15,19 +15,20 @@ import MessageIcon from "../../../assets/icons/header/message.svg?react";
 
 import LightTheme from "../../../assets/icons/header/lightTheme.svg?react";
 import DarkTheme from "../../../assets/icons/header/darkTheme.svg?react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/store.hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/store.hook";
 
 import { toggleTheme } from "../../../store/theme/theme.slice";
 import { logoutThunk } from "../../../store/auth/thunks/logout.thunk";
-import { useNavigate } from "react-router-dom";
-import { authRoutes } from "../../../routes/routesConstants";
+import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate..hook";
 
 
 export const Header = ()=>{
 
     const theme = useAppSelector(state=>state.theme.theme);
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    
+    const {safeNavigate, replaceNavigate} = useSafeNavigate();
 
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const profileRef = useRef<HTMLDivElement>(null);
@@ -45,10 +46,11 @@ export const Header = ()=>{
         }
     }, []);
 
+
     const handleLogout = async ()=>{
         try{
             dispatch(logoutThunk()).unwrap();
-            navigate(authRoutes.login, {replace:true});
+            replaceNavigate(authRoutes.login);
         }catch(error){
             console.log("logout : ", error);
         }
@@ -59,8 +61,8 @@ export const Header = ()=>{
             <header className={HeaderStyle["header"]}>
                 <PulseAskIcon className={HeaderStyle["site-icon"]}/>
                 <div className={HeaderStyle["left-container"]}>
-                    <HomeIcon className={HeaderStyle["icon"]}/>
-                    <TagIcon className={HeaderStyle["icon"]}/>
+                    <HomeIcon className={HeaderStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.home)}}/>
+                    <TagIcon className={HeaderStyle["icon"]}  onClick={()=>{safeNavigate(homeRoutes.tag)}}/>
                 </div>
                 <div className={HeaderStyle["middle-container"]}>
                     <div className={HeaderStyle["search-box"]}>

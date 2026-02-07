@@ -2,7 +2,7 @@
 import type { ResetPasswordFormData } from "../../../types/auth.types";
 // Toast
 import { showToast } from "../../../utils/toast.util";
-import { useAppDispatch } from "../../../hooks/store.hooks";
+import { useAppDispatch } from "../../../hooks/store.hook";
 import type { ApiError } from "../../../types/apiResponse.types";
 import { resetPasswordThunk } from "../../../store/auth/thunks/resetPassword.thunk";
 

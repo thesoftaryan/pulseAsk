@@ -1,5 +1,5 @@
 // Backend Service
-import { useAppDispatch } from "../../../hooks/store.hooks";
+import { useAppDispatch } from "../../../hooks/store.hook";
 
 import { resendVerificationEmailThunk } from "../../../store/auth/thunks/resendVerificationEmail.thunk";
 import type { ApiError } from "../../../types/apiResponse.types";

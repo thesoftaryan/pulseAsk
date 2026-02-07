@@ -1,5 +1,5 @@
 import { loginThunk } from "../../../store/auth/thunks/login.thunk";
-import { useAppDispatch } from "../../../hooks/store.hooks";
+import { useAppDispatch } from "../../../hooks/store.hook";
 
 // Service
 import { socialSignInService } from "../../../services/auth/socialSignIn.service";

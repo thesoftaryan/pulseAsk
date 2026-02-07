@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { Theme } from "../types/redux/theme.redux.types";
-import { useAppSelector } from "./store.hooks";
+import { useAppSelector } from "./store.hook";
 
 
 const applyTheme = (theme : Theme)=>{

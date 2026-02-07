@@ -75,6 +75,11 @@ export const Leaderboard = ()=>{
                     <RankEntry rank={3}/>
                     <RankEntry rank={4}/>
                     <RankEntry rank={5}/>
+                    <RankEntry rank={6}/>
+                    <RankEntry rank={7}/>
+                    <RankEntry rank={8}/>
+                    <RankEntry rank={9}/>
+                    <RankEntry rank={10}/>
                 </div>
             </div>
         </>

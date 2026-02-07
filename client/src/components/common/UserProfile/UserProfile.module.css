@@ -7,6 +7,7 @@
     width: var(--size-icon-xm);
     height: var(--size-icon-xm);
     overflow: hidden;
+    user-select: none;
 }
 
 .gold{
