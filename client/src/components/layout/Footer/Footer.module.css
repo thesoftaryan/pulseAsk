@@ -4,7 +4,8 @@
     justify-content: center;
     align-items: center;
     gap: var(--spacing-sm);
-    margin: var(--spacing-md) 0;
+    margin-bottom: var(--spacing-md);
+    margin-top: var(--spacing-xxl);
     color: var(--color-subheading-text);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);

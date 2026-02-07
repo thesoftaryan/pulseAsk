@@ -8,6 +8,11 @@
     border-radius: var(--size-radius-sm);
 }
 
+.large-container{
+    padding: var(--spacing-md);
+    border-radius: var(--size-radius-md);
+}
+
 .level1{
     background-color: var(--color-level1-bg);
 }
@@ -17,12 +22,22 @@
 }
 .circle{
     border-radius: 50%;
-    width: 11px;
-    height: 11px;
+    width: var(--size-icon-xs);
+    height: var(--size-icon-xs);
+}
+
+.large-circle{
+    margin-right: var(--spacing-sm);
+    width: var(--size-icon-sm);
+    height: var(--size-icon-sm);
 }
 
 .right{
-    /* margin-left: var(--spacing-sm); */
     font-size: var(--font-size-md);
     color: var(--color-text);
+}
+
+.large{
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-medium);
 }

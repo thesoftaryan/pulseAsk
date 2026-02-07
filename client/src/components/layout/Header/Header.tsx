@@ -77,7 +77,7 @@ export const Header = ()=>{
                 <div className={HeaderStyle["right-container"]}>
                     {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>}
                     <NotificationIcon className={HeaderStyle["icon"]}/>
-                    <MessageIcon className={HeaderStyle["icon"]}/>
+                    <MessageIcon className={HeaderStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat)}}/>
                     <div ref={profileRef} className={HeaderStyle["profile-wrapper"]}>
                         <UserProfile className={HeaderStyle["user-profile"]} onClick={()=>{setIsProfileOpen((isOpen)=>!isOpen)}}/>
                         {
