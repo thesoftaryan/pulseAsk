@@ -1,0 +1,72 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.question-title{
+    display: flex;    
+    /* justify-content: space-evenly; */
+    align-items: center;
+    background-color: rebeccapurple;
+}
+
+.question-icon{
+    height: var(--size-icon-md);
+}
+
+.title-text{
+    display: flex;
+    font-size: var(--font-heading);    
+    font-weight: var(--font-weight-medium);
+    /* color: red; */
+}
+
+.actions-container{
+    /* flex-grow: 2; */
+    justify-self: flex-end;
+    display: flex;
+    background-color: red;
+}
+
+
+.left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.right{
+    display: flex;
+    margin-left: var(--spacing-sm);
+}
+
+.user-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin-left: var(--spacing-sm);
+}
+
+.user-name{
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+}
+
+.user-reputation{
+    display: flex;
+}
+
+.reputation-icon{
+    height: var(--size-icon-sm);
+    width: var(--size-icon-sm);
+    color: var(--color-primary);
+}
+
+.reputation-count{
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}

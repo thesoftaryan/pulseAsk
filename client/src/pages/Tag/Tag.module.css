@@ -15,8 +15,8 @@
 }
 
 .question-count{
-    font-size: var(--font-size-md);
-    color: var(--color-placeholder-text);
+    font-size: var(--font-size-lg);
+    color: var(--color-subheading-text);
 }
 
 .filters-main-section{

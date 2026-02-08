@@ -5,6 +5,7 @@ import { Home } from "../pages/Home/Home";
 import App from "../App";
 import { MainLayout } from "../components/layout/MainLayout/MainLayout";
 import { Tag } from "../pages/Tag/Tag";
+import { ShowQuestion } from "../pages/Question/ShowQuestion/ShowQuestion";
 
 
 const router = createBrowserRouter([
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
               children:[
                 {path: homeRoutes.home, element: <Home/>},
                 {path: homeRoutes.tag, element: <Tag/>},
+                {path: "/question", element: <ShowQuestion/>}
               ]  
             },
 

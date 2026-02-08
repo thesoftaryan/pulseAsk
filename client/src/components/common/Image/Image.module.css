@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--size-radius-sm);
+    padding: var(--spacing-md);
+    height: min-content;
+    width: min-content;
+}
+
+.image{
+    height: var(--size-image-height);
+    border-radius: var(--size-radius-sm);
+    object-fit: cover;
+}
