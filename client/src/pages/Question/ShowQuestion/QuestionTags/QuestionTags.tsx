@@ -1,17 +1,19 @@
 import { TagChip } from "../../../../components/common/TagChip/TagChip";
 
+import QuestionTagsStyle from "./QuestionTags.module.css";
+
 import TagIcon from "../../../../assets/icons/tag.svg?react";
 
 export const QuestionTags = ()=>{
     return (
-        <div className="container">
-            <div className="header">
-                <TagIcon/>
-                <div className="header-title">
-                    QuestionTags
+        <div className={QuestionTagsStyle["container"]}>
+            <div className={QuestionTagsStyle["header"]}>
+                <TagIcon className={QuestionTagsStyle["tag-icon"]}/>
+                <div className={QuestionTagsStyle["header-title"]}>
+                    Question Tags
                 </div>
             </div>
-            <div className="tags">
+            <div className={QuestionTagsStyle["tags"]}>
                 <TagChip color="red" text="Heart Attack"/>
                 <TagChip color="yellow" text="Heart Attack"/>
                 <TagChip color="blue" text="Heart"/>

@@ -2,8 +2,13 @@
     display: flex;
     flex-direction: column;
     /* width: 100%; */
+    border-radius: var(--size-radius-md);
     color: var(--color-text);
-    padding: var(--spacing-sm);
+    padding: var(--spacing-md);
+}
+
+.level1-container{
+    background-color: var(--color-level1-bg);
 }
 
 

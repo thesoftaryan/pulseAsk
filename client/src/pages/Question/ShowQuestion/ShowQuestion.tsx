@@ -76,7 +76,7 @@ export const ShowQuestion = ()=>{
                     <FilterBar reverse={true} text="381 Answers Found"/>
                     <div className={ShowQuestionStyle["answers-container"]}>
                         <div className={ShowQuestionStyle["answers"]}>
-                            <Answer author={answerObj.author} content={answerObj.content}/>
+                            <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
                         </div>
                         <div className={ShowQuestionStyle["question-tags"]}>
                             <QuestionTags/>

@@ -1,6 +1,7 @@
 :root {
   /* MaxWidth */
-  --size-max-width: 1300px;
+  --size-max-width: 1400px;
+  --size-sidebar-max-width:500px;
   
   /* Button Size */
   --size-button-height: 45px;

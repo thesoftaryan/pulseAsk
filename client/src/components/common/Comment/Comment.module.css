@@ -1,0 +1,36 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-level2-bg);
+    border-radius: var(--size-radius-md);
+    padding: var(--spacing-md);
+    color: var(--color-text);
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.user-profile{
+    height: var(--size-icon-ls);
+    width : var(--size-icon-ls);
+}
+
+.user-name{
+    font-size: var(--font-size-xm);
+    font-weight: var(--font-weight-medium);
+}
+
+.comment-time{
+    color: var(--color-subheading-text);
+}
+
+.comment{
+    display: flex;
+    font-size: var(--font-size-ls);
+    padding: 0 var(--spacing-sm);
+
+}

@@ -4,7 +4,7 @@
     width: 100%;
 }
 .button{
-    width: 100%;
+    width: max-content;
 
     display: flex;
     align-items: center;
@@ -24,6 +24,11 @@
 
     transition-duration: 200ms;
 }
+
+.level2{
+    background-color: var(--color-level2-bg);
+}
+
 
 .active{
     color: var(--color-text-button);
