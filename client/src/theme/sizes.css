@@ -1,4 +1,6 @@
 :root {
+  /* MaxWidth */
+  --size-max-width: 1300px;
   
   /* Button Size */
   --size-button-height: 45px;

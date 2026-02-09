@@ -5,15 +5,23 @@ import FilterIcon from "../../../assets/icons/general/filter.svg?react";
 
 import FilterBarStyle from "./FilterBar.module.css"
 
-export const FilterBar = ()=>{
+interface FilterBarProps{
+    text?: string;
+    reverse?: boolean;
+}
+
+export const FilterBar : React.FC<FilterBarProps> = ({text, reverse})=>{
     return (
         <>
-        <div className={FilterBarStyle["container"]}>
+        <div className={`${FilterBarStyle["container"]} ${reverse? FilterBarStyle["reverse"]:""}`}>
             <div className={FilterBarStyle["buttons"]}>
                 <RoundedButton Icon={SortIcon} text="Sort By"/>
                 <RoundedButton Icon={FilterIcon} active={true} text="Filters"/>
             </div>
             <div className={FilterBarStyle["line"]}></div>
+            {text && (
+                <div className={FilterBarStyle["text"]}>{text}</div>
+            )}
         </div>
         </>
     );

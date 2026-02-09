@@ -5,15 +5,27 @@
     /* width: 100%; */
 }
 
+.reverse{
+    flex-direction: row-reverse;
+}
+
 .buttons{
     display: flex;
-    margin-left: var(--spacing-xl);
+    /* margin-left: var(--spacing-sm); */
     min-width: 300px;
 }
 
 .line{
     flex-grow: 1;
-    margin-right: var(--spacing-xxl);
+    margin-right: var(--spacing-md);
     margin-left: var(--spacing-sm);
     border-top: var(--size-border-sm) solid var(--color-border-light);
+}
+
+.text{
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    font-size: var(--font-size-md);
+    color: var(--color-subheading-text);
 }
