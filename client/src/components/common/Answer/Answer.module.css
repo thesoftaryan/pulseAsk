@@ -1,7 +1,6 @@
 .container{
     display: flex;
     flex-direction: column;
-    /* width: 100%; */
     border-radius: var(--size-radius-md);
     color: var(--color-text);
     padding: var(--spacing-md);
@@ -27,6 +26,8 @@
     justify-content:space-evenly;
     margin-left: var(--spacing-md);
     font-size: var(--font-size-lg);
+    /* user-select: none; */
+    cursor: pointer;
 }
 
 .user-education{
@@ -67,3 +68,67 @@
 }
 
 /* Footer : End */
+
+/* Comments : Start */
+
+.comment-container{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.post-comment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+    background-color: var(--color-level2-bg);
+    border-radius: var(--size-radius-md);
+}
+
+.input-field{
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    
+    background-color: transparent;
+    color: var(--color-text);
+
+    height: var(--size-input-height);
+    border-radius:  var(--size-radius-lg);
+
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+}
+
+
+/* .filter-bar{
+    background-color: yellowgreen;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+} */
+
+.comments{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-ls);
+}
+
+.load-more-button{
+    /* max-width: 300px; */
+    display: flex;
+    align-self: flex-start;
+}
+
+.level1-comments{
+    background-color: var(--color-level1-bg);
+}
+
+
+/* Comments : End */

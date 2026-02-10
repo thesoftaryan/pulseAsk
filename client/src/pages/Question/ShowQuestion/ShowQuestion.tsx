@@ -7,10 +7,11 @@ import DownvoteIcon from "../../../assets/icons/general/downvote.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
 import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import ReputationIcon from "../../../assets/icons/general/reputation.svg?react";
+import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
 
 import { Icon } from "../../../components/common/Icon/Icon";
 
-import {Image} from "../../../components/common/Image/Image";
+import {Image as ImageComponent} from "../../../components/common/Image/Image";
 import { UserProfile } from "../../../components/common/UserProfile/UserProfile";
 import Button from "../../../components/common/Button/Button";
 import { FilterBar } from "../../../components/layout/FilterBar/FilterBar";
@@ -19,11 +20,51 @@ import type { AnswerInterface } from "../../../types/answer.types";
 import { QuestionTags } from "./QuestionTags/QuestionTags";
 
 
+
+import { useEditor, EditorContent, type JSONContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
+import Link from "@tiptap/extension-link";
+import { useState } from "react";
+
+interface AnswerEditorProps {
+  onChange: (content: JSONContent) => void;
+}
+
+
+function AnswerEditor({ onChange }: AnswerEditorProps) {
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Image,
+      Link.configure({
+        openOnClick: false,
+      }),
+    ],
+    content: "<p>Enter your answer here</p>",
+    onUpdate({ editor }) {
+      onChange(editor.getJSON());
+    },
+  });
+
+  return (
+    <div className="editor-container">
+      <EditorContent editor={editor} />
+    </div>
+  );
+}
+
+
+
+
+
 export const ShowQuestion = ()=>{
         const answerObj : AnswerInterface = {
             author : {uid: "2", email: "thesoftaryan@gmail.com", first_name:"Aryan", last_name:"Maurya"},
             content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
         }
+        const [answerContent, setAnswerContent] = useState<JSONContent | null>(null);
+
     return (
         <div className={ShowQuestionStyle["container"]}>
             <div className={ShowQuestionStyle["main-content"]}>
@@ -43,7 +84,7 @@ export const ShowQuestion = ()=>{
                             3. when someone sends him a message <br/>
                             When a user clicks on the view now, it will be redirected to the required location
                             Now, to do the CPR correctly, see the below image that I have attached for your reference<br/>
-                            <Image path="https://plus.unsplash.com/premium_photo-1682001641334-aba3a6584a31?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
+                            <ImageComponent path="https://plus.unsplash.com/premium_photo-1682001641334-aba3a6584a31?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
                         </div>
                         <div className={ShowQuestionStyle["question-meta"]}>
                             <div className={ShowQuestionStyle["left"]}>
@@ -71,12 +112,21 @@ export const ShowQuestion = ()=>{
                     </div>
                     <div className={ShowQuestionStyle["submit-answer-container"]}>
                         {/* <textarea className={ShowQuestionStyle["submit-answer-textarea"]}/> */}
-                        <Button text="Post Answer"/>
+                        <AnswerEditor onChange={setAnswerContent}/>
+                        <Button text="Post Answer" onClick={()=>{console.log(answerContent)}}/>
                     </div>
                     <FilterBar reverse={true} text="381 Answers Found"/>
                     <div className={ShowQuestionStyle["answers-container"]}>
                         <div className={ShowQuestionStyle["answers"]}>
                             <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
+                            <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
+                            <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
+                            <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
+                            <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
+                            <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
+                            <div className={ShowQuestionStyle["load-more-answers"]}>
+                                <Button text="Load More Answers" isSmall={true} level1={true}  Icon={LoadMoreIcon}/>
+                            </div>
                         </div>
                         <div className={ShowQuestionStyle["question-tags"]}>
                             <QuestionTags/>

@@ -26,11 +26,17 @@
 
 .small{
     height: var(--size-button-height-sm);
+    padding: var(--spacing-md);
     font-size: var(--font-size-sm);
 }
 
 .level1{
     background-color: var(--color-level1-bg);
+    color: var(--color-text);
+}
+
+.level2{
+    background-color: var(--color-level2-bg);
     color: var(--color-text);
 }
 
@@ -43,6 +49,11 @@
 }
 
 .level1 .icon{
+    color: var(--color-button-level1-icon);
+    fill: var(--color-button-level1-icon);
+}
+
+.level2 .icon{
     color: var(--color-button-level1-icon);
     fill: var(--color-button-level1-icon);
 }

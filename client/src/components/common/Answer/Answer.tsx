@@ -7,6 +7,8 @@ import ShareIcon from "../../../assets/icons/general/share.svg?react"
 import UpvoteIcon from "../../../assets/icons/general/upvote.svg?react";
 import DownvoteIcon from "../../../assets/icons/general/downvote.svg?react";
 import CommentIcon from "../../../assets/icons/general/comment.svg?react";
+import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
+
 
 import { UserProfile } from "../UserProfile/UserProfile";
 import { Icon } from "../Icon/Icon";
@@ -15,14 +17,16 @@ import { useState } from "react";
 import { FilterBar } from "../../layout/FilterBar/FilterBar";
 
 import { Comment } from "../Comment/Comment";
+import Button from "../Button/Button";
 
 interface AnswerProps{
     author : User;
     content : string;
     level1?: boolean;
+    level1Comments?: boolean;
 }
 
-export const Answer : React.FC<AnswerProps> = ({author, content, level1})=>{
+export const Answer : React.FC<AnswerProps> = ({author, content, level1, level1Comments})=>{
     const [isComment, setIsComment] = useState(false);
     
     return (
@@ -56,17 +60,26 @@ export const Answer : React.FC<AnswerProps> = ({author, content, level1})=>{
                 </div>
                 {
                     isComment && (
-                        <div className="comment-container">
-                            <div className="post-comment">
-                                <div className="profile"></div>
-                                <div className="input-field"></div>
-                                <div className="comment-submit-button"></div>
+                        <div className={AnswerStyle["comment-container"]}>
+                            <div className={`${AnswerStyle["post-comment"]} ${level1Comments? AnswerStyle["level1-comments"]:""}`}>
+                                <div className={AnswerStyle["profile"]}>
+                                    <UserProfile/>
+                                </div>
+                                <input type="text" placeholder="Add your comment !" className={AnswerStyle["input-field"]}>
+                                    
+                                </input>
+                                <div className={AnswerStyle["comment-submit-button"]}>
+                                    <Button text="Post" isSmall={true}/>
+                                </div>
                             </div>
-                            <FilterBar text="21 comments" reverse={true} noFilter={true} level2={true}/>
-                            <div className="comments">
-                                <Comment/>
-                                <Comment/>
-                                <Comment/>
+                                <FilterBar text="21 comments" reverse={true} noFilter={true} level2={!level1Comments}/>
+                            <div className={AnswerStyle["comments"]}>
+                                <Comment level1={level1Comments}/>
+                                <Comment level1={level1Comments}/>
+                                <Comment level1={level1Comments}/>
+                            </div>
+                            <div className={AnswerStyle["load-more-button"]}>
+                                <Button text="Load More Comments" isSmall={true} level1={level1Comments} level2={!level1Comments} Icon={LoadMoreIcon}/>
                             </div>
                         </div>
                     )

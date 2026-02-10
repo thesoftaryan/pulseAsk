@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 // import { useHomeHandler } from "./Home.handler";
 import { useAppSelector } from "../../hooks/store.hook";
-import { useNavigate } from "react-router-dom";
-import { authRoutes } from "../../routes/routesConstants";
+import { authRoutes, homeRoutes } from "../../routes/routesConstants";
 import Button from "../../components/common/Button/Button";
 
 import ExploreIcon from "../../assets/icons/home/explore.svg?react";
 import QuestionIcon from "../../assets/icons/home/question.svg?react";
-import AddIcon from "../../assets/icons/general/add.svg?react";
+import LoadMoreIcon from "../../assets/icons/general/load_more.svg?react";
 import { QuickAsk } from "./QuickAsk/QuickAsk";
 
 import HomeStyle from "./Home.module.css";
@@ -16,11 +15,13 @@ import { Question } from "../../components/common/Question/Question";
 import type { AnswerInterface } from "../../types/answer.types";
 import { Answer } from "../../components/common/Answer/Answer";
 import { Leaderboard } from "./Leaderboard/Leaderboard";
+import { useSafeNavigate } from "../../hooks/useSafeNavigate..hook";
 
 export const Home = ()=>{
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
+    const {safeNavigate, replaceNavigate} = useSafeNavigate();
     const state = useAppSelector(state => state.auth);
 
     // const {homeHandler} = useHomeHandler();
@@ -33,7 +34,7 @@ export const Home = ()=>{
 
     useEffect(()=>{
         if(!state.isAuthenticated){
-            navigate(authRoutes.login, {replace:true});
+            replaceNavigate(authRoutes.login);
         }
     }, [state.isAuthenticated]);
 
@@ -63,11 +64,11 @@ export const Home = ()=>{
                 </div>
                 <div className={HomeStyle["question-leaderboard-section"]}>
                     <div className={HomeStyle["question-section"]}>
-                        <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
-                        <Question best_answer={<Answer author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                        <Question onClick={()=>{safeNavigate(homeRoutes.question)}} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                        <Question onClick={()=>{safeNavigate(homeRoutes.question)}} best_answer={<Answer level1Comments={true} author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
 
                         <div className={HomeStyle["load-more-button"]}>
-                            <Button text="Load More" isSmall={true} level1={true} Icon={AddIcon}/>
+                            <Button text="Load More" isSmall={true} level1={true} Icon={LoadMoreIcon}/>
                         </div>
                     </div>
                     <div className={HomeStyle["leaderboard-section"]}>

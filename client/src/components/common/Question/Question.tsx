@@ -2,7 +2,7 @@ import { TagChip } from "../TagChip/TagChip";
 import Button from "../Button/Button";
 
 import QuestionStyle from "./Question.module.css";
-import type { QuestionInterface } from "../../../types/question.types";
+import type { TagInterface } from "../../../types/question.types";
 
 import TagIcon from "../../../assets/icons/tag.svg?react";
 import RankIcon from "../../../assets/icons/general/rank.svg?react";
@@ -10,6 +10,8 @@ import RankIcon from "../../../assets/icons/general/rank.svg?react";
 import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
 import { Icon } from "../Icon/Icon";
+import type { User } from "../../../types/user.types";
+import type { ReactElement } from "react";
 
 const NoAnswerMessage = ()=>{
     return (
@@ -23,12 +25,21 @@ const NoAnswerMessage = ()=>{
     );
 }
 
-export const Question:React.FC<QuestionInterface> = ({title, best_answer})=>{
+interface QuestionProps{
+    id? : string;
+    author? : User;
+    title : string;
+    tags? : Array<TagInterface>;
+    best_answer? : ReactElement<any, any>;
+    onClick?:VoidFunction;
+}
+
+export const Question:React.FC<QuestionProps> = ({title, best_answer, onClick})=>{
     return (
         <>
             <div className={QuestionStyle["container"]}>
                 <div className={QuestionStyle["header"]}>
-                    <div className={QuestionStyle["title"]}>
+                    <div className={QuestionStyle["title"]} onClick={onClick}>
                         {title}
                     </div>
                     <div className={QuestionStyle["actions"]}>

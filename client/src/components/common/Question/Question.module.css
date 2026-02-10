@@ -20,6 +20,7 @@
 .header .title{
     flex-grow: 2;
     font-size: var(--font-heading);
+    cursor: pointer;
 }
 
 .header .actions{
@@ -98,6 +99,7 @@
     flex-grow: 1;
     padding: 0 var(--spacing-lg);
     font-size: var(--font-size-lg);
+    user-select: none;
 }
 
 .answer-now-button{

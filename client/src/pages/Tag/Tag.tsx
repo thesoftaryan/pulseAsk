@@ -5,7 +5,7 @@ import { FilterBar } from "../../components/layout/FilterBar/FilterBar";
 import type { AnswerInterface } from "../../types/answer.types";
 import TagStyle from "./Tag.module.css";
 
-import AddIcon from "../../assets/icons/general/add.svg?react";
+import LoadMoreIcon from "../../assets/icons/general/load_more.svg?react";
 import Button from "../../components/common/Button/Button";
 
 
@@ -28,10 +28,10 @@ export const Tag = ()=>{
                 </div>
                 <div className={TagStyle["main-content"]}>
                     <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
-                    <Question best_answer={<Answer author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                    <Question best_answer={<Answer level1Comments={true} author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
                     
                     <div className={TagStyle["load-more-button"]}>
-                        <Button text="Load More" isSmall={true} level1={true} Icon={AddIcon}/>
+                        <Button text="Load More" isSmall={true} level1={true} Icon={LoadMoreIcon}/>
                     </div>
                 </div>
             </div>

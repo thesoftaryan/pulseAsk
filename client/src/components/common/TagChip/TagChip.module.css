@@ -6,6 +6,8 @@
     margin-left: var(--spacing-sm);
     background-color: var(--color-level2-bg);
     border-radius: var(--size-radius-sm);
+    /* user-select: none; */
+    cursor: pointer;
 }
 
 .large-container{

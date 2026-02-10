@@ -12,4 +12,5 @@ export const homeRoutes = {
     home : "/home",
     tag: "/tag",
     chat: "/chat",
+    question: "/question",
 }

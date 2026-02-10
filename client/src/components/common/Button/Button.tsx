@@ -7,17 +7,18 @@ interface ButtonProps{
     disabled?:boolean;
     Icon? : React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
     level1? : boolean;
+    level2?: boolean;
     className?: string;
     isSmall?: boolean;
 }
 
 
-const Button:React.FC<ButtonProps> = ({text, onClick, disabled=false, Icon, level1, className, isSmall})=>{
+const Button:React.FC<ButtonProps> = ({text, onClick, disabled=false, Icon, level1, level2, className, isSmall})=>{
     return (
         <>
             <div className={ButtonStyle["button-wrapper"]}>
                 
-                <button disabled={disabled} type="button" onClick={onClick} className={`${ButtonStyle["button"]} ${(disabled? ButtonStyle["disabled"]:"")} ${level1? ButtonStyle["level1"]:""} ${className} ${isSmall? ButtonStyle["small"]:""}`}>
+                <button disabled={disabled} type="button" onClick={onClick} className={`${ButtonStyle["button"]} ${(disabled? ButtonStyle["disabled"]:"")} ${level1? ButtonStyle["level1"]:""} ${level2? ButtonStyle["level2"]:""} ${className} ${isSmall? ButtonStyle["small"]:""}`}>
                     {Icon && <Icon className={ButtonStyle["icon"]}/>}{text}
                 </button>
             </div>

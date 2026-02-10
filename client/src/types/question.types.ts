@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type { User } from "./user.types";
 
-interface TagInterface{
+export interface TagInterface{
     name : string;
     color : string;
 }

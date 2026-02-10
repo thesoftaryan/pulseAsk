@@ -2,9 +2,13 @@ import { UserProfile } from "../UserProfile/UserProfile"
 
 import CommentStyle from "./Comment.module.css";
 
-export const Comment = ()=>{
+interface CommentProps{
+    level1?: boolean;
+}
+
+export const Comment : React.FC<CommentProps> = ({level1})=>{
     return (
-        <div className={CommentStyle["container"]}>
+        <div className={`${CommentStyle["container"]} ${level1? CommentStyle["level1"]:""}`}>
             <div className={CommentStyle["header"]}>
                 <UserProfile className={CommentStyle["user-profile"]}/>
                 <div className={CommentStyle["user-name"]}> Messi Mishra</div>

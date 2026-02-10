@@ -7,7 +7,7 @@
 
 .main-content{
     max-width: var(--size-max-width);
-    padding: var(--spacing-md);
+    padding: var(--spacing-ls);
 }
 
 .question-title{
@@ -142,7 +142,15 @@
     gap: var(--spacing-md);
 }
 
+.answers{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
 
+.load-more-answers{
+    display: flex;    
+}
 
 @media (max-width:700px) {
     .answers-container{
