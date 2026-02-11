@@ -19,40 +19,10 @@ import { Answer } from "../../../components/common/Answer/Answer";
 import type { AnswerInterface } from "../../../types/answer.types";
 import { QuestionTags } from "./QuestionTags/QuestionTags";
 
-
-
-import { useEditor, EditorContent, type JSONContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Image from "@tiptap/extension-image";
-import Link from "@tiptap/extension-link";
 import { useState } from "react";
 
-interface AnswerEditorProps {
-  onChange: (content: JSONContent) => void;
-}
-
-
-function AnswerEditor({ onChange }: AnswerEditorProps) {
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Image,
-      Link.configure({
-        openOnClick: false,
-      }),
-    ],
-    content: "<p>Enter your answer here</p>",
-    onUpdate({ editor }) {
-      onChange(editor.getJSON());
-    },
-  });
-
-  return (
-    <div className="editor-container">
-      <EditorContent editor={editor} />
-    </div>
-  );
-}
+import TextEditor from "../../../components/common/TextEditor/TextEditor";
+import type { JSONContent } from "@tiptap/react";
 
 
 
@@ -112,7 +82,7 @@ export const ShowQuestion = ()=>{
                     </div>
                     <div className={ShowQuestionStyle["submit-answer-container"]}>
                         {/* <textarea className={ShowQuestionStyle["submit-answer-textarea"]}/> */}
-                        <AnswerEditor onChange={setAnswerContent}/>
+                        <TextEditor onChange={setAnswerContent} placeholder="Enter your Answer here!!"/>
                         <Button text="Post Answer" onClick={()=>{console.log(answerContent)}}/>
                     </div>
                     <FilterBar reverse={true} text="381 Answers Found"/>
