@@ -30,18 +30,19 @@ export default function TextEditor({placeholder, onChange} : TextEditorProps){
             }),
             Image,
             Placeholder.configure({
-                placeholder: placeholder
+                placeholder: placeholder??"No placeholder"
             })
         ],
-        content: "",
+        content: null,
         onUpdate({editor}){
             onChange(editor.getJSON());
         },
+        injectCSS: true,
     });
     return (
         <div className={TextEditorStyle["editor-container"]}>
             <EditorToolbar editor={editor}/>
-            <EditorContent editor={editor}/>
+            <EditorContent editor={editor}  className={TextEditorStyle["editor-content"]}/>
         </div>
     );
 }
