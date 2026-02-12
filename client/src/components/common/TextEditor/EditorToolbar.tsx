@@ -11,6 +11,7 @@ import ItalicIcon from "../../../assets/icons/text_editor/italic.svg?react";
 import UnderlineIcon from "../../../assets/icons/text_editor/underline.svg?react";
 import LinkIcon from "../../../assets/icons/text_editor/link.svg?react";
 import ImageIcon from "../../../assets/icons/text_editor/image.svg?react";
+import { useState } from "react";
 
 
 
@@ -22,25 +23,38 @@ interface EditorToolbarProps{
 export function EditorToolbar({editor}:EditorToolbarProps){
     if(!editor) return null;
 
-      const getCurrentStyle = () => {
-    for (let level = 1; level <= 6; level++) {
-      if (editor.isActive("heading", { level })) {
-        return `h${level}`;
-      }
-    }
-    return "paragraph";
-  };
+    // const getCurrentStyle = () => {
+    //   for (let level = 1; level <= 6; level++) {
+    //     if (editor.isActive("Heading", { level })) {
+    //       return `h${level}`;
+    //     }
+    //   }
+    //   return "paragraph";
+    // };
 
-  const handleChange = (value: string) => {
+    const handleChange = (value: string) => {
       editor.chain().focus();
 
-      if (value === "paragraph") {
+      if (value === "Normal") {
         editor.chain().focus().setParagraph().run();
       } else {
-        const level = Number(value.replace("h", "")) as Level;
+        const level = Number(value.replace("Heading", "")) as Level;
         editor.chain().focus().toggleHeading({ level }).run();
       }
     };
+
+
+    const handleTextStyle = (value : string)=>{
+      if(value === "Normal"){
+        setTextStyle(value);
+      } else{
+        const level = Number(value.replace("Heading", ""));
+        setTextStyle(`Heading ${level}`);
+      }
+      handleChange(value);
+    }
+
+    const [textStyle, setTextStyle] = useState("Normal");
 
 
     return (
@@ -58,20 +72,22 @@ export function EditorToolbar({editor}:EditorToolbarProps){
 
 
 
-      <select
-        value={getCurrentStyle()}
-        onChange={(e) => handleChange(e.target.value)}
-      >
-        <option value="paragraph">Normal</option>
-        <option value="h1">Heading 1</option>
-        <option value="h2">Heading 2</option>
-        <option value="h3">Heading 3</option>
-        <option value="h4">Heading 4</option>
-        <option value="h5">Heading 5</option>
-        <option value="h6">Heading 6</option>
-      </select>
+      <div className={EditorToolbarStyle["text-style"]}>
+        <div className={EditorToolbarStyle["current-text-style"]}>
+          {textStyle}
+          <DropdownIcon className={`${EditorToolbarStyle["icon"]} ${EditorToolbarStyle["dropdown-icon"]}`}/>
+        </div>
+        <div className={EditorToolbarStyle["text-style-options"]}>
+          <div onClick={()=>{handleTextStyle("Normal")}}>Normal</div>
+          <div onClick={()=>{handleTextStyle("Heading1")}}><h1>Heading 1</h1></div>
+          <div onClick={()=>{handleTextStyle("Heading2")}}><h2>Heading 2</h2></div>
+          <div onClick={()=>{handleTextStyle("Heading3")}}><h3>Heading 3</h3></div>
+          <div onClick={()=>{handleTextStyle("Heading4")}}><h4>Heading 4</h4></div>
+          <div onClick={()=>{handleTextStyle("Heading5")}}><h5>Heading 5</h5></div>
+          <div onClick={()=>{handleTextStyle("Heading6")}}><h6>Heading 6</h6></div>
+        </div>
+      </div>
 
-      <DropdownIcon className={`${EditorToolbarStyle["icon"]} ${EditorToolbarStyle["dropdown-icon"]}`}/>
 
       <div className={EditorToolbarStyle["separator"]}> |</div>
 
