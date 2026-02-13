@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    flex-wrap: wrap;
     gap: var(--spcing-md);
     padding: var(--spacing-sm);
 
@@ -74,11 +75,15 @@
     border-radius: var(--size-radius-sm);
     font-size: var(--font-size-md);
     z-index: 100;
-    /* display: none; */
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
 }
 
 .toolbar .active{
     color: var(--color-primary);
+    
 }
 
 .toolbar .text-color-container{
@@ -113,6 +118,13 @@
 
 .editor-content :global(.ProseMirror p.is-empty::before) {
   content: attr(data-placeholder);
+  color: var(--color-placeholder-text);
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+.editor-content :global(.ProseMirror h1.is-empty::before), :global(.ProseMirror h2.is-empty::before),:global(.ProseMirror h3.is-empty::before),:global(.ProseMirror h4.is-empty::before),:global(.ProseMirror h5.is-empty::before),:global(.ProseMirror h6.is-empty::before) {
+  content: "Enter your heading";
   color: var(--color-placeholder-text);
   pointer-events: none;
   float: left;

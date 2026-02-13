@@ -44,15 +44,6 @@ export function EditorToolbar({editor}:EditorToolbarProps){
       }
     });
 
-    // const getCurrentStyle = () => {
-    //   for (let level = 1; level <= 6; level++) {
-    //     if (editor.isActive("heading", { level })) {
-    //       return `Heading${level}`;
-    //     }
-    //   }
-    //   return "Normal";
-    // };
-
     const handleChange = (value: string) => {
       editor.chain().focus();
 
@@ -65,16 +56,19 @@ export function EditorToolbar({editor}:EditorToolbarProps){
     };
 
 
-    // const handleChange = (value : string)=>{
-    //   if(value === "Normal"){
-    //     setTextStyle(value);
-    //   } else{
-    //     const level = Number(value.replace("Heading", ""));
-    //     setTextStyle(`Heading ${level}`);
-    //   }
-    //   handleChange(value);
-    //   setOpenTextStyle(false);
-    // }
+    // const textStyleRef = useRef<HTMLDivElement>(null);
+
+    // useEffect(()=>{
+    //     // const handleClickOutside = (event : MouseEvent)=>{
+    //     //     if(textStyleRef.current && !textStyleRef.current.contains(event.target as Node)){
+    //     //         setOpenTextStyle(false);
+    //     //     }
+    //     // }
+    //     // document.addEventListener("mousedown", handleClickOutside);
+    //     // return ()=>{
+    //     //     document.removeEventListener("mousedown", handleClickOutside);
+    //     // }
+    // }, []);
 
     const [openTextStyle, setOpenTextStyle] = useState(false);
 
