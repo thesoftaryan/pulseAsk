@@ -1,4 +1,4 @@
-import { Editor } from "@tiptap/react";
+import { Editor, useEditorState } from "@tiptap/react";
 import type {Level} from "@tiptap/extension-heading";
 
 import EditorToolbarStyle from "./TextEditor.module.css";
@@ -23,13 +23,34 @@ interface EditorToolbarProps{
 export function EditorToolbar({editor}:EditorToolbarProps){
     if(!editor) return null;
 
+    const editorState = useEditorState({
+      editor,
+      selector:({editor})=>{
+        let currentStyle = "Normal";
+
+        for (let level = 1; level <= 6; level++) {
+          if (editor.isActive("heading", { level })) {
+            currentStyle = `Heading${level}`;
+            break;
+          }
+        }
+        return {
+          isBold: editor.isActive("bold"),
+          isItalic: editor.isActive("italic"),
+          isUnderline: editor.isActive("underline"),
+          isLink: editor.isActive("link"),
+          currentStyle,
+        }
+      }
+    });
+
     // const getCurrentStyle = () => {
     //   for (let level = 1; level <= 6; level++) {
-    //     if (editor.isActive("Heading", { level })) {
-    //       return `h${level}`;
+    //     if (editor.isActive("heading", { level })) {
+    //       return `Heading${level}`;
     //     }
     //   }
-    //   return "paragraph";
+    //   return "Normal";
     // };
 
     const handleChange = (value: string) => {
@@ -44,27 +65,28 @@ export function EditorToolbar({editor}:EditorToolbarProps){
     };
 
 
-    const handleTextStyle = (value : string)=>{
-      if(value === "Normal"){
-        setTextStyle(value);
-      } else{
-        const level = Number(value.replace("Heading", ""));
-        setTextStyle(`Heading ${level}`);
-      }
-      handleChange(value);
-    }
+    // const handleChange = (value : string)=>{
+    //   if(value === "Normal"){
+    //     setTextStyle(value);
+    //   } else{
+    //     const level = Number(value.replace("Heading", ""));
+    //     setTextStyle(`Heading ${level}`);
+    //   }
+    //   handleChange(value);
+    //   setOpenTextStyle(false);
+    // }
 
-    const [textStyle, setTextStyle] = useState("Normal");
+    const [openTextStyle, setOpenTextStyle] = useState(false);
 
 
     return (
 <div className={EditorToolbarStyle["toolbar"]}>
       {/* Undo / Redo */}
-      <button className={EditorToolbarStyle["button"]} onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().undo().run(); }}>
+      <button className={EditorToolbarStyle["button"]} onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().undo().run();}}>
         <UndoIcon className={EditorToolbarStyle["icon"]}/>
       </button>
 
-      <button className={EditorToolbarStyle["button"]} onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().redo().run(); }}>
+      <button className={EditorToolbarStyle["button"]} onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().redo().run();}}>
         <RedoIcon className={EditorToolbarStyle["icon"]}/>
       </button>
 
@@ -72,20 +94,24 @@ export function EditorToolbar({editor}:EditorToolbarProps){
 
 
 
-      <div className={EditorToolbarStyle["text-style"]}>
+      <div onClick={()=>{setOpenTextStyle(!openTextStyle)}} className={EditorToolbarStyle["text-style"]}>
         <div className={EditorToolbarStyle["current-text-style"]}>
-          {textStyle}
+          {editorState.currentStyle}
           <DropdownIcon className={`${EditorToolbarStyle["icon"]} ${EditorToolbarStyle["dropdown-icon"]}`}/>
         </div>
-        <div className={EditorToolbarStyle["text-style-options"]}>
-          <div onClick={()=>{handleTextStyle("Normal")}}>Normal</div>
-          <div onClick={()=>{handleTextStyle("Heading1")}}><h1>Heading 1</h1></div>
-          <div onClick={()=>{handleTextStyle("Heading2")}}><h2>Heading 2</h2></div>
-          <div onClick={()=>{handleTextStyle("Heading3")}}><h3>Heading 3</h3></div>
-          <div onClick={()=>{handleTextStyle("Heading4")}}><h4>Heading 4</h4></div>
-          <div onClick={()=>{handleTextStyle("Heading5")}}><h5>Heading 5</h5></div>
-          <div onClick={()=>{handleTextStyle("Heading6")}}><h6>Heading 6</h6></div>
-        </div>
+        {
+          openTextStyle && (
+          <div className={EditorToolbarStyle["text-style-options"]}>
+            <div onClick={()=>{handleChange("Normal")}}>Normal</div>
+            <div onClick={()=>{handleChange("Heading1")}}><h1>Heading 1</h1></div>
+            <div onClick={()=>{handleChange("Heading2")}}><h2>Heading 2</h2></div>
+            <div onClick={()=>{handleChange("Heading3")}}><h3>Heading 3</h3></div>
+            <div onClick={()=>{handleChange("Heading4")}}><h4>Heading 4</h4></div>
+            <div onClick={()=>{handleChange("Heading5")}}><h5>Heading 5</h5></div>
+            <div onClick={()=>{handleChange("Heading6")}}><h6>Heading 6</h6></div>
+          </div>
+          )
+        }
       </div>
 
 
@@ -104,20 +130,20 @@ export function EditorToolbar({editor}:EditorToolbarProps){
 
       {/* Bold / Italic / Underline */}
       <button className={EditorToolbarStyle["button"]} onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().toggleBold().run(); }}>
-        <BoldIcon className={EditorToolbarStyle["icon"]}/>
+        <BoldIcon className={`${EditorToolbarStyle["icon"]} ${editorState.isBold? EditorToolbarStyle["active"]:""}`}/>
       </button>
 
       <div className={EditorToolbarStyle["separator"]}> |</div>
 
 
       <button className={EditorToolbarStyle["button"]} onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().toggleItalic().run(); }}>
-        <ItalicIcon className={EditorToolbarStyle["icon"]}/>
+        <ItalicIcon className={`${EditorToolbarStyle["icon"]} ${editorState.isItalic? EditorToolbarStyle["active"]:""}`}/>
       </button>
 
       <div className={EditorToolbarStyle["separator"]}> |</div>
 
       <button className={EditorToolbarStyle["button"]} onMouseDown={(e) => { e.preventDefault(); editor.chain().focus().toggleUnderline().run(); }}>
-        <UnderlineIcon className={EditorToolbarStyle["icon"]}/>
+        <UnderlineIcon className={`${EditorToolbarStyle["icon"]} ${editorState.isUnderline? EditorToolbarStyle["active"]:""}`}/>
       </button>
 
       <div className={EditorToolbarStyle["separator"]}> |</div>
@@ -133,7 +159,7 @@ export function EditorToolbar({editor}:EditorToolbarProps){
           }
         }}
       >
-        <LinkIcon className={EditorToolbarStyle["icon"]}/>
+        <LinkIcon className={`${EditorToolbarStyle["icon"]} ${editorState.isLink? EditorToolbarStyle["active"]:""}`}/>
       </button>
 
       <div className={EditorToolbarStyle["separator"]}> | </div>
@@ -148,7 +174,7 @@ export function EditorToolbar({editor}:EditorToolbarProps){
           }
         }}
       >
-        <ImageIcon className={EditorToolbarStyle["icon"]}/>
+        <ImageIcon className={`${EditorToolbarStyle["icon"]}`}/>
       </button>
     </div>
     );

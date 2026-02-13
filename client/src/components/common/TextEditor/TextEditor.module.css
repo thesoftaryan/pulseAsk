@@ -6,6 +6,7 @@
     padding: var(--spacing-sm);
 
     border-bottom: var(--size-border-sm) solid var(--color-border-light);
+    user-select: none;
 }
 
 .toolbar .icon{
@@ -66,6 +67,7 @@
     top: 100%;
     left: 0%;
     width: max-content;
+    margin-top: var(--spacing-sm);
     padding: var(--spacing-sm);
     background-color: var(--color-level1-bg);
     color: var(--color-text);
@@ -75,6 +77,9 @@
     /* display: none; */
 }
 
+.toolbar .active{
+    color: var(--color-primary);
+}
 
 .toolbar .text-color-container{
     display: flex;

@@ -4,7 +4,6 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
-import Underline from "@tiptap/extension-underline";
 import {TextStyle} from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 
@@ -21,8 +20,11 @@ interface TextEditorProps{
 export default function TextEditor({placeholder, onChange} : TextEditorProps){
     const editor = useEditor({
         extensions:[
-            StarterKit,
-            Underline,
+            StarterKit.configure(
+                {
+                    link:false,
+                }
+            ),
             TextStyle,
             Color,
             Link.configure({
@@ -30,10 +32,10 @@ export default function TextEditor({placeholder, onChange} : TextEditorProps){
             }),
             Image,
             Placeholder.configure({
-                placeholder: placeholder??"No placeholder"
+                placeholder: placeholder
             })
         ],
-        content: null,
+        content: "",
         onUpdate({editor}){
             onChange(editor.getJSON());
         },

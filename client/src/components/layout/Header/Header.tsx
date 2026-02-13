@@ -39,7 +39,6 @@ export const Header = ()=>{
                 setIsProfileOpen(false);
             }
         }
-
         document.addEventListener("mousedown", handleClickOutside);
         return ()=>{
             document.removeEventListener("mousedown", handleClickOutside);
