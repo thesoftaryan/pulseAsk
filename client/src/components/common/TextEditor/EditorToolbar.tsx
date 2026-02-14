@@ -147,7 +147,8 @@ export function EditorToolbar({editor}:EditorToolbarProps){
       <button className={EditorToolbarStyle["button"]}
         onMouseDown={(e) => {
           e.preventDefault();
-          const url = prompt("Enter URL");
+          // const url = prompt("Enter URL");
+          const url ="google.com";
           if (url) {
             editor.chain().focus().setLink({ href: url }).run();
           }

@@ -86,16 +86,13 @@
     
 }
 
-.toolbar .text-color-container{
-    display: flex;
-    align-items: center;    
-}
 .toolbar .text-color{
     border: none;
     border-radius: var(--size-radius-md);
     background-color: transparent;
     width: var(--size-icon-ls);
     height: var(--size-icon-ls);
+    cursor: pointer;
 }
 
 

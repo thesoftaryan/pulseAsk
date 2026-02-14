@@ -1,5 +1,6 @@
 import { useEditor, EditorContent, type JSONContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { BubbleMenu } from "@tiptap/react/menus";
 
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
@@ -10,6 +11,7 @@ import Color from "@tiptap/extension-color";
 import { EditorToolbar } from "./EditorToolbar";
 // import { useEffect } from "react";
 import TextEditorStyle from "./TextEditor.module.css";
+import { LinkEditor } from "./LinkEditor/LinkEditor";
 
 
 interface TextEditorProps{
@@ -44,6 +46,18 @@ export default function TextEditor({placeholder, onChange} : TextEditorProps){
     return (
         <div className={TextEditorStyle["editor-container"]}>
             <EditorToolbar editor={editor}/>
+            {editor && (
+                <BubbleMenu
+                    editor={editor}
+                    shouldShow={({ editor }) =>
+                        editor.isActive("link")
+                    }
+                >
+                    {/* <SimpleLinkBubble editor={editor} /> */}
+                    <LinkEditor editor={editor}/>
+                </BubbleMenu>
+                )
+            }
             <EditorContent editor={editor}  className={TextEditorStyle["editor-content"]}/>
         </div>
     );
