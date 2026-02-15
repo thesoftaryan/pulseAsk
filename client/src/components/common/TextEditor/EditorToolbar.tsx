@@ -11,7 +11,10 @@ import ItalicIcon from "../../../assets/icons/text_editor/italic.svg?react";
 import UnderlineIcon from "../../../assets/icons/text_editor/underline.svg?react";
 import LinkIcon from "../../../assets/icons/text_editor/link.svg?react";
 import ImageIcon from "../../../assets/icons/text_editor/image.svg?react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { showToast } from "../../../utils/toast.util";
+import { uploadImageHandler } from "./ImageHandler/Image.handler";
+import { parseErrorResponse } from "../../../services/apiResponseParser.service";
 
 
 
@@ -55,6 +58,36 @@ export function EditorToolbar({editor}:EditorToolbarProps){
       }
     };
 
+    const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>)=>{
+      const file = event.target.files?.[0];
+      if(!file) return;
+      if (!file.type.startsWith("image/")){
+        showToast.error("Only images are allowed");
+        return;
+      }
+      if(file.size > 5*1024*1024){
+        showToast.error("Max file size is 5MB");
+        return;
+      }
+
+      try{
+        setUploading(true);
+
+        const imageUrl = await uploadImageHandler(file);
+
+        editor?.chain().focus().setImage({
+          src : imageUrl,
+        }).run();
+
+      }catch(error){
+        const parsed = parseErrorResponse(error);
+        showToast.error(parsed.message);
+      }finally{
+        setUploading(false);
+      }
+
+    }
+
 
     // const textStyleRef = useRef<HTMLDivElement>(null);
 
@@ -69,6 +102,10 @@ export function EditorToolbar({editor}:EditorToolbarProps){
     //     //     document.removeEventListener("mousedown", handleClickOutside);
     //     // }
     // }, []);
+
+    const [uploading, setUploading] = useState(false);
+
+    const inputFileRef = useRef<HTMLInputElement>(null);
 
     const [openTextStyle, setOpenTextStyle] = useState(false);
 
@@ -147,11 +184,7 @@ export function EditorToolbar({editor}:EditorToolbarProps){
       <button className={EditorToolbarStyle["button"]}
         onMouseDown={(e) => {
           e.preventDefault();
-          // const url = prompt("Enter URL");
-          const url ="google.com";
-          if (url) {
-            editor.chain().focus().setLink({ href: url }).run();
-          }
+          editor.chain().focus().setLink({ href: "" }).run();
         }}
       >
         <LinkIcon className={`${EditorToolbarStyle["icon"]} ${editorState.isLink? EditorToolbarStyle["active"]:""}`}/>
@@ -160,13 +193,11 @@ export function EditorToolbar({editor}:EditorToolbarProps){
       <div className={EditorToolbarStyle["separator"]}> | </div>
 
       {/* Image */}
-      <button className={EditorToolbarStyle["button"]}
+      <input type="file" accept="image/*" ref={inputFileRef} onChange={handleImageUpload} className={EditorToolbarStyle["file-input"]}/>
+      <button disabled={uploading} className={EditorToolbarStyle["button"]}
         onMouseDown={(e) => {
           e.preventDefault();
-          const url = prompt("Enter image URL");
-          if (url) {
-            editor.chain().focus().setImage({ src: url }).run();
-          }
+          inputFileRef.current?.click();
         }}
       >
         <ImageIcon className={`${EditorToolbarStyle["icon"]}`}/>

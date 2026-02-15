@@ -95,6 +95,10 @@
     cursor: pointer;
 }
 
+.toolbar .file-input{
+    display: none;
+}
+
 
 .editor-container{
     margin: var(--spacing-md);
@@ -110,6 +114,7 @@
 
 .editor-content :global(.ProseMirror) {
   min-height: 200px;
+  max-width: 100%;
   outline: none;
 }
 

@@ -1,0 +1,12 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-field{
+    padding: var(--spacing-sm);
+    outline: none;
+    border-radius: var(--spacing-sm);
+    border: var(--size-border-sm) solid var(--color-border-light);
+}

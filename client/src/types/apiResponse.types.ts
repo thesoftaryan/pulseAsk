@@ -20,3 +20,7 @@ export interface UserResponseData{
 export interface NoDataResponse{
     
 }
+
+export interface UploadImageResponse{
+    imageUrl: string;
+}

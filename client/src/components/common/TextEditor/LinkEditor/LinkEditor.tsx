@@ -2,6 +2,7 @@ import { useEditorState, type Editor } from "@tiptap/react";
 import LinkEditorStyle from "./LinkEditor.module.css";
 
 import { useEffect, useState } from "react";
+import Button from "../../Button/Button";
 
 
 
@@ -32,9 +33,9 @@ export const LinkEditor = ({editor} : {editor: Editor})=>{
     }
 
     return (
-        <div className="container">
-            <input type="text" value={url} onChange={(e)=>{setUrl(e.target.value)}}/>
-            <button onClick={updateLink}>Save</button>
+        <div className={LinkEditorStyle["container"]}>
+            <input type="text" value={url} placeholder="Enter URL" onChange={(e)=>{setUrl(e.target.value)}} className={LinkEditorStyle["input-field"]}/>
+            <Button isSmall={true} onClick={updateLink} text="Save"/>
         </div>
     );
 }
