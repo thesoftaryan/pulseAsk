@@ -13,5 +13,6 @@ export const STATUS = {
     },
     SERVER_ERROR : {
         INTERNAL : 500,
+        BAD_GATEWAY : 502,
     }
 } as const;

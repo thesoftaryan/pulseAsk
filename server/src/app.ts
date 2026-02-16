@@ -4,7 +4,9 @@ import cookieParser from "cookie-parser";
 
 import homeRoutes from "./routes/home.routes";
 import authRoutes from "./routes/auth.routes";
+import generalRoutes from "./routes/general.routes";
 import { errorMiddleware } from "./middlewares/error.middleware";
+import { authMiddleware } from "./middlewares/auth.middleware";
 
 const app = express();
 
@@ -26,12 +28,16 @@ app.get("/", (req, res)=>{
     res.send("PulseAsk's backend pulse is perfectly fine!");
 });
 
+
 // ********** Home Route *********** \\
-app.use("/home", homeRoutes);
+app.use("/home", authMiddleware, homeRoutes);
 
 // ********** Auth Route *********** \\
 app.use("/auth", authRoutes);
 
+
+// ********** General Routes *********** \\
+app.use("/", authMiddleware, generalRoutes);
 
 app.use((req, res)=>{
     res.status(404).json({message:"Route not Found"});

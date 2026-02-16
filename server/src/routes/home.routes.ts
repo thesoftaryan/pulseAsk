@@ -1,10 +1,9 @@
 import { Router } from "express";
-import { authMiddleware } from "../middlewares/auth.middleware";
 import { HomeController } from "../controllers/home.controller";
 
 
 const router = Router();
 
-router.get("/", authMiddleware, HomeController);
+router.get("/", HomeController);
 
 export default router;
