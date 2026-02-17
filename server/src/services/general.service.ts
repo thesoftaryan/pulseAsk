@@ -1,5 +1,4 @@
 // Cloudinary image upload service
-import { STATES } from "mongoose";
 import cloudinary from "../config/cloudinary.config";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
@@ -24,10 +23,7 @@ export const uploadImageService = async (fileBuffer : Buffer) : Promise<string> 
             stream.end(fileBuffer);
         });
         if(!result?.secure_url){
-            throw new ApiError(
-                STATUS.SERVER_ERROR.BAD_GATEWAY,
-                "Image upload failed",
-            );
+            throw new Error();
         }
         return result.secure_url;
     }catch(err){

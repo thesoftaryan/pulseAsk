@@ -3,6 +3,8 @@ import type {Level} from "@tiptap/extension-heading";
 
 import EditorToolbarStyle from "./TextEditor.module.css";
 
+import imageCompression from "browser-image-compression";
+
 import UndoIcon from "../../../assets/icons/text_editor/undo.svg?react";
 import RedoIcon from "../../../assets/icons/text_editor/redo.svg?react";
 import DropdownIcon from "../../../assets/icons/general/dropdown.svg?react";
@@ -14,7 +16,6 @@ import ImageIcon from "../../../assets/icons/text_editor/image.svg?react";
 import { useRef, useState } from "react";
 import { showToast } from "../../../utils/toast.util";
 import { uploadImageHandler } from "./ImageHandler/Image.handler";
-import { parseErrorResponse } from "../../../services/apiResponseParser.service";
 
 
 
@@ -70,21 +71,21 @@ export function EditorToolbar({editor}:EditorToolbarProps){
         return;
       }
 
-      try{
-        setUploading(true);
+      setUploading(true);
 
-        const imageUrl = await uploadImageHandler(file);
+      editor.chain().focus().setImage({
+        src: ""
+      }).run();
 
-        editor?.chain().focus().setImage({
-          src : imageUrl,
-        }).run();
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 2,
+        maxWidthOrHeight: 1280,
+        useWebWorker: true,
+      });
+      console.log(compressedFile);
 
-      }catch(error){
-        const parsed = parseErrorResponse(error);
-        showToast.error(parsed.message);
-      }finally{
-        setUploading(false);
-      }
+      await uploadImageHandler(compressedFile, editor.chain().focus());
+      setUploading(false);
 
     }
 

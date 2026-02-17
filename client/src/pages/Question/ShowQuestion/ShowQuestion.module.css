@@ -1,13 +1,14 @@
 .container{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     color: var(--color-text);
 }
 
 .main-content{
     max-width: var(--size-max-width);
     padding: var(--spacing-ls);
+    margin: 0 auto;
 }
 
 .question-title{

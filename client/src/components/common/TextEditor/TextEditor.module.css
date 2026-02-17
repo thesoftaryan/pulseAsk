@@ -132,3 +132,16 @@
   float: left;
   height: 0;
 }
+
+.editor-content :global(.ProseMirror img){
+    max-height: var(--size-image-height);
+    border-radius: var(--size-radius-sm);
+    object-fit:contain;
+}
+
+.editor-content img[src=""] {
+  background: #f3f4f6;
+  width: 300px;
+  height: var(--size-image-height);
+  position: relative;
+}

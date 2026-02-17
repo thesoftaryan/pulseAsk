@@ -8,17 +8,11 @@ import axios, { AxiosError, type AxiosResponse } from "axios";
 const api = axios.create({
     baseURL: "http://localhost:5000",
     withCredentials : true,
-    headers: {
-        "Content-Type" : "application/json",
-    }
 });
 
 const refreshAPI = axios.create({
     baseURL: "http://localhost:5000",
     withCredentials : true,
-    headers: {
-        "Content-Type" : "application/json",
-    }
 });
 
 let refreshPromise : Promise<void> | null = null;

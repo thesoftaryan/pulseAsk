@@ -22,5 +22,5 @@ export interface NoDataResponse{
 }
 
 export interface UploadImageResponse{
-    imageUrl: string;
+    image_url: string;
 }
