@@ -1,0 +1,24 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.page-title-container{
+    display: flex;
+    align-items: center;
+    margin-left: var(--spacing-md);
+    gap: var(--spacing-md);
+}
+
+.question-icon{
+    height: var(--size-icon-md);
+    width: var(--size-icon-md);
+    color: var(--color-general-icon);
+}
+
+.page-title{
+    font-size: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}

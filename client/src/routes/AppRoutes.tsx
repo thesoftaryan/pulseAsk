@@ -6,6 +6,7 @@ import App from "../App";
 import { MainLayout } from "../components/layout/MainLayout/MainLayout";
 import { Tag } from "../pages/Tag/Tag";
 import { ShowQuestion } from "../pages/Question/ShowQuestion/ShowQuestion";
+import { AskQuestion } from "../pages/Question/AskQuestion/AskQuestion";
 
 
 const router = createBrowserRouter([
@@ -21,7 +22,8 @@ const router = createBrowserRouter([
               children:[
                 {path: homeRoutes.home, element: <Home/>},
                 {path: homeRoutes.tag, element: <Tag/>},
-                {path: "/question", element: <ShowQuestion/>}
+                {path: homeRoutes.question, element: <ShowQuestion/>},
+                {path: homeRoutes.askQuestion, element: <AskQuestion/>}
               ]  
             },
 

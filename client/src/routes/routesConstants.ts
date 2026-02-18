@@ -13,4 +13,5 @@ export const homeRoutes = {
     tag: "/tag",
     chat: "/chat",
     question: "/question",
+    askQuestion: "/question/ask"
 }

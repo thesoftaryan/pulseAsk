@@ -99,6 +99,15 @@
     display: none;
 }
 
+.toolbar .upload-button{
+    display: flex;
+    gap: var(--spacing-md);
+}
+.toolbar .upload-text{
+    font-size: var(--font-size-sm);
+    color: var(--color-placeholder-text);
+}
+
 
 .editor-container{
     margin: var(--spacing-md);
@@ -110,6 +119,9 @@
 
 .editor-content{
     padding: var(--spacing-md);
+    background-color: var(--color-level1-bg);
+    border-radius: 0 0 var(--size-radius-md) var(--size-radius-md);
+    color: var(--color-text);
 }
 
 .editor-content :global(.ProseMirror) {

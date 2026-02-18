@@ -1,14 +1,17 @@
 
 import TagChipStyle from "./TagChip.module.css";
 
+import CloseIcon from "../../../assets/icons/general/close.svg?react";
+
 interface TagChipProps{
     color : string;
     text : string;
     level1? : boolean;
     isLarge?: boolean;
+    onDelete?: ()=>void;
 }
 
-export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge})=>{
+export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, onDelete})=>{
     return (
         <>
             <div className={`${TagChipStyle["container"]} ${(level1)? TagChipStyle["level1"]:""} ${(isLarge)? TagChipStyle["large-container"]:""}`}>
@@ -19,6 +22,13 @@ export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge})
                     {text}
                 </div>
             </div>
+            {
+                onDelete && (
+                    <div className={TagChipStyle["delete-container"]}>
+                        <CloseIcon className={TagChipStyle["close-icon"]}/>
+                    </div>
+                )
+            }
         </>
     );
 }

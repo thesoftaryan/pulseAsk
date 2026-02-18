@@ -72,11 +72,6 @@ export function EditorToolbar({editor}:EditorToolbarProps){
       }
 
       setUploading(true);
-
-      editor.chain().focus().setImage({
-        src: ""
-      }).run();
-
       const compressedFile = await imageCompression(file, {
         maxSizeMB: 2,
         maxWidthOrHeight: 1280,
@@ -195,13 +190,14 @@ export function EditorToolbar({editor}:EditorToolbarProps){
 
       {/* Image */}
       <input type="file" accept="image/*" ref={inputFileRef} onChange={handleImageUpload} className={EditorToolbarStyle["file-input"]}/>
-      <button disabled={uploading} className={EditorToolbarStyle["button"]}
+      <button disabled={uploading} className={`${EditorToolbarStyle["button"]} ${EditorToolbarStyle["upload-button"]}`}
         onMouseDown={(e) => {
           e.preventDefault();
           inputFileRef.current?.click();
         }}
       >
         <ImageIcon className={`${EditorToolbarStyle["icon"]}`}/>
+        {uploading && <p className={EditorToolbarStyle["upload-text"]}>Uploading...</p>}
       </button>
     </div>
     );

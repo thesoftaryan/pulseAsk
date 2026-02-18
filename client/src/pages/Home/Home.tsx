@@ -54,7 +54,7 @@ export const Home = ()=>{
                 </div>
                 <div className={HomeStyle["explore-and-ask"]}>
                     <Button isSmall={true} level1={true} Icon={ExploreIcon} text="Explore" onClick={()=>{}}/>
-                    <Button isSmall={true} level1={false} Icon={QuestionIcon} text="Ask question" onClick={()=>{}}/>
+                    <Button isSmall={true} level1={false} Icon={QuestionIcon} text="Ask question" onClick={()=>{safeNavigate(homeRoutes.askQuestion)}}/>
                 </div>
             </div>
 
