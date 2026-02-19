@@ -33,3 +33,10 @@
     margin-left: var(--spacing-sm);
     margin-right: var(--spacing-sm);
 }
+
+.no-margin-left{
+    margin-left: 0;
+}
+.no-margin-right{
+    margin-right: 0;
+}

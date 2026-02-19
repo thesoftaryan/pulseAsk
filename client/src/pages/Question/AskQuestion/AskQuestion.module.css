@@ -2,11 +2,23 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    padding: var(--spacing-md);
+}
+
+.main-content{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    color: var(--color-text);
+    max-width: var(--size-max-width);
+    margin: 0 auto;
+    width: 100%;
 }
 
 .page-title-container{
     display: flex;
     align-items: center;
+    margin-top: var(--spacing-lg);
     margin-left: var(--spacing-md);
     gap: var(--spacing-md);
 }
@@ -20,5 +32,70 @@
 .page-title{
     font-size: var(--font-heading);
     font-weight: var(--font-weight-bold);
+}
+
+.title-container{
+    margin-top: var(--spacing-lg);
+}
+.label{
+    padding: var(--spacing-sm) 0;
+    margin-left: var(--spacing-md);
+}
+.title-input{
+    margin: 0 var(--spacing-sm);
+}
+
+.description-container{
+    margin-top: var(--spacing-md);
+}
+
+/* Tags Section */
+
+.tags-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: var(--spacing-md) 0;
+    /* background-color: red; */
+}
+.tag-input-label{
+    padding: var(--spacing-md);
+}
+.tag-input-container{
+    display: flex;
+    align-items: center;
+    margin: 0 var(--spacing-md);
+    background-color: var(--color-input-area);
+    border: var(--size-border-sm) solid transparent;
+    border-radius: var(--size-radius-sm);
+    transition-duration: 0.2s;
+}
+.tag-input-container:focus-within{
+    border: var(--size-border-sm) solid var(--color-border);
+    border-radius: var(--size-radius-sm);
+}
+.tag-input{
+    flex-grow: 1;
+    height: var(--size-input-height);
+    background-color: var(--color-input-area);
+    margin-left: var(--spacing-md);
+    font-size: var(--font-size-sm);
     color: var(--color-text);
+    outline: none;
+    border: none;
+}
+.tag-input::placeholder{
+    font-size: var(--font-size-sm);
+    color: var(--color-placeholder-text);
+}
+
+.curr-tags-container{
+    margin: var(--spacing-lg) var(--spacing-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.post-button{
+    margin: 0 var(--spacing-md);
 }

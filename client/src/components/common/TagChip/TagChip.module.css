@@ -43,3 +43,15 @@
     font-size: var(--font-size-xxl);
     font-weight: var(--font-weight-medium);
 }
+
+.delete-container{
+    display: flex;
+    align-items: center;    
+}
+
+.close-icon{
+    margin-left: var(--spacing-sm);
+    padding: var(--spacing-xs);
+    background-color: var(--color-level2-bg);
+    border-radius: var(--size-radius-circle);
+}

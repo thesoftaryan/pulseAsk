@@ -21,14 +21,15 @@ export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, 
                 <div className={`${TagChipStyle["right"]} ${(isLarge)? TagChipStyle["large"]:""}`}>
                     {text}
                 </div>
+                {
+                    onDelete && (
+                        <div className={TagChipStyle["delete-container"]}>
+                            <CloseIcon className={TagChipStyle["close-icon"]}/>
+                        </div>
+                    )
+                }
             </div>
-            {
-                onDelete && (
-                    <div className={TagChipStyle["delete-container"]}>
-                        <CloseIcon className={TagChipStyle["close-icon"]}/>
-                    </div>
-                )
-            }
+
         </>
     );
 }
