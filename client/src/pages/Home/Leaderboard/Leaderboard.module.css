@@ -69,6 +69,11 @@
     margin-left: var(--spacing-sm);
 }
 
+.user-profile{
+    width: var(--size-icon-xm);
+    height: var(--size-icon-xm);
+}
+
 .user-name{
     font-size: var(--font-size-md);
     font-weight: var(--font-weight-bold);

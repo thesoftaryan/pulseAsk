@@ -62,7 +62,7 @@ export const Answer : React.FC<AnswerProps> = ({author, content, level1, level1C
                     isComment && (
                         <div className={AnswerStyle["comment-container"]}>
                             <div className={`${AnswerStyle["post-comment"]} ${level1Comments? AnswerStyle["level1-comments"]:""}`}>
-                                <div className={AnswerStyle["profile"]}>
+                                <div className={AnswerStyle["user-profile"]}>
                                     <UserProfile/>
                                 </div>
                                 <input type="text" placeholder="Add your comment !" className={AnswerStyle["input-field"]}>

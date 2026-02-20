@@ -4,8 +4,6 @@
     align-items: center;
     border: var(--size-border-xl) solid var(--color-primary);
     border-radius: 40%;
-    width: var(--size-icon-xm);
-    height: var(--size-icon-xm);
     overflow: hidden;
     user-select: none;
     cursor: pointer;

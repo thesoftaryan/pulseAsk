@@ -7,6 +7,7 @@ import { MainLayout } from "../components/layout/MainLayout/MainLayout";
 import { Tag } from "../pages/Tag/Tag";
 import { ShowQuestion } from "../pages/Question/ShowQuestion/ShowQuestion";
 import { AskQuestion } from "../pages/Question/AskQuestion/AskQuestion";
+import { Profile } from "../pages/Profile/Profile";
 
 
 const router = createBrowserRouter([
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
                 {path: homeRoutes.home, element: <Home/>},
                 {path: homeRoutes.tag, element: <Tag/>},
                 {path: homeRoutes.question, element: <ShowQuestion/>},
-                {path: homeRoutes.askQuestion, element: <AskQuestion/>}
+                {path: homeRoutes.askQuestion, element: <AskQuestion/>},
+                {path: homeRoutes.profile, element: <Profile/>}
               ]  
             },
 

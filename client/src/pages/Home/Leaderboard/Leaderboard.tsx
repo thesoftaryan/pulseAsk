@@ -41,7 +41,7 @@ const RankEntry : React.FC<RankEntryProps> = ({rank})=>{
                     }
                 </div>
                 <div className={LeaderboardStyle["right"]}>
-                    <div className={LeaderboardStyle["profile"]}>
+                    <div className={LeaderboardStyle["user-profile"]}>
                         <UserProfile color={rankColor}/>
                     </div>
                     <div className={LeaderboardStyle["user-data"]}>

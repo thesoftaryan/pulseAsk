@@ -1,0 +1,44 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.top-profile{
+    /* max-width: var(--size-max-width); */
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /* background-color: red; */
+}
+
+
+.user-profile{
+    height: var(--size-image-height);    
+    width: var(--size-image-height);    
+}
+
+.icon{
+    height: var(--size-icon-md);
+    width: var(--size-icon-md);
+    color: var(--color-primary);
+}
+
+.right{
+    background-color: var(--color-level1-bg);
+    padding: var(--spacing-md);
+}
+
+.user-stats{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    justify-self: center;
+    align-self: center;
+    background-color: red;
+}
+
+.user-reputation{
+    display: flex;
+}

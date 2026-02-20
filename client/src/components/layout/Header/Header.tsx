@@ -83,7 +83,7 @@ export const Header = ()=>{
                             isProfileOpen && (
                             <div className={HeaderStyle["user-action"]}>
                                 <ul>
-                                    <li>Profile</li>
+                                    <li onClick={()=>{safeNavigate(homeRoutes.profile)}}>Profile</li>
                                     <li>Settings</li>
                                     <li onClick={handleLogout}>Logout</li>
                                 </ul>

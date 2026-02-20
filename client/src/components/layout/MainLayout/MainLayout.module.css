@@ -7,3 +7,19 @@
 .main-component{
     flex-grow: 1;
 }
+
+.ask-question{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm);
+    border-radius: var(--size-radius-circle);
+    background-color: var(--color-primary);
+}
+
+.icon{
+    color: var(--color-icon-general);
+    height: var(--size-icon-md);
+    width: var(--size-icon-md);
+}

@@ -101,6 +101,8 @@
 
 .user-profile{
     cursor: pointer;    
+    width: var(--size-icon-xm);
+    height: var(--size-icon-xm);
 }
 
 .user-action{
