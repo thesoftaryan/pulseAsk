@@ -1,0 +1,23 @@
+
+.highlight-tile{
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-ls);
+    
+    color: var(--color-text);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+
+    margin-top: var(--spacing-sm);
+}
+
+.icon{
+    height: var(--size-icon-md);
+    width: var(--size-icon-md);
+    color: var(--color-primary);
+}
+
+.highlight-stat-value{
+    font-weight: var(--font-weight-bold);
+    margin-top: var(--spacing-xs);
+}

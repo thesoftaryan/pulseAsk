@@ -12,7 +12,7 @@ import QuestionsAskedIcon from "../../assets/icons/profile/questions_asked.svg?r
 import AnswersGivenIcon from "../../assets/icons/profile/answers_given.svg?react";
 import UpvoteCountIcon from "../../assets/icons/profile/upvote_count.svg?react";
 import DownvoteCountIcon from "../../assets/icons/profile/downvote_count.svg?react";
-
+import { HighlightTile } from "./HighlightTile/HighlightTile";
 
 
 export const Profile = ()=>{
@@ -21,7 +21,7 @@ export const Profile = ()=>{
         <div className={ProfileStyle["container"]}>
             <div className={ProfileStyle["top-profile"]}>
                 <div className={ProfileStyle["left"]}>
-                    <ReportUserIcon className={`${ProfileStyle["report-user"]} ${ProfileStyle["icon"]}`}/>
+                    <ReportUserIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["report-user"]}`}/>
                     <div className={ProfileStyle["user-profile"]}>
                         <UserProfile/>
                     </div>
@@ -30,26 +30,24 @@ export const Profile = ()=>{
                     </div>
                     <div className={ProfileStyle["user-education"]}>
                         <EducationIcon className={ProfileStyle["icon"]}/>
-                        Indian Institute of Technology, Bhilai
+                        <p className={ProfileStyle["user-education-text"]}>Indian Institute of Technology, Bhilai</p>
                     </div>
-                    <div className={ProfileStyle["user-contact"]}>
+                    <div className={ProfileStyle["user-actions"]}>
                         <ChatIcon className={ProfileStyle["icon"]}/>
-                        <DonateIcon className={ProfileStyle["icon"]}/>
+                        <DonateIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["donate-icon"]}`}/>
                     </div>
                 </div>
                 <div className={ProfileStyle["right"]}>
-                    <div className={ProfileStyle["title"]}>Highlights</div>
-                    <div className={ProfileStyle["user-stats"]}>
-                        <QuestionsAskedIcon className={ProfileStyle["icon"]}/>
-                        <AnswersGivenIcon className={ProfileStyle["icon"]}/>
-                        <UpvoteCountIcon className={ProfileStyle["icon"]}/>
-                        <DownvoteCountIcon className={ProfileStyle["icon"]}/>
-                    </div>
-                    <div className={ProfileStyle["user-reputation"]}>
-                        <ReputationIcon className={ProfileStyle["icon"]}/>
-                        <div className={ProfileStyle["user-reputation-content"]}>
-                            <div className={ProfileStyle["user-reputation-label"]}>Reputation Score</div>
-                            <div className={ProfileStyle["user-reputation-score"]}>112.6K</div>
+                    <div className={ProfileStyle["user-highlights"]}>
+                        <div className={ProfileStyle["title"]}>Highlights</div>
+                        <div className={ProfileStyle["user-stats"]}>
+                            <HighlightTile Icon={QuestionsAskedIcon} title="Questions Asked" value="84"/>
+                            <HighlightTile Icon={AnswersGivenIcon} title="Answers Given" value="2384"/>
+                            <HighlightTile Icon={UpvoteCountIcon} title="Upvotes" value="1184"/>
+                            <HighlightTile Icon={DownvoteCountIcon} title="Downvotes" value="84"/>
+                        </div>
+                        <div className={ProfileStyle["user-reputation"]}>
+                            <HighlightTile Icon={ReputationIcon} title="Reputation Score" value="18.4K"/>
                         </div>
                     </div>
                 </div>

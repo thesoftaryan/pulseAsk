@@ -84,12 +84,18 @@
     /* flex-grow: 1; */
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     margin-right: var(--spacing-lg);
     margin-left: var(--spacing-sm);
 
     background-color: var(--color-level1-bg);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--size-radius-ls);
+}
+
+.profile{
+    width: var(--size-icon-md);
+    height: var(--size-icon-md);
 }
 
 .user-data{
