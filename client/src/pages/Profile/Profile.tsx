@@ -13,6 +13,7 @@ import AnswersGivenIcon from "../../assets/icons/profile/answers_given.svg?react
 import UpvoteCountIcon from "../../assets/icons/profile/upvote_count.svg?react";
 import DownvoteCountIcon from "../../assets/icons/profile/downvote_count.svg?react";
 import { HighlightTile } from "./HighlightTile/HighlightTile";
+import { UserActivity } from "./UserActivity/UserActivity";
 
 
 export const Profile = ()=>{
@@ -53,7 +54,7 @@ export const Profile = ()=>{
                 </div>
             </div>
             <div className={ProfileStyle["activity-container"]}>
-
+                <UserActivity/>
             </div>
         </div>
     );

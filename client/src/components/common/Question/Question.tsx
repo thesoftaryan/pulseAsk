@@ -2,6 +2,7 @@ import { TagChip } from "../TagChip/TagChip";
 import Button from "../Button/Button";
 
 import QuestionStyle from "./Question.module.css";
+
 import type { TagInterface } from "../../../types/question.types";
 
 import TagIcon from "../../../assets/icons/tag.svg?react";

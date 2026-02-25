@@ -27,6 +27,7 @@
     flex-grow: 1;
     display: flex;
     justify-content: space-evenly;
+    gap: var(--spacing-sm);
     align-items: center;
     margin: 0 var(--spacing-sm);
     /* background-color: aquamarine; */
