@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    /* justify-content: center; */
+    align-items: stretch;
+}
+
+.questions{
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-ls);
+}
+
+@media (max-width : 900px) {
+    .questions{
+        grid-template-columns: repeat(1, 1fr);    
+    }
+}

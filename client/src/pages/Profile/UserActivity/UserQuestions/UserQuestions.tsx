@@ -1,12 +1,18 @@
 import { Question } from "../../../../components/common/Question/Question";
-import type { TabsType } from "../UserActivity";
 import UserQuestionsStyle from "./UserQuestions.module.css";
 
-export const UserQuestions = (tab : TabsType)=>{
+
+export const UserQuestions = ()=>{
     return (
-        <div className="container" style={{display:"flex"}}>
-            <Question title={`Something which is really interesting for tab : ${tab}`}/>
-            <Question title={`Something which is really interesting for tab : ${tab}`}/>
+        <div className={UserQuestionsStyle["container"]}>
+            <div className={UserQuestionsStyle["questions"]}>
+                <Question title={`Something which is really interesting for tab : 1`}/>
+                <Question title={`Something which is really interesting for tab : 1`}/>
+                <Question title={`Something which is really interesting for tab : 1`}/>
+                <Question title={`Something which is really interesting for tab : 1`}/>
+                <Question title={`Something which is really interesting for tab : 1`}/>
+                <Question title={`Something which is really interesting for tab : 2`}/>
+            </div>
         </div>
     );
 }

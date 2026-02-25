@@ -1,6 +1,8 @@
 import { useState } from "react";
 import UserActivityStyle from "./UserActivity.module.css";
 import { UserQuestions } from "./UserQuestions/UserQuestions";
+import { UserAnswers } from "./UserAnswers/UserAnswers";
+import { AboutUser } from "./AboutUser/AboutUser";
 
 export type TabsType = "answers"|"questions"|"about";
 
@@ -11,7 +13,7 @@ export const UserActivity = ()=>{
         { label: "Questions", value: "questions" },
         { label: "About", value: "about" },
     ];
-    const [activeTab, setActiveTab] = useState<TabsType>("questions");
+    const [activeTab, setActiveTab] = useState<TabsType>("about");
 
     return (
         <div className={UserActivityStyle["container"]}>
@@ -33,9 +35,9 @@ export const UserActivity = ()=>{
                 </div>
             </div>
             <div className={UserActivityStyle["tab-content"]}>
-                {activeTab=="answers" && UserQuestions("answers")}
-                {activeTab=="questions" && UserQuestions("questions")}
-                {activeTab=="about" && "This is about me, hello there, what do you want to know about me, just drop me a message using the chat functionality."}
+                {activeTab=="answers" && <UserAnswers/>}
+                {activeTab=="questions" && <UserQuestions/>}
+                {activeTab=="about" && <AboutUser/>}
             </div>
         </div>
     );
