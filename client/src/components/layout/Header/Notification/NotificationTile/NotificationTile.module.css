@@ -4,7 +4,6 @@
     background-color: var(--color-level2-bg);
     padding: var(--spacing-sm);
     border-radius: var(--size-radius-sm);
-    width: max-content;
     color: var(--color-text);
 }
 .left{

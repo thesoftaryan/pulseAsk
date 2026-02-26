@@ -5,10 +5,30 @@
     background-color: var(--color-level1-bg);
     padding: var(--spacing-md);
     border-radius: var(--size-radius-sm);
+    color: var(--color-text);
+    
+    height: var(--size-notification-modal-height);
+    width: var(--size-notification-modal-width);
+
+    z-index: 100;
+    box-shadow: var(--size-border-lg) var(--size-border-lg) var(--spacing-md) var(--color-primary);
+    overflow-y: auto;
+}
+
+.title{
+    font-size: var(--font-heading);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-md);
 }
 
 .notifications{
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+}
+
+@media (max-width: 600px) {
+    .container{
+        width: var(--size-notification-modal-width-small);
+    }
 }

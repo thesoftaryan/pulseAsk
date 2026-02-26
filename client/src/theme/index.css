@@ -8,6 +8,8 @@
     margin: 0rem;
     padding: 0rem;
     font-family: var(--font-family);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-light) var(--color-bg);
 }
 
 ::selection {

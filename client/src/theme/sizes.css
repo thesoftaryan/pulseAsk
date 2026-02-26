@@ -1,7 +1,12 @@
+/* Breakpoint : 600px */
+
 :root {
   /* MaxWidth */
   --size-max-width: 1400px;
   --size-sidebar-max-width:500px;
+  --size-notification-modal-width:400px;
+  --size-notification-modal-width-small: 90%;
+  --size-notification-modal-height:70vh;
   
   /* Button Size */
   --size-button-height: 45px;

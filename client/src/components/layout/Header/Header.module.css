@@ -1,4 +1,5 @@
 .header{
+    position: relative;
     display: flex;
     justify-content: space-evenly;
     
@@ -91,7 +92,7 @@
 
 
 .notification-modal-wrapper{
-    position: relative;
+    /* position: relative; */
     display: flex;
     align-items: center;
 }
@@ -99,11 +100,11 @@
 .notification-modal{
     position: absolute;
 
-    right: 0;
+    right: 10%;
     top: 100%; 
     z-index: 1000;
 
-    margin-top: var(--spacing-md);
+    margin: 0;
 }
 
 
@@ -179,5 +180,9 @@
     .site-icon{
         height: var(--size-icon-lg);
         width: var(--size-icon-lg);
+    }
+    .notification-modal{
+        right: 0%;
+        left: 10%;
     }
 }

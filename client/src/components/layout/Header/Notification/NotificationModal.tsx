@@ -10,6 +10,10 @@ export const NotificationModal = ()=>{
             <div className={NotificationModalStyle["notifications"]}>
                 <NotificationTile/>
                 <NotificationTile/>
+                <NotificationTile/>                
+                <NotificationTile/>
+                <NotificationTile/>                
+                <NotificationTile/>
                 <NotificationTile/>
             </div>
         </div>
