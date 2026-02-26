@@ -2,6 +2,7 @@
 :root {
   --font-family: 'Inter', sans-serif;
 
+  --font-size-xs: 0.625rem;
   --font-size-sm: 0.875rem;
   --font-size-ls: 0.9375rem;
   --font-size-md: 1rem;

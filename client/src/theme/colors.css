@@ -3,40 +3,41 @@
   /* Background */
   --color-bg: #ffffff;
   --color-level1-bg:#f8f8f8;
+  --color-level1-dark:#f0f0f0;
   --color-level2-bg:#ffffff;
-
+  
   /* General Purpose Colors */
   --color-error:#DC3545;
   --color-gold:#FAA629;
   --color-silver:#E6ECEF;
   --color-bronze:#CE7430;
-
+  
   /* Primary */
   --color-primary: #4458af;
   --color-primary-light: #6A7BC4;
   --color-primary-extra-light: #a2addc;
-
+  
   /* Text */
   --color-text: #000000;
+  --color-subheading-text:#555555;
   --color-placeholder-text: #555555;
   --color-text-over-primary: #ffffff;
   --color-text-button:#ffffff;
   --color-heading-text: #000000;
-  --color-subheading-text:#555555;
-
-
+  
+  
   /* input */
   --color-input-area : #f8f8f8;
-
+  
   /* Icon */
   --color-general-icon: #000000;
   --color-button-level1-icon:#000000;
   --color-button-icon: #ffffff;
-
+  
   /* Border */
   --color-border: #555555;
   --color-border-light: #D1D5DB;
-
+  
   /* Button */
   --color-button-primary : #4458af;
   --color-button-disabled :  #a2addc;
@@ -46,25 +47,27 @@
   /* Background */
   --color-bg: #191919;
   --color-level1-bg:#000000;
+  --color-level1-dark:#000000;
   --color-level2-bg:#191919;
-
+  
   /* General Purpose Colors */
   --color-error:#DC3545;
   --color-gold:#FAA629;
   --color-silver:#E6ECEF;
   --color-bronze:#CE7430;
-
+  
   /* Primary */
   --color-primary: #1aa5ae;
   --color-primary-light: #51bfc6;
   --color-primary-extra-light: #a1e8ed;
-
+  
   /* Text */
   --color-text: #EDEDED;
+  --color-subheading-text:#979797;
+  --color-placeholder-text: #555555;
   --color-text-over-primary: #EDEDED;
   --color-text-button:#EDEDED;
   --color-heading-text: #ffffff;
-  --color-subheading-text:#979797;
 
   /* input */
   --color-input-area : #000000;

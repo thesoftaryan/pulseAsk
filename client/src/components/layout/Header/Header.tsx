@@ -1,8 +1,9 @@
+import HeaderStyle from "./Header.module.css";
+
 import { useEffect, useRef, useState } from "react";
 
 import { UserProfile } from "../../common/UserProfile/UserProfile";
 
-import HeaderStyle from "./Header.module.css";
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 
 import HomeIcon from "../../../assets/icons/header/home.svg?react";
@@ -21,6 +22,7 @@ import { toggleTheme } from "../../../store/theme/theme.slice";
 import { logoutThunk } from "../../../store/auth/thunks/logout.thunk";
 import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate..hook";
+import { NotificationModal } from "./Notification/NotificationModal";
 
 
 export const Header = ()=>{
@@ -31,12 +33,17 @@ export const Header = ()=>{
     const {safeNavigate, replaceNavigate} = useSafeNavigate();
 
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const profileRef = useRef<HTMLDivElement>(null);
+    const notificationRef = useRef<HTMLDivElement>(null);
 
     useEffect(()=>{
         const handleClickOutside = (event : MouseEvent)=>{
             if(profileRef.current && !profileRef.current.contains(event.target as Node)){
                 setIsProfileOpen(false);
+            }
+            if(notificationRef.current && !notificationRef.current.contains(event.target as Node)){
+                setIsNotificationOpen(false);
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -75,7 +82,18 @@ export const Header = ()=>{
                 </div>
                 <div className={HeaderStyle["right-container"]}>
                     {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>}
-                    <NotificationIcon className={HeaderStyle["icon"]}/>
+                    
+                    <div ref={notificationRef} className={HeaderStyle["notification-modal-wrapper"]}>
+                        <NotificationIcon className={HeaderStyle["icon"]} onClick={()=>{setIsNotificationOpen(!isNotificationOpen)}}/>
+                        {
+                            isNotificationOpen && (
+                                <div className={HeaderStyle["notification-modal"]}>
+                                    <NotificationModal/>
+                                </div>
+                            )
+                        }
+                    </div>
+                    
                     <MessageIcon className={HeaderStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat)}}/>
                     <div ref={profileRef} className={HeaderStyle["profile-wrapper"]}>
                         <UserProfile className={HeaderStyle["user-profile"]} onClick={()=>{setIsProfileOpen((isOpen)=>!isOpen)}}/>

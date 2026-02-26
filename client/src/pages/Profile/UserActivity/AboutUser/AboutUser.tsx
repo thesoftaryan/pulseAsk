@@ -8,19 +8,21 @@ import YoutubeIcon from "../../../../assets/icons/profile/youtube.svg?react";
 
 export const AboutUser = ()=>{
     return (
-        <div className="container">
-            <div className="description">
+        <div className={AboutUserStyle["container"]}>
+            <div className={AboutUserStyle["description"]}>
+                <div className={AboutUserStyle["label"]}>
+                    Description
+                </div>
                 Description That the user want the other user to know
             </div>
-            <div className="education">
-                Details showing that the user is a credible source of information and he has some knowledge
-
-            </div>
-            <div className="social-links">
-                <InstagramIcon/>
-                <FacebookIcon/>
-                <LinkedinIcon/>
-                <YoutubeIcon/>
+            <div className={AboutUserStyle["social-links"]}>
+                <div className={AboutUserStyle["label"]}>
+                    Social Links
+                </div>
+                <InstagramIcon className={AboutUserStyle["icon"]} />
+                <FacebookIcon className={AboutUserStyle["icon"]} />
+                <LinkedinIcon className={AboutUserStyle["icon"]} />
+                <YoutubeIcon className={AboutUserStyle["icon"]} />
             </div>
         </div>
     );

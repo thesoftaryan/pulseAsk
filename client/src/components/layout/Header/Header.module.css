@@ -89,6 +89,27 @@
     background-color: var(--color-primary);
 }
 
+
+.notification-modal-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.notification-modal{
+    position: absolute;
+
+    right: 0;
+    top: 100%; 
+    z-index: 1000;
+
+    margin-top: var(--spacing-md);
+}
+
+
+
+
+
 /* .profile-wrapper{
     position: relative;    
 } */
@@ -133,6 +154,9 @@
 .user-action li:hover{
     background-color: var(--color-primary-extra-light);
 }
+
+
+
 
 @media (max-width : 600px) {
     /* .right-container, .left-container{

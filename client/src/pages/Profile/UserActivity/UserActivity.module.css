@@ -7,7 +7,7 @@
 }
 
 .tab-bar-background{
-    background-color: var(--color-level1-bg);
+    background-color: var(--color-level1-dark);
     padding: var(--spacing-xs);
     border-radius: var(--size-radius-sm);
     max-width: var(--size-tab-bar-max-width);
