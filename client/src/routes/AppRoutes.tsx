@@ -8,6 +8,7 @@ import { Tag } from "../pages/Tag/Tag";
 import { ShowQuestion } from "../pages/Question/ShowQuestion/ShowQuestion";
 import { AskQuestion } from "../pages/Question/AskQuestion/AskQuestion";
 import { Profile } from "../pages/Profile/Profile";
+import { Chat } from "../pages/Chat/Chat";
 
 
 const router = createBrowserRouter([
@@ -25,7 +26,8 @@ const router = createBrowserRouter([
                 {path: homeRoutes.tag, element: <Tag/>},
                 {path: homeRoutes.question, element: <ShowQuestion/>},
                 {path: homeRoutes.askQuestion, element: <AskQuestion/>},
-                {path: homeRoutes.profile, element: <Profile/>}
+                {path: homeRoutes.profile, element: <Profile/>},
+                {path: homeRoutes.chat, element: <Chat/>}
               ]  
             },
 

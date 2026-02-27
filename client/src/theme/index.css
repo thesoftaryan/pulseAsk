@@ -8,8 +8,20 @@
     margin: 0rem;
     padding: 0rem;
     font-family: var(--font-family);
+}
+
+html {
     scrollbar-width: thin;
     scrollbar-color: var(--color-border-light) var(--color-bg);
+}
+
+html::-webkit-scrollbar {
+    width: 10px;
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-light);
+    border-radius: 10px;
 }
 
 ::selection {
