@@ -41,7 +41,7 @@
 }
 
 
-.search-box{
+/* .search-box{
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -51,11 +51,9 @@
     border-radius:  var(--size-radius-lg);
     background-color: var(--color-input-area);
     padding: 0 var(--spacing-sm);
-    /* transition-duration: 200ms ease-in; */
 }
 
 .search-box:focus-within{
-    /* transition-duration: 200ms ease-in; */
     border: var(--size-border-md) solid var(--color-primary);
 }
 
@@ -88,7 +86,7 @@
     height: var(--size-icon-md);
     width: var(--size-icon-md);
     background-color: var(--color-primary);
-}
+} */
 
 
 .notification-modal-wrapper{

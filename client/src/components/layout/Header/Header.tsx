@@ -9,8 +9,6 @@ import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 import HomeIcon from "../../../assets/icons/header/home.svg?react";
 import TagIcon from "../../../assets/icons/tag.svg?react"
 
-import SearchIcon from "../../../assets/icons/header/search.svg?react";
-
 import NotificationIcon from "../../../assets/icons/header/notification.svg?react";
 import MessageIcon from "../../../assets/icons/header/message.svg?react";
 
@@ -23,6 +21,7 @@ import { logoutThunk } from "../../../store/auth/thunks/logout.thunk";
 import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate..hook";
 import { NotificationModal } from "./Notification/NotificationModal";
+import { SearchBar } from "../SearchBar/SearchBar";
 
 
 export const Header = ()=>{
@@ -71,14 +70,7 @@ export const Header = ()=>{
                     <TagIcon className={HeaderStyle["icon"]}  onClick={()=>{safeNavigate(homeRoutes.tag)}}/>
                 </div>
                 <div className={HeaderStyle["middle-container"]}>
-                    <div className={HeaderStyle["search-box"]}>
-                        <input type="text" placeholder="Search for questions, answer, persons..." className={HeaderStyle["search-input"]}>
-                            
-                        </input>
-                        <div className={HeaderStyle["search-icon-container"]}>
-                            <SearchIcon className={HeaderStyle["search-icon"]}/>
-                        </div>
-                    </div>
+                    <SearchBar/>
                 </div>
                 <div className={HeaderStyle["right-container"]}>
                     {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>}

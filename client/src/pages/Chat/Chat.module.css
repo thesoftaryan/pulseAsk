@@ -1,0 +1,105 @@
+.container{
+    display: flex;
+    color: var(--color-text);
+    background-color: var(--color-level1-bg);
+    padding: var(--spacing-lg) var(--spacing-md);
+}
+
+.left{
+    /* flex-shrink: 1; */
+    /* flex-grow: 0; */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.label{
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+}
+
+.persons{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+
+
+
+.right{
+    flex-grow: 1;
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+}
+
+
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.person-profile-status{
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.person-profile-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.person-profile{
+    width: var(--size-icon-lg);
+    height: var(--size-icon-lg);
+    border-radius: var(--size-radius-circle);
+}
+
+.person-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--spacing-xs);
+}
+
+.person-name{
+    font-weight: var(--font-weight-medium);
+}
+
+.person-status{
+    font-size: var(--font-size-sm);
+    color: var(--color-subheading-text);
+}
+
+.person-actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+
+
+.messages{
+    flex-grow: 1;
+    /* background-color: red; */
+}
+
+
+.message-input-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    /* background-color: red; */
+}
+
+.message-input{
+    flex-grow: 1;
+    height: var(--size-input-height);
+    outline: none;
+    border: none;
+    background-color: var(--color-level1-bg);    
+    color: var(--color-text);
+}
