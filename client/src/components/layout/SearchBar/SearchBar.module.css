@@ -61,6 +61,7 @@
     }
     .search-box{
         padding: 0;
+        width:max-content;
     }
     .icon{
         height: var(--size-icon-ls);

@@ -59,4 +59,5 @@
     border-radius: var(--size-radius-circle);
 
     font-size: var(--font-size-xs);
+    color: var(--color-text-over-primary);
 }

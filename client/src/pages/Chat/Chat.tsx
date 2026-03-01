@@ -10,6 +10,8 @@ import AttachmentIcon from "../../assets/icons/general/attachment.svg?react";
 import BanIcon from "../../assets/icons/general/ban.svg?react";
 import SearchIcon from "../../assets/icons/header/search.svg?react";
 import ReportUserIcon from "../../assets/icons/general/report_user.svg?react";
+import { MessageTile } from "./MessageTile/MessageTile";
+import { TimelineTile } from "./TimelineTile/TimelineTile";
 
 
 export const Chat = ()=>{
@@ -24,6 +26,12 @@ export const Chat = ()=>{
                 </div>
                 <div className={ChatStyle["persons"]}>
                     <PersonTile/>
+                    <PersonTile active={true}/>
+                    <PersonTile/>
+                                        <PersonTile/>
+                    <PersonTile active={true}/>
+                    <PersonTile/>
+                                        <PersonTile/>
                     <PersonTile active={true}/>
                     <PersonTile/>
                 </div>
@@ -45,9 +53,30 @@ export const Chat = ()=>{
                         <BanIcon className={ChatStyle["icon"]}/>
                     </div>
                 </div>
+
+
+
                 <div className={ChatStyle["messages"]}>
                     
+                    <MessageTile message="How is it going1?" time={new Date()} self={false}/>
+                    <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
+                    <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
+                    <MessageTile message="Very soon" time={new Date()} self={true}/>
+                    <MessageTile message="How is it going?" time={new Date()} self={false}/>
+                    <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
+                    <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
+                    
+                    <TimelineTile time={new Date()}/>
+                    <MessageTile message="Very soon" time={new Date()} self={true}/>
+                    <MessageTile message="How is it going?" time={new Date()} self={false}/>
+                    <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
+                    <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
+                    <MessageTile message="Very soon" time={new Date()} self={true}/>
+
                 </div>
+
+
+
                 <div className={ChatStyle["message-input-wrapper"]}>
                     <div className={ChatStyle["message-input-container"]}>
                         <div className={ChatStyle["message-attachment"]}>

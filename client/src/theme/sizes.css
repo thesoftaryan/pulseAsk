@@ -7,7 +7,11 @@
   --size-notification-modal-width:400px;
   --size-notification-modal-width-small: 90%;
   --size-notification-modal-height:70vh;
-  --size-input-section-max-width:900px;
+  /* MaxWidth Chat Page*/
+  --size-input-section-max-width:800px;
+  --size-chat-left-section-max-width:400px;
+  --size-chat-section-max-height:430px;
+  --size-chat-message-max-width: 800px;
   
   /* Button Size */
   --size-button-height: 45px;

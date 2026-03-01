@@ -22,6 +22,7 @@
   --color-subheading-text:#555555;
   --color-placeholder-text: #555555;
   --color-text-over-primary: #ffffff;
+  --color-subheading-text-over-primary:#E1E1E1;
   --color-text-button:#ffffff;
   --color-heading-text: #000000;
   
@@ -67,6 +68,7 @@
   --color-subheading-text:#979797;
   --color-placeholder-text: #555555;
   --color-text-over-primary: #EDEDED;
+  --color-subheading-text-over-primary:#E1E1E1;
   --color-text-button:#EDEDED;
   --color-heading-text: #ffffff;
 
