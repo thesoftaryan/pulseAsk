@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     border-radius: var(--size-radius-md);
+    background-color: var(--color-level2-bg);
     color: var(--color-text);
     padding: var(--spacing-md);
 }

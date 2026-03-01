@@ -40,23 +40,25 @@ export const Chat = ()=>{
                         </div>
                     </div>
                     <div className={ChatStyle["person-actions"]}>
-                        <SearchIcon/>
-                        <ReportUserIcon/>
-                        <BanIcon/>
+                        <SearchIcon className={`${ChatStyle["icon"]} ${ChatStyle["large"]}`}/>
+                        <ReportUserIcon className={ChatStyle["icon"]}/>
+                        <BanIcon className={ChatStyle["icon"]}/>
                     </div>
                 </div>
                 <div className={ChatStyle["messages"]}>
                     
                 </div>
-                <div className={ChatStyle["message-input-container"]}>
-                    <div className={ChatStyle["message-attachment"]}>
-                        <AttachmentIcon/>
-                    </div>
-                    <input type="text" placeholder="Enter your message" className={ChatStyle["message-input"]}>
-                        
-                    </input>
-                    <div className={ChatStyle["message-send"]}>
-                        <SendIcon/>
+                <div className={ChatStyle["message-input-wrapper"]}>
+                    <div className={ChatStyle["message-input-container"]}>
+                        <div className={ChatStyle["message-attachment"]}>
+                            <AttachmentIcon className={`${ChatStyle["icon"]} ${ChatStyle["large"]}`}/>
+                        </div>
+                        <input type="text" placeholder="Enter your message" className={ChatStyle["message-input"]}>
+                            
+                        </input>
+                        <div className={ChatStyle["message-send"]}>
+                            <SendIcon className={`${ChatStyle["icon"]} ${ChatStyle["large"]}`}/>
+                        </div>
                     </div>
                 </div>
             </div>

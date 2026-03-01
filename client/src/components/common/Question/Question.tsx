@@ -16,13 +16,17 @@ import type { ReactElement } from "react";
 
 const NoAnswerMessage = ()=>{
     return (
-        <>
-            <RankIcon className={QuestionStyle["rank-icon"]}/>
-            <div className={QuestionStyle["message"]}>
-                No answers available, Be the first one to answer
+        <div className={QuestionStyle["no-answer-wrapper"]}>
+            <div className={QuestionStyle["content-wrapper"]}>
+                <RankIcon className={QuestionStyle["rank-icon"]}/>
+                <div className={QuestionStyle["message"]}>
+                    No answers available, Be the first one to answer
+                </div>
             </div>
-            <Button className={QuestionStyle["answer-now-button"]} text="Answer Now"/>
-        </>
+            <div className={QuestionStyle["answer-now-button"]} >
+                <Button text="Answer Now"/>
+            </div>
+        </div>
     );
 }
 
@@ -49,11 +53,11 @@ export const Question:React.FC<QuestionProps> = ({title, best_answer, onClick})=
                     </div>
                     <div className={QuestionStyle["meta-data"]}>2h ago</div>
                 </div>
-                <div className={QuestionStyle["answer-wrapper"]}>
-                {
-                    (best_answer)??
-                    <NoAnswerMessage/>
-                }
+                <div className={QuestionStyle["wrapper"]}>
+                    {
+                        (best_answer)??
+                        <NoAnswerMessage/>
+                    }
                 </div>
                 <div className={QuestionStyle["footer"]}>
                     <TagIcon className={QuestionStyle["icon"]}/>

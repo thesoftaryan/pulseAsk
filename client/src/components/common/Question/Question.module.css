@@ -80,14 +80,20 @@
 
 
 /* No Answer Component : Start*/
-.answer-wrapper{
+.no-answer-wrapper{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: space-between; */
+    /* align-items: center; */
     padding: var(--spacing-sm);
     background-color: var(--color-level2-bg);
     border-radius: var(--size-radius-ls);
     margin: var(--spacing-md) 0;
+}
+.content-wrapper{
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .rank-icon{
@@ -97,7 +103,7 @@
 }
 
 .message{
-    flex-grow: 1;
+    /* flex-grow: 1; */
     padding: 0 var(--spacing-lg);
     font-size: var(--font-size-lg);
     user-select: none;
@@ -108,3 +114,7 @@
 }
 
 /* No Answer Component : End */
+
+.wrapper{
+    margin: var(--spacing-md) 0;
+}

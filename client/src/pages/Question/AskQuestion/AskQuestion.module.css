@@ -63,6 +63,7 @@
 .tag-input-container{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 0 var(--spacing-md);
     background-color: var(--color-input-area);
     border: var(--size-border-sm) solid transparent;
@@ -87,6 +88,11 @@
     font-size: var(--font-size-sm);
     color: var(--color-placeholder-text);
 }
+
+.auto-tags{
+    max-width: max-content;
+}
+
 
 .curr-tags-container{
     margin: var(--spacing-lg) var(--spacing-md);

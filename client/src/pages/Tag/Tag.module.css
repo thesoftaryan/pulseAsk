@@ -39,4 +39,5 @@
 .load-more-button{
     display: flex;
     justify-content: center;
+    max-width: max-content;
 }

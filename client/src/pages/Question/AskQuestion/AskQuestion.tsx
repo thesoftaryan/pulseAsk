@@ -48,7 +48,9 @@ export const AskQuestion = ()=>{
                         <div className={AskQuestionStyle["tag-input-label"]}>Tags</div>
                         <div className={AskQuestionStyle["tag-input-container"]}>
                             <input type="text" placeholder="Enter your tag" className={AskQuestionStyle["tag-input"]}/>
-                            <Button text="Auto Tags" Icon={AiIcon} level2={true} isSmall={true}/>
+                            <div className={AskQuestionStyle["auto-tags"]}>
+                                <Button text="Auto Tags" Icon={AiIcon} level2={true} isSmall={true}/>
+                            </div>
                         </div>
                         <div className={AskQuestionStyle["curr-tags-container"]}>
                             <TagChip text="Heart" color="red" level1={true} onDelete={()=>{}}/>
