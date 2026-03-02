@@ -15,7 +15,7 @@ import { Question } from "../../components/common/Question/Question";
 import type { AnswerInterface } from "../../types/answer.types";
 import { Answer } from "../../components/common/Answer/Answer";
 import { Leaderboard } from "./Leaderboard/Leaderboard";
-import { useSafeNavigate } from "../../hooks/useSafeNavigate..hook";
+import { useSafeNavigate } from "../../hooks/useSafeNavigate.hook";
 
 export const Home = ()=>{
 

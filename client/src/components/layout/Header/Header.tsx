@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/store.hook";
 import { toggleTheme } from "../../../store/theme/theme.slice";
 import { logoutThunk } from "../../../store/auth/thunks/logout.thunk";
 import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
-import { useSafeNavigate } from "../../../hooks/useSafeNavigate..hook";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { NotificationModal } from "./Notification/NotificationModal";
 import { SearchBar } from "../SearchBar/SearchBar";
 
@@ -35,6 +35,8 @@ export const Header = ()=>{
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const profileRef = useRef<HTMLDivElement>(null);
     const notificationRef = useRef<HTMLDivElement>(null);
+
+    const [searchText, setSearchText] = useState("");
 
     useEffect(()=>{
         const handleClickOutside = (event : MouseEvent)=>{
@@ -61,6 +63,10 @@ export const Header = ()=>{
         }
     }
 
+    const handleSearchSubmit = ()=>{
+        safeNavigate(homeRoutes.search+`?query=${searchText}`);
+    }
+
     return (
         <>
             <header className={HeaderStyle["header"]}>
@@ -70,7 +76,7 @@ export const Header = ()=>{
                     <TagIcon className={HeaderStyle["icon"]}  onClick={()=>{safeNavigate(homeRoutes.tag)}}/>
                 </div>
                 <div className={HeaderStyle["middle-container"]}>
-                    <SearchBar/>
+                    <SearchBar onSubmit={handleSearchSubmit} setSearchText={setSearchText}/>
                 </div>
                 <div className={HeaderStyle["right-container"]}>
                     {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>}

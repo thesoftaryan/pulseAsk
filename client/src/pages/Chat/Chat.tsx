@@ -12,9 +12,13 @@ import SearchIcon from "../../assets/icons/header/search.svg?react";
 import ReportUserIcon from "../../assets/icons/general/report_user.svg?react";
 import { MessageTile } from "./MessageTile/MessageTile";
 import { TimelineTile } from "./TimelineTile/TimelineTile";
+import { useState } from "react";
 
 
 export const Chat = ()=>{
+
+    const [searchText, setSearchText] = useState("");
+
     return (
         <div className={ChatStyle["container"]}>
             <div className={ChatStyle["left"]}>
@@ -22,7 +26,7 @@ export const Chat = ()=>{
                     Persons
                 </div>
                 <div className={ChatStyle["search-bar"]}>
-                    <SearchBar placeholder="Search for Persons" level1={true}/>
+                    <SearchBar setSearchText={setSearchText} placeholder="Search for Persons" level1={true}/>
                 </div>
                 <div className={ChatStyle["persons"]}>
                     <PersonTile/>

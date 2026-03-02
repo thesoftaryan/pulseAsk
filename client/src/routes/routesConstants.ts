@@ -14,5 +14,6 @@ export const homeRoutes = {
     chat: "/chat",
     question: "/question",
     askQuestion: "/question/ask",
+    search: "/search",
     profile: "/profile",
 }
