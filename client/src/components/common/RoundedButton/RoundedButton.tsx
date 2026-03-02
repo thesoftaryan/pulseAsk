@@ -13,7 +13,7 @@ interface ButtonProps{
 }
 
 
-const Button:React.FC<ButtonProps> = ({text, onClick, disabled=false, Icon, active=false, className, isSmall, level2})=>{
+export const RoundedButton:React.FC<ButtonProps> = ({text, onClick, disabled=false, Icon, active=false, className, isSmall, level2})=>{
     return (
         <>
             <div className={RoundedButtonStyle["button-wrapper"]}>
@@ -28,4 +28,4 @@ const Button:React.FC<ButtonProps> = ({text, onClick, disabled=false, Icon, acti
     ); 
 }
 
-export default Button;
+// export default Button;

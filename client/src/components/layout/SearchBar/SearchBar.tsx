@@ -12,12 +12,17 @@ interface SearchBarProps{
 
 export const SearchBar:React.FC<SearchBarProps> = ({placeholder, level1, setSearchText, onSubmit})=>{
     const [currInput, setCurrInput] = useState("");
+    const handleSubmit = ()=>{
+        if(currInput.trim() && onSubmit){
+            onSubmit();
+        }
+    }
     return (
         <div className={`${SearchBarStyle["search-box"]} ${SearchBarStyle[level1?"level1":""]}`}>
-            <input onChange={(e)=>{setSearchText(e.target.value); setCurrInput(e.target.value);}} type="text" placeholder={placeholder??"Search for questions, answer, persons..."} className={`${SearchBarStyle["search-input"]} ${SearchBarStyle[level1?"level1":""]}`}/>
-            <div onClick={(currInput)? onSubmit:undefined} className={SearchBarStyle["search-icon-container"]}>
+            <input  onChange={(e)=>{setSearchText(e.target.value); setCurrInput(e.target.value);}} onKeyDown={(e)=>{if(e.key==="Enter") handleSubmit();}} type="text" placeholder={placeholder??"Search for questions, answer, persons..."} className={`${SearchBarStyle["search-input"]} ${SearchBarStyle[level1?"level1":""]}`}/>
+            <div onClick={handleSubmit} className={SearchBarStyle["search-icon-container"]}>
                 <SearchIcon className={SearchBarStyle["search-icon"]}/>
             </div>
         </div>
     );
-}
+};

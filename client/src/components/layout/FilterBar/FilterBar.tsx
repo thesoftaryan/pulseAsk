@@ -1,4 +1,4 @@
-import RoundedButton from "../../common/RoundedButton/RoundedButton";
+import {RoundedButton} from "../../common/RoundedButton/RoundedButton";
 
 import SortIcon from "../../../assets/icons/general/sort.svg?react";
 import FilterIcon from "../../../assets/icons/general/filter.svg?react";
