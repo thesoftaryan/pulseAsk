@@ -16,6 +16,9 @@ export const color = {
   colorSilver: "#E6ECEF",
   colorBronze: "#CE7430",
 
+  colorDanger: "#FE251B",
+  colorOrange: "#FF8400",
+
   colorSuccess: "#28A745",
   colorSuccessLight: "#D4EDDA",
 

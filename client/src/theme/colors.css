@@ -30,6 +30,7 @@
   /* input */
   --color-input-area : #f8f8f8;
   --color-input-area-level1 : #ffffff;
+  --color-input-disabled: var(--color-bg);
   
   /* Icon */
   --color-general-icon: #000000;
@@ -75,6 +76,7 @@
   /* input */
   --color-input-area : #000000;
   --color-input-area-level1 : #191919;
+  --color-input-disabled: var(--color-bg);
 
   /* Icon */
   --color-general-icon: #EDEDED;

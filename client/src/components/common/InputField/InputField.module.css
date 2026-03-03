@@ -39,3 +39,7 @@
     width: var(--size-icon-md);
     height: var(--size-icon-md);
 }
+
+.disabled{
+    background-color: var(--color-input-disabled);
+}

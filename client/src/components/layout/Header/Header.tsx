@@ -100,7 +100,7 @@ export const Header = ()=>{
                             <div className={HeaderStyle["user-action"]}>
                                 <ul>
                                     <li onClick={()=>{safeNavigate(homeRoutes.profile)}}>Profile</li>
-                                    <li>Settings</li>
+                                    <li onClick={()=>{safeNavigate(homeRoutes.settings)}}>Settings</li>
                                     <li onClick={handleLogout}>Logout</li>
                                 </ul>
                             </div>

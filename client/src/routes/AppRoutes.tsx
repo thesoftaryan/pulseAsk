@@ -10,6 +10,7 @@ import { AskQuestion } from "../pages/Question/AskQuestion/AskQuestion";
 import { Profile } from "../pages/Profile/Profile";
 import { Chat } from "../pages/Chat/Chat";
 import { Search } from "../pages/Search/Search";
+import { Settings } from "../pages/Settings/Settings";
 
 
 const router = createBrowserRouter([
@@ -29,7 +30,8 @@ const router = createBrowserRouter([
                 {path: homeRoutes.askQuestion, element: <AskQuestion/>},
                 {path: homeRoutes.profile, element: <Profile/>},
                 {path: homeRoutes.chat, element: <Chat/>},
-                {path: homeRoutes.search, element: <Search/>}
+                {path: homeRoutes.search, element: <Search/>},
+                {path: homeRoutes.settings, element: <Settings/>},
               ]  
             },
 

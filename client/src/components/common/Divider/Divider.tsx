@@ -2,15 +2,16 @@ import DividerStyle from "./Divider.module.css"
 
 interface DividerProps{
     text?:string,
+    color?: string,
 }
 
-const Divider:React.FC<DividerProps> = ({text})=>{
+const Divider:React.FC<DividerProps> = ({text, color})=>{
     return (
         <>
             <div className={DividerStyle["divider-wrapper"]}>
-                <hr className={`${DividerStyle["left-line"]} ${(!text)? DividerStyle["no-margin-right"]:""}`} />
-                <span className={DividerStyle["text"]}>{text}</span>
-                <hr className={`${DividerStyle["right-line"]} ${(!text)? DividerStyle["no-margin-left"]:""}`} />
+                <hr style={{borderColor: color}} className={`${DividerStyle["left-line"]} ${(!text)? DividerStyle["no-margin-right"]:""}`} />
+                <span  style={{color: color}}  className={DividerStyle["text"]}>{text}</span>
+                <hr style={{borderColor: color}} className={`${DividerStyle["right-line"]} ${(!text)? DividerStyle["no-margin-left"]:""}`} />
             </div>
         </>
     );

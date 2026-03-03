@@ -16,4 +16,5 @@ export const homeRoutes = {
     askQuestion: "/question/ask",
     search: "/search",
     profile: "/profile",
+    settings: "/settings"
 }
