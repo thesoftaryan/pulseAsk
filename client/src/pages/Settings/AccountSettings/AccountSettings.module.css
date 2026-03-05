@@ -2,6 +2,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: stretch;
     gap: var(--spacing-md);
 }
 
@@ -35,6 +36,9 @@
 .user-details-settings{
     flex-grow: 1;
     margin-left: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .user-name{
@@ -68,7 +72,8 @@
 .knowledge-tags{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: var(--spacing-xl);
 }
 
 .knowledge-tag-input-container{
@@ -100,10 +105,17 @@
     color: var(--color-placeholder-text);
 }
 
-.add-knowledge-tag{
+.add-knowledge-tag-button{
     max-width: max-content;
 }
 
+.knowledge-tags-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
 
 
 
@@ -120,6 +132,16 @@
     cursor: pointer;
 }
 
-.center-button{
+.save-button{
     justify-self: center;
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-md);
+}
+
+
+@media (max-width: 800px) {
+    .social-links{
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

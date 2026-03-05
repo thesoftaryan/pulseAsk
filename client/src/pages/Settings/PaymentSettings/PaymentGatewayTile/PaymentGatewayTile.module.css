@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-level1-bg);
+    border-radius: var(--size-radius-md);
+    width: max-content;
+}
+
+.left-icon{
+    width: var(--size-icon-xm);
+}
+
+.connection-status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+}
+
+.right-icon{
+    width: var(--size-icon-sm);
+}

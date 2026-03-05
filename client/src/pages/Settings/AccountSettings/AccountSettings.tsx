@@ -1,6 +1,7 @@
 import AccountSettingsStyle from "./AccountSettings.module.css";
 import { SettingsActionButton } from "./SettingsActionButton/SettingsActionButton";
 
+import CloseIcon from "../../../assets/icons/general/close.svg?react";
 import ChangeIcon from "../../../assets/icons/general/change.svg?react";
 import SaveIcon from "../../../assets/icons/general/save.svg?react";
 import DeleteIcon from "../../../assets/icons/general/delete.svg?react";
@@ -16,7 +17,6 @@ import { UserProfile } from "../../../components/common/UserProfile/UserProfile"
 import InputField from "../../../components/common/InputField/InputField";
 import { useAppSelector } from "../../../hooks/store.hook";
 import TextEditor from "../../../components/common/TextEditor/TextEditor";
-import { TagChip } from "../../../components/common/TagChip/TagChip";
 import Button from "../../../components/common/Button/Button";
 
 export const AccountSettings = ()=>{
@@ -45,7 +45,7 @@ export const AccountSettings = ()=>{
                     
                     <TextEditor onChange={()=>{}}/>
 
-                    <div className={AccountSettingsStyle["center-button"]}>
+                    <div className={AccountSettingsStyle["save-button"]}>
                         <SettingsActionButton text="Save Details" Icon={SaveIcon}/>
                     </div>
                 </div>
@@ -77,15 +77,21 @@ export const AccountSettings = ()=>{
                 </div> */}
                 <div className={AccountSettingsStyle["knowledge-tag-input-container"]}>
                     <input type="text" placeholder="Enter your tag" className={AccountSettingsStyle["knowledge-tag-input"]}/>
-                    <div className={AccountSettingsStyle["add-knowledge-tag"]}>
+                    <div className={AccountSettingsStyle["add-knowledge-tag-button"]}>
                         <Button text="Add Tag" level2={true} isSmall={true}/>
                     </div>
                 </div>
-                <div className={AccountSettingsStyle["tags-container"]}>
-                    <TagChip text="Neuro" color="purple" level1={true}/>
-                    <TagChip text="Neuro" color="purple" level1={true}/>
-                    <TagChip text="Neuro" color="purple" level1={true}/>
-                    <TagChip text="Neuro" color="purple" level1={true}/>
+                <div className={AccountSettingsStyle["knowledge-tags-container"]}>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
                 </div>
             </div>
             <Divider text="Danger Zone" color={color.colorDanger}/>

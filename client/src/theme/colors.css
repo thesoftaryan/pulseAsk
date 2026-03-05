@@ -44,6 +44,10 @@
   /* Button */
   --color-button-primary : #4458af;
   --color-button-disabled :  #a2addc;
+
+  /* Switch */
+  --color-switch-active: #34C759;
+  --color-switch-disabled: var(--color-level1-bg);
 }
 /* Dark Theme */
 [data-theme="dark"] {
@@ -90,4 +94,8 @@
   /* Button */
   --color-button-primary : #1aa5ae;
   --color-button-disabled :  #a1e8ed;
+  
+  /* Switch */
+  --color-switch-active: #34C759;
+  --color-switch-disabled: var(--color-level1-bg);
 }

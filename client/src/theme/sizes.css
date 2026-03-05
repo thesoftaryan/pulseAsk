@@ -1,4 +1,5 @@
 /* Breakpoint : 600px */
+/* Breakpoint-large : 800px */
 
 :root {
   /* MaxWidth */
@@ -57,4 +58,9 @@
   --size-border-lg: 3px;
   --size-border-xl: 4px;
   --size-border-xxl: 5px;
+
+  /* Switch */
+  --size-switch-height: 31px;
+  --size-switch-width: 51px;
+  --size-switch-head: 27px;
 }
