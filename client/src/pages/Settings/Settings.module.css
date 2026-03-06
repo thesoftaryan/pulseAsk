@@ -30,7 +30,7 @@
 .settings-section{
     display: flex;
     justify-content:flex-start;
-    gap: var(--spacing-sm);
+    /* gap: var(--spacing-sm); */
     max-width: max-content;
     margin: var(--spacing-lg) 0;
 }

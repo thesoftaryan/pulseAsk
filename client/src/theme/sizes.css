@@ -13,6 +13,8 @@
   --size-chat-left-section-max-width:400px;
   --size-chat-section-max-height:440px;
   --size-chat-message-max-width: 800px;
+  /* MaxWidth Settings page */
+  --size-settings-preferences-max-width:800px;
   
   /* Button Size */
   --size-button-height: 45px;
@@ -63,4 +65,7 @@
   --size-switch-height: 31px;
   --size-switch-width: 51px;
   --size-switch-head: 27px;
+  --size-switch-translate: calc(
+    var(--size-switch-width) - var(--size-switch-head) - 2*var(--spacing-switch-head)
+  );
 }

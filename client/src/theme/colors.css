@@ -46,6 +46,7 @@
   --color-button-disabled :  #a2addc;
 
   /* Switch */
+  --color-switch-head: #ffffff;
   --color-switch-active: #34C759;
   --color-switch-disabled: var(--color-level1-bg);
 }
@@ -96,6 +97,7 @@
   --color-button-disabled :  #a1e8ed;
   
   /* Switch */
+  --color-switch-head: #ffffff;
   --color-switch-active: #34C759;
   --color-switch-disabled: var(--color-level1-bg);
 }

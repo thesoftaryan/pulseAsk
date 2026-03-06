@@ -58,7 +58,7 @@
     align-items: center;
     justify-items:auto;
     gap: var(--spacing-md) var(--spacing-sm);
-    width: max-content;
+    max-width: max-content;
     /* background-color: green; */
     /* max-width: var(--size-sidebar-max-width); */
 }
