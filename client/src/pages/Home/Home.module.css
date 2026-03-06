@@ -12,13 +12,15 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 900px;
+    max-width: var(--size-ask-section-max-width);
     margin-top: var(--spacing-xl);
 }
 .quick-ask-section{
-    flex-grow: 3;
+    flex-grow: 2;
 }
 .explore-and-ask{
+    /* background-color: red; */
+    /* flex-grow: 1; */
     display: flex;
 }
 

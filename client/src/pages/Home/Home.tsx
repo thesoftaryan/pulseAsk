@@ -4,7 +4,7 @@ import { useAppSelector } from "../../hooks/store.hook";
 import { authRoutes, homeRoutes } from "../../routes/routesConstants";
 import Button from "../../components/common/Button/Button";
 
-import ExploreIcon from "../../assets/icons/home/explore.svg?react";
+// import ExploreIcon from "../../assets/icons/home/explore.svg?react";
 import QuestionIcon from "../../assets/icons/home/question.svg?react";
 import LoadMoreIcon from "../../assets/icons/general/load_more.svg?react";
 import { QuickAsk } from "./QuickAsk/QuickAsk";
@@ -53,7 +53,7 @@ export const Home = ()=>{
                     <QuickAsk/>
                 </div>
                 <div className={HomeStyle["explore-and-ask"]}>
-                    <Button isSmall={true} level1={true} Icon={ExploreIcon} text="Explore" onClick={()=>{}}/>
+                    {/* <Button isSmall={true} level1={true} Icon={ExploreIcon} text="Explore" onClick={()=>{}}/> */}
                     <Button isSmall={true} level1={false} Icon={QuestionIcon} text="Ask question" onClick={()=>{safeNavigate(homeRoutes.askQuestion)}}/>
                 </div>
             </div>

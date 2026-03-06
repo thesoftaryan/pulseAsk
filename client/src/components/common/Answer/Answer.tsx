@@ -32,6 +32,9 @@ export const Answer : React.FC<AnswerProps> = ({author, content, level1, level1C
     return (
         <>
             <div className={`${AnswerStyle["container"]} ${level1? AnswerStyle["level1-container"]:""}`}>
+                <div className={AnswerStyle["time-answered"]}>
+                    12h ago
+                </div>
                 <div className={AnswerStyle["header"]}>
                     <UserProfile className={AnswerStyle["user-profile"]}/>
                     <div className={AnswerStyle["user-data"]}>

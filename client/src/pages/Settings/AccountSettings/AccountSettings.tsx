@@ -34,16 +34,35 @@ export const AccountSettings = ()=>{
                 </div>
                 <div className={AccountSettingsStyle["user-details-settings"]}>
                     <div className={AccountSettingsStyle["user-name"]}>
-                        <InputField placeholder="" value={user?.first_name}/>
-                        <InputField placeholder="" value={user?.last_name}/>
+                        <div className={AccountSettingsStyle["first-name"]}>
+                            <div className={AccountSettingsStyle["label"]}>First Name</div>
+                            <InputField placeholder="" value={user?.first_name}/>
+                        </div>
+                        <div className={AccountSettingsStyle["last-name"]}>
+                            <div className={AccountSettingsStyle["label"]}>Last Name</div>
+                            <InputField placeholder="" value={user?.last_name}/>
+                        </div>
                     </div>
-                    <InputField placeholder="" value={user?.email} disabled={true}/>
+                    <div className={AccountSettingsStyle["user-email"]}>
+                        <div className={AccountSettingsStyle["label"]}>Email</div>
+                        <InputField placeholder="" value={user?.email} disabled={true}/>
+                    </div>
+                    <div className={AccountSettingsStyle["label"]}>Education</div>
                     <div className={AccountSettingsStyle["user-education"]}>
-                        <InputField placeholder="" value="B.Tech"/>
-                        <InputField placeholder="" value="IIT Bhilai"/>
+                        <div className={AccountSettingsStyle["user-degree"]}>
+                            <div className={AccountSettingsStyle["label"]}>Degree</div>
+                            <InputField placeholder="" value="B.Tech"/>
+                        </div>
+                        <div className={AccountSettingsStyle["user-college"]}>
+                            <div className={AccountSettingsStyle["label"]}>College</div>
+                            <InputField placeholder="" value="IIT Bhilai"/>
+                        </div>
                     </div>
                     
-                    <TextEditor onChange={()=>{}}/>
+                    <div className={AccountSettingsStyle["user-description"]}>
+                        <div className={AccountSettingsStyle["label"]}>Description</div>
+                        <TextEditor onChange={()=>{}}/>
+                    </div>
 
                     <div className={AccountSettingsStyle["save-button"]}>
                         <SettingsActionButton text="Save Details" Icon={SaveIcon}/>

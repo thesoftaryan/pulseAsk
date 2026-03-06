@@ -42,13 +42,25 @@
 }
 
 .user-name{
+    /* background-color: red; */
     display: flex;
+    justify-content: center;
 }
 
 .user-education{
+    /* background-color: red; */
     display: flex;
 }
+.first-name,.last-name, .user-degree, .user-college, .user-email{
+    flex-grow: 1;
+}
 
+.label{
+    margin: var(--spacing-md) 0 var(--spacing-sm) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-subheading-text);
+}
 
 .social-links{
     align-self:center;

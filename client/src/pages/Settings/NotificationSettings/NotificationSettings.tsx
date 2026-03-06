@@ -15,7 +15,7 @@ export const NotificationSettings = ()=>{
 
     return (
         <div className={NotificationSettingsStyle["container"]}>
-            <Divider text="Set your payment details"/>
+            <Divider text="Set your notification preferences"/>
             <div className={NotificationSettingsStyle["preferences"]}>
                 <PreferenceTile text="Answer Notifications" active={notificationsState.answerNotifications[0]} setActive={notificationsState.answerNotifications[1]}/>
                 <PreferenceTile text="Chat Notifications" active={notificationsState.chatNotifications[0]} setActive={notificationsState.chatNotifications[1]}/>

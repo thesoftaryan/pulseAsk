@@ -81,7 +81,7 @@
   /* input */
   --color-input-area : #000000;
   --color-input-area-level1 : #191919;
-  --color-input-disabled: var(--color-bg);
+  --color-input-disabled: var(--color--bg);
 
   /* Icon */
   --color-general-icon: #EDEDED;

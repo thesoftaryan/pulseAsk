@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.preferences{
+    align-self: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    max-width: var(--size-settings-preferences-max-width);
+}
+
+.blocked-user-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.text{
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+}
+
+.chevron-left{
+    transform: rotateY(180deg);
+}

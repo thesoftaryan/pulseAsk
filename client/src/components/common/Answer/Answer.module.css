@@ -1,4 +1,5 @@
 .container{
+    position: relative;
     display: flex;
     flex-direction: column;
     border-radius: var(--size-radius-md);
@@ -11,6 +12,14 @@
     background-color: var(--color-level1-bg);
 }
 
+.time-answered{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-subheading-text);
+    margin: var(--spacing-md) var(--spacing-lg);
+}
 
 /* Header : Start */
 

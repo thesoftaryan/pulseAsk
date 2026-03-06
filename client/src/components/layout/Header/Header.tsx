@@ -7,7 +7,7 @@ import { UserProfile } from "../../common/UserProfile/UserProfile";
 import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 
 import HomeIcon from "../../../assets/icons/header/home.svg?react";
-import TagIcon from "../../../assets/icons/tag.svg?react"
+// import TagIcon from "../../../assets/icons/tag.svg?react"
 
 import NotificationIcon from "../../../assets/icons/header/notification.svg?react";
 import MessageIcon from "../../../assets/icons/header/message.svg?react";
@@ -73,7 +73,8 @@ export const Header = ()=>{
                 <PulseAskIcon className={HeaderStyle["site-icon"]}/>
                 <div className={HeaderStyle["left-container"]}>
                     <HomeIcon className={HeaderStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.home)}}/>
-                    <TagIcon className={HeaderStyle["icon"]}  onClick={()=>{safeNavigate(homeRoutes.tag)}}/>
+                    <MessageIcon className={HeaderStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat)}}/>
+                    {/* <TagIcon className={HeaderStyle["icon"]}  onClick={()=>{safeNavigate(homeRoutes.tag)}}/> */}
                 </div>
                 <div className={HeaderStyle["middle-container"]}>
                     <SearchBar onSubmit={handleSearchSubmit} setSearchText={setSearchText}/>
@@ -92,7 +93,6 @@ export const Header = ()=>{
                         }
                     </div>
                     
-                    <MessageIcon className={HeaderStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat)}}/>
                     <div ref={profileRef} className={HeaderStyle["profile-wrapper"]}>
                         <UserProfile className={HeaderStyle["user-profile"]} onClick={()=>{setIsProfileOpen((isOpen)=>!isOpen)}}/>
                         {
