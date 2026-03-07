@@ -1,0 +1,332 @@
+{
+  "modelName": "PulseAsk",
+  "collections": [
+    {
+      "collectionName": "users",
+      "type": "object",
+      "properties": [
+        {
+          "name": "_id",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "fcddf7cf-cde5-4f3f-8892-0e89887b3df9"
+        },
+        {
+          "name": "createdAt",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "date",
+          "primaryKey": false,
+          "error": {},
+          "GUID": "dc613439-1e08-4523-9f17-77848fd074a8"
+        },
+        {
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "287d8597-54a4-4791-a22c-4683020fbf24",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "name": "firstName"
+        },
+        {
+          "name": "lastName",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "63f090d4-910c-40c8-94a7-d340ccfb7dd3",
+          "error": {
+            "name": false,
+            "code": false
+          }
+        },
+        {
+          "name": "email",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "6e64115b-c1be-43fc-84d4-cb771b111d57",
+          "error": {
+            "name": false,
+            "code": false
+          }
+        },
+        {
+          "name": "password",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "38951562-95e4-4994-aa4a-70a83ea23d6c",
+          "error": {
+            "name": false,
+            "code": false
+          }
+        },
+        {
+          "name": "isVerified",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "ab7b47e2-8161-4558-9859-9569e6560909",
+          "error": {}
+        },
+        {
+          "name": "resetPasswordToken",
+          "type": "multiple",
+          "properties": [],
+          "multipleTypes": [
+            {
+              "type": "string",
+              "GUID": "c12f5ea9-f087-49f4-9732-fb0a26a9b475"
+            },
+            {
+              "isActivated": true,
+              "type": "null",
+              "GUID": "f6e7427d-c963-4fee-a29c-0cfc857d578b"
+            }
+          ],
+          "isActivated": true,
+          "GUID": "48dabcec-68a2-4b94-a438-ee28aec7eaf0",
+          "hackoladeMeta": {},
+          "default": "",
+          "encrypt": false,
+          "error": {}
+        },
+        {
+          "name": "resetPasswordExpires",
+          "type": "multiple",
+          "properties": [],
+          "multipleTypes": [
+            {
+              "type": "string",
+              "GUID": "bd3e4134-c4d7-4d26-8750-851c2cb6dd8e"
+            },
+            {
+              "isActivated": true,
+              "type": "null",
+              "GUID": "98a06b5e-b231-43b7-96d7-31dddc1eb5eb"
+            }
+          ],
+          "isActivated": true,
+          "GUID": "3d96aa6b-22e5-4242-87f1-bdcd44fbe913",
+          "hackoladeMeta": {},
+          "error": {},
+          "default": ""
+        },
+        {
+          "name": "emailVerified",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "boolean",
+          "error": {},
+          "GUID": "eebef333-07e0-4424-8c2d-863606f8c68c"
+        },
+        {
+          "name": "emailVerificationToken",
+          "type": "multiple",
+          "properties": [],
+          "multipleTypes": [
+            {
+              "type": "string",
+              "GUID": "c11bc317-b13a-4456-862e-94fd5247a2fe"
+            },
+            {
+              "isActivated": true,
+              "type": "null",
+              "GUID": "5f4e6acf-fddd-49ed-9719-7f39d9b2cecf"
+            }
+          ],
+          "isActivated": true,
+          "GUID": "ca326615-dfc7-486b-b30c-388f26f7e18d",
+          "hackoladeMeta": {},
+          "error": {},
+          "default": ""
+        },
+        {
+          "name": "emailVerificationExpires",
+          "type": "multiple",
+          "properties": [],
+          "multipleTypes": [
+            {
+              "type": "date",
+              "GUID": "d92cd432-ced5-42b1-bbdb-040213915494"
+            },
+            {
+              "isActivated": true,
+              "type": "null",
+              "GUID": "0519016f-25f5-46e8-bd08-b5eccba2fc8d"
+            }
+          ],
+          "isActivated": true,
+          "GUID": "a05be35b-72f3-470e-81bf-7600b44db905",
+          "hackoladeMeta": {},
+          "primaryKey": false,
+          "error": {}
+        },
+        {
+          "name": "authProvider",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "77f888af-428b-4957-9788-eae8e84e9da5",
+          "error": {}
+        },
+        {
+          "name": "providerId",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "a6d84065-a6bb-4d51-9ba5-1c51f8ce2839",
+          "primaryKey": false,
+          "required": false,
+          "error": {}
+        }
+      ],
+      "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "70ff1195-6b37-4738-b292-9a9d8d978f74"
+      },
+      "isActivated": true,
+      "additionalProperties": false,
+      "validationLevel": "Off",
+      "validationAction": "Warn",
+      "storageEngineName": "WiredTiger",
+      "collectionUsers": [],
+      "indexes": [],
+      "collation": {},
+      "sharding": {
+        "unique": true,
+        "collation": "null"
+      },
+      "GUID": "c9f9b9a3-82bb-45c9-9335-3191403fb596",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      }
+    }
+  ],
+  "buckets": [],
+  "views": [],
+  "relationships": [],
+  "users": [],
+  "diagramViews": [],
+  "idToNameHashTable": {
+    "c9f9b9a3-82bb-45c9-9335-3191403fb596": "users",
+    "fcddf7cf-cde5-4f3f-8892-0e89887b3df9": "_id",
+    "287d8597-54a4-4791-a22c-4683020fbf24": "firstName",
+    "63f090d4-910c-40c8-94a7-d340ccfb7dd3": "lastName",
+    "6e64115b-c1be-43fc-84d4-cb771b111d57": "email",
+    "38951562-95e4-4994-aa4a-70a83ea23d6c": "password",
+    "ab7b47e2-8161-4558-9859-9569e6560909": "isVerified",
+    "dc613439-1e08-4523-9f17-77848fd074a8": "createdAt",
+    "48dabcec-68a2-4b94-a438-ee28aec7eaf0": "resetPasswordToken",
+    "3d96aa6b-22e5-4242-87f1-bdcd44fbe913": "resetPasswordExpires",
+    "eebef333-07e0-4424-8c2d-863606f8c68c": "emailVerified",
+    "ca326615-dfc7-486b-b30c-388f26f7e18d": "emailVerificationToken",
+    "a05be35b-72f3-470e-81bf-7600b44db905": "emailVerificationExpires",
+    "77f888af-428b-4957-9788-eae8e84e9da5": "authProvider",
+    "a6d84065-a6bb-4d51-9ba5-1c51f8ce2839": "providerId"
+  },
+  "definitions": {
+    "type": "definitions",
+    "properties": [],
+    "GUID": "572f0f36-0d30-4e19-a7f5-1f23879b7036"
+  },
+  "polyglotDefinitions": {
+    "type": "polyglotDefinitions",
+    "properties": [],
+    "GUID": "c326f186-db45-49d4-a0eb-7ebebb069773"
+  },
+  "externalDefinitions": {
+    "type": "externalDefinitions",
+    "properties": [],
+    "GUID": "ea4fa452-eba8-4fd5-8885-b224315c5063"
+  },
+  "sources": [],
+  "decorativeSymbols": [],
+  "dbVersion": "v7.x",
+  "dbVendor": "MongoDB",
+  "appTarget": "MONGODB",
+  "creationTS": "2026-03-07T07:48:52.301Z",
+  "GUID": "1920986e-a211-4a42-bca4-1ac8dd9c83c6",
+  "isLineageEnabled": false,
+  "hackoladeMeta": {
+    "validationErrors": {
+      "modelName": false
+    }
+  },
+  "lastModifTS": "2026-03-07T08:28:09.281Z",
+  "persistenceSchemaVersion": "8",
+  "isCreatedByPlugin": true,
+  "pluginInformation": {
+    "pluginEngineVersion": "1.0.0"
+  },
+  "applicationInformation": {
+    "version": "8.9.5"
+  },
+  "settings": {
+    "centralPane": {
+      "dbLevel": {
+        "erd": [
+          {
+            "GUID": "c9f9b9a3-82bb-45c9-9335-3191403fb596",
+            "x": 892,
+            "y": 873,
+            "width": 266,
+            "height": 284,
+            "color": {
+              "hex": "#fb8c00"
+            }
+          }
+        ],
+        "erdDefinitions": {
+          "erd": [],
+          "rootPath": [],
+          "entities": [],
+          "decorativeSymbols": []
+        },
+        "buckets": [],
+        "collapsedNodes": [],
+        "activeRelationship": "",
+        "activeRelationshipFields": {
+          "childField": [],
+          "parentField": []
+        },
+        "selectedCollections": [],
+        "displayColorPicker": false,
+        "graphView": {
+          "erd": [],
+          "buckets": [],
+          "decorativeSymbols": [],
+          "forceLayout": true,
+          "defaultLinkLength": 300,
+          "options": []
+        },
+        "diagramViews": [],
+        "decorativeSymbols": [],
+        "nestedCollectionsLayout": "horizontal",
+        "options": [
+          {
+            "autoWidth": true,
+            "autoHeight": true,
+            "GUID": "c9f9b9a3-82bb-45c9-9335-3191403fb596"
+          }
+        ],
+        "relationshipUpdateDisabled": false
+      },
+      "collectionLevel": {},
+      "changed": false
+    },
+    "dtDiagram": {
+      "collapsedNodes": [],
+      "shouldDistributeCollections": false
+    }
+  }
+}
