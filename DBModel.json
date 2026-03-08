@@ -10,11 +10,20 @@
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "objectId",
+          "GUID": "fcddf7cf-cde5-4f3f-8892-0e89887b3df9",
+          "primaryKey": true,
+          "error": {}
+        },
+        {
+          "name": "Profile",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "0e2b5f72-2a35-4dee-bbbc-07abebef2e7d",
           "error": {
             "name": false,
             "code": false
-          },
-          "GUID": "fcddf7cf-cde5-4f3f-8892-0e89887b3df9"
+          }
         },
         {
           "name": "createdAt",
@@ -187,6 +196,277 @@
           "primaryKey": false,
           "required": false,
           "error": {}
+        },
+        {
+          "name": "Degree",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "46bf876f-6d9b-4839-bf8a-567426045823",
+          "error": {}
+        },
+        {
+          "name": "College",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "682827d8-d447-4ac6-8342-ab23a861c2d0",
+          "error": {}
+        },
+        {
+          "name": "Description",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "74241d7e-6fe2-479b-a23a-2b764261e9de",
+          "error": {}
+        },
+        {
+          "name": "Instagram",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "b84e6942-011f-446c-b779-64ef95112ad7",
+          "error": {}
+        },
+        {
+          "name": "Facebook",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "c79c7ad5-4f91-425f-ae02-49f742cfcda5",
+          "error": {}
+        },
+        {
+          "name": "Linkedin",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "e5ec8a94-998e-4c72-8287-f6e1d846d230",
+          "error": {}
+        },
+        {
+          "name": "Youtube",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "12f7d57b-ab36-4493-a90c-ccb613571367",
+          "error": {}
+        },
+        {
+          "name": "Knowledge Tags",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "array",
+          "properties": [
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "objectId",
+              "GUID": "aa032a94-92bf-44cb-b3aa-4a83220a4d5c",
+              "arrayItem": true,
+              "displayName": "Tags",
+              "error": {}
+            }
+          ],
+          "additionalItems": true,
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "01d10f95-724d-44ee-a391-04f6e25a5764"
+        },
+        {
+          "name": "Questions Asked",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "numeric",
+          "error": {},
+          "GUID": "e48a8b4c-300e-4a7b-aa0c-5ec80c9d80e9"
+        },
+        {
+          "name": "Answers Given",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "numeric",
+          "error": {},
+          "GUID": "42418f10-34b7-4121-8c93-06aa770baec4"
+        },
+        {
+          "name": "Upvotes",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "numeric",
+          "error": {},
+          "GUID": "f2107117-f4ed-4233-9221-c068512ee0b8"
+        },
+        {
+          "name": "Downvotes",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "numeric",
+          "error": {},
+          "GUID": "bb6f75f8-df71-4cdf-a39d-a3850219d66c"
+        },
+        {
+          "name": "Reputation Score",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "numeric",
+          "error": {},
+          "GUID": "b041cc2c-ccb3-4c21-974e-9a98c1a8f7e9"
+        },
+        {
+          "name": "Payment Accounts",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "array",
+          "properties": [
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "array",
+              "properties": [
+                {
+                  "hackoladeMeta": {},
+                  "isActivated": true,
+                  "type": "string",
+                  "GUID": "2f5d7175-5a86-4ed2-aa22-2651608bb6f2",
+                  "arrayItem": true,
+                  "displayName": "Account Id",
+                  "error": {}
+                },
+                {
+                  "hackoladeMeta": {},
+                  "isActivated": true,
+                  "type": "string",
+                  "GUID": "6612d5d5-56fa-4899-86c9-0596e367d202",
+                  "arrayItem": true,
+                  "displayName": "Refresh Token",
+                  "error": {}
+                }
+              ],
+              "additionalItems": true,
+              "GUID": "e04855f4-a28c-47b2-9986-747308b8cc30",
+              "arrayItem": true,
+              "displayName": "Stripe",
+              "error": {}
+            },
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "array",
+              "properties": [
+                {
+                  "hackoladeMeta": {},
+                  "isActivated": true,
+                  "type": "string",
+                  "GUID": "3c17ac46-1c59-4800-ac4e-f791cc201ec0",
+                  "arrayItem": true,
+                  "displayName": "Account ID",
+                  "error": {}
+                },
+                {
+                  "hackoladeMeta": {},
+                  "isActivated": true,
+                  "type": "string",
+                  "GUID": "379b4cef-6bb5-44ac-97d1-eeba150b0689",
+                  "arrayItem": true,
+                  "displayName": "Refresh Token",
+                  "error": {}
+                }
+              ],
+              "additionalItems": true,
+              "error": {},
+              "GUID": "a368edfd-e0ad-473b-97ff-e36d648a602d",
+              "arrayItem": true,
+              "displayName": "Paypal"
+            }
+          ],
+          "additionalItems": true,
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "7b99dc9c-747e-4d9f-abdc-fdbaed1d44fa"
+        },
+        {
+          "name": "Enable Payment",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "boolean",
+          "error": {},
+          "GUID": "5971c678-e194-413a-8f1b-5b563c227b99"
+        },
+        {
+          "name": "Notification Preferences",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "array",
+          "properties": [
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "boolean",
+              "error": {},
+              "GUID": "91af7bae-b6d7-4fd0-81f3-3a5954d58d79",
+              "arrayItem": true,
+              "displayName": "Answer Notification"
+            },
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "boolean",
+              "GUID": "03be99f3-4eb3-481e-beea-20a8f0637b82",
+              "arrayItem": true,
+              "displayName": "Chat Notification",
+              "error": {}
+            },
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "boolean",
+              "error": {},
+              "GUID": "1bf60283-3cdb-4e8f-809f-e9a6037c802b",
+              "arrayItem": true,
+              "displayName": "Payment Notification"
+            },
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "boolean",
+              "error": {},
+              "GUID": "76653e70-d73e-4bee-bec9-c26672e39769",
+              "arrayItem": true,
+              "displayName": "Announcements Notification"
+            },
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "boolean",
+              "error": {},
+              "GUID": "6c0c1818-76dc-4359-96fc-625b4d4e7046",
+              "arrayItem": true,
+              "displayName": "Promotional Notification"
+            }
+          ],
+          "additionalItems": true,
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "b034bd81-e0b6-4c04-b296-19643ce6779f"
+        },
+        {
+          "name": "Enable Chat",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "boolean",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "2d344524-18a3-4379-901d-4a8bd766fa7c"
         }
       ],
       "definitions": {
@@ -210,11 +490,325 @@
       "hackoladeMeta": {
         "validationErrors": {}
       }
+    },
+    {
+      "collectionName": "Question",
+      "type": "object",
+      "properties": [
+        {
+          "name": "_id",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "GUID": "83bbf2c1-eb80-4ef9-bd96-f834599e6b35",
+          "primaryKey": true,
+          "error": {}
+        },
+        {
+          "name": "Title",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "fca6115e-3ff6-4045-9df9-b95071cc79c3",
+          "error": {
+            "name": false,
+            "code": false
+          }
+        },
+        {
+          "name": "Description",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "9306a3d7-f274-431e-ab97-dc1a35f619bf",
+          "error": {
+            "name": false,
+            "code": false
+          }
+        },
+        {
+          "name": "Author",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "db3312b4-4b17-4a23-bdb7-38ce1b7a6a76",
+          "parentRelationship": "0d162bed-0952-4c85-82ae-95e4fcfdad24",
+          "foreignCollection": "c9f9b9a3-82bb-45c9-9335-3191403fb596",
+          "relationshipType": "Foreign Key"
+        },
+        {
+          "name": "Asked at",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "date",
+          "primaryKey": false,
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "cc40f311-a125-4147-a25b-03b759eac443"
+        },
+        {
+          "name": "Vote Count",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "numeric",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "e29fe516-06b8-4419-b886-6acd6cf32b37"
+        },
+        {
+          "name": "Tags",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "array",
+          "properties": [
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "objectId",
+              "GUID": "501ba476-c5f4-4f19-bf47-b2274857c802",
+              "arrayItem": true,
+              "displayName": "Tag",
+              "error": {}
+            }
+          ],
+          "additionalItems": true,
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "0f1835e4-4ef3-4a95-893e-cfd48549ff6a"
+        }
+      ],
+      "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "4603b646-cb0a-4e73-bcdb-061635463c0a"
+      },
+      "isActivated": true,
+      "additionalProperties": false,
+      "validationLevel": "Off",
+      "validationAction": "Warn",
+      "storageEngineName": "WiredTiger",
+      "collectionUsers": [],
+      "indexes": [],
+      "collation": {},
+      "sharding": {
+        "unique": true,
+        "collation": "null"
+      },
+      "GUID": "aa383303-0511-4415-ac67-58118092da6c",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      }
+    },
+    {
+      "collectionName": "Answer",
+      "type": "object",
+      "properties": [
+        {
+          "name": "_id",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "GUID": "f3d52add-e78b-422b-a141-6e2165a59a17",
+          "primaryKey": true,
+          "error": {}
+        },
+        {
+          "name": "Question Id",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "5b600f4b-f384-4f67-b4ba-e854c6c332b4",
+          "parentRelationship": "041680c7-06ea-4a2c-8106-ebb97d347d4a",
+          "foreignCollection": "aa383303-0511-4415-ac67-58118092da6c",
+          "relationshipType": "Foreign Key"
+        },
+        {
+          "name": "Author",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "418bf10c-8e16-45a6-9470-107ca387db4d"
+        },
+        {
+          "name": "Content",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "8ec901b3-8aa8-400c-8ab5-44ac570dc932",
+          "error": {
+            "name": false,
+            "code": false
+          }
+        },
+        {
+          "name": "Vote Count",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "7a10d9a8-1ac2-4828-a28c-3fa7200f8ce2",
+          "error": {
+            "name": false,
+            "code": false
+          }
+        },
+        {
+          "name": "Asked at",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "date",
+          "primaryKey": false,
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "1959a315-adc2-4ed1-9a90-40f20ffee0f0"
+        }
+      ],
+      "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "c48a2178-4ad0-4c34-8579-4a9e4bc89bcd"
+      },
+      "isActivated": true,
+      "additionalProperties": false,
+      "validationLevel": "Off",
+      "validationAction": "Warn",
+      "storageEngineName": "WiredTiger",
+      "collectionUsers": [],
+      "indexes": [],
+      "collation": {},
+      "sharding": {
+        "unique": true,
+        "collation": "null"
+      },
+      "GUID": "0f7ab61d-77b6-4973-a9f2-74e3fffbaf7a",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      }
     }
   ],
   "buckets": [],
   "views": [],
-  "relationships": [],
+  "relationships": [
+    {
+      "name": "QA Relation",
+      "relationshipType": "Foreign Key",
+      "parentField": [],
+      "parentCardinality": "1",
+      "childField": [
+        [
+          "0f7ab61d-77b6-4973-a9f2-74e3fffbaf7a",
+          "5b600f4b-f384-4f67-b4ba-e854c6c332b4"
+        ]
+      ],
+      "isActivated": true,
+      "childCardinality": "1..n",
+      "GUID": "041680c7-06ea-4a2c-8106-ebb97d347d4a",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      },
+      "parentCollection": "aa383303-0511-4415-ac67-58118092da6c",
+      "childCollection": "0f7ab61d-77b6-4973-a9f2-74e3fffbaf7a",
+      "hackoladeStyles": {
+        "GUID": "193c1a52-3d76-4764-a83e-dfed02a8ca2b",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#000000",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 1242.666666666663,
+            "y": 695.3333333333329
+          },
+          {
+            "x": 1210.4999999999982,
+            "y": 695.3333333333329
+          },
+          {
+            "x": 1210.4999999999982,
+            "y": 729.3333333333331
+          },
+          {
+            "x": 1178.3333333333335,
+            "y": 729.3333333333331
+          }
+        ],
+        "sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    {
+      "name": "New Relationship",
+      "relationshipType": "Foreign Key",
+      "parentField": [],
+      "parentCardinality": "1",
+      "childField": [
+        [
+          "aa383303-0511-4415-ac67-58118092da6c",
+          "db3312b4-4b17-4a23-bdb7-38ce1b7a6a76"
+        ]
+      ],
+      "isActivated": true,
+      "childCardinality": "1..n",
+      "GUID": "0d162bed-0952-4c85-82ae-95e4fcfdad24",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      },
+      "parentCollection": "c9f9b9a3-82bb-45c9-9335-3191403fb596",
+      "childCollection": "aa383303-0511-4415-ac67-58118092da6c",
+      "hackoladeStyles": {
+        "GUID": "4f1f642e-b9b6-4fe9-ad60-afead02f0e28",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#000000",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 985.3333333333335,
+            "y": 729.3333333333331
+          },
+          {
+            "x": 939.5,
+            "y": 729.3333333333331
+          },
+          {
+            "x": 939.5,
+            "y": 1060.999999999999
+          },
+          {
+            "x": 893.6666666666666,
+            "y": 1060.999999999999
+          }
+        ],
+        "sides": [
+          "left",
+          "right"
+        ]
+      }
+    }
+  ],
   "users": [],
   "diagramViews": [],
   "idToNameHashTable": {
@@ -232,7 +826,42 @@
     "ca326615-dfc7-486b-b30c-388f26f7e18d": "emailVerificationToken",
     "a05be35b-72f3-470e-81bf-7600b44db905": "emailVerificationExpires",
     "77f888af-428b-4957-9788-eae8e84e9da5": "authProvider",
-    "a6d84065-a6bb-4d51-9ba5-1c51f8ce2839": "providerId"
+    "a6d84065-a6bb-4d51-9ba5-1c51f8ce2839": "providerId",
+    "0e2b5f72-2a35-4dee-bbbc-07abebef2e7d": "Profile",
+    "46bf876f-6d9b-4839-bf8a-567426045823": "Degree",
+    "682827d8-d447-4ac6-8342-ab23a861c2d0": "College",
+    "74241d7e-6fe2-479b-a23a-2b764261e9de": "Description",
+    "b84e6942-011f-446c-b779-64ef95112ad7": "Instagram",
+    "c79c7ad5-4f91-425f-ae02-49f742cfcda5": "Facebook",
+    "e5ec8a94-998e-4c72-8287-f6e1d846d230": "Linkedin",
+    "12f7d57b-ab36-4493-a90c-ccb613571367": "Youtube",
+    "01d10f95-724d-44ee-a391-04f6e25a5764": "Knowledge Tags",
+    "e48a8b4c-300e-4a7b-aa0c-5ec80c9d80e9": "Questions Asked",
+    "42418f10-34b7-4121-8c93-06aa770baec4": "Answers Given",
+    "f2107117-f4ed-4233-9221-c068512ee0b8": "Upvotes",
+    "bb6f75f8-df71-4cdf-a39d-a3850219d66c": "Downvotes",
+    "b041cc2c-ccb3-4c21-974e-9a98c1a8f7e9": "Reputation Score",
+    "7b99dc9c-747e-4d9f-abdc-fdbaed1d44fa": "Payment Accounts",
+    "5971c678-e194-413a-8f1b-5b563c227b99": "Enable Payment",
+    "2d344524-18a3-4379-901d-4a8bd766fa7c": "Enable Chat",
+    "b034bd81-e0b6-4c04-b296-19643ce6779f": "Notification Preferences",
+    "aa383303-0511-4415-ac67-58118092da6c": "Question",
+    "fca6115e-3ff6-4045-9df9-b95071cc79c3": "Title",
+    "9306a3d7-f274-431e-ab97-dc1a35f619bf": "Description",
+    "db3312b4-4b17-4a23-bdb7-38ce1b7a6a76": "Author",
+    "0f7ab61d-77b6-4973-a9f2-74e3fffbaf7a": "Answer",
+    "f3d52add-e78b-422b-a141-6e2165a59a17": "_id",
+    "8ec901b3-8aa8-400c-8ab5-44ac570dc932": "Content",
+    "7a10d9a8-1ac2-4828-a28c-3fa7200f8ce2": "Vote Count",
+    "cc40f311-a125-4147-a25b-03b759eac443": "Asked at",
+    "e29fe516-06b8-4419-b886-6acd6cf32b37": "Vote Count",
+    "0f1835e4-4ef3-4a95-893e-cfd48549ff6a": "Tags",
+    "83bbf2c1-eb80-4ef9-bd96-f834599e6b35": "_id",
+    "1959a315-adc2-4ed1-9a90-40f20ffee0f0": "Asked at",
+    "418bf10c-8e16-45a6-9470-107ca387db4d": "Author",
+    "041680c7-06ea-4a2c-8106-ebb97d347d4a": "QA Relation",
+    "5b600f4b-f384-4f67-b4ba-e854c6c332b4": "Question Id",
+    "0d162bed-0952-4c85-82ae-95e4fcfdad24": "New Relationship"
   },
   "definitions": {
     "type": "definitions",
@@ -262,7 +891,7 @@
       "modelName": false
     }
   },
-  "lastModifTS": "2026-03-07T08:28:09.281Z",
+  "lastModifTS": "2026-03-08T15:34:30.754Z",
   "persistenceSchemaVersion": "8",
   "isCreatedByPlugin": true,
   "pluginInformation": {
@@ -277,12 +906,32 @@
         "erd": [
           {
             "GUID": "c9f9b9a3-82bb-45c9-9335-3191403fb596",
-            "x": 892,
-            "y": 873,
-            "width": 266,
-            "height": 284,
+            "x": 564.6666666666666,
+            "y": 648.9999999999991,
+            "width": 329,
+            "height": 824,
             "color": {
               "hex": "#fb8c00"
+            }
+          },
+          {
+            "GUID": "aa383303-0511-4415-ac67-58118092da6c",
+            "x": 985.3333333333335,
+            "y": 641.3333333333331,
+            "width": 193,
+            "height": 176,
+            "color": {
+              "hex": "#d32f2f"
+            }
+          },
+          {
+            "GUID": "0f7ab61d-77b6-4973-a9f2-74e3fffbaf7a",
+            "x": 1242.666666666663,
+            "y": 625.3333333333329,
+            "width": 192,
+            "height": 140,
+            "color": {
+              "hex": "#4caf50"
             }
           }
         ],
