@@ -11,5 +11,5 @@ export interface QuestionInterface{
     author : User;
     title : string;
     tags? : Array<TagInterface>;
-    best_answer? : ReactElement<any, any>;
+    bestAnswer? : ReactElement<any, any>;
 }

@@ -14,7 +14,7 @@ export const uploadImageHandler = async (file : File, editor:ChainedCommands) =>
         const parsed = parseSuccessResponse<UploadImageResponse>(response);
 
         editor.setImage({
-          src : parsed.data?.image_url??"",
+          src : parsed.data?.imageUrl??"",
         }).run();
         showToast.success(parsed.message);
     }catch(error){

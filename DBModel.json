@@ -1113,6 +1113,126 @@
       "hackoladeMeta": {
         "validationErrors": {}
       }
+    },
+    {
+      "collectionName": "Chat Blocked ",
+      "type": "object",
+      "properties": [
+        {
+          "name": "_id",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "a771153a-0548-446c-9261-6ade4fe6dd5c"
+        },
+        {
+          "name": "Who",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "5fb2523d-9c7e-41e5-bd4c-0f1e76d7d07b"
+        },
+        {
+          "name": "whom",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "0ed2048e-7fe4-4ad2-ae80-a955fb59820c"
+        }
+      ],
+      "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "08d84e86-5d03-4bd6-808d-cde7a46d24e0"
+      },
+      "isActivated": true,
+      "additionalProperties": false,
+      "validationLevel": "Off",
+      "validationAction": "Warn",
+      "storageEngineName": "WiredTiger",
+      "collectionUsers": [],
+      "indexes": [],
+      "collation": {},
+      "sharding": {
+        "unique": true,
+        "collation": "null"
+      },
+      "GUID": "f2c2265b-8c2d-4f34-9221-be67b91dcafe",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      }
+    },
+    {
+      "collectionName": "Bookmark",
+      "type": "object",
+      "properties": [
+        {
+          "name": "_id",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "59d5e1d1-b1f9-486b-9836-91091ee30975"
+        },
+        {
+          "name": "User Id",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "e09ad698-06a1-46a2-a10c-7357bf078d00"
+        },
+        {
+          "name": "Question Id",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "error": {
+            "name": false,
+            "code": false
+          },
+          "GUID": "6ca50580-3f1c-4ae5-ac1a-dc3da2d525c3"
+        }
+      ],
+      "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "194e9562-de30-48fa-a0e0-59f9c804d02b"
+      },
+      "isActivated": true,
+      "additionalProperties": false,
+      "validationLevel": "Off",
+      "validationAction": "Warn",
+      "storageEngineName": "WiredTiger",
+      "collectionUsers": [],
+      "indexes": [],
+      "collation": {},
+      "sharding": {
+        "unique": true,
+        "collation": "null"
+      },
+      "GUID": "35ba9f68-ea94-42c9-a037-73311f48272c",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      }
     }
   ],
   "buckets": [],
@@ -1139,32 +1259,32 @@
       "childCollection": "0f7ab61d-77b6-4973-a9f2-74e3fffbaf7a",
       "hackoladeStyles": {
         "GUID": "193c1a52-3d76-4764-a83e-dfed02a8ca2b",
-        "autoPositioning": true,
+        "autoPositioning": false,
         "type": "Orthogonal",
         "thickness": 2,
         "color": "#000000",
         "dataType": "",
         "shape": [
           {
-            "x": 2538.4435358255405,
-            "y": 1943.404984423675
+            "x": 2695.097547638792,
+            "y": 2128.93643549655
           },
           {
-            "x": 2488.7922507788135,
-            "y": 1943.404984423675
+            "x": 2695.097547638792,
+            "y": 2244.43314349688
           },
           {
-            "x": 2488.7922507788135,
-            "y": 2127.3913551401843
+            "x": 2574.092154154636,
+            "y": 2244.43314349688
           },
           {
-            "x": 2439.140965732086,
-            "y": 2127.3913551401843
+            "x": 2574.092154154636,
+            "y": 2281.9461220230137
           }
         ],
         "sides": [
-          "left",
-          "right"
+          "bottom",
+          "top"
         ]
       }
     },
@@ -1189,27 +1309,27 @@
       "childCollection": "aa383303-0511-4415-ac67-58118092da6c",
       "hackoladeStyles": {
         "GUID": "4f1f642e-b9b6-4fe9-ad60-afead02f0e28",
-        "autoPositioning": true,
+        "autoPositioning": false,
         "type": "Orthogonal",
         "thickness": 2,
         "color": "#000000",
         "dataType": "",
         "shape": [
           {
-            "x": 2241.140965732086,
-            "y": 2127.3913551401843
+            "x": 2428.879573725488,
+            "y": 2470.6055573448716
           },
           {
-            "x": 2136.643107476634,
-            "y": 2127.3913551401843
+            "x": 2249.2862722726745,
+            "y": 2470.6055573448716
           },
           {
-            "x": 2136.643107476634,
-            "y": 2256.7091121495305
+            "x": 2249.2862722726745,
+            "y": 2428.8685474713884
           },
           {
             "x": 2032.145249221183,
-            "y": 2256.7091121495305
+            "y": 2428.8685474713884
           }
         ],
         "sides": [
@@ -1241,25 +1361,17 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2700.674844236758,
-            "y": 2148.024143302176
+            "x": 2644.7515594520446,
+            "y": 1899.3437954915978
           },
           {
-            "y": 2058.059579439251,
-            "x": 2700.674844236758
-          },
-          {
-            "y": 2058.059579439251,
-            "x": 2631.637071651085
-          },
-          {
-            "x": 2631.637071651085,
-            "y": 2013.404984423675
+            "x": 2644.7515594520446,
+            "y": 1988.9364354965498
           }
         ],
         "sides": [
-          "top",
-          "bottom"
+          "bottom",
+          "top"
         ]
       }
     },
@@ -1279,27 +1391,27 @@
       "childCollection": "9ed069e8-ad4c-4f40-8948-bb15767db007",
       "hackoladeStyles": {
         "GUID": "370d6b64-fa9b-4f51-9a24-f1dafdda18be",
-        "autoPositioning": true,
+        "autoPositioning": false,
         "type": "Orthogonal",
         "thickness": 2,
         "color": "#000000",
         "dataType": "",
         "shape": [
           {
-            "x": 2225.383956386291,
-            "y": 2515.7075545171315
+            "x": 2180.6155190955533,
+            "y": 2663.0101546350443
           },
           {
-            "x": 2128.764602803737,
-            "y": 2515.7075545171315
+            "x": 2096.993453758698,
+            "y": 2663.0101546350443
           },
           {
-            "x": 2128.764602803737,
-            "y": 2462.9591121495305
+            "x": 2096.993453758698,
+            "y": 2603.040996575388
           },
           {
             "x": 2032.145249221183,
-            "y": 2462.9591121495305
+            "y": 2603.040996575388
           }
         ],
         "sides": [
@@ -1324,27 +1436,27 @@
       "childCollection": "57d29fe6-a28f-4f72-b56c-edcf99f1a130",
       "hackoladeStyles": {
         "GUID": "fa851254-378d-4520-9bff-e9c320c7182c",
-        "autoPositioning": true,
+        "autoPositioning": false,
         "type": "Orthogonal",
         "thickness": 2,
         "color": "#000000",
         "dataType": "",
         "shape": [
           {
-            "x": 2132.5521806853562,
-            "y": 1732.02258566978
+            "x": 2258.192633727095,
+            "y": 1827.3360328049018
           },
           {
-            "x": 2082.3487149532693,
-            "y": 1732.02258566978
+            "x": 2143.724798335726,
+            "y": 1827.3360328049018
           },
           {
-            "x": 2082.3487149532693,
-            "y": 2050.4591121495305
+            "x": 2143.724798335726,
+            "y": 1915.8913314845568
           },
           {
             "x": 2032.145249221183,
-            "y": 2050.4591121495305
+            "y": 1915.8913314845568
           }
         ],
         "sides": [
@@ -1369,27 +1481,27 @@
       "childCollection": "57d29fe6-a28f-4f72-b56c-edcf99f1a130",
       "hackoladeStyles": {
         "GUID": "17d25ea4-c46c-459c-91f0-c5b23bc8fa32",
-        "autoPositioning": true,
+        "autoPositioning": false,
         "type": "Orthogonal",
         "thickness": 2,
         "color": "#000000",
         "dataType": "",
         "shape": [
           {
-            "x": 2213.420171339562,
-            "y": 1775.02258566978
+            "x": 2378.052489118392,
+            "y": 1870.3360328049018
           },
           {
-            "x": 2213.420171339562,
-            "y": 1893.4569704049823
+            "x": 2378.052489118392,
+            "y": 2003.9339204934108
           },
           {
-            "x": 2340.140965732086,
-            "y": 1893.4569704049823
+            "x": 2494.879573725488,
+            "y": 2003.9339204934108
           },
           {
-            "x": 2340.140965732086,
-            "y": 2011.8913551401843
+            "x": 2494.879573725488,
+            "y": 2281.9461220230137
           }
         ],
         "sides": [
@@ -1421,15 +1533,15 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1565.7207943925239,
-            "y": 1923.4121884735143
+            "x": 1549.8352198700036,
+            "y": 1965.2923394874315
           },
           {
-            "x": 1648.6156542056071,
-            "y": 1923.4121884735143
+            "x": 1632.7300796830868,
+            "y": 1965.2923394874315
           },
           {
-            "x": 1648.6156542056071,
+            "x": 1632.7300796830868,
             "y": 2087.8068535825523
           },
           {
@@ -1440,6 +1552,141 @@
         "sides": [
           "right",
           "left"
+        ]
+      }
+    },
+    {
+      "name": "CU Relation",
+      "relationshipType": "Foreign Key",
+      "parentField": [],
+      "parentCardinality": "0..n",
+      "childField": [],
+      "isActivated": true,
+      "childCardinality": "0..n",
+      "GUID": "76a25a21-7497-4c76-9a27-c12455857ef0",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      },
+      "parentCollection": "f2c2265b-8c2d-4f34-9221-be67b91dcafe",
+      "childCollection": "c9f9b9a3-82bb-45c9-9335-3191403fb596",
+      "hackoladeStyles": {
+        "GUID": "f198e768-8052-40f9-8323-dc427b76ba91",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#000000",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 1703.145249221183,
+            "y": 2256.7091121495305
+          },
+          {
+            "x": 1614.1563967104105,
+            "y": 2256.7091121495305
+          },
+          {
+            "x": 1614.1563967104105,
+            "y": 2230.876854692552
+          },
+          {
+            "x": 1525.167544199638,
+            "y": 2230.876854692552
+          }
+        ],
+        "sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    {
+      "name": "UB Relation",
+      "relationshipType": "Foreign Key",
+      "parentField": [],
+      "parentCardinality": "0..n",
+      "childField": [],
+      "isActivated": true,
+      "childCardinality": "1",
+      "GUID": "ac87825b-c178-43af-82c8-aa586ad208a0",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      },
+      "parentCollection": "c9f9b9a3-82bb-45c9-9335-3191403fb596",
+      "childCollection": "35ba9f68-ea94-42c9-a037-73311f48272c",
+      "hackoladeStyles": {
+        "GUID": "536da61f-2f3f-4516-9eac-aa6aca0097d9",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#000000",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 2163.3264213395623,
+            "y": 2118.233689896496
+          },
+          {
+            "x": 2097.7358352803726,
+            "y": 2118.233689896496
+          },
+          {
+            "x": 2097.7358352803726,
+            "y": 2256.7091121495305
+          },
+          {
+            "x": 2032.145249221183,
+            "y": 2256.7091121495305
+          }
+        ],
+        "sides": [
+          "left",
+          "right"
+        ]
+      }
+    },
+    {
+      "name": "BQ Relation",
+      "relationshipType": "Foreign Key",
+      "parentField": [],
+      "parentCardinality": "1",
+      "childField": [],
+      "isActivated": true,
+      "childCardinality": "1..n",
+      "GUID": "2f703d90-dd81-47ea-aa51-a063e9ffb560",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      },
+      "parentCollection": "35ba9f68-ea94-42c9-a037-73311f48272c",
+      "childCollection": "aa383303-0511-4415-ac67-58118092da6c",
+      "hackoladeStyles": {
+        "GUID": "0c9e1ada-d24a-46b9-a576-12d08f38822e",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#000000",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 2428.879573725488,
+            "y": 2397.4461220230137
+          },
+          {
+            "x": 2388.6029975325255,
+            "y": 2397.4461220230137
+          },
+          {
+            "x": 2388.6029975325255,
+            "y": 2118.233689896496
+          },
+          {
+            "x": 2348.3264213395623,
+            "y": 2118.233689896496
+          }
+        ],
+        "sides": [
+          "left",
+          "right"
         ]
       }
     }
@@ -1527,7 +1774,18 @@
     "0a20adc9-0988-4cea-9c4e-8602751e770d": "Sent At",
     "e3c057e0-1a86-4572-ad45-7f0735d7dca1": "Read",
     "bf09b041-6055-4f2b-8fba-451c53637769": "Content",
-    "05118671-e51a-4ce7-aec4-089ad795a2d5": "UM relation"
+    "05118671-e51a-4ce7-aec4-089ad795a2d5": "UM relation",
+    "f2c2265b-8c2d-4f34-9221-be67b91dcafe": "Chat Blocked ",
+    "a771153a-0548-446c-9261-6ade4fe6dd5c": "_id",
+    "5fb2523d-9c7e-41e5-bd4c-0f1e76d7d07b": "Who",
+    "0ed2048e-7fe4-4ad2-ae80-a955fb59820c": "whom",
+    "76a25a21-7497-4c76-9a27-c12455857ef0": "CU Relation",
+    "35ba9f68-ea94-42c9-a037-73311f48272c": "Bookmark",
+    "59d5e1d1-b1f9-486b-9836-91091ee30975": "_id",
+    "e09ad698-06a1-46a2-a10c-7357bf078d00": "User Id",
+    "6ca50580-3f1c-4ae5-ac1a-dc3da2d525c3": "Question Id",
+    "ac87825b-c178-43af-82c8-aa586ad208a0": "UB Relation",
+    "2f703d90-dd81-47ea-aa51-a063e9ffb560": "BQ Relation"
   },
   "definitions": {
     "type": "definitions",
@@ -1557,7 +1815,7 @@
       "modelName": false
     }
   },
-  "lastModifTS": "2026-03-09T15:30:41.201Z",
+  "lastModifTS": "2026-03-10T07:13:33.155Z",
   "persistenceSchemaVersion": "8",
   "isCreatedByPlugin": true,
   "pluginInformation": {
@@ -1582,8 +1840,8 @@
           },
           {
             "GUID": "aa383303-0511-4415-ac67-58118092da6c",
-            "x": 2241.140965732086,
-            "y": 2011.8913551401843,
+            "x": 2428.879573725488,
+            "y": 2281.9461220230137,
             "width": 198,
             "height": 231,
             "color": {
@@ -1592,8 +1850,8 @@
           },
           {
             "GUID": "0f7ab61d-77b6-4973-a9f2-74e3fffbaf7a",
-            "x": 2538.4435358255405,
-            "y": 1873.404984423675,
+            "x": 2599.097547638792,
+            "y": 1988.9364354965498,
             "width": 192,
             "height": 140,
             "color": {
@@ -1602,8 +1860,8 @@
           },
           {
             "GUID": "6671a56d-5318-47d8-9273-6d0eea3dcd6d",
-            "x": 2628.9443146417425,
-            "y": 2148.024143302176,
+            "x": 2527.8542949529747,
+            "y": 1781.2117861458034,
             "width": 195.89330218068528,
             "height": 118.13200934579442,
             "color": {
@@ -1612,8 +1870,8 @@
           },
           {
             "GUID": "9ed069e8-ad4c-4f40-8948-bb15767db007",
-            "x": 2225.383956386291,
-            "y": 2391.7075545171315,
+            "x": 2180.6155190955533,
+            "y": 2539.0101546350443,
             "width": 252,
             "height": 248,
             "color": {
@@ -1622,8 +1880,8 @@
           },
           {
             "GUID": "57d29fe6-a28f-4f72-b56c-edcf99f1a130",
-            "x": 2132.5521806853562,
-            "y": 1689.02258566978,
+            "x": 2258.192633727095,
+            "y": 1784.3360328049018,
             "width": 161.73598130841134,
             "height": 86,
             "color": {
@@ -1632,12 +1890,32 @@
           },
           {
             "GUID": "751c3094-ce5e-4829-ae60-eaf79e6a132a",
-            "x": 1350.7515576323995,
-            "y": 1851.4781931464115,
+            "x": 1334.8659831098792,
+            "y": 1893.3583441603287,
             "width": 214.96923676012437,
             "height": 143.86799065420558,
             "color": {
+              "hex": "#bdbdbd"
+            }
+          },
+          {
+            "GUID": "f2c2265b-8c2d-4f34-9221-be67b91dcafe",
+            "x": 1327.167544199638,
+            "y": 2187.876854692552,
+            "width": 198,
+            "height": 86,
+            "color": {
               "hex": "#b71c1c"
+            }
+          },
+          {
+            "GUID": "35ba9f68-ea94-42c9-a037-73311f48272c",
+            "x": 2163.3264213395623,
+            "y": 2075.233689896496,
+            "width": 185,
+            "height": 86,
+            "color": {
+              "hex": "#e62069"
             }
           }
         ],

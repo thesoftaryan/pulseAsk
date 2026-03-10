@@ -6,8 +6,8 @@ import type {RegisterFormData} from "../../../types/auth.types";
 export const registerFormValidator = (data : RegisterFormData)=>{
     const errors : Partial<RegisterFormData> = {};
 
-    if(!data.first_name || !isValidName(data.first_name)) errors.first_name="Invalid First Name";
-    else if(!data.last_name || !isValidName(data.last_name)) errors.last_name="Invalid Last Name";
+    if(!data.firstName || !isValidName(data.firstName)) errors.firstName="Invalid First Name";
+    else if(!data.lastName || !isValidName(data.lastName)) errors.lastName="Invalid Last Name";
 
     else if(!data.email) errors.email = "Email is required";
     else if(!isValidEmail(data.email)) errors.email = "Email isn't valid";

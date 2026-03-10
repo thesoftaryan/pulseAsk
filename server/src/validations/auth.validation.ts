@@ -9,10 +9,7 @@ export const validateRegister = (body : RegisterPayload) => {
         return errors;
     }
 
-    const firstName = body.first_name;
-    const lastName = body.last_name;
-    const email = body.email;
-    const password = body.password;
+    const {firstName, lastName, email, password} = body;
 
     if(!isValidName(firstName)){
         errors.firstName = "Invalid First Name";
@@ -41,7 +38,7 @@ export const validateLogin = (body : LoginPayload) => {
     }
 
     const {email, password} = body;
-    const rememberMe = body.remember_me;
+    const rememberMe = body.rememberMe;
 
     // console.log("Login remember : ", rememberMe);
 

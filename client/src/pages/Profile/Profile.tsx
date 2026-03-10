@@ -27,7 +27,7 @@ export const Profile = ()=>{
                         <UserProfile/>
                     </div>
                     <div className={ProfileStyle["user-name"]}>
-                        {user?.first_name}  {user?.last_name}
+                        {user?.firstName}  {user?.lastName}
                     </div>
                     <div className={ProfileStyle["user-education"]}>
                         <EducationIcon className={ProfileStyle["icon"]}/>

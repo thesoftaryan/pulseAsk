@@ -20,7 +20,7 @@ import { signToken, verifyToken } from "../utils/jwt.util";
 export const refreshTokenService = async (payload : RefreshTokenPayload)=>{
     try{
         // console.log("payload.refresh_token : ",payload.refresh_token);
-        const data = verifyToken(payload.refresh_token,"refresh") as TokenData;
+        const data = verifyToken(payload.refreshToken,"refresh") as TokenData;
         const tokenPayload = {
             uid : data.uid,
             email : data.email,
@@ -42,9 +42,7 @@ export const refreshTokenService = async (payload : RefreshTokenPayload)=>{
  * @returns user : User Model -> Newly created user
  */
 export const registerUser = async (payload : RegisterPayload) => {
-    const {email, password} = payload;
-    const firstName = payload.first_name;
-    const lastName = payload.last_name;
+    const {email, password, firstName, lastName} = payload;
 
     const userCheck = await User.findOne({email});
 

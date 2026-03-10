@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 export interface RefreshTokenPayload{
-    refresh_token : string;
+    refreshToken : string;
 }
 
 export interface TokenData{
@@ -12,12 +12,12 @@ export interface TokenData{
 export interface LoginPayload{
     email : string;
     password : string;
-    remember_me : boolean;
+    rememberMe : boolean;
 }
 
 export interface RegisterPayload{
-    first_name : string;
-    last_name : string;
+    firstName : string;
+    lastName : string;
     email : string;
     password : string;
 }

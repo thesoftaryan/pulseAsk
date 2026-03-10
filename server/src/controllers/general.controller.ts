@@ -28,7 +28,7 @@ export const uploadImageController = async (req : Request, res : Response)=>{
         STATUS.SUCCESS.OK,
         "Image uploaded successfully",
         {
-            image_url : imageUrl
+            imageUrl : imageUrl
         }
     );
 }

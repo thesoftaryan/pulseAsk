@@ -20,7 +20,7 @@ export const UserAnswerTile : React.FC<UserAnswerTileProps> = ({author, content,
                 <div className={UserAnswerTileStyle["header"]}>
                     <UserProfile className={UserAnswerTileStyle["user-profile"]}/>
                     <div className={UserAnswerTileStyle["user-data"]}>
-                        {author.first_name + " " + author.last_name}
+                        {author.firstName + " " + author.lastName}
                         <div className={UserAnswerTileStyle["user-education"]}>
                             {/* User Education detail will go here */}
                             Khandani Institute of Technology

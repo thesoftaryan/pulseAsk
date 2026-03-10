@@ -36,11 +36,11 @@ export const AccountSettings = ()=>{
                     <div className={AccountSettingsStyle["user-name"]}>
                         <div className={AccountSettingsStyle["first-name"]}>
                             <div className={AccountSettingsStyle["label"]}>First Name</div>
-                            <InputField placeholder="" value={user?.first_name}/>
+                            <InputField placeholder="" value={user?.firstName}/>
                         </div>
                         <div className={AccountSettingsStyle["last-name"]}>
                             <div className={AccountSettingsStyle["label"]}>Last Name</div>
-                            <InputField placeholder="" value={user?.last_name}/>
+                            <InputField placeholder="" value={user?.lastName}/>
                         </div>
                     </div>
                     <div className={AccountSettingsStyle["user-email"]}>

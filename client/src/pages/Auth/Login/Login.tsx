@@ -58,7 +58,7 @@ function Login() {
     const [error, setError] = useState<Partial<LoginFormData>>({});
 
     const handleLogin = ()=>{
-        const data : LoginFormData = {email, password, remember_me : rememberMe};
+        const data : LoginFormData = {email, password, rememberMe : rememberMe};
         const validation = loginFormValidator(data);
         setError(validation);
 

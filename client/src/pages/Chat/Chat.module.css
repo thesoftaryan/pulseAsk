@@ -7,7 +7,7 @@
     background-color: var(--color-level1-bg);
 
     padding: var(--spacing-lg) var(--spacing-md);
-    margin-top: var(--spacing-ls);
+    /* margin-top: var(--spacing-ls); */
 
     max-width: var(--size-max-width);
     border-radius: var(--size-radius-md);

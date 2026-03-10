@@ -17,7 +17,7 @@ import { User } from "../models/User.model";
 
 // verification
 import { sendResetPasswordMail, sendVerificationMail } from "../services/email.service";
-import { UserResponse } from "../types/user.types";
+import { UserResponse } from "../types/response/user.types";
 
 
 export const googleOAuthCallbackController = async (req : Request, res : Response) => {
@@ -117,7 +117,7 @@ export const refreshTokenController = async (req : Request, res : Response)=>{
             "Refresh token is required",
         );
     }
-    const newAccessToken = await refreshTokenService({refresh_token : refreshToken});
+    const newAccessToken = await refreshTokenService({refreshToken : refreshToken});
     res.cookie("access_token", newAccessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -185,14 +185,14 @@ export const loginController = async (req: Request, res: Response)=>{
         sameSite: "strict",
         // 30 days (in milliseconds)
         // 60 minutes for refresh_token cookie
-        maxAge : payload.remember_me? 30*24*60*60*1000 : 60*60*1000,
+        maxAge : payload.rememberMe? 30*24*60*60*1000 : 60*60*1000,
     });
     
     const userData : UserResponse = {
                 uid : user._id.toString(),
                 email : user.email,
-                first_name : user.firstName,
-                last_name : user.lastName,
+                firstName : user.firstName,
+                lastName : user.lastName,
             };
     return successResponse(
         res,
@@ -275,8 +275,8 @@ export const meController = async (req : Request, res : Response) => {
     const userData : UserResponse = {
             uid : user!._id.toString(),
             email : user!.email,
-            first_name : user!.firstName,
-            last_name : user!.lastName,
+            firstName : user!.firstName,
+            lastName : user!.lastName,
         };
     return successResponse(
         res,

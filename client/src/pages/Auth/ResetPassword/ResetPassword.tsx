@@ -43,7 +43,7 @@ function ResetPassword(){
             const [errors, setErrors] = useState<Partial<ResetPasswordFormData>>({});
 
             const handleReset = ()=>{
-                const data = {password, confirm_password: confirmPassword, token};
+                const data = {password, confirmPassword: confirmPassword, token};
                 const error = resetPasswordValidator(data);
                 setErrors(error);
 
@@ -82,8 +82,8 @@ function ResetPassword(){
                     <div className={ResetPasswordStyle["form"]}>
                         <InputField isError={errors.password?.length} type="password" placeholder="Enter New Password" onChange={(e)=>{setPassword(e.target.value)}}/>
                         {errors.password && <InlineError message={errors.password}/>}
-                        <InputField isError={errors.confirm_password?.length} type="password" placeholder="Confirm Password" onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
-                        {errors.confirm_password && <InlineError message={errors.confirm_password}/>}
+                        <InputField isError={errors.confirmPassword?.length} type="password" placeholder="Confirm Password" onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
+                        {errors.confirmPassword && <InlineError message={errors.confirmPassword}/>}
                         <GapBox className="gap-y-md"></GapBox>
                         <Button text="Reset password" onClick={handleReset} disabled={state.status==="loading"}/>
                     </div>

@@ -39,7 +39,7 @@ export const Home = ()=>{
     }, [state.isAuthenticated]);
 
     const answerObj : AnswerInterface = {
-        author : {uid: "2", email: "thesoftaryan@gmail.com", first_name:"Aryan", last_name:"Maurya"},
+        author : {uid: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
         content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
     }
 
@@ -64,8 +64,8 @@ export const Home = ()=>{
                 </div>
                 <div className={HomeStyle["question-leaderboard-section"]}>
                     <div className={HomeStyle["question-section"]}>
-                        <Question onClick={()=>{safeNavigate(homeRoutes.question)}} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
-                        <Question onClick={()=>{safeNavigate(homeRoutes.question)}} best_answer={<Answer level1Comments={true} author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", first_name:"", last_name:""}}/>
+                        <Question onClick={()=>{safeNavigate(homeRoutes.question)}} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", firstName:"", lastName:""}}/>
+                        <Question onClick={()=>{safeNavigate(homeRoutes.question)}} best_answer={<Answer level1Comments={true} author={answerObj.author} content={answerObj.content}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{uid: "1", email: "", firstName:"", lastName:""}}/>
 
                         <div className={HomeStyle["load-more-button"]}>
                             <Button text="Load More" isSmall={true} level1={true} Icon={LoadMoreIcon}/>

@@ -62,7 +62,7 @@ function Register() {
 
 
     const handleRegister = ()=>{
-        const data : RegisterFormData = {first_name:firstName, last_name: lastName, email, password, agreement};
+        const data : RegisterFormData = {firstName:firstName, lastName: lastName, email, password, agreement};
         const validation = registerFormValidator(data);
         setErrors(validation);
 
@@ -102,12 +102,12 @@ function Register() {
                 <form className={RegisterStyle["register-form"]}>
                     <div className={RegisterStyle["name-input-container"]}>
                         <span>
-                            <InputField name="firstName" placeholder="First Name" onChange={(e)=>{setFirstName(e.target.value)}} value={firstName} isError={errors.first_name?.length}/>
-                            {(errors.first_name?.length) && <InlineError message={errors.first_name}/>}
+                            <InputField name="firstName" placeholder="First Name" onChange={(e)=>{setFirstName(e.target.value)}} value={firstName} isError={errors.firstName?.length}/>
+                            {(errors.firstName?.length) && <InlineError message={errors.firstName}/>}
                         </span>
                         <span>
-                            <InputField name="lastName" placeholder="Last Name"  onChange={(e)=>{setLastName(e.target.value)}} value={lastName} isError={errors.last_name?.length}/>
-                            {(errors.last_name?.length) && <InlineError message={errors.last_name}/>}
+                            <InputField name="lastName" placeholder="Last Name"  onChange={(e)=>{setLastName(e.target.value)}} value={lastName} isError={errors.lastName?.length}/>
+                            {(errors.lastName?.length) && <InlineError message={errors.lastName}/>}
                         </span>
                     </div>
                     <InputField placeholder="Email" type="email"  onChange={(e)=>{setEmail(e.target.value)}} value={email} isError={errors.email?.length}/>
