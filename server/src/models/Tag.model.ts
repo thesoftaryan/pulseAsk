@@ -1,6 +1,22 @@
 import {Schema, model, Document} from "mongoose";
 
-export interface TagModel extends Document{
+export interface TagInterface extends Document{
     name : string;
-    questions : Schema.Types.ObjectId[];
+    color : string;
 }
+
+const TagSchema = new Schema<TagInterface>(
+    {
+        name: {
+            type: String,
+            required: true,
+        },
+        color: {
+            type: String,
+            required: true,
+        }
+    },
+    {timestamps: true},
+);
+
+export const Tag = model<TagInterface>("Tag", TagSchema);

@@ -1,96 +1,96 @@
 import {Schema, model, Document, Types} from "mongoose";
+import { TagInterface } from "./Tag.model";
 
 interface StripeConnection{
-    id : string;
-    userId: string;
-    stripeAccountId : string;
+    id : String;
+    userId: String;
+    stripeAccountId : String;
     payoutsEnabled: Boolean;
     chargesEnabled: Boolean;
     stripeOnboardingUrl?: Boolean | null;
-    connectedAt: string;
-    lastSyncedAt?: string | null;    
+    connectedAt: String;
+    lastSyncedAt?: String | null;    
 }
 
 interface PaypalConnection{
-    id : string;
-    userId : string;
-    paypalMerchantId : string;
+    id : String;
+    userId : String;
+    paypalMerchantId : String;
     connectionStatus : 'pending' | 'connected' | 'disconnected' | 'failed';
-    accessTokenExpiresAt? : string;
-    refreshTokenEncrypted? : string | null;
-    onboardingUrl? : string | null;
-    connectedAt? : string | null;
-    lastSyncedAt? : string | null;
+    accessTokenExpiresAt? : String;
+    refreshTokenEncrypted? : String | null;
+    onboardingUrl? : String | null;
+    connectedAt? : String | null;
+    lastSyncedAt? : String | null;
 }
 
 
 interface PaymentAccountsInterface{
     // userId : Schema.Types.ObjectId;
-    // upiName : string;
-    // upiId : string;
+    // upiName : String;
+    // upiId : String;
     stripeAccount? : StripeConnection | null;
     paypalAccount? : PaypalConnection | null;
 }
 
 interface NotificationPreferencesInterface{
-    answer:boolean;
-    chat:boolean;
-    payment:boolean;
-    announcement:boolean;
-    promotional:boolean;
+    answer:Boolean;
+    chat:Boolean;
+    payment:Boolean;
+    announcement:Boolean;
+    promotional:Boolean;
 }
 
 
 
-export interface IUser extends Document{
+export interface UserInterface extends Document{
     // ********** Profile Information ************ //
-    _id: Types.ObjectId;
-    profile? : string;
+    profile? : String;
     createdAt : Date;
 
-    firstName : string;
-    lastName : string;
-    email : string;
-    password : string;
-    isVerified : boolean;
+    firstName : String;
+    lastName : String;
+    email : String;
+    password : String;
+    isVerified : Boolean;
     
     // *********** Reset Password ******************** //
-    resetPasswordToken? : string;
+    resetPasswordToken? : String;
     resetPasswordExpires? : Date;
     
     // *********** Security ******************** //
-    emailVerified : boolean;
-    emailVerificationToken? : string;
+    emailVerified : Boolean;
+    emailVerificationToken? : String;
     emailVerificationExpires? : Date;
     
     // *********** Auth Provider *************** //
     authProvider : String;
-    providerId : string;
+    providerId : String;
     
     //************* Social Information ********** //
-    degree? : string;
-    college? : string;
-    description? : string;
-    tags : Array<Schema.Types.ObjectId>[];
-    instagram? : string;
-    facebook? : string;
-    linkedin? : string;
-    youtube? : string;
+    degree? : String;
+    college? : String;
+    description? : String;
+    tags : TagInterface[];
+    instagram? : String;
+    facebook? : String;
+    linkedin? : String;
+    youtube? : String;
 
     //************* Stats Information ********** //
-    questionsAsked: number;
-    answersGiven: number;
-    upvotes: number;
-    downvotes: number;
-    reputationScore: number;
+    questionsAsked: Number;
+    answersGiven: Number;
+    upvotes: Number;
+    downvotes: Number;
+    reputationScore: Number;
     
     //************* Payment Information ********** //
-    enablePayment: boolean;
+    enablePayment: Boolean;
     paymentAccounts : PaymentAccountsInterface;
 
     //************* Preferences Information ********** //
     notificationPreferences: NotificationPreferencesInterface;
-    enableChat: boolean;
+    enableChat: Boolean;
 }
 
 
@@ -214,7 +214,7 @@ const notificationPreferencesSchema = new Schema(
 );
 
 
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<UserInterface>(
     {
         // ********** Profile Information ************ //
         profile : {
@@ -287,7 +287,11 @@ const userSchema = new Schema<IUser>(
         description : {
             type : String,
         },
-        tags : Array<Schema.Types.ObjectId>,
+        tags : [
+            {
+                type: Schema.Types.ObjectId,
+            }
+        ],
         instagram : {
             type : String,
         },
@@ -330,9 +334,11 @@ const userSchema = new Schema<IUser>(
         notificationPreferences: {
             type: notificationPreferencesSchema
         },
-        enableChat: Boolean,
+        enableChat: {
+            type: Boolean,
+        },
     },
     {timestamps:true,}
 );
 
-export const User = model<IUser>("User", userSchema);
+export const User = model<UserInterface>("User", userSchema);
