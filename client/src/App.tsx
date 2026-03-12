@@ -39,13 +39,14 @@ const App = ()=>{
   useEffect(()=>{
     const handler = ()=>{
       dispatch(logoutThunk());
+      console.log("handling the throwback");
       navigate(authRoutes.login, {replace : true});
     };
     document.addEventListener("auth/logout", handler);
-    return ()=>{
-      document.removeEventListener("auth/logout", handler);
-    }
-  }, [dispatch]);
+    // return ()=>{
+    //   document.removeEventListener("auth/logout", handler);
+    // }
+  }, []);
 
   return (
     <>

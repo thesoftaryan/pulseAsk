@@ -1,11 +1,12 @@
-import {Schema, model, Document} from "mongoose";
+import {Schema, model, Document, Types} from "mongoose";
 import { UserInterface } from "./User.model";
 
 export interface AnswerInterface extends Document{
-    questionId: Schema.Types.ObjectId;
+    _id: Types.ObjectId;
+    questionId: Types.ObjectId;
     author: UserInterface;
-    content: String;
-    voteCount: Number;
+    content: string;
+    voteCount: number;
     askedAt: Date;
 };
 
@@ -26,7 +27,7 @@ const AnswerSchema = new Schema<AnswerInterface>(
             required: true,
         },
         voteCount:{
-            type: String,
+            type: Number,
             default:0,
         },
         askedAt:{

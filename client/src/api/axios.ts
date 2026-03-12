@@ -38,7 +38,7 @@ api.interceptors.response.use(
             // console.log("refreshPromise resolved, making retry");
             return api(originalRequest);
         }catch(err){
-            // console.log("inside error part");
+            // console.log("Dispatching auth/logout");
             document.dispatchEvent(new Event("auth/logout"));
             return Promise.reject(err);
         }finally{

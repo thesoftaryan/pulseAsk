@@ -2,33 +2,33 @@ import {Schema, model, Document, Types} from "mongoose";
 import { TagInterface } from "./Tag.model";
 
 interface StripeConnection{
-    id : String;
-    userId: String;
-    stripeAccountId : String;
+    id : string;
+    userId: string;
+    stripeAccountId : string;
     payoutsEnabled: Boolean;
     chargesEnabled: Boolean;
     stripeOnboardingUrl?: Boolean | null;
-    connectedAt: String;
-    lastSyncedAt?: String | null;    
+    connectedAt: string;
+    lastSyncedAt?: string | null;    
 }
 
 interface PaypalConnection{
-    id : String;
-    userId : String;
-    paypalMerchantId : String;
+    id : string;
+    userId : string;
+    paypalMerchantId : string;
     connectionStatus : 'pending' | 'connected' | 'disconnected' | 'failed';
-    accessTokenExpiresAt? : String;
-    refreshTokenEncrypted? : String | null;
-    onboardingUrl? : String | null;
-    connectedAt? : String | null;
-    lastSyncedAt? : String | null;
+    accessTokenExpiresAt? : string;
+    refreshTokenEncrypted? : string | null;
+    onboardingUrl? : string | null;
+    connectedAt? : string | null;
+    lastSyncedAt? : string | null;
 }
 
 
 interface PaymentAccountsInterface{
     // userId : Schema.Types.ObjectId;
-    // upiName : String;
-    // upiId : String;
+    // upiName : string;
+    // upiId : string;
     stripeAccount? : StripeConnection | null;
     paypalAccount? : PaypalConnection | null;
 }
@@ -44,45 +44,46 @@ interface NotificationPreferencesInterface{
 
 
 export interface UserInterface extends Document{
+    _id: Types.ObjectId,
     // ********** Profile Information ************ //
-    profile? : String;
+    profile? : string;
     createdAt : Date;
 
-    firstName : String;
-    lastName : String;
-    email : String;
-    password : String;
+    firstName : string;
+    lastName : string;
+    email : string;
+    password : string;
     isVerified : Boolean;
     
     // *********** Reset Password ******************** //
-    resetPasswordToken? : String;
+    resetPasswordToken? : string;
     resetPasswordExpires? : Date;
     
     // *********** Security ******************** //
     emailVerified : Boolean;
-    emailVerificationToken? : String;
+    emailVerificationToken? : string;
     emailVerificationExpires? : Date;
     
     // *********** Auth Provider *************** //
-    authProvider : String;
-    providerId : String;
+    authProvider : string;
+    providerId : string;
     
     //************* Social Information ********** //
-    degree? : String;
-    college? : String;
-    description? : String;
+    degree? : string;
+    college? : string;
+    description? : string;
     tags : TagInterface[];
-    instagram? : String;
-    facebook? : String;
-    linkedin? : String;
-    youtube? : String;
+    instagram? : string;
+    facebook? : string;
+    linkedin? : string;
+    youtube? : string;
 
     //************* Stats Information ********** //
-    questionsAsked: Number;
-    answersGiven: Number;
-    upvotes: Number;
-    downvotes: Number;
-    reputationScore: Number;
+    questionsAsked: number;
+    answersGiven: number;
+    upvotes: number;
+    downvotes: number;
+    reputationScore: number;
     
     //************* Payment Information ********** //
     enablePayment: Boolean;

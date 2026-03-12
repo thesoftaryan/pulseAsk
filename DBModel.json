@@ -829,15 +829,12 @@
           "GUID": "737ee100-f753-4fa9-91f5-e585f9d8589a"
         },
         {
-          "name": "Recipient Ic",
+          "name": "Recipient",
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "objectId",
-          "error": {
-            "name": false,
-            "code": false
-          },
-          "GUID": "02b02ff5-6009-4c64-ad0b-03cce390b775"
+          "GUID": "02b02ff5-6009-4c64-ad0b-03cce390b775",
+          "error": {}
         },
         {
           "name": "type",
@@ -1754,7 +1751,7 @@
     "a8b61763-7ae8-47ce-8ae4-472c81aac59f": "Best Answer",
     "9ed069e8-ad4c-4f40-8948-bb15767db007": "Notification",
     "737ee100-f753-4fa9-91f5-e585f9d8589a": "_id",
-    "02b02ff5-6009-4c64-ad0b-03cce390b775": "Recipient Ic",
+    "02b02ff5-6009-4c64-ad0b-03cce390b775": "Recipient",
     "98aebacd-6d04-442c-a350-22431aa1cd59": "type",
     "cd2f9297-e437-4623-a617-1d1950626636": "content",
     "2bb06fa4-7495-4d0a-b2a1-c8fbecd51b63": "Sent At",
@@ -1815,7 +1812,7 @@
       "modelName": false
     }
   },
-  "lastModifTS": "2026-03-10T07:13:33.155Z",
+  "lastModifTS": "2026-03-12T07:32:52.508Z",
   "persistenceSchemaVersion": "8",
   "isCreatedByPlugin": true,
   "pluginInformation": {

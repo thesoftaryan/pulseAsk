@@ -1,9 +1,10 @@
-import {Schema, model, Document} from "mongoose";
+import {Schema, model, Document, Types} from "mongoose";
 import { UserInterface } from "./User.model";
 import { AnswerInterface } from "./Answer.model";
 import { TagInterface } from "./Tag.model";
 
 export interface QuestionInterface extends Document{
+    _id: Types.ObjectId;
     title: String;
     description: String;
     author: UserInterface;

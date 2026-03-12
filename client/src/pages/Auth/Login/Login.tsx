@@ -93,7 +93,7 @@ function Login() {
 
 
 
-                <div className={LoginStyle["login-form"]} >
+                <form className={LoginStyle["login-form"]} >
                     <InputField name="email" placeholder="Email" type="email" value={email} onChange={(e)=>{setEmail(e.target.value);}} isError={error.email?.length}/>
                     {(error.email?.length) && <InlineError message={error.email}/>}
                     <InputField name="password" placeholder="Password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value);}} isError={error.password?.length}/>
@@ -111,7 +111,7 @@ function Login() {
                     <Divider text="Or login with"></Divider>
                     <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={()=>{socialLoginHandler("google");}} />
                     {/* <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} /> */}
-                </div>
+                </form>
             </div>
         </div>
     </>;
