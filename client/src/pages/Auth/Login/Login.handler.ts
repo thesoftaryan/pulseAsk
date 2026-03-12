@@ -7,7 +7,7 @@ import { socialSignInService } from "../../../services/auth/socialSignIn.service
 // Types
 import type { OAuthProvider } from "../../../types/auth.types";
 import type { LoginFormData } from "../../../types/auth.types";
-import type { ApiError } from "../../../types/apiResponse.types";
+import type { ApiError } from "../../../types/ApiResponse/index.type";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";

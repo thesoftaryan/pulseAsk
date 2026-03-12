@@ -3,7 +3,7 @@ import { loginService } from "../../../services/auth/login.service";
 
 import { parseSuccessResponse, parseErrorResponse } from "../../../services/apiResponseParser.service";
 import type { LoginFormData } from "../../../types/auth.types";
-import type { ApiError, ApiResponse, UserResponseData } from "../../../types/apiResponse.types";
+import type { ApiError, ApiResponse, UserResponseData } from "../../../types/ApiResponse/index.type";
 
 export const loginThunk = createAsyncThunk<ApiResponse<UserResponseData>, LoginFormData,{rejectValue : ApiError}>(
     "auth/login",

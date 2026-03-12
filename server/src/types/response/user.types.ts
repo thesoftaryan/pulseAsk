@@ -1,6 +1,3 @@
-export interface UserResponse {
-    uid : string;
-    email : string;
-    firstName : string;
-    lastName : string;
-}
+import { UserInterface } from "../../models/User.model";
+
+export interface UserResponse extends Partial<UserInterface> {}

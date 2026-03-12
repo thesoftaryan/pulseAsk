@@ -4,7 +4,7 @@ import { QuestionInterface } from "./Question.model";
 export interface BookmarkInterface extends Document{
     _id: Types.ObjectId;
     userId : Types.ObjectId;
-    questionId: QuestionInterface;
+    question: QuestionInterface; // will be populated before sending
 }
 
 const BookmarkSchema = new Schema<BookmarkInterface>(
@@ -14,7 +14,7 @@ const BookmarkSchema = new Schema<BookmarkInterface>(
             ref:"User",
             required: true,
         },
-        questionId: {
+        question: {
             type: Schema.Types.ObjectId,
             ref:"Question",
             required: true,

@@ -2,7 +2,7 @@
 import { useAppDispatch } from "../../../hooks/store.hook";
 
 import { forgotPasswordThunk } from "../../../store/auth/thunks/forgotPassword.thunk";
-import type { ApiError } from "../../../types/apiResponse.types";
+import type { ApiError } from "../../../types/ApiResponse/index.type";
 
 // Types
 import type { ForgotPasswordFormData } from "../../../types/auth.types";

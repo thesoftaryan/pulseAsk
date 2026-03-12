@@ -1,9 +1,9 @@
 import {Schema, model, Document, Types} from "mongoose";
-import { QuestionInterface } from "./Question.model";
+import { AnswerInterface } from "./Answer.model";
 
 export interface CommentInterface extends Document{
     _id: Types.ObjectId;
-    answerId: QuestionInterface;
+    answerId: Types.ObjectId;
     author : Types.ObjectId;
     content: String;
     commentedAt: Date;

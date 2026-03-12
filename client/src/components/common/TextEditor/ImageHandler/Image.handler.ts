@@ -1,7 +1,7 @@
 import type { ChainedCommands } from "@tiptap/react";
 import { uploadImageAPI } from "../../../../api/general.api";
 import { parseErrorResponse, parseSuccessResponse } from "../../../../services/apiResponseParser.service";
-import type { UploadImageResponse } from "../../../../types/apiResponse.types";
+import type { UploadImageResponse } from "../../../../types/ApiResponse/index.type";
 import { showToast } from "../../../../utils/toast.util";
 
 export const uploadImageHandler = async (file : File, editor:ChainedCommands) =>{

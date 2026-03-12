@@ -129,7 +129,7 @@ const stripeConnectionSchema = new Schema(
         default: null
     }
 },
-{ _id: false }
+{ _id: false, },
 );
 
 const paypalConnectionSchema = new Schema(
@@ -171,7 +171,7 @@ const paypalConnectionSchema = new Schema(
         default: null
     }
 },
-{ _id: false }
+{ _id: false, },
 );
 
 const paymentAccountsSchema = new Schema(
@@ -185,7 +185,7 @@ const paymentAccountsSchema = new Schema(
         default: null
     }
 },
-{ _id: false }
+{ _id: false, },
 );
 
 const notificationPreferencesSchema = new Schema(
@@ -211,7 +211,7 @@ const notificationPreferencesSchema = new Schema(
         default: false
     }
 },
-{ _id: false }
+{ _id: false, },
 );
 
 
@@ -242,7 +242,7 @@ const userSchema = new Schema<UserInterface>(
         password : {
             type: String, 
             required: false, 
-            select : false
+            select : false,
         },
         isVerified : {
             type: Boolean, 
@@ -328,7 +328,8 @@ const userSchema = new Schema<UserInterface>(
             type : Boolean,
         },
         paymentAccounts : {
-            type: paymentAccountsSchema
+            type: paymentAccountsSchema,
+            select : false,
         },
 
         //************* Preferences Information ********** //

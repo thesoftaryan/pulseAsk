@@ -1,7 +1,7 @@
 import { useAppDispatch } from "../../../hooks/store.hook";
 import { socialSignInService } from "../../../services/auth/socialSignIn.service";
 import { registerThunk } from "../../../store/auth/thunks/register.thunk";
-import type { ApiError } from "../../../types/apiResponse.types";
+import type { ApiError } from "../../../types/ApiResponse/index.type";
 
 // Types
 import type { OAuthProvider, RegisterFormData } from "../../../types/auth.types";

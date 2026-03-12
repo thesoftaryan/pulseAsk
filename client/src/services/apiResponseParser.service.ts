@@ -1,4 +1,4 @@
-import type { ApiError, ApiResponse } from "../types/apiResponse.types";
+import type { ApiError, ApiResponse } from "../types/ApiResponse/index.type";
 
 import {AxiosError, type AxiosResponse} from "axios";
 

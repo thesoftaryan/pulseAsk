@@ -39,7 +39,7 @@ const App = ()=>{
   useEffect(()=>{
     const handler = ()=>{
       dispatch(logoutThunk());
-      console.log("handling the throwback");
+      // console.log("handling the throwback");
       navigate(authRoutes.login, {replace : true});
     };
     document.addEventListener("auth/logout", handler);

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
-import type { ApiError, ApiResponse, NoDataResponse } from "../../../types/apiResponse.types";
+import type { ApiError, ApiResponse, NoDataResponse } from "../../../types/ApiResponse/index.type";
 import { logoutService } from "../../../services/auth/logout.service";
 
 

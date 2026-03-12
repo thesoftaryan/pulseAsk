@@ -189,7 +189,7 @@ export const loginController = async (req: Request, res: Response)=>{
     });
     
     const userData : UserResponse = {
-                uid : user._id.toString(),
+                _id : user._id,
                 email : user.email,
                 firstName : user.firstName,
                 lastName : user.lastName,
@@ -273,7 +273,7 @@ export const meController = async (req : Request, res : Response) => {
     const payload = req.user!;
     const user = await meService(payload);
     const userData : UserResponse = {
-            uid : user!._id.toString(),
+            _id : user!._id,
             email : user!.email,
             firstName : user!.firstName,
             lastName : user!.lastName,

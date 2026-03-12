@@ -2,7 +2,7 @@
 import { useAppDispatch } from "../../../hooks/store.hook";
 
 import { resendVerificationEmailThunk } from "../../../store/auth/thunks/resendVerificationEmail.thunk";
-import type { ApiError } from "../../../types/apiResponse.types";
+import type { ApiError } from "../../../types/ApiResponse/index.type";
 
 // Types
 import type { ResendVerificationEmailFormData } from "../../../types/auth.types";

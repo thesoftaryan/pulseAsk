@@ -1,4 +1,4 @@
-import type { User } from "./user.types"
+import type { UserInterface } from "./user.type";
 
 export interface ApiResponse<T>{
     success : boolean;
@@ -13,13 +13,9 @@ export interface ApiError{
     meta? : Record<string, string>;
 }
 
-export interface UserResponseData{
-    user : User;
-}
+export interface UserResponseData extends Partial<UserInterface>{}
 
-export interface NoDataResponse{
-    
-}
+export interface NoDataResponse{}
 
 export interface UploadImageResponse{
     imageUrl: string;
