@@ -24,8 +24,9 @@ export const useRegisterHandler = ()=>{
     }
 
     const socialRegisterHandler = (provider : OAuthProvider)=>{
+        localStorage.setItem("session_active", "true");
         socialSignInService(provider);
-}
+    }
 
     return {
         registerHandler, socialRegisterHandler

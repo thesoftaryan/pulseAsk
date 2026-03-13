@@ -28,6 +28,7 @@ export const useLoginHandler = ()=>{
     }
 
     const socialLoginHandler = (provider: OAuthProvider) => {
+        localStorage.setItem("session_active", "true");
         socialSignInService(provider);
     }
 

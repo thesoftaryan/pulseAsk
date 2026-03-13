@@ -6,13 +6,13 @@ import "./theme/index.css";
 // import VerifyEmail from "./pages/Auth/VerifyEmail/VerifyEmail";
 
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import {Toaster} from "react-hot-toast";
 import { useEffect } from "react";
 import { useAppDispatch } from "./hooks/store.hook";
-// import { logoutThunk } from "./store/auth/thunks/logout.thunk";
-// import { authRoutes } from "./routes/routesConstants";
+import { logoutThunk } from "./store/auth/thunks/logout.thunk";
+import { authRoutes } from "./routes/routesConstants";
 import { checkAuthThunk } from "./store/auth/thunks/checkAuthThunk";
 import { useApplyTheme } from "./hooks/useApplyTheme.hook";
 // import { toggleTheme } from "./store/theme/theme.slice";
@@ -22,31 +22,33 @@ const App = ()=>{
   useApplyTheme();
  
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   /*
   Checking for theme toggle
   */
   // const theme = useAppSelector(state=>state.theme.theme);
-
-  // Setting up initial theme
   
+  // Setting up initial theme
 
   useEffect(()=>{
-    dispatch(checkAuthThunk())
+    const isActive = localStorage.getItem("session_active");
+    if(isActive){
+      dispatch(checkAuthThunk());
+    }
   }, []);
 
-  // useEffect(()=>{
-  //   const handler = ()=>{
-  //     dispatch(logoutThunk());
-  //     // console.log("handling the throwback");
-  //     navigate(authRoutes.login, {replace : true});
-  //   };
-  //   document.addEventListener("auth/logout", handler);
-  //   // return ()=>{
-  //   //   document.removeEventListener("auth/logout", handler);
-  //   // }
-  // }, []);
+  useEffect(()=>{
+    const handler = ()=>{
+      dispatch(logoutThunk());
+      // console.log("handling the throwback");
+      navigate(authRoutes.login, {replace : true});
+    };
+    document.addEventListener("auth/logout", handler);
+    // return ()=>{
+    //   document.removeEventListener("auth/logout", handler);
+    // }
+  }, []);
 
   return (
     <>

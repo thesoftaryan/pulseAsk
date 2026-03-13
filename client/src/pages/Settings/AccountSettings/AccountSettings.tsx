@@ -36,26 +36,26 @@ export const AccountSettings = ()=>{
                     <div className={AccountSettingsStyle["user-name"]}>
                         <div className={AccountSettingsStyle["first-name"]}>
                             <div className={AccountSettingsStyle["label"]}>First Name</div>
-                            <InputField placeholder="" value={user?.firstName}/>
+                            <InputField placeholder="" onChange={()=>{}} value={user?.firstName}/>
                         </div>
                         <div className={AccountSettingsStyle["last-name"]}>
                             <div className={AccountSettingsStyle["label"]}>Last Name</div>
-                            <InputField placeholder="" value={user?.lastName}/>
+                            <InputField placeholder="" onChange={()=>{}} value={user?.lastName}/>
                         </div>
                     </div>
                     <div className={AccountSettingsStyle["user-email"]}>
                         <div className={AccountSettingsStyle["label"]}>Email</div>
-                        <InputField placeholder="" value={user?.email} disabled={true}/>
+                        <InputField placeholder="" onChange={()=>{}} value={user?.email} disabled={true}/>
                     </div>
                     <div className={AccountSettingsStyle["label"]}>Education</div>
                     <div className={AccountSettingsStyle["user-education"]}>
                         <div className={AccountSettingsStyle["user-degree"]}>
                             <div className={AccountSettingsStyle["label"]}>Degree</div>
-                            <InputField placeholder="" value="B.Tech"/>
+                            <InputField placeholder="" onChange={()=>{}} value="B.Tech"/>
                         </div>
                         <div className={AccountSettingsStyle["user-college"]}>
                             <div className={AccountSettingsStyle["label"]}>College</div>
-                            <InputField placeholder="" value="IIT Bhilai"/>
+                            <InputField placeholder="" onChange={()=>{}} value="IIT Bhilai"/>
                         </div>
                     </div>
                     

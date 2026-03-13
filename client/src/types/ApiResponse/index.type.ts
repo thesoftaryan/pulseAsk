@@ -14,7 +14,9 @@ export interface ApiError{
     meta? : Record<string, string>;
 }
 
-export interface UserResponseData extends Partial<UserInterface>{};
+export interface UserResponseData{
+    user: Partial<UserInterface>;
+};
 
 export interface TagResponseData extends Partial<TagInterface>{};
 

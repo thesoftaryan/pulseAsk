@@ -33,8 +33,9 @@ const authSlice = createSlice({
             state.error = null;
         })
         .addCase(loginThunk.fulfilled, (state, action)=>{
+            localStorage.setItem("session_active", "true");
             state.isAuthenticated = true;
-            state.user = action.payload.data!;
+            state.user = action.payload.data!.user;
             state.status = "authenticated";
             state.error = null;
         })
@@ -58,15 +59,22 @@ const authSlice = createSlice({
         })
         // auth/logout thunk reducer
         .addCase(logoutThunk.pending, (state)=>{
+            // console.log("logout pending");
+            
             state.status = "loading";
             state.error = null;
         })
         .addCase(logoutThunk.fulfilled, (state)=>{
+            // console.log("logout fulfilled");
+            
+            localStorage.removeItem("session_active");
             state.status = "unauthenticated";
             state.isAuthenticated = false;
             state.user = null;
         })
         .addCase(logoutThunk.rejected, (state, action)=>{
+            // console.log("logout rejected");
+            
             state.status = "idle";
             state.error = action.payload!.message;
         })
@@ -109,15 +117,21 @@ const authSlice = createSlice({
         })
         //
         .addCase(checkAuthThunk.pending, (state)=>{
+            // console.log("Check auth pending");
+            
             state.status = "loading";
             state.error = null;
         })
         .addCase(checkAuthThunk.fulfilled, (state, action)=>{
+            // console.log("Check auth fulfilled");
             state.isAuthenticated = true;
             state.status = "authenticated";
-            state.user = action.payload.data!;
+            state.user = action.payload.data!.user;
+            // console.log(state.user);
         })
         .addCase(checkAuthThunk.rejected, (state, action)=>{
+            // console.log("Check auth rejected");
+            localStorage.removeItem("session_active");
             state.isAuthenticated = false;
             state.user = null;
             state.status = "unauthenticated";

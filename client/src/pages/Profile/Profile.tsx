@@ -16,8 +16,9 @@ import { HighlightTile } from "./HighlightTile/HighlightTile";
 import { UserActivity } from "./UserActivity/UserActivity";
 
 
+
 export const Profile = ()=>{
-    let user = useAppSelector(state=>state.auth.user);
+    const user = useAppSelector(state=>state.auth.user);
     return (
         <div className={ProfileStyle["container"]}>
             <div className={ProfileStyle["top-profile"]}>
