@@ -1,4 +1,4 @@
-export interface TagInterface extends Document{
+export interface TagInterface{
     _id: string;
     name : string;
     color : string;

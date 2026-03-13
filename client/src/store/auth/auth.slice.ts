@@ -34,7 +34,7 @@ const authSlice = createSlice({
         })
         .addCase(loginThunk.fulfilled, (state, action)=>{
             state.isAuthenticated = true;
-            state.user = action.payload.data!.user;
+            state.user = action.payload.data!;
             state.status = "authenticated";
             state.error = null;
         })
@@ -115,7 +115,7 @@ const authSlice = createSlice({
         .addCase(checkAuthThunk.fulfilled, (state, action)=>{
             state.isAuthenticated = true;
             state.status = "authenticated";
-            state.user = action.payload.data!.user;
+            state.user = action.payload.data!;
         })
         .addCase(checkAuthThunk.rejected, (state, action)=>{
             state.isAuthenticated = false;

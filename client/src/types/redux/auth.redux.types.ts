@@ -1,8 +1,8 @@
-import type { User } from "../user.types";
+import type { UserResponseData } from "../ApiResponse/index.type";
 
 export interface AuthState {
     isAuthenticated : boolean;
-    user : User | null;
+    user : UserResponseData | null;
     status : "idle" | "loading" | "authenticated" | "unauthenticated";
     error : string | null;
 }

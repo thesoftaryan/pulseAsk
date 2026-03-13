@@ -39,7 +39,7 @@ api.interceptors.response.use(
             return api(originalRequest);
         }catch(err){
             // console.log("Dispatching auth/logout");
-            document.dispatchEvent(new Event("auth/logout"));
+            // document.dispatchEvent(new Event("auth/logout"));
             return Promise.reject(err);
         }finally{
             // console.log("resetting refreshPromise");

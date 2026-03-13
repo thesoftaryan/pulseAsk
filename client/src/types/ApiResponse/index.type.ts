@@ -1,3 +1,4 @@
+import type { TagInterface } from "./tag.type";
 import type { UserInterface } from "./user.type";
 
 export interface ApiResponse<T>{
@@ -13,7 +14,9 @@ export interface ApiError{
     meta? : Record<string, string>;
 }
 
-export interface UserResponseData extends Partial<UserInterface>{}
+export interface UserResponseData extends Partial<UserInterface>{};
+
+export interface TagResponseData extends Partial<TagInterface>{};
 
 export interface NoDataResponse{}
 

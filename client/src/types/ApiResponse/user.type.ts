@@ -1,4 +1,4 @@
-import type { TagInterface } from "./tag.type";
+import type { TagResponseData } from "./index.type";
 
 // export interface User{
 //     uid : string;
@@ -54,7 +54,7 @@ interface NotificationPreferencesInterface{
 export interface UserInterface{
     _id: string,
     // ********** Profile Information ************ //
-    profile? : string;
+    profile : string;
     createdAt : Date;
 
     firstName : string;
@@ -64,27 +64,27 @@ export interface UserInterface{
     isVerified : Boolean;
     
     // *********** Reset Password ******************** //
-    resetPasswordToken? : string;
-    resetPasswordExpires? : Date;
+    resetPasswordToken : string;
+    resetPasswordExpires : Date;
     
     // *********** Security ******************** //
     emailVerified : Boolean;
-    emailVerificationToken? : string;
-    emailVerificationExpires? : Date;
+    emailVerificationToken : string;
+    emailVerificationExpires : Date;
     
     // *********** Auth Provider *************** //
     authProvider : string;
     providerId : string;
     
     //************* Social Information ********** //
-    degree? : string;
-    college? : string;
-    description? : string;
-    tags : TagInterface[];
-    instagram? : string;
-    facebook? : string;
-    linkedin? : string;
-    youtube? : string;
+    degree : string;
+    college : string;
+    description : string;
+    tags : TagResponseData[];
+    instagram : string;
+    facebook : string;
+    linkedin : string;
+    youtube : string;
 
     //************* Stats Information ********** //
     questionsAsked: number;
