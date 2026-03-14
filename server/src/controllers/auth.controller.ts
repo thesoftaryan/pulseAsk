@@ -8,7 +8,7 @@ import { STATUS } from "../constants/statusCodes";
 import { errorResponse, successResponse, redirectResponse} from "../utils/response.util"
 
 // Types
-import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload, VerifyEmailPayload, RefreshTokenPayload, TokenData } from "../types/auth.types";
+import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload, VerifyEmailPayload, RefreshTokenPayload, TokenData } from "../types/auth.type";
 
 // Auth Services
 import { forgotPassword, loginUser, meService, refreshTokenService, registerUser, resendEmailVerificationLink, resetPassword, verifyEmail } from "../services/auth.service";
@@ -17,7 +17,7 @@ import { User } from "../models/User.model";
 
 // verification
 import { sendResetPasswordMail, sendVerificationMail } from "../services/email.service";
-import { UserResponse } from "../types/response/user.types";
+import { UserResponse } from "../types/response/user.type";
 
 
 export const googleOAuthCallbackController = async (req : Request, res : Response) => {

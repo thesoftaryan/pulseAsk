@@ -2,9 +2,9 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import homeRoutes from "./routes/home.routes";
-import authRoutes from "./routes/auth.routes";
-import generalRoutes from "./routes/general.routes";
+import homeRoutes from "./routes/home.route";
+import authRoutes from "./routes/auth.route";
+import generalRoutes from "./routes/general.route";
 import { errorMiddleware } from "./middlewares/error.middleware";
 import { authMiddleware } from "./middlewares/auth.middleware";
 

@@ -1,6 +1,6 @@
 import "express-serve-static-core";
 import { Types } from "mongoose";
-import { TokenData } from "./auth.types";
+import { TokenData } from "./auth.type";
 
 declare module "express-serve-static-core" {
     interface Request {

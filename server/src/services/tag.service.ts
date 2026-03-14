@@ -1,0 +1,47 @@
+import { GenerateTagPayload } from "../types/tag.type";
+
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+
+const generator = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const model = generator.getGenerativeModel({
+    model: "gemini-1.5-flash",
+});
+
+
+/**
+ * @param data of type GenerateTagPayload 
+ * @returns Generated list of tags
+*/
+export const GenerateTagService = async (data : GenerateTagPayload)=>{
+    const {title, description} = data;
+
+    const prompt = `
+        You are an excellent tag extractor for a medical Q&A platform.
+        Make sure you are extremely careful because it is a medical
+        platform.
+
+        Extract at most 7 relevant tags from the given question.
+        Make sure that the tags are highly relevant, also there is
+        no constraints for generating exactly 7 tags, you just need
+        to generate at most 7 tags in the worst case if all of the
+        tags are independent of each other.
+    
+        (Important) Return ONLY a string array of lowercase tags, you
+        need not to output any extra character, just an array of 
+        strings denoting tags.
+
+        Maximum 7 tags.
+    
+        Here is the content of the question from which you have to
+        extract the tags:
+        title: ${title}
+        description: ${description}
+    
+    `;
+
+    const result = await model.generateContent(prompt);
+    const text = result.response.text(); 
+    console.log(text);
+    return text;
+}

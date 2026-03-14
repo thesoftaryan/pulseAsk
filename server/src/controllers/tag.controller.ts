@@ -1,0 +1,17 @@
+import type { Request, Response } from "express";
+import { GenerateTagPayload } from "../types/tag.type";
+import { GenerateTagService } from "../services/tag.service";
+import { successResponse } from "../utils/response.util";
+import { STATUS } from "../constants/statusCodes";
+
+
+export const GenerateTagController = async (req : Request, res: Response)=>{
+    const data = req.body as GenerateTagPayload;
+    const tags = await GenerateTagService(data);
+    return successResponse(
+        res,
+        STATUS.SUCCESS.CREATED,
+        "Tags generated successfully",
+        tags
+    );
+}

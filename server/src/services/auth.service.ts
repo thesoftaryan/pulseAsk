@@ -7,7 +7,7 @@ import { STATUS } from "../constants/statusCodes";
 import { generateRandomToken } from "../utils/token.util";
 
 // importing types of Payload
-import { ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPayload, ResetPasswordPayload, TokenData, VerifyEmailPayload } from "../types/auth.types";
+import { ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPayload, ResetPasswordPayload, TokenData, VerifyEmailPayload } from "../types/auth.type";
 import { generateHash } from "../utils/hash.util";
 import { signToken, verifyToken } from "../utils/jwt.util";
 
