@@ -18,8 +18,11 @@ import InputField from "../../../components/common/InputField/InputField";
 import { useAppSelector } from "../../../hooks/store.hook";
 import TextEditor from "../../../components/common/TextEditor/TextEditor";
 import Button from "../../../components/common/Button/Button";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
+import { authRoutes } from "../../../routes/routesConstants";
 
 export const AccountSettings = ()=>{
+    const {safeNavigate} = useSafeNavigate();
     const user = useAppSelector(state=>state.auth.user);
     return (
         <div className={AccountSettingsStyle["container"]}>
@@ -116,7 +119,7 @@ export const AccountSettings = ()=>{
             <Divider text="Danger Zone" color={color.colorDanger}/>
             <div className={AccountSettingsStyle["danger-zone"]}>
                 <SettingsActionButton text="Delete Account" Icon={DeleteIcon} color={color.colorDanger}/>
-                <SettingsActionButton text="Change Password" Icon={passwordIcon} color={color.colorOrange}/>
+                <SettingsActionButton onClick={()=>{safeNavigate(authRoutes.forgotPassword)}} text="Change Password" Icon={passwordIcon} color={color.colorOrange}/>
             </div>
         </div>
     );

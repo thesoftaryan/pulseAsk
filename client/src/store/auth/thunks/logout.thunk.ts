@@ -14,4 +14,4 @@ export const logoutThunk = createAsyncThunk<ApiResponse<NoDataResponse>, void, {
             return rejectWithValue(parseErrorResponse(error));
         }
     },
-)
+);

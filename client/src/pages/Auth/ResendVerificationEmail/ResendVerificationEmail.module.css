@@ -27,6 +27,8 @@
 }
 
 .heading{
+    /* flex-grow: 1; */
+    /* background-color: violet; */
     margin-left: var(--spacing-sm);
     color: var(--color-subheading-text);
 }

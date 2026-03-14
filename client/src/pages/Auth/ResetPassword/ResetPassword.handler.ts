@@ -5,15 +5,18 @@ import { showToast } from "../../../utils/toast.util";
 import { useAppDispatch } from "../../../hooks/store.hook";
 import type { ApiError } from "../../../types/ApiResponse/index.type";
 import { resetPasswordThunk } from "../../../store/auth/thunks/resetPassword.thunk";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../routes/routesConstants";
 
 
 export const useResetPasswordHandler = ()=>{
     const dispatch = useAppDispatch();
-    
+    const {safeNavigate} = useSafeNavigate();
     const resetPasswordHandler = async (data : ResetPasswordFormData)=>{
         try{
             const response = await dispatch(resetPasswordThunk(data)).unwrap();
             showToast.success(response.message);
+            safeNavigate(homeRoutes.home);
         }catch(error){
             const err = error as ApiError;
             showToast.error(err.message);    

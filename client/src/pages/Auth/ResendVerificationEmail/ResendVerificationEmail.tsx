@@ -56,10 +56,10 @@ function ResendVerificationEmail(){
     return (
         <>
         <div className={ResendVerificationEmailStyle["container"]}>
-                <div className={ResendVerificationEmailStyle["header"]}>
-                    <PulseAskIcon className={ResendVerificationEmailStyle["icon"]}/>
-                    <BackButton text={"Go Back"} level1={true}/>
-                </div>
+            <div className={ResendVerificationEmailStyle["header"]}>
+                <PulseAskIcon className={ResendVerificationEmailStyle["icon"]}/>
+                <BackButton text={"Go Back"} level1={true}/>
+            </div>
             <div className={ResendVerificationEmailStyle["inner-container"]}>
             {
                 (!status || status!=="success")?  
@@ -73,13 +73,17 @@ function ResendVerificationEmail(){
                     <InputField placeholder="Enter your email" onChange={(e)=>{setEmail(e.target.value)}}/>
                     {errors.email && <InlineError message={errors.email}/>}
                     <GapBox className="gap-y-md"/>
-                    <Button text="Resend Link" onClick={handleResendVerificationEmail}/>
+                    <div  className={ResendVerificationEmailStyle["button"]} >
+                        <Button text="Resend Link" onClick={handleResendVerificationEmail}/>
+                    </div>
                 </>
                 :
                 <>
                     <h2 className={ResendVerificationEmailStyle["heading"]}> Email verification successfull, you can now login.</h2>
                     <GapBox className="gap-y-md"/>
-                    <Button text="Login" onClick={()=>{navigator(authRoutes.login)}} disabled={state.status==="loading"}/>
+                    <div  className={ResendVerificationEmailStyle["button"]} >
+                        <Button text="Login" onClick={()=>{navigator(authRoutes.login)}} disabled={state.status==="loading"}/>
+                    </div>
                 </>
             }
             </div>
