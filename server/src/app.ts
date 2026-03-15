@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import homeRoutes from "./routes/home.route";
 import authRoutes from "./routes/auth.route";
 import generalRoutes from "./routes/general.route";
+import tagRoutes from "./routes/tag.route";
 import { errorMiddleware } from "./middlewares/error.middleware";
 import { authMiddleware } from "./middlewares/auth.middleware";
 
@@ -28,13 +29,14 @@ app.get("/", (req, res)=>{
     res.send("PulseAsk's backend pulse is perfectly fine!");
 });
 
+// ********** Auth Route *********** \\
+app.use("/auth", authRoutes);
 
 // ********** Home Route *********** \\
 app.use("/home", authMiddleware, homeRoutes);
 
-// ********** Auth Route *********** \\
-app.use("/auth", authRoutes);
-
+// ********** Tag Route *********** \\
+app.use("/tag", authMiddleware,tagRoutes);
 
 // ********** General Routes *********** \\
 app.use("/", authMiddleware, generalRoutes);

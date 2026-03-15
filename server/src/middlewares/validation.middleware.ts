@@ -1,6 +1,7 @@
 import {Request, Response, NextFunction} from "express";
 import { STATUS } from "../constants/statusCodes";
 import { errorResponse } from "../utils/response.util";
+import { ApiError } from "../utils/error.util";
 
 type ValidatorFunction = (body : any) => Record<string, string>;
 
@@ -9,8 +10,7 @@ export const validate = (validator : ValidatorFunction) =>
         // console.log("inside validation middleware");
         const errors = validator(req.body);
         if(Object.keys(errors).length >0){
-            return errorResponse(
-                res,
+            throw new ApiError(
                 STATUS.CLIENT_ERROR.BAD_REQUEST,
                 "Invalid request",
                 errors

@@ -1,7 +1,7 @@
 import { isStrongPassword } from "../../../utils/validationHelpers.util";
 
 // Type
-import type { ResetPasswordFormData } from "../../../types/auth.types";
+import type { ResetPasswordFormData } from "../../../types/ApiRequest/auth.type";
 
 export const resetPasswordValidator = (data : ResetPasswordFormData) => {
     const errors : Record<string, string> = {};

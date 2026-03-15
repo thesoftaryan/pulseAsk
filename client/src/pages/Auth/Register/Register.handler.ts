@@ -4,7 +4,7 @@ import { registerThunk } from "../../../store/auth/thunks/register.thunk";
 import type { ApiError } from "../../../types/ApiResponse/index.type";
 
 // Types
-import type { OAuthProvider, RegisterFormData } from "../../../types/auth.types";
+import type { OAuthProvider, RegisterFormData } from "../../../types/ApiRequest/auth.type";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";

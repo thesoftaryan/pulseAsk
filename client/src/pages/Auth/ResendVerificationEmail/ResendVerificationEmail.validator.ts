@@ -1,4 +1,4 @@
-import type { ResendVerificationEmailFormData } from "../../../types/auth.types";
+import type { ResendVerificationEmailFormData } from "../../../types/ApiRequest/auth.type";
 import { isValidEmail } from "../../../utils/validationHelpers.util";
 
 export const verifyEmailValidator = (data : ResendVerificationEmailFormData)=>{

@@ -1,4 +1,4 @@
-import type { RegisterFormData, LoginFormData, ForgotPasswordFormData, ResetPasswordFormData, ResendVerificationEmailFormData } from "../types/auth.types";
+import type { RegisterFormData, LoginFormData, ForgotPasswordFormData, ResetPasswordFormData, ResendVerificationEmailFormData } from "../types/ApiRequest/auth.type";
 import api from "./axios";
 
 

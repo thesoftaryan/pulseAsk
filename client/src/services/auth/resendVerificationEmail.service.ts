@@ -1,6 +1,6 @@
 import { resendVerificationEmailAPI } from "../../api/auth.api";
 
-import type { ResendVerificationEmailFormData } from "../../types/auth.types";
+import type { ResendVerificationEmailFormData } from "../../types/ApiRequest/auth.type";
 
 export const resendVerificationEmailService = async (data : ResendVerificationEmailFormData) =>{
     return resendVerificationEmailAPI(data);

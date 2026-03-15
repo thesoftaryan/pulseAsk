@@ -1,13 +1,14 @@
 import { GenerateTagPayload } from "../types/tag.type";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { ApiError } from "../utils/error.util";
+import { STATUS } from "../constants/statusCodes";
 
 
 const generator = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const model = generator.getGenerativeModel({
-    model: "gemini-1.5-flash",
+    model: "gemini-2.5-flash",
 });
-
 
 /**
  * @param data of type GenerateTagPayload 
@@ -30,8 +31,11 @@ export const GenerateTagService = async (data : GenerateTagPayload)=>{
         (Important) Return ONLY a string array of lowercase tags, you
         need not to output any extra character, just an array of 
         strings denoting tags.
+        e.g. ["tag1", "tag2", ...]
 
-        Maximum 7 tags.
+        Maximum 7 tags. You can generate lesser than this count as well
+        if there are lesser amount of important tags, don't give
+        garbage tags.
     
         Here is the content of the question from which you have to
         extract the tags:
@@ -40,8 +44,18 @@ export const GenerateTagService = async (data : GenerateTagPayload)=>{
     
     `;
 
-    const result = await model.generateContent(prompt);
-    const text = result.response.text(); 
-    console.log(text);
-    return text;
+    let tags : string[]=[];
+
+    try{
+        const result = await model.generateContent(prompt);
+        const text = result.response.text(); 
+        tags = JSON.parse(text);
+    }catch(error){
+        throw new ApiError(
+            STATUS.SERVER_ERROR.BAD_GATEWAY,
+            "Tag generation failed, please try later.",
+        )
+    }
+    
+    return tags;
 }

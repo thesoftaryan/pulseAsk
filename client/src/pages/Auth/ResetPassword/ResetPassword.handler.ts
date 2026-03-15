@@ -1,5 +1,5 @@
 // Types
-import type { ResetPasswordFormData } from "../../../types/auth.types";
+import type { ResetPasswordFormData } from "../../../types/ApiRequest/auth.type";
 // Toast
 import { showToast } from "../../../utils/toast.util";
 import { useAppDispatch } from "../../../hooks/store.hook";

@@ -1,6 +1,6 @@
 import { isValidName, isStrongPassword, isValidEmail } from "../../../utils/validationHelpers.util";
 
-import type {RegisterFormData} from "../../../types/auth.types";
+import type {RegisterFormData} from "../../../types/ApiRequest/auth.type";
 
 
 export const registerFormValidator = (data : RegisterFormData)=>{

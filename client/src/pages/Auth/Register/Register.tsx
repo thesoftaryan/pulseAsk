@@ -9,7 +9,7 @@ import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
 import { registerFormValidator } from "./Register.validator";
 
 // Types
-import type { RegisterFormData } from "../../../types/auth.types";
+import type { RegisterFormData } from "../../../types/ApiRequest/auth.type";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";

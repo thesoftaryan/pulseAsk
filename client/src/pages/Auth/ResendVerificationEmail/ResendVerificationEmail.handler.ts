@@ -5,7 +5,7 @@ import { resendVerificationEmailThunk } from "../../../store/auth/thunks/resendV
 import type { ApiError } from "../../../types/ApiResponse/index.type";
 
 // Types
-import type { ResendVerificationEmailFormData } from "../../../types/auth.types";
+import type { ResendVerificationEmailFormData } from "../../../types/ApiRequest/auth.type";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";

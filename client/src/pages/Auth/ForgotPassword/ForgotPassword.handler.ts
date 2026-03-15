@@ -5,7 +5,7 @@ import { forgotPasswordThunk } from "../../../store/auth/thunks/forgotPassword.t
 import type { ApiError } from "../../../types/ApiResponse/index.type";
 
 // Types
-import type { ForgotPasswordFormData } from "../../../types/auth.types";
+import type { ForgotPasswordFormData } from "../../../types/ApiRequest/auth.type";
 
 // Toast
 import { showToast } from "../../../utils/toast.util";

@@ -8,7 +8,7 @@ import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
 // Logical Parts
 import { loginFormValidator } from "./Login.validator";
 // Types
-import type { LoginFormData } from "../../../types/auth.types";
+import type { LoginFormData } from "../../../types/ApiRequest/auth.type";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";

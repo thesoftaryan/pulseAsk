@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { ResendVerificationEmailFormData } from "../../../types/auth.types";
+import type { ResendVerificationEmailFormData } from "../../../types/ApiRequest/auth.type";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
 import type { ApiError, ApiResponse, NoDataResponse } from "../../../types/ApiResponse/index.type";
 import { resendVerificationEmailService } from "../../../services/auth/resendVerificationEmail.service";

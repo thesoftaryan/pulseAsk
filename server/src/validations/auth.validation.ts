@@ -1,4 +1,4 @@
-import {ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPayload, ResetPasswordPayload, VerifyEmailPayload} from "../types/auth.type";
+import {ForgotPasswordPayload, LoginPayload, RegisterPayload, ResetPasswordPayload, VerifyEmailPayload} from "../types/auth.type";
 import { isValidName, isValidEmail, isStrongPassword } from "../utils/validation.util";
 
 export const validateRegister = (body : RegisterPayload) => {

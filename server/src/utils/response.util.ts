@@ -21,10 +21,7 @@ export const errorResponse = <T>(
     res : Response,
     statusCode : number,
     message : string,
-    meta?: {
-        code? : string,
-        details? : string,
-    },
+    meta?: Record<string, string>,
 ) => {
     if(!meta){
         meta = {

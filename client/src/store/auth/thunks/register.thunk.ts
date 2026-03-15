@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { RegisterFormData } from "../../../types/auth.types";
+import type { RegisterFormData } from "../../../types/ApiRequest/auth.type";
 import { registerService } from "../../../services/auth/register.service";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
 import type { ApiError, ApiResponse, NoDataResponse } from "../../../types/ApiResponse/index.type";

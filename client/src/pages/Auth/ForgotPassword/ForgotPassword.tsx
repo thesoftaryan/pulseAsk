@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // Types
-import type { ForgotPasswordFormData } from "../../../types/auth.types";
+import type { ForgotPasswordFormData } from "../../../types/ApiRequest/auth.type";
 
 // Components
 import InputField from "../../../components/common/InputField/InputField";

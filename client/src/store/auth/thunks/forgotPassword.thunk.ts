@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { ForgotPasswordFormData } from "../../../types/auth.types";
+import type { ForgotPasswordFormData } from "../../../types/ApiRequest/auth.type";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
 import { forgotPasswordService } from "../../../services/auth/forgotPassword.service";
 import type { ApiError, ApiResponse, NoDataResponse } from "../../../types/ApiResponse/index.type";

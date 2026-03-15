@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 //Type
-import type { ResendVerificationEmailFormData } from "../../../types/auth.types";
+import type { ResendVerificationEmailFormData } from "../../../types/ApiRequest/auth.type";
 
 // Stylesheet
 import ResendVerificationEmailStyle from "./ResendVerificationEmail.module.css";

@@ -5,8 +5,8 @@ import { useAppDispatch } from "../../../hooks/store.hook";
 import { socialSignInService } from "../../../services/auth/socialSignIn.service";
 
 // Types
-import type { OAuthProvider } from "../../../types/auth.types";
-import type { LoginFormData } from "../../../types/auth.types";
+import type { OAuthProvider } from "../../../types/ApiRequest/auth.type";
+import type { LoginFormData } from "../../../types/ApiRequest/auth.type";
 import type { ApiError } from "../../../types/ApiResponse/index.type";
 
 // Toast
