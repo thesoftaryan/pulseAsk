@@ -188,19 +188,19 @@ export const loginController = async (req: Request, res: Response)=>{
         maxAge : payload.rememberMe? 30*24*60*60*1000 : 60*60*1000,
     });
     
-    const userData : UserResponse = {
+    const response : UserResponse = {
+        user: {
                 _id : user._id,
                 email : user.email,
                 firstName : user.firstName,
                 lastName : user.lastName,
-            };
+            }
+    };
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "User Login Successfull",
-        {
-            user : userData,
-        }
+        response,
     );
 };
 
@@ -272,18 +272,18 @@ export const resetPasswordController = async (req : Request, res : Response) => 
 export const meController = async (req : Request, res : Response) => {
     const payload = req.user!;
     const user = await meService(payload);
-    const userData : UserResponse = {
-            _id : user!._id,
-            email : user!.email,
-            firstName : user!.firstName,
-            lastName : user!.lastName,
-        };
+    const response : UserResponse = {
+        user: {
+                _id : user?._id,
+                email : user?.email,
+                firstName : user?.firstName,
+                lastName : user?.lastName,
+            }
+    };
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "User fetched successfully",
-        {
-            user : userData
-        }
+        response,
     );
 }

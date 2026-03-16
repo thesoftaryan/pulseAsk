@@ -16,6 +16,7 @@ import InputField from "../../../components/common/InputField/InputField";
 import { TagChip } from "../../../components/common/TagChip/TagChip";
 import { showToast } from "../../../utils/toast.util";
 import { generateTagAPI } from "../../../api/tag.api";
+import { useAskQuestionHandler } from "./AskQuestion.handler";
 
 
 
@@ -28,17 +29,16 @@ export const AskQuestion = ()=>{
         // }
         const [answerContent, setAnswerContent] = useState<JSONContent | null>(null);
 
-        const handleGenerate = async ()=>{
-            try{
-                const response = await generateTagAPI({
+        const generateTagData = {
                     title:"What to do when a person is sufferring through cardiac arrect",
                     description: "I recently came to a situation where a person was suffering from cardiac arrest and even after being there i wasn't able to help him. Please describe the steps need to be taken",
-                });
-                console.log(response);
-                showToast.success("Generated tags successfully");
-            }catch(error){
-                showToast.error("Generation failed");
-            }
+                };
+
+
+        const {generateTagHandler} = useAskQuestionHandler();
+
+        const handleTagGenerate = ()=>{
+            generateTagHandler(generateTagData);
         }
 
     return (
@@ -64,7 +64,7 @@ export const AskQuestion = ()=>{
                         <div className={AskQuestionStyle["tag-input-container"]}>
                             <input type="text" placeholder="Enter your tag" className={AskQuestionStyle["tag-input"]}/>
                             <div className={AskQuestionStyle["auto-tags"]}>
-                                <Button text="Auto Tags" Icon={AiIcon} level2={true} isSmall={true} onClick={handleGenerate}/>
+                                <Button text="Auto Tags" Icon={AiIcon} level2={true} isSmall={true} onClick={handleTagGenerate}/>
                             </div>
                         </div>
                         <div className={AskQuestionStyle["curr-tags-container"]}>

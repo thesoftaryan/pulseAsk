@@ -14,11 +14,16 @@ export interface ApiError{
     meta? : Record<string, string>;
 }
 
+
+
 export interface UserResponseData{
     user: Partial<UserInterface>;
 };
 
-export interface TagResponseData extends Partial<TagInterface>{};
+export interface TagResponseData{
+    tags: Partial<TagInterface>[];
+};
+
 
 export interface NoDataResponse{}
 

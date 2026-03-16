@@ -8,7 +8,7 @@ import { logoutThunk } from "./thunks/logout.thunk";
 import { forgotPasswordThunk } from "./thunks/forgotPassword.thunk";
 import { resendVerificationEmailThunk } from "./thunks/resendVerificationEmail.thunk";
 import { resetPasswordThunk } from "./thunks/resetPassword.thunk";
-import { checkAuthThunk } from "./thunks/checkAuthThunk";
+import { checkAuthThunk } from "./thunks/checkAuth.thunk";
 
 const initialState : AuthState = {
     isAuthenticated: false,

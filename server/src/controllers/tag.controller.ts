@@ -5,7 +5,6 @@ import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes";
 import { TagInterface } from "../models/Tag.model";
 import { generateTagColor, slugifyTag } from "../utils/tag.util";
-import { Types } from "mongoose";
 
 
 export const GenerateTagController = async (req : Request, res: Response)=>{
@@ -27,6 +26,8 @@ export const GenerateTagController = async (req : Request, res: Response)=>{
         res,
         STATUS.SUCCESS.CREATED,
         "Tags generated successfully",
-        tagsResponse,
+        {
+            tags: tagsResponse,
+        },
     );
 }

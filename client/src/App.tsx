@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "./hooks/store.hook";
 import { logoutThunk } from "./store/auth/thunks/logout.thunk";
 import { authRoutes } from "./routes/routesConstants";
-import { checkAuthThunk } from "./store/auth/thunks/checkAuthThunk";
+import { checkAuthThunk } from "./store/auth/thunks/checkAuth.thunk";
 import { useApplyTheme } from "./hooks/useApplyTheme.hook";
 // import { toggleTheme } from "./store/theme/theme.slice";
 

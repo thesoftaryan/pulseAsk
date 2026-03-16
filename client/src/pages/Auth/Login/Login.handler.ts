@@ -21,7 +21,7 @@ export const useLoginHandler = ()=>{
             showToast.success(response.message);
             onSuccess?.();
         }catch(error){
-            const err = error as ApiError
+            const err = error as ApiError;
             showToast.error(err.message);
         }
 
