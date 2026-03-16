@@ -3,18 +3,20 @@ import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiR
 import { generateTagService } from "../../../services/question/generateTag.service";
 import type { GenerateTagPayload } from "../../../types/ApiRequest/tag.type";
 import type { TagResponseData } from "../../../types/ApiResponse/index.type";
+import type { TagInterface } from "../../../types/ApiResponse/tag.type";
 import { showToast } from "../../../utils/toast.util";
 
 
 export const useAskQuestionHandler = ()=>{
     // const dispatch = useAppDispatch();
 
-    const generateTagHandler = async (data : GenerateTagPayload)=>{
+    const generateTagHandler = async (data : GenerateTagPayload, setTags : React.Dispatch<React.SetStateAction<Partial<TagInterface>[]>>)=>{
         try{
             const response = await generateTagService(data);
             const result = parseSuccessResponse<TagResponseData>(response);
-            console.log(result.data?.tags);
+            // console.log(result.data?.tags);
             // console.log(response);
+            setTags(result.data?.tags??[]);
             showToast.success(result.message);
         }catch(error){
             const err = parseErrorResponse(error);
