@@ -19,17 +19,17 @@ import { useApplyTheme } from "./hooks/useApplyTheme.hook";
 
 const App = ()=>{
 
-  useApplyTheme();
- 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
   /*
   Checking for theme toggle
   */
   // const theme = useAppSelector(state=>state.theme.theme);
   
   // Setting up initial theme
+  useApplyTheme();
+ 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
 
   useEffect(()=>{
     const isActive = localStorage.getItem("session_active");

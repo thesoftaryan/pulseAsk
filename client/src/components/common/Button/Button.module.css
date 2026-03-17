@@ -22,7 +22,8 @@
     padding: var(--spacing-lg);
     height: var(--size-button-height);
 
-    transition-duration: 200ms;
+    /* transition: ease-in 200ms; */
+    /* transition-duration: 200ms; */
 }
 
 .small{
@@ -59,7 +60,28 @@
     fill: var(--color-button-level1-icon);
 }
 
-.disabled{
-    background-color: var(--color-button-disabled);
+.button-text{
+    transition-duration: 200ms;
+}
+
+.spinner{
+    width: var(--size-icon-sm);
+    height: var(--size-icon-sm);
+    border: var(--size-border-md) solid transparent;
+    border-top: var(--size-border-md) solid currentColor;
+    border-right: var(--size-border-md) solid currentColor;
+    border-radius: var(--size-radius-circle);
+    animation: spin 0.6s linear infinite;
+    transition-duration: 200ms;
+}
+
+@keyframes spin {
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.hide{
+    display: none;
     transition-duration: 200ms;
 }

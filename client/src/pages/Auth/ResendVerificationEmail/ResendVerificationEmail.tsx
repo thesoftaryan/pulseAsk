@@ -82,7 +82,7 @@ function ResendVerificationEmail(){
                     <h2 className={ResendVerificationEmailStyle["heading"]}> Email verification successfull, you can now login.</h2>
                     <GapBox className="gap-y-md"/>
                     <div  className={ResendVerificationEmailStyle["button"]} >
-                        <Button text="Login" onClick={()=>{navigator(authRoutes.login)}} disabled={state.status==="loading"}/>
+                        <Button text="Login" onClick={()=>{navigator(authRoutes.login)}} loading={state.status==="loading"}/>
                     </div>
                 </>
             }

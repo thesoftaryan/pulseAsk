@@ -67,7 +67,7 @@ function ForgotPassword(){
                         <InputField isError={errors.email?.length} placeholder="Email Address" type="email" onChange={(e)=>{setEmail(e.target.value)}}/>
                         {errors.email?.length && <InlineError message={errors.email}/>}
                         <GapBox className="gap-y-md"></GapBox>
-                        <Button text="Send Link" onClick={handleForgotPassword} disabled={state.status==="loading"} />
+                        <Button text="Send Link" onClick={handleForgotPassword} loading={state.status==="loading"} />
                     </div>
                 </div>
             </div>

@@ -122,7 +122,7 @@ function Register() {
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-md"} />
 
-                    <Button text="Signup" onClick={handleRegister}  disabled={state.status==="loading"}/>
+                    <Button text="Signup" onClick={handleRegister}  loading={state.status==="loading"}/>
                     <Divider text="Or Signup with"></Divider>
                     <SocialSignInCard text="Google" Icon={GoogleSocialSignInIcon} onClick={() => { socialRegisterHandler("google"); }} />
                     {/* <SocialSignInCard text="Facebook" Icon={FacebookSocialSignInIcon} onClick={() => { console.log("Social sign in button clicked.") }} /> */}

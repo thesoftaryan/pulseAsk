@@ -85,7 +85,7 @@ function ResetPassword(){
                         <InputField isError={errors.confirmPassword?.length} type="password" placeholder="Confirm Password" onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
                         {errors.confirmPassword && <InlineError message={errors.confirmPassword}/>}
                         <GapBox className="gap-y-md"></GapBox>
-                        <Button text="Reset password" onClick={handleReset} disabled={state.status==="loading"}/>
+                        <Button text="Reset password" onClick={handleReset} loading={state.status==="loading"}/>
                     </div>
                 </div>
             </div>

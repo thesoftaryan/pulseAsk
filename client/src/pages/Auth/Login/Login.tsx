@@ -103,7 +103,7 @@ function Login() {
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-medium"} />
 
-                    <Button text="Login" onClick={handleLogin} disabled={state.status==="loading"}/>
+                    <Button text="Login" onClick={handleLogin} loading={state.status==="loading"}/>
 
                     <GapBox className={"gap-y-md"} />
                     <Link className={LoginStyle["forgot-password"]} to="/auth/forgot-password" >Forgot password?</Link>

@@ -18,6 +18,7 @@ import { TagChip } from "../../../components/common/TagChip/TagChip";
 import { useAskQuestionHandler } from "./AskQuestion.handler";
 import type { TagInterface } from "../../../types/ApiResponse/tag.type";
 import { generateTagColor } from "../../../utils/tag.util";
+import { showToast } from "../../../utils/toast.util";
 
 
 
@@ -33,6 +34,9 @@ export const AskQuestion = ()=>{
         const [tagInput, setTagInput] = useState<string>("");
         const [tags, setTags] = useState<Partial<TagInterface>[]>([]);
 
+        const [generatingTags, setGeneratingTags] = useState(false);
+        // const [postingQuestion, setPostingQuestion] = useState(false);
+
         const generateTagData = {
                     title:"What to do when a person is sufferring through cardiac arrect",
                     description: "I recently came to a situation where a person was suffering from cardiac arrest and even after being there i wasn't able to help him. Please describe the steps need to be taken",
@@ -42,13 +46,33 @@ export const AskQuestion = ()=>{
         const {generateTagHandler} = useAskQuestionHandler();
 
         const handleTagGenerate = ()=>{
-            generateTagHandler(generateTagData, setTags);
+            generateTagHandler(generateTagData, setTags, setGeneratingTags);
         }
 
         const handleTagAddition = ()=>{
-            if(!tagInput) return;
-            const newTag = {name: tagInput, color: generateTagColor(tagInput)};
+            if(!tagInput || !(tagInput.trim())) return;
+
+            if(tags.length == 10){
+                showToast.error("Only 10 tags allowed");
+                return;
+            }
+
+            const name = tagInput.trim().toLowerCase();
+
+            const isDupli = tags.some((e)=>{ return e.name===name });
+            if(isDupli){
+                showToast.warning("Tag already added");
+                return;
+            }
+
+            const newTag = {name: name, color: generateTagColor(tagInput)};
             setTags([...tags, newTag]);
+        }
+
+        const handleTagDeletion = (name:string)=>{
+            setTags((tagState)=>{
+                return tagState.filter((tag)=>tag.name!==name);
+            });
         }
 
     return (
@@ -72,22 +96,28 @@ export const AskQuestion = ()=>{
                     <div className={AskQuestionStyle["tags-container"]}>
                         <div className={AskQuestionStyle["tag-input-label"]}>Tags</div>
                         <div className={AskQuestionStyle["tag-input-container"]}>
-                            <input type="text" onChange={(e)=>setTagInput(e.target.value)} value={tagInput} placeholder="Enter your tag" className={AskQuestionStyle["tag-input"]}/>
+                            <input type="text" onChange={(e)=>setTagInput(e.target.value)}
+                             onKeyDown={(e)=>{
+                                if(e.key === "Enter"){
+                                    handleTagAddition();
+                                }
+                             }}
+                             value={tagInput} placeholder="Enter your tag" className={AskQuestionStyle["tag-input"]}/>
                             <div className={AskQuestionStyle["auto-tags"]}>
-                                {!tagInput && <Button text="Auto Tags" Icon={AiIcon} level2={true} isSmall={true} onClick={handleTagGenerate}/>}
+                                {!tagInput && <Button text="Auto Tags" loading={generatingTags} Icon={AiIcon} level2={true} isSmall={true} onClick={handleTagGenerate}/>}
                                 {tagInput && <Button text="Add Tag" Icon={TagIcon} level2={true} isSmall={true} onClick={handleTagAddition}/>}
                             </div>
                         </div>
                         <div className={AskQuestionStyle["curr-tags-container"]}>
                             {
                                 tags.map((tag)=>{
-                                    return <TagChip text={tag.name?? ""} color={tag.color?? "red"} level1={true} onDelete={()=>{}}/>
+                                    return <TagChip key={tag.name} text={tag.name?? ""} color={tag.color?? "red"} level1={true} onDelete={()=>{handleTagDeletion(tag.name??"")}}/>
                                 })
                             }
                             {
                                 !tags.length 
                                 &&
-                                <p>No Tags Added Yet</p>
+                                <p className={AskQuestionStyle["no-tag-message"]}>No Tags Added</p>
                             }
                             {/* <TagChip text="Heart" color="red" level1={true} onDelete={()=>{}}/>
                             <TagChip text="Heart" color="red" level1={true} onDelete={()=>{}}/>

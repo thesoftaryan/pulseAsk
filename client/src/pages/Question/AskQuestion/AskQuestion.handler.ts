@@ -10,8 +10,11 @@ import { showToast } from "../../../utils/toast.util";
 export const useAskQuestionHandler = ()=>{
     // const dispatch = useAppDispatch();
 
-    const generateTagHandler = async (data : GenerateTagPayload, setTags : React.Dispatch<React.SetStateAction<Partial<TagInterface>[]>>)=>{
+    const generateTagHandler = async (data : GenerateTagPayload, 
+        setTags : React.Dispatch<React.SetStateAction<Partial<TagInterface>[]>>, 
+        setGeneratingTags: React.Dispatch<React.SetStateAction<boolean>>)=>{
         try{
+            setGeneratingTags(true);
             const response = await generateTagService(data);
             const result = parseSuccessResponse<TagResponseData>(response);
             // console.log(result.data?.tags);
@@ -21,6 +24,8 @@ export const useAskQuestionHandler = ()=>{
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
+        }finally{
+            setGeneratingTags(false);
         }
     }
 
