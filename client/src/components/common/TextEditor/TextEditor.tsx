@@ -14,9 +14,15 @@ import TextEditorStyle from "./TextEditor.module.css";
 import { LinkEditor } from "./LinkEditor/LinkEditor";
 
 
+export type EditorContentType = {
+    json: JSONContent,
+    html: string;
+    text: string;
+}
+
 interface TextEditorProps{
     placeholder? : string;
-    onChange : (content: JSONContent)=>void;
+    onChange : (content: EditorContentType)=>void;
 }
 
 export default function TextEditor({placeholder, onChange} : TextEditorProps){
@@ -39,7 +45,11 @@ export default function TextEditor({placeholder, onChange} : TextEditorProps){
         ],
         content: "",
         onUpdate({editor}){
-            onChange(editor.getJSON());
+            onChange({
+                json: editor.getJSON(),
+                html: editor.getHTML(),
+                text: editor.getText(),
+            });
         },
         injectCSS: true,
     });

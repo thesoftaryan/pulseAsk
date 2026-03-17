@@ -4,8 +4,8 @@ import type { AnswerInterface } from "./answer.type";
 
 export interface QuestionInterface{
     _id: string;
-    title: String;
-    description: String;
+    title: string;
+    description: string;
     author: Partial<UserInterface>;
     askedAt: Date;
     voteCount: Number;

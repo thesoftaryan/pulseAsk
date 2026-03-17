@@ -1,17 +1,18 @@
 // import { useAppDispatch } from "../../../hooks/store.hook"
+// import { uploadImageHandler } from "../../../components/common/TextEditor/ImageHandler/Image.handler";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
 import { generateTagService } from "../../../services/question/generateTag.service";
 import type { GenerateTagPayload } from "../../../types/ApiRequest/tag.type";
 import type { TagResponseData } from "../../../types/ApiResponse/index.type";
 import type { TagInterface } from "../../../types/ApiResponse/tag.type";
+import { generateTagColor } from "../../../utils/tag.util";
 import { showToast } from "../../../utils/toast.util";
 
 
-export const useAskQuestionHandler = ()=>{
+export const useAskQuestionHandler = (setTags : React.Dispatch<React.SetStateAction<Partial<TagInterface>[]>>)=>{
     // const dispatch = useAppDispatch();
 
     const generateTagHandler = async (data : GenerateTagPayload, 
-        setTags : React.Dispatch<React.SetStateAction<Partial<TagInterface>[]>>, 
         setGeneratingTags: React.Dispatch<React.SetStateAction<boolean>>)=>{
         try{
             setGeneratingTags(true);
@@ -29,7 +30,36 @@ export const useAskQuestionHandler = ()=>{
         }
     }
 
+    const addTagHandler = (tagInput:string, tags: Partial<TagInterface>[])=>{
+
+        if(!tagInput || !(tagInput.trim())) return;
+
+        if(tags.length == 10){
+            showToast.error("Only 10 tags allowed");
+            return;
+        }
+
+        const name = tagInput.trim().toLowerCase();
+
+        if(tags.some((e)=>{ return e.name===name })){
+            showToast.warning("Tag already added");
+            return;
+        }
+
+        const newTag = {name: name, color: generateTagColor(tagInput)};
+        setTags([...tags, newTag]);
+        
+    }
+
+    const deleteTagHandler = (name:string)=>{
+        setTags((tagState)=>{
+            return tagState.filter((tag)=>tag.name!==name);
+        });
+    }
+
     return {
         generateTagHandler,
+        addTagHandler,
+        deleteTagHandler,
     }
 }

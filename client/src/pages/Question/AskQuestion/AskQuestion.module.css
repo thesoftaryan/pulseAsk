@@ -112,3 +112,7 @@
 .post-button{
     margin: 0 var(--spacing-md);
 }
+
+.disabled{
+    background-color: var(--color-input-disabled);
+}
