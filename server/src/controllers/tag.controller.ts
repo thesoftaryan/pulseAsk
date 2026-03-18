@@ -5,16 +5,17 @@ import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes";
 import { TagInterface } from "../models/Tag.model";
 import { generateTagColor, slugifyTag } from "../utils/tag.util";
+import { GenerateTagResponse } from "../types/response/tag.type";
 
 
 export const GenerateTagController = async (req : Request, res: Response)=>{
     const data = req.body as GenerateTagPayload;
     const tags = await GenerateTagService(data);
 
-    const tagsResponse : Partial<TagInterface>[] = [];
+    const tagsResponse : GenerateTagResponse[] = [];
 
     tags.map((tagName)=>{
-        const tag : Partial<TagInterface> = {
+        const tag : GenerateTagResponse = {
             name: tagName,
             color: generateTagColor(tagName),
         };

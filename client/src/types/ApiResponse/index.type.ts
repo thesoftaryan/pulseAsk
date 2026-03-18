@@ -1,4 +1,4 @@
-import type { TagInterface } from "./tag.type";
+import type { TagPayload } from "../ApiRequest/tag.type";
 import type { UserInterface } from "./user.type";
 
 export interface ApiResponse<T>{
@@ -21,7 +21,7 @@ export interface UserResponseData{
 };
 
 export interface TagResponseData{
-    tags: Partial<TagInterface>[];
+    tags: TagPayload[];
 };
 
 

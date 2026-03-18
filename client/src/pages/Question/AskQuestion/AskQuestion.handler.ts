@@ -3,24 +3,23 @@
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
 import { askQuestionService } from "../../../services/question/askQuestion.service";
 import { generateTagService } from "../../../services/question/generateTag.service";
-import type { GenerateTagPayload } from "../../../types/ApiRequest/tag.type";
+import type { AskQuestionPayload } from "../../../types/ApiRequest/question.type";
+import type { GenerateTagPayload, TagPayload } from "../../../types/ApiRequest/tag.type";
 import type { TagResponseData } from "../../../types/ApiResponse/index.type";
-import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
-import type { TagInterface } from "../../../types/ApiResponse/tag.type";
 import { generateTagColor } from "../../../utils/tag.util";
 import { showToast } from "../../../utils/toast.util";
 import { askQuestionValidator } from "./AskQuestion.validator";
 
 
 export const useAskQuestionHandler = (
-    setErrors: React.Dispatch<React.SetStateAction<Partial<QuestionInterface>>>,
-    setTags : React.Dispatch<React.SetStateAction<Partial<TagInterface>[]>>,
+    setErrors: React.Dispatch<React.SetStateAction<Partial<AskQuestionPayload>>>,
+    setTags : React.Dispatch<React.SetStateAction<TagPayload[]>>,
     setGeneratingTags: React.Dispatch<React.SetStateAction<boolean>>,
     setPostingQuestion: React.Dispatch<React.SetStateAction<boolean>>,
 )=>{
     // const dispatch = useAppDispatch();
 
-    const askQuestionHandler = async (data : Partial<QuestionInterface>)=>{
+    const askQuestionHandler = async (data : AskQuestionPayload)=>{
         const errors = askQuestionValidator(data);
 
         if(Object.keys(errors).length !== 0){
@@ -48,9 +47,9 @@ export const useAskQuestionHandler = (
     const generateTagHandler = async (
         data : GenerateTagPayload, 
     )=>{
-
+        const newData:AskQuestionPayload  = {...data, tags: [], descriptionHTML:""};
         // validating input data
-        const errors = askQuestionValidator(data);
+        const errors = askQuestionValidator(newData);
 
         if(Object.keys(errors).length !== 0){
             setErrors(errors);
@@ -73,7 +72,7 @@ export const useAskQuestionHandler = (
         }
     }
 
-    const addTagHandler = (tagInput:string, tags: Partial<TagInterface>[])=>{
+    const addTagHandler = (tagInput:string, tags: TagPayload[])=>{
 
         if(!tagInput || !(tagInput.trim())) return;
 

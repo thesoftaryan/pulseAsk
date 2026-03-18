@@ -1,7 +1,7 @@
-import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
+import type { AskQuestionPayload } from "../../../types/ApiRequest/question.type";
 
 
-export const askQuestionValidator = (data : Partial<QuestionInterface>)=>{
+export const askQuestionValidator = (data : AskQuestionPayload)=>{
     const errors : Record<string, string> = {};
 
     let {title, description} = data;

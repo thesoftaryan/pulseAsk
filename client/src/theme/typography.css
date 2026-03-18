@@ -13,6 +13,8 @@
 
   --font-heading: var(--font-size-xl);
 
+  --font-height-spacing: 25px;
+
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;

@@ -16,11 +16,10 @@ import InputField from "../../../components/common/InputField/InputField";
 
 import { TagChip } from "../../../components/common/TagChip/TagChip";
 import { useAskQuestionHandler } from "./AskQuestion.handler";
-import type { TagInterface } from "../../../types/ApiResponse/tag.type";
 
-import type { GenerateTagPayload } from "../../../types/ApiRequest/tag.type";
-import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
+import type { GenerateTagPayload, TagPayload } from "../../../types/ApiRequest/tag.type";
 import InlineError from "../../../components/common/InlineError/InlineError";
+import type { AskQuestionPayload } from "../../../types/ApiRequest/question.type";
 // import { generateTagColor } from "../../../utils/tag.util";
 // import { showToast } from "../../../utils/toast.util";
 
@@ -33,7 +32,7 @@ export const AskQuestion = ()=>{
         // }
         
         const [tagInput, setTagInput] = useState<string>("");
-        const [tags, setTags] = useState<Partial<TagInterface>[]>([]);
+        const [tags, setTags] = useState<TagPayload[]>([]);
         
         const [generatingTags, setGeneratingTags] = useState(false);
         const [postingQuestion, setPostingQuestion] = useState(false);
@@ -41,7 +40,7 @@ export const AskQuestion = ()=>{
         const [questionTitle, setQuestionTitle] = useState<string>("");
         const [questionDescription, setQuestionDescription] = useState<EditorContentType>();
 
-        const [errors, setErrors] = useState<Partial<QuestionInterface>>({});
+        const [errors, setErrors] = useState<Partial<AskQuestionPayload>>({});
 
         // const generateTagData = {
         //             title:"What to do when a person is sufferring through cardiac arrect",
@@ -133,7 +132,7 @@ export const AskQuestion = ()=>{
                             }
                         </div>
                     </div>
-                    <Button loading={postingQuestion} text="Post Question" onClick={()=>{console.log(questionDescription?.text); askQuestionHandler({title: questionTitle, description: questionDescription?.text, tags:[]})}} className={AskQuestionStyle["post-button"]}/>
+                    <Button loading={postingQuestion} text="Post Question" onClick={()=>{askQuestionHandler({title: questionTitle, description: questionDescription?.text??"", descriptionHTML:questionDescription?.html??"", tags:tags})}} className={AskQuestionStyle["post-button"]}/>
             </div>
         </div>
     );
