@@ -64,7 +64,7 @@ function ForgotPassword(){
                     <GapBox className="gap-y-md"></GapBox>
                     
                     <div className={ForgotPasswordStyle["form"]}>
-                        <InputField isError={errors.email?.length} placeholder="Email Address" type="email" onChange={(e)=>{setEmail(e.target.value)}}/>
+                        <InputField isError={errors.email?.length} placeholder="Email Address" type="email" onChange={(e)=>{setEmail(e.target.value); setErrors({});}}/>
                         {errors.email?.length && <InlineError message={errors.email}/>}
                         <GapBox className="gap-y-md"></GapBox>
                         <Button text="Send Link" onClick={handleForgotPassword} loading={state.status==="loading"} />

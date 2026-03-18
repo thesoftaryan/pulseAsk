@@ -102,22 +102,22 @@ function Register() {
                 <form className={RegisterStyle["register-form"]}>
                     <div className={RegisterStyle["name-input-container"]}>
                         <span>
-                            <InputField name="firstName" placeholder="First Name" onChange={(e)=>{setFirstName(e.target.value)}} value={firstName} isError={errors.firstName?.length}/>
+                            <InputField name="firstName" placeholder="First Name" onChange={(e)=>{setFirstName(e.target.value);setErrors({});}} value={firstName} isError={errors.firstName?.length}/>
                             {(errors.firstName?.length) && <InlineError message={errors.firstName}/>}
                         </span>
                         <span>
-                            <InputField name="lastName" placeholder="Last Name"  onChange={(e)=>{setLastName(e.target.value)}} value={lastName} isError={errors.lastName?.length}/>
+                            <InputField name="lastName" placeholder="Last Name"  onChange={(e)=>{setLastName(e.target.value);setErrors({});}} value={lastName} isError={errors.lastName?.length}/>
                             {(errors.lastName?.length) && <InlineError message={errors.lastName}/>}
                         </span>
                     </div>
-                    <InputField placeholder="Email" type="email"  onChange={(e)=>{setEmail(e.target.value)}} value={email} isError={errors.email?.length}/>
+                    <InputField placeholder="Email" type="email"  onChange={(e)=>{setEmail(e.target.value);setErrors({});}} value={email} isError={errors.email?.length}/>
                     {(errors.email?.length) && <InlineError message={errors.email}/>}
 
-                    <InputField placeholder="Password" type="password"  onChange={(e)=>{setPassword(e.target.value)}} value={password} isError={errors.password?.length}/>
+                    <InputField placeholder="Password" type="password"  onChange={(e)=>{setPassword(e.target.value);setErrors({});}} value={password} isError={errors.password?.length}/>
                     {(errors.password?.length) && <InlineError message={errors.password}/>}
 
-                    <CheckBox text={"Agree to"} linkText="Terms & Conditions" link=""  onChange={(e)=>{setAgreement(e.target.checked)}}  checked={agreement} isError={(!agreement && ("agreement" in errors))}/>
-                    {(!agreement && ("agreement" in errors)) && <InlineError message={"You must agree to continue"}/>}
+                    <CheckBox text={"Agree to"} linkText="Terms & Conditions" link=""  onChange={(e)=>{setAgreement(e.target.checked);setErrors({});}}  checked={agreement} isError={errors.agreement}/>
+                    {errors.agreement && <InlineError message={"You must agree to continue"}/>}
 
                     {/* Gaps are already defined in index.css inside theme directory */}
                     <GapBox className={"gap-y-md"} />

@@ -19,6 +19,8 @@ import { useAskQuestionHandler } from "./AskQuestion.handler";
 import type { TagInterface } from "../../../types/ApiResponse/tag.type";
 
 import type { GenerateTagPayload } from "../../../types/ApiRequest/tag.type";
+import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
+import InlineError from "../../../components/common/InlineError/InlineError";
 // import { generateTagColor } from "../../../utils/tag.util";
 // import { showToast } from "../../../utils/toast.util";
 
@@ -34,10 +36,12 @@ export const AskQuestion = ()=>{
         const [tags, setTags] = useState<Partial<TagInterface>[]>([]);
         
         const [generatingTags, setGeneratingTags] = useState(false);
-        // const [postingQuestion, setPostingQuestion] = useState(false);
+        const [postingQuestion, setPostingQuestion] = useState(false);
         
         const [questionTitle, setQuestionTitle] = useState<string>("");
         const [questionDescription, setQuestionDescription] = useState<EditorContentType>();
+
+        const [errors, setErrors] = useState<Partial<QuestionInterface>>({});
 
         // const generateTagData = {
         //             title:"What to do when a person is sufferring through cardiac arrect",
@@ -46,10 +50,11 @@ export const AskQuestion = ()=>{
 
 
         const {
+            askQuestionHandler,
             generateTagHandler,
             addTagHandler,
             deleteTagHandler,
-        } = useAskQuestionHandler(setTags);
+        } = useAskQuestionHandler(setErrors, setTags, setGeneratingTags, setPostingQuestion);
 
 
     return (
@@ -66,9 +71,12 @@ export const AskQuestion = ()=>{
                                 value={questionTitle}
                                 onChange={(e)=>{
                                     setQuestionTitle(e.target.value);
+                                    setErrors({});
                                 }}
                                 placeholder="Enter question title"
+                                isError={errors.title?.length}
                             />
+                            {errors.title && <InlineError message={errors.title}/>}
                         </div>
                     </div>
                     <div className={AskQuestionStyle["description-container"]}>
@@ -76,9 +84,11 @@ export const AskQuestion = ()=>{
                         <TextEditor 
                             onChange={(content)=>{
                                 setQuestionDescription(content);
+                                setErrors({});
                             }}
                             placeholder="Describe your question here!!"
                         />
+                        {errors.description && <InlineError message={errors.description}/>}
                     </div>
 
                     <div className={AskQuestionStyle["tags-container"]}>
@@ -104,7 +114,7 @@ export const AskQuestion = ()=>{
                                             title: questionTitle,
                                             description: (questionDescription?.text.trim())??"",
                                         };
-                                        generateTagHandler(generateTagData, setGeneratingTags)}
+                                        generateTagHandler(generateTagData)}
                                     }/>
                                 }
                                 {tagInput && <Button text="Add Tag" Icon={TagIcon} level2={true} isSmall={true} onClick={()=>{addTagHandler(tagInput, tags)}}/>}
@@ -113,7 +123,7 @@ export const AskQuestion = ()=>{
                         <div className={AskQuestionStyle["curr-tags-container"]}>
                             {
                                 tags.map((tag)=>{
-                                    return <TagChip key={tag.name} text={tag.name?? ""} color={tag.color?? "red"} level1={true} onDelete={()=>{deleteTagHandler(tag.name??"")}}/>
+                                    return <TagChip Key={tag.name} text={tag.name?? ""} color={tag.color?? "red"} level1={true} onDelete={()=>{deleteTagHandler(tag.name??"")}}/>
                                 })
                             }
                             {
@@ -123,7 +133,7 @@ export const AskQuestion = ()=>{
                             }
                         </div>
                     </div>
-                    <Button text="Post Question" onClick={()=>{console.log(questionDescription?.text)}} className={AskQuestionStyle["post-button"]}/>
+                    <Button loading={postingQuestion} text="Post Question" onClick={()=>{console.log(questionDescription?.text); askQuestionHandler({title: questionTitle, description: questionDescription?.text, tags:[]})}} className={AskQuestionStyle["post-button"]}/>
             </div>
         </div>
     );

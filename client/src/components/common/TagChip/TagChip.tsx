@@ -9,13 +9,13 @@ interface TagChipProps{
     level1? : boolean;
     isLarge?: boolean;
     onDelete?: ()=>void;
-    key?: string;
+    Key?: string;
 }
 
-export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, onDelete, key})=>{
+export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, onDelete, Key})=>{
     return (
         <>
-            <div key={key} className={`${TagChipStyle["container"]} ${(level1)? TagChipStyle["level1"]:""} ${(isLarge)? TagChipStyle["large-container"]:""}`}>
+            <div key={Key} className={`${TagChipStyle["container"]} ${(level1)? TagChipStyle["level1"]:""} ${(isLarge)? TagChipStyle["large-container"]:""}`}>
                 <div className={TagChipStyle["left"]}>
                     <div style={{backgroundColor: color}} className={`${TagChipStyle["circle"]} ${(isLarge)? TagChipStyle["large-circle"]:""}`} ></div>
                 </div>

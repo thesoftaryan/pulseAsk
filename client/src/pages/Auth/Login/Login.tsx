@@ -94,9 +94,9 @@ function Login() {
 
 
                 <form className={LoginStyle["login-form"]} >
-                    <InputField name="email" placeholder="Email" type="email" value={email} onChange={(e)=>{setEmail(e.target.value);}} isError={error.email?.length}/>
+                    <InputField name="email" placeholder="Email" type="email" value={email} onChange={(e)=>{setEmail(e.target.value);setError({});}} isError={error.email?.length}/>
                     {(error.email?.length) && <InlineError message={error.email}/>}
-                    <InputField name="password" placeholder="Password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value);}} isError={error.password?.length}/>
+                    <InputField name="password" placeholder="Password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value);setError({});}} isError={error.password?.length}/>
                     {(error.password?.length) && <InlineError message={error.password}/>}
                     <CheckBox text={"Remember me"} onChange={(e)=>{setRememberMe(e.target.checked)}}/>
 

@@ -70,7 +70,7 @@ function ResendVerificationEmail(){
                     <h1 className={ResendVerificationEmailStyle["heading"]}> Resend Verification Link</h1>
                     <GapBox className="gap-y-lg"/>
                     
-                    <InputField placeholder="Enter your email" onChange={(e)=>{setEmail(e.target.value)}}/>
+                    <InputField placeholder="Enter your email" onChange={(e)=>{setEmail(e.target.value); setErrors({});}}/>
                     {errors.email && <InlineError message={errors.email}/>}
                     <GapBox className="gap-y-md"/>
                     <div  className={ResendVerificationEmailStyle["button"]} >

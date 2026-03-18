@@ -1,19 +1,62 @@
 // import { useAppDispatch } from "../../../hooks/store.hook"
 // import { uploadImageHandler } from "../../../components/common/TextEditor/ImageHandler/Image.handler";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
+import { askQuestionService } from "../../../services/question/askQuestion.service";
 import { generateTagService } from "../../../services/question/generateTag.service";
 import type { GenerateTagPayload } from "../../../types/ApiRequest/tag.type";
 import type { TagResponseData } from "../../../types/ApiResponse/index.type";
+import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
 import type { TagInterface } from "../../../types/ApiResponse/tag.type";
 import { generateTagColor } from "../../../utils/tag.util";
 import { showToast } from "../../../utils/toast.util";
+import { askQuestionValidator } from "./AskQuestion.validator";
 
 
-export const useAskQuestionHandler = (setTags : React.Dispatch<React.SetStateAction<Partial<TagInterface>[]>>)=>{
+export const useAskQuestionHandler = (
+    setErrors: React.Dispatch<React.SetStateAction<Partial<QuestionInterface>>>,
+    setTags : React.Dispatch<React.SetStateAction<Partial<TagInterface>[]>>,
+    setGeneratingTags: React.Dispatch<React.SetStateAction<boolean>>,
+    setPostingQuestion: React.Dispatch<React.SetStateAction<boolean>>,
+)=>{
     // const dispatch = useAppDispatch();
 
-    const generateTagHandler = async (data : GenerateTagPayload, 
-        setGeneratingTags: React.Dispatch<React.SetStateAction<boolean>>)=>{
+    const askQuestionHandler = async (data : Partial<QuestionInterface>)=>{
+        const errors = askQuestionValidator(data);
+
+        if(Object.keys(errors).length !== 0){
+            setErrors(errors);
+            return;
+        }
+
+        
+        try{
+            setPostingQuestion(true);
+            if(!data.tags || data.tags.length===0){
+                await generateTagHandler({title: data.title??"", description: data.description??""});
+            }
+            const response = await askQuestionService(data);
+            const result = parseSuccessResponse(response);
+            showToast.success(result.message);
+        }catch(error){
+            const err = parseErrorResponse(error);
+            showToast.error(err.message);
+        }finally{
+            setPostingQuestion(false);
+        }
+    }
+
+    const generateTagHandler = async (
+        data : GenerateTagPayload, 
+    )=>{
+
+        // validating input data
+        const errors = askQuestionValidator(data);
+
+        if(Object.keys(errors).length !== 0){
+            setErrors(errors);
+            return;
+        }
+
         try{
             setGeneratingTags(true);
             const response = await generateTagService(data);
@@ -48,7 +91,6 @@ export const useAskQuestionHandler = (setTags : React.Dispatch<React.SetStateAct
 
         const newTag = {name: name, color: generateTagColor(tagInput)};
         setTags([...tags, newTag]);
-        
     }
 
     const deleteTagHandler = (name:string)=>{
@@ -58,6 +100,7 @@ export const useAskQuestionHandler = (setTags : React.Dispatch<React.SetStateAct
     }
 
     return {
+        askQuestionHandler,
         generateTagHandler,
         addTagHandler,
         deleteTagHandler,

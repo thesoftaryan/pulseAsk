@@ -80,9 +80,9 @@ function ResetPassword(){
                     }
                     
                     <div className={ResetPasswordStyle["form"]}>
-                        <InputField isError={errors.password?.length} type="password" placeholder="Enter New Password" onChange={(e)=>{setPassword(e.target.value)}}/>
+                        <InputField isError={errors.password?.length} type="password" placeholder="Enter New Password" onChange={(e)=>{setPassword(e.target.value); setErrors({});}}/>
                         {errors.password && <InlineError message={errors.password}/>}
-                        <InputField isError={errors.confirmPassword?.length} type="password" placeholder="Confirm Password" onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
+                        <InputField isError={errors.confirmPassword?.length} type="password" placeholder="Confirm Password" onChange={(e)=>{setConfirmPassword(e.target.value); setErrors({});}}/>
                         {errors.confirmPassword && <InlineError message={errors.confirmPassword}/>}
                         <GapBox className="gap-y-md"></GapBox>
                         <Button text="Reset password" onClick={handleReset} loading={state.status==="loading"}/>
