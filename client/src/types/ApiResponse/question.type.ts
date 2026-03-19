@@ -4,6 +4,7 @@ import type { AnswerInterface } from "./answer.type";
 
 export interface QuestionInterface{
     _id: string;
+    slug:string;
     title: string;
     description: string;
     descriptionHTML: string;

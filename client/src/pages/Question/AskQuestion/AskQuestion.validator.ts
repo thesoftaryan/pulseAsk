@@ -11,11 +11,15 @@ export const askQuestionValidator = (data : AskQuestionPayload)=>{
     
     if(!title || title.length < 5){
         errors.title = "Title is required to be of atleast 5 characters";
-        return errors;
     }
-    if(!description || description.length < 10){
+    else if(title.length > 100){
+        errors.title = "Title can be of atmost 100 characters";
+    }
+    else if(!description || description.length < 10){
         errors.description = "Description is required to be of atleast 10 characters";
-        return errors;
+    }
+    else if(description.length > 2000){
+        errors.title = "Description can be of atmost 2000 characters";
     }
 
     return errors;

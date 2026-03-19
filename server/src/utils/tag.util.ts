@@ -1,14 +1,3 @@
-import slugify from "slugify";
-
-
-export const slugifyTag = (name:string) : string =>{
-    return slugify(name, {
-        lower: true,
-        trim: true,
-        strict: true,
-    });
-}
-
 export const generateTagColor = (slug:string) : string =>{
     let hash=0;
     for(let i=0; i<slug.length; i++){

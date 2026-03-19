@@ -12,6 +12,7 @@ export const homeRoutes = {
     home : "/home",
     tag: "/tag",
     chat: "/chat",
+    // requires /question/:qid/:slug
     question: "/question",
     askQuestion: "/question/ask",
     search: "/search",

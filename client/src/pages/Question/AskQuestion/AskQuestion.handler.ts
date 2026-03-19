@@ -1,11 +1,13 @@
 // import { useAppDispatch } from "../../../hooks/store.hook"
 // import { uploadImageHandler } from "../../../components/common/TextEditor/ImageHandler/Image.handler";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../routes/routesConstants";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
 import { askQuestionService } from "../../../services/question/askQuestion.service";
 import { generateTagService } from "../../../services/question/generateTag.service";
 import type { AskQuestionPayload } from "../../../types/ApiRequest/question.type";
 import type { GenerateTagPayload, TagPayload } from "../../../types/ApiRequest/tag.type";
-import type { TagResponseData } from "../../../types/ApiResponse/index.type";
+import type { AskQuestionResponse, TagResponseData } from "../../../types/ApiResponse/index.type";
 import { generateTagColor } from "../../../utils/tag.util";
 import { showToast } from "../../../utils/toast.util";
 import { askQuestionValidator } from "./AskQuestion.validator";
@@ -18,6 +20,8 @@ export const useAskQuestionHandler = (
     setPostingQuestion: React.Dispatch<React.SetStateAction<boolean>>,
 )=>{
     // const dispatch = useAppDispatch();
+
+    const {safeNavigate} = useSafeNavigate();
 
     const askQuestionHandler = async (data : AskQuestionPayload)=>{
         const errors = askQuestionValidator(data);
@@ -37,9 +41,10 @@ export const useAskQuestionHandler = (
             // console.log(data.tags);
             console.log("request data: ", data);
             const response = await askQuestionService(data);
-            const result = parseSuccessResponse(response);
+            const result = parseSuccessResponse<AskQuestionResponse>(response);
             console.log("result: ", result);
             showToast.success(result.message);
+            safeNavigate(homeRoutes.question+`/${result.data?.qid}/${result.data?.slug}`);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);

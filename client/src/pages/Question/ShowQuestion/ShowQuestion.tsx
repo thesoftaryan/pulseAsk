@@ -16,7 +16,7 @@ import { UserProfile } from "../../../components/common/UserProfile/UserProfile"
 import Button from "../../../components/common/Button/Button";
 import { FilterBar } from "../../../components/layout/FilterBar/FilterBar";
 import { Answer } from "../../../components/common/Answer/Answer";
-import type { AnswerInterface } from "../../../types/answer.types";
+
 import { QuestionTags } from "./QuestionTags/QuestionTags";
 
 import { useState } from "react";
@@ -24,13 +24,18 @@ import { useState } from "react";
 import TextEditor from "../../../components/common/TextEditor/TextEditor";
 import type { JSONContent } from "@tiptap/react";
 
+import type { AnswerInterface } from "../../../types/ApiResponse/answer.type";
 
 
 
 
 export const ShowQuestion = ()=>{
         const answerObj : AnswerInterface = {
-            author : {uid: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
+            _id:"something",
+            questionId: "asd",
+            askedAt:new Date(),
+            voteCount: 0,
+            author : {_id: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
             content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
         }
         const [answerContent, setAnswerContent] = useState<JSONContent | null>(null);

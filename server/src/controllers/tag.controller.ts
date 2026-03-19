@@ -3,7 +3,7 @@ import { GenerateTagPayload } from "../types/tag.type";
 import { generateTagService } from "../services/tag.service";
 import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes";
-import { generateTagColor, slugifyTag } from "../utils/tag.util";
+import { generateTagColor } from "../utils/tag.util";
 import { GenerateTagResponse } from "../types/response/tag.type";
 
 

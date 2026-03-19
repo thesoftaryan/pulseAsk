@@ -5,6 +5,7 @@ import { TagInterface } from "./Tag.model";
 
 export interface QuestionInterface extends Document{
     _id: Types.ObjectId;
+    slug: string;
     title: String;
     description: String;
     descriptionHTML: string;
@@ -17,6 +18,11 @@ export interface QuestionInterface extends Document{
 
 const QuestionSchema = new Schema<QuestionInterface>(
     {
+        slug:{
+            type: String,
+            required: true,
+            unique: true,
+        },
         title: {
             type: String,
             required: true,

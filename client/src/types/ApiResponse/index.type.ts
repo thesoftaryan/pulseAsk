@@ -24,6 +24,10 @@ export interface TagResponseData{
     tags: TagPayload[];
 };
 
+export interface AskQuestionResponse{
+    qid: string;
+    slug: string;
+}
 
 export interface NoDataResponse{}
 

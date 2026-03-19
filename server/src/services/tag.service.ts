@@ -3,9 +3,10 @@ import { GenerateTagPayload, TagPayload } from "../types/tag.type";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
-import { generateTagColor, slugifyTag } from "../utils/tag.util";
-import { Tag, TagInterface } from "../models/Tag.model";
+import { generateTagColor } from "../utils/tag.util";
+import { Tag } from "../models/Tag.model";
 import { Types } from "mongoose";
+import { slugifyText } from "../utils/general.util";
 
 
 const generator = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
@@ -68,19 +69,19 @@ export const createTagService = async (data : TagPayload[])=>{
     
     for(const tagData of data){
         const tagObject = {
-            slug: slugifyTag(tagData.name),
+            slug: slugifyText(tagData.name),
             name: tagData.name,
             color: generateTagColor(tagData.name),
         }
-        console.log("tagObject: ",tagObject);
+        // console.log("tagObject: ",tagObject);
         let tag = await Tag.findOne({slug: tagObject.slug});
         if(!tag){
             tag = await Tag.create(tagObject);
         }
-        console.log("tag: ", tag);
+        // console.log("tag: ", tag);
         response.push(tag._id);
     }
 
-    console.log("responseObj: ", response);
+    // console.log("responseObj: ", response);
     return response;
 }
