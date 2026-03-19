@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 
 import QuestionStyle from "./Question.module.css";
 
-import type { TagInterface } from "../../../types/question.types";
+// import type { TagInterface } from "../../../types/question.types";
 
 import TagIcon from "../../../assets/icons/tag.svg?react";
 import RankIcon from "../../../assets/icons/general/rank.svg?react";
@@ -11,8 +11,10 @@ import RankIcon from "../../../assets/icons/general/rank.svg?react";
 import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
 import { Icon } from "../Icon/Icon";
-import type { User } from "../../../types/user.types";
+// import type { User } from "../../../types/user.types";
 import type { ReactElement } from "react";
+import type { TagPayload } from "../../../types/ApiRequest/tag.type";
+import type { UserInterface } from "../../../types/ApiResponse/user.type";
 
 const NoAnswerMessage = ()=>{
     return (
@@ -32,9 +34,9 @@ const NoAnswerMessage = ()=>{
 
 interface QuestionProps{
     id? : string;
-    author? : User;
+    author? : UserInterface;
     title : string;
-    tags? : Array<TagInterface>;
+    tags? : TagPayload[];
     best_answer? : ReactElement<any, any>;
     onClick?:VoidFunction;
 }

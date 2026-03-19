@@ -45,10 +45,10 @@ const App = ()=>{
       navigate(authRoutes.login, {replace : true});
     };
     document.addEventListener("auth/logout", handler);
-    // return ()=>{
-    //   document.removeEventListener("auth/logout", handler);
-    // }
-  }, []);
+    return ()=>{
+      document.removeEventListener("auth/logout", handler);
+    }
+  }, [dispatch]);
 
   return (
     <>

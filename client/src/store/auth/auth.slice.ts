@@ -123,7 +123,7 @@ const authSlice = createSlice({
             state.error = null;
         })
         .addCase(checkAuthThunk.fulfilled, (state, action)=>{
-            console.log("Check auth fulfilled");
+            // console.log("Check auth fulfilled");
             state.isAuthenticated = true;
             state.status = "authenticated";
             state.user = action.payload.data!.user;
@@ -131,7 +131,7 @@ const authSlice = createSlice({
         })
         .addCase(checkAuthThunk.rejected, (state, action)=>{
             // console.log("Check auth rejected");
-            localStorage.removeItem("session_active");
+            // localStorage.removeItem("session_active");
             state.isAuthenticated = false;
             state.user = null;
             state.status = "unauthenticated";

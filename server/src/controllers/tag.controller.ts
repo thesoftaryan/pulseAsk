@@ -1,16 +1,15 @@
 import type { Request, Response } from "express";
 import { GenerateTagPayload } from "../types/tag.type";
-import { GenerateTagService } from "../services/tag.service";
+import { generateTagService } from "../services/tag.service";
 import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes";
-import { TagInterface } from "../models/Tag.model";
 import { generateTagColor, slugifyTag } from "../utils/tag.util";
 import { GenerateTagResponse } from "../types/response/tag.type";
 
 
-export const GenerateTagController = async (req : Request, res: Response)=>{
+export const generateTagController = async (req : Request, res: Response)=>{
     const data = req.body as GenerateTagPayload;
-    const tags = await GenerateTagService(data);
+    const tags = await generateTagService(data);
 
     const tagsResponse : GenerateTagResponse[] = [];
 

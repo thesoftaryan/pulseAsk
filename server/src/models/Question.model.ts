@@ -7,6 +7,7 @@ export interface QuestionInterface extends Document{
     _id: Types.ObjectId;
     title: String;
     description: String;
+    descriptionHTML: string;
     author: UserInterface;
     askedAt: Date;
     voteCount: Number;
@@ -21,6 +22,10 @@ const QuestionSchema = new Schema<QuestionInterface>(
             required: true,
         },
         description: {
+            type: String,
+            required: true,
+        },
+        descriptionHTML: {
             type: String,
             required: true,
         },

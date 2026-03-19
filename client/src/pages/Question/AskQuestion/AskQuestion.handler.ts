@@ -30,11 +30,15 @@ export const useAskQuestionHandler = (
         
         try{
             setPostingQuestion(true);
+            // console.log(data.tags);
             if(!data.tags || data.tags.length===0){
-                await generateTagHandler({title: data.title??"", description: data.description??""});
+                data.tags = await generateTagHandler({title: data.title??"", description: data.description??""});
             }
+            // console.log(data.tags);
+            console.log("request data: ", data);
             const response = await askQuestionService(data);
             const result = parseSuccessResponse(response);
+            console.log("result: ", result);
             showToast.success(result.message);
         }catch(error){
             const err = parseErrorResponse(error);
@@ -46,14 +50,14 @@ export const useAskQuestionHandler = (
 
     const generateTagHandler = async (
         data : GenerateTagPayload, 
-    )=>{
+    ) : Promise<TagPayload[]> =>{
         const newData:AskQuestionPayload  = {...data, tags: [], descriptionHTML:""};
         // validating input data
         const errors = askQuestionValidator(newData);
 
         if(Object.keys(errors).length !== 0){
             setErrors(errors);
-            return;
+            return [];
         }
 
         try{
@@ -64,12 +68,14 @@ export const useAskQuestionHandler = (
             // console.log(response);
             setTags(result.data?.tags??[]);
             showToast.success(result.message);
+            return result.data?.tags??[];
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
         }finally{
             setGeneratingTags(false);
         }
+        return [];
     }
 
     const addTagHandler = (tagInput:string, tags: TagPayload[])=>{

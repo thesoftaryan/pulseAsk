@@ -1,8 +1,11 @@
-import { GenerateTagPayload } from "../types/tag.type";
+import { GenerateTagPayload, TagPayload } from "../types/tag.type";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
+import { generateTagColor, slugifyTag } from "../utils/tag.util";
+import { Tag, TagInterface } from "../models/Tag.model";
+import { Types } from "mongoose";
 
 
 const generator = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
@@ -14,7 +17,7 @@ const model = generator.getGenerativeModel({
  * @param data of type GenerateTagPayload 
  * @returns Generated list of tags
 */
-export const GenerateTagService = async (data : GenerateTagPayload)=>{
+export const generateTagService = async (data : GenerateTagPayload)=>{
     const {title, description} = data;
 
     const prompt = `
@@ -58,4 +61,26 @@ export const GenerateTagService = async (data : GenerateTagPayload)=>{
     }
     
     return tags;
+}
+
+export const createTagService = async (data : TagPayload[])=>{
+    const response:Types.ObjectId[] = [];
+    
+    for(const tagData of data){
+        const tagObject = {
+            slug: slugifyTag(tagData.name),
+            name: tagData.name,
+            color: generateTagColor(tagData.name),
+        }
+        console.log("tagObject: ",tagObject);
+        let tag = await Tag.findOne({slug: tagObject.slug});
+        if(!tag){
+            tag = await Tag.create(tagObject);
+        }
+        console.log("tag: ", tag);
+        response.push(tag._id);
+    }
+
+    console.log("responseObj: ", response);
+    return response;
 }

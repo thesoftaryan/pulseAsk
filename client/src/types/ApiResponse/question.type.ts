@@ -6,6 +6,7 @@ export interface QuestionInterface{
     _id: string;
     title: string;
     description: string;
+    descriptionHTML: string;
     author: Partial<UserInterface>;
     askedAt: Date;
     voteCount: Number;
