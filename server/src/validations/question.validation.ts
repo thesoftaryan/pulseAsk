@@ -1,4 +1,5 @@
-import { AskQuestionPayload } from "../types/question.type";
+import mongoose from "mongoose";
+import { AskQuestionPayload, FetchQuestionPayload } from "../types/question.type";
 
 
 export const validateAskQuestion = (body : AskQuestionPayload)=>{
@@ -30,5 +31,20 @@ export const validateAskQuestion = (body : AskQuestionPayload)=>{
         errors.description = "descriptionHTML is required";
     }
 
+    return errors;
+}
+
+export const validateFetchQuestion = (body: FetchQuestionPayload)=>{
+    const errors : Record<string, string> = {};
+
+    if(!body || typeof body !== "object"){
+        errors.body = "Request body is required";
+        return errors;
+    }
+
+    const{qid} = body;
+    if(!qid){
+        errors.qid = "qid is required to fetch question";
+    }
     return errors;
 }

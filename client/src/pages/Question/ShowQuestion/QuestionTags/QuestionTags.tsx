@@ -3,8 +3,14 @@ import { TagChip } from "../../../../components/common/TagChip/TagChip";
 import QuestionTagsStyle from "./QuestionTags.module.css";
 
 import TagIcon from "../../../../assets/icons/tag.svg?react";
+import type { TagInterface } from "../../../../types/ApiResponse/tag.type";
 
-export const QuestionTags = ()=>{
+interface QuestionTagsProps{
+    tags: TagInterface[],
+}
+
+
+export const QuestionTags:React.FC<QuestionTagsProps> = ({tags})=>{
     return (
         <div className={QuestionTagsStyle["container"]}>
             <div className={QuestionTagsStyle["header"]}>
@@ -14,15 +20,11 @@ export const QuestionTags = ()=>{
                 </div>
             </div>
             <div className={QuestionTagsStyle["tags"]}>
-                <TagChip color="red" text="Heart Attack"/>
-                <TagChip color="yellow" text="Heart Attack"/>
-                <TagChip color="blue" text="Heart"/>
-                <TagChip color="green" text="Heart Revive"/>
-                <TagChip color="skyblue" text="Heart Fail"/>
-                <TagChip color="magenta" text="Neumonia"/>
-                <TagChip color="black" text="Heart Attack"/>
-                <TagChip color="grey" text="Heart Attack"/>
-                <TagChip color="lightgreen" text="Heart Attack"/>
+                {
+                    tags.map((tag)=>{
+                        return <TagChip key={tag._id} color={tag.color} text={tag.name}/>
+                    })
+                }
             </div>
         </div>
     );

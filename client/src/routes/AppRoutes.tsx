@@ -26,7 +26,7 @@ const router = createBrowserRouter([
               children:[
                 {path: homeRoutes.home, element: <Home/>},
                 {path: homeRoutes.tag, element: <Tag/>},
-                {path: homeRoutes.question+"/:id/:slug", element: <ShowQuestion/>},
+                {path: homeRoutes.question+"/:qid/:slug", element: <ShowQuestion/>},
                 {path: homeRoutes.askQuestion, element: <AskQuestion/>},
                 {path: homeRoutes.profile, element: <Profile/>},
                 {path: homeRoutes.chat, element: <Chat/>},

@@ -7,3 +7,7 @@ export interface AskQuestionPayload{
     descriptionHTML: string;
     tags: TagPayload[];
 }
+
+export interface FetchQuestionPayload{
+    qid: string;
+}

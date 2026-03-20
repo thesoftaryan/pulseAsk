@@ -1,10 +1,10 @@
 import { Request, Response } from "express"
-import { AskQuestionPayload } from "../types/question.type"
-import { askQuestionService } from "../services/question.service";
+import { AskQuestionPayload, FetchQuestionPayload } from "../types/question.type"
+import { askQuestionService, fetchQuestionService } from "../services/question.service";
 import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes";
 
-export const AskQuestionController = async (req:Request, res: Response)=>{
+export const askQuestionController = async (req:Request, res: Response)=>{
     const data = req.body as AskQuestionPayload;
 
     const question = await askQuestionService(data, req.user!.uid);
@@ -19,5 +19,18 @@ export const AskQuestionController = async (req:Request, res: Response)=>{
         STATUS.SUCCESS.CREATED,
         "Question created successfully",
         response,
+    );
+};
+
+export const fetchQuestionController = async (req: Request, res: Response)=>{
+    const data = req.body as FetchQuestionPayload;
+    // console.log("qid: ",data)
+    const question = await fetchQuestionService(data);
+
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Question fetched successfully",
+        question,
     );
 }

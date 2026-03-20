@@ -28,6 +28,8 @@ import type { AnswerInterface } from "../../../types/ApiResponse/answer.type";
 import { useParams } from "react-router-dom";
 import { useShowQuestionHandler } from "./ShowQuestion.handler";
 import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../routes/routesConstants";
 
 
 type QuestionParams = {
@@ -37,26 +39,35 @@ type QuestionParams = {
 
 export const ShowQuestion = ()=>{
 
+    const {replaceNavigate} = useSafeNavigate();
     const {qid, slug} = useParams<QuestionParams>();
-    const [question, setQuestion] = useState<QuestionInterface>({
+
+    const initObj = {
         _id:"",
         askedAt: new Date(),
-        author: {},
+        author: {
+            profile:"",
+            firstName:"",
+            lastName: "",
+            reputationScore: 0,
+        },
         description: "",
         descriptionHTML: "",
         slug: "",
         tags: [],
         title: "",
         voteCount: 0,
-    });
+    };
+    const [question, setQuestion] = useState<QuestionInterface>(initObj);
 
     const{fetchQuestionHandler} = useShowQuestionHandler(setQuestion);
 
 
     useEffect(()=>{
         if(qid){
-            console.log(slug);
-            fetchQuestionHandler(qid);
+            fetchQuestionHandler(qid, slug??"");
+        }else{
+            replaceNavigate(homeRoutes.home);
         }
     }, []);
 
@@ -76,7 +87,7 @@ export const ShowQuestion = ()=>{
                     <div className={ShowQuestionStyle["show-question-container"]}>
                         <div className={ShowQuestionStyle["question-title"]}>
                             <QuestionIcon className={ShowQuestionStyle["question-icon"]}/>
-                            <div className={ShowQuestionStyle["title-text"]}>How to do CPR correctly, Urgent help needed!</div>
+                            <div className={ShowQuestionStyle["title-text"]}>{question.title}</div>
                             <div className={ShowQuestionStyle["actions-container"]}>
                                 <Icon IconData={BookmarkIcon} />
                                 <Icon IconData={ReportIcon}/>
@@ -87,7 +98,7 @@ export const ShowQuestion = ()=>{
                         </div>
                         <div className={ShowQuestionStyle["question-meta"]}>
                             <div className={ShowQuestionStyle["left"]}>
-                                <div className={ShowQuestionStyle["question-time"]}>Asked <span className={ShowQuestionStyle["time-val"]}>24h ago</span></div>
+                                <div className={ShowQuestionStyle["question-time"]}>Asked <span className={ShowQuestionStyle["time-val"]}>{question.askedAt.toLocaleString()}</span></div>
                                 <Icon active={true} IconData={UpvoteIcon} text="Upvote"/>
                                 <Icon IconData={DownvoteIcon}/>
                             </div>
@@ -97,12 +108,12 @@ export const ShowQuestion = ()=>{
                                 </div>
                                 <div className={ShowQuestionStyle["user-data"]}>
                                     <div className={ShowQuestionStyle["user-name"]}>
-                                        Aryan Maurya
+                                        {question.author.firstName} {question.author.lastName} 
                                     </div>
                                     <div className={ShowQuestionStyle["user-reputation"]}>
                                         <ReputationIcon className={ShowQuestionStyle["reputation-icon"]}/>
                                         <div className={ShowQuestionStyle["reputation-count"]}>
-                                            2.6K
+                                            {question.author.reputationScore}
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +139,7 @@ export const ShowQuestion = ()=>{
                             </div>
                         </div>
                         <div className={ShowQuestionStyle["question-tags"]}>
-                            <QuestionTags/>
+                            <QuestionTags tags={question.tags}/>
                         </div>
                     </div>
             </div>
