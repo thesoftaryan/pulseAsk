@@ -35,9 +35,9 @@ export const useAskQuestionHandler = (
         try{
             setPostingQuestion(true);
             // console.log(data.tags);
-            if(!data.tags || data.tags.length===0){
-                data.tags = await generateTagHandler({title: data.title??"", description: data.description??""});
-            }
+            // if(!data.tags || data.tags.length===0){
+            //     data.tags = await generateTagHandler({title: data.title??"", description: data.description??""});
+            // }
             // console.log(data.tags);
             console.log("request data: ", data);
             const response = await askQuestionService(data);

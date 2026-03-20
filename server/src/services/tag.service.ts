@@ -7,6 +7,7 @@ import { generateTagColor } from "../utils/tag.util";
 import { Tag } from "../models/Tag.model";
 import { Types } from "mongoose";
 import { slugifyText } from "../utils/general.util";
+import { GenerateTagResponse } from "../types/response/tag.type";
 
 
 const generator = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
@@ -48,12 +49,21 @@ export const generateTagService = async (data : GenerateTagPayload)=>{
     
     `;
 
-    let tags : string[]=[];
-
+    
+    const tagsResponse : GenerateTagResponse[] = [];
     try{
         const result = await model.generateContent(prompt);
         const text = result.response.text(); 
-        tags = JSON.parse(text);
+        let tags : string[]=JSON.parse(text);
+        
+        
+        tags.map((tagName)=>{
+            const tag : GenerateTagResponse = {
+                name: tagName,
+                color: generateTagColor(tagName),
+            };
+            tagsResponse.push(tag);
+        });
     }catch(error){
         throw new ApiError(
             STATUS.SERVER_ERROR.BAD_GATEWAY,
@@ -61,7 +71,7 @@ export const generateTagService = async (data : GenerateTagPayload)=>{
         )
     }
     
-    return tags;
+    return tagsResponse;
 }
 
 export const createTagService = async (data : TagPayload[])=>{

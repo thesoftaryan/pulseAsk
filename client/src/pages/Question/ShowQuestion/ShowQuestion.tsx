@@ -11,7 +11,7 @@ import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
 
 import { Icon } from "../../../components/common/Icon/Icon";
 
-import {Image as ImageComponent} from "../../../components/common/Image/Image";
+// import {Image as ImageComponent} from "../../../components/common/Image/Image";
 import { UserProfile } from "../../../components/common/UserProfile/UserProfile";
 import Button from "../../../components/common/Button/Button";
 import { FilterBar } from "../../../components/layout/FilterBar/FilterBar";
@@ -19,26 +19,56 @@ import { Answer } from "../../../components/common/Answer/Answer";
 
 import { QuestionTags } from "./QuestionTags/QuestionTags";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import TextEditor from "../../../components/common/TextEditor/TextEditor";
 import type { JSONContent } from "@tiptap/react";
 
 import type { AnswerInterface } from "../../../types/ApiResponse/answer.type";
+import { useParams } from "react-router-dom";
+import { useShowQuestionHandler } from "./ShowQuestion.handler";
+import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
 
 
-
+type QuestionParams = {
+    qid: string;
+    slug: string;
+}
 
 export const ShowQuestion = ()=>{
-        const answerObj : AnswerInterface = {
-            _id:"something",
-            questionId: "asd",
-            askedAt:new Date(),
-            voteCount: 0,
-            author : {_id: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
-            content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
+
+    const {qid, slug} = useParams<QuestionParams>();
+    const [question, setQuestion] = useState<QuestionInterface>({
+        _id:"",
+        askedAt: new Date(),
+        author: {},
+        description: "",
+        descriptionHTML: "",
+        slug: "",
+        tags: [],
+        title: "",
+        voteCount: 0,
+    });
+
+    const{fetchQuestionHandler} = useShowQuestionHandler(setQuestion);
+
+
+    useEffect(()=>{
+        if(qid){
+            console.log(slug);
+            fetchQuestionHandler(qid);
         }
-        const [answerContent, setAnswerContent] = useState<JSONContent | null>(null);
+    }, []);
+
+    const answerObj : AnswerInterface = {
+        _id:"something",
+        questionId: "asd",
+        askedAt:new Date(),
+        voteCount: 0,
+        author : {_id: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
+        content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
+    }
+    const [answerContent, setAnswerContent] = useState<JSONContent | null>(null);
 
     return (
         <div className={ShowQuestionStyle["container"]}>
@@ -53,13 +83,7 @@ export const ShowQuestion = ()=>{
                             </div>
                         </div>
                         <div className={ShowQuestionStyle["question-content"]}>
-                            3 types of Notification : <br/>
-                            1. If the user gets his answer for a question he asked <br/>
-                            2. when someone sends him money <br/>
-                            3. when someone sends him a message <br/>
-                            When a user clicks on the view now, it will be redirected to the required location
-                            Now, to do the CPR correctly, see the below image that I have attached for your reference<br/>
-                            <ImageComponent path="https://plus.unsplash.com/premium_photo-1682001641334-aba3a6584a31?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
+                            {question.descriptionHTML}
                         </div>
                         <div className={ShowQuestionStyle["question-meta"]}>
                             <div className={ShowQuestionStyle["left"]}>

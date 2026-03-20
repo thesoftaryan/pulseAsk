@@ -11,23 +11,12 @@ export const generateTagController = async (req : Request, res: Response)=>{
     const data = req.body as GenerateTagPayload;
     const tags = await generateTagService(data);
 
-    const tagsResponse : GenerateTagResponse[] = [];
-
-    tags.map((tagName)=>{
-        const tag : GenerateTagResponse = {
-            name: tagName,
-            color: generateTagColor(tagName),
-        };
-        tagsResponse.push(tag);
-    });
-
-
     return successResponse(
         res,
         STATUS.SUCCESS.CREATED,
         "Tags generated successfully",
         {
-            tags: tagsResponse,
+            tags: tags,
         },
     );
 }
