@@ -1,6 +1,8 @@
 .container{
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     background-color: var(--color-level1-bg);
     border-radius: var(--size-radius-md);
     padding: var(--spacing-md);
