@@ -1,4 +1,4 @@
-type VoteType = 1 | -1;
+export type VoteType = 1 | -1;
 
 export interface VotePayload{
     targetId: string;

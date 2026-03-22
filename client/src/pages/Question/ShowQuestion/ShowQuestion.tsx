@@ -61,7 +61,7 @@ export const ShowQuestion = ()=>{
     };
     const [question, setQuestion] = useState<QuestionInterface>(initObj);
 
-    const{fetchQuestionHandler} = useShowQuestionHandler(setQuestion);
+    const{fetchQuestionHandler, voteQuestionHandler} = useShowQuestionHandler(setQuestion);
 
 
     useEffect(()=>{

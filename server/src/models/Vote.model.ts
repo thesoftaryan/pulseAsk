@@ -27,6 +27,7 @@ const VoteSchema = new Schema<VoteInterface>({
     },
     value: {
         type: Number,
+        enum:[1, -1],
         required: true,
     }
 },
