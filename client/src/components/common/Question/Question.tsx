@@ -34,7 +34,7 @@ const NoAnswerMessage = ()=>{
 
 interface QuestionProps{
     id? : string;
-    author? : UserInterface;
+    author? : Partial<UserInterface>;
     title : string;
     tags? : TagPayload[];
     best_answer? : ReactElement<any, any>;

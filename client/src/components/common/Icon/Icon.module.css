@@ -30,4 +30,5 @@
 .text{
     margin: 0 var(--spacing-sm);
     font-size: var(--font-size-md);
+    user-select: none;
 }

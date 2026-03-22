@@ -2,11 +2,11 @@ import UserAnswerTileStyle from "./UserAnswerTile.module.css";
 
 import { UserProfile } from "../../../../../components/common/UserProfile/UserProfile";
 
-import type { User } from "../../../../../types/user.types";
+import type { UserInterface } from "../../../../../types/ApiResponse/user.type";
 import Button from "../../../../../components/common/Button/Button";
 
 interface UserAnswerTileProps{
-    author : User;
+    author : Partial<UserInterface>;
     content : string;
     level1?: boolean;
 }

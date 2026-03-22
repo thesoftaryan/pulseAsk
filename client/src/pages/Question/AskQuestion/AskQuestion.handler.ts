@@ -7,7 +7,8 @@ import { askQuestionService } from "../../../services/question/askQuestion.servi
 import { generateTagService } from "../../../services/question/generateTag.service";
 import type { AskQuestionPayload } from "../../../types/ApiRequest/question.type";
 import type { GenerateTagPayload, TagPayload } from "../../../types/ApiRequest/tag.type";
-import type { AskQuestionResponse, TagResponseData } from "../../../types/ApiResponse/index.type";
+import type { AskQuestionResponse } from "../../../types/ApiResponse/question.type";
+import type { TagResponse } from "../../../types/ApiResponse/tag.type";
 import { generateTagColor } from "../../../utils/tag.util";
 import { showToast } from "../../../utils/toast.util";
 import { askQuestionValidator } from "./AskQuestion.validator";
@@ -68,7 +69,7 @@ export const useAskQuestionHandler = (
         try{
             setGeneratingTags(true);
             const response = await generateTagService(data);
-            const result = parseSuccessResponse<TagResponseData>(response);
+            const result = parseSuccessResponse<TagResponse>(response);
             // console.log(result.data?.tags);
             // console.log(response);
             setTags(result.data?.tags??[]);

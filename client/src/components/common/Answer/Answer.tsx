@@ -12,15 +12,16 @@ import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
 
 import { UserProfile } from "../UserProfile/UserProfile";
 import { Icon } from "../Icon/Icon";
-import type { User } from "../../../types/user.types";
+// import type { User } from "../../../types/user.types";
 import { useState } from "react";
 import { FilterBar } from "../../layout/FilterBar/FilterBar";
 
 import { Comment } from "../Comment/Comment";
 import Button from "../Button/Button";
+import type { UserInterface } from "../../../types/ApiResponse/user.type";
 
 interface AnswerProps{
-    author : User;
+    author : Partial<UserInterface>;
     content : string;
     level1?: boolean;
     level1Comments?: boolean;
@@ -38,7 +39,7 @@ export const Answer : React.FC<AnswerProps> = ({author, content, level1, level1C
                 <div className={AnswerStyle["header"]}>
                     <UserProfile className={AnswerStyle["user-profile"]}/>
                     <div className={AnswerStyle["user-data"]}>
-                        {author.first_name + " " + author.last_name}
+                        {author.firstName + " " + author.lastName}
                         <div className={AnswerStyle["user-education"]}>
                             {/* User Education detail will go here */}
                             Khandani Institute of Technology

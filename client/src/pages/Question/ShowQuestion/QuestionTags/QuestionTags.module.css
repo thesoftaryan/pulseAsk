@@ -6,6 +6,7 @@
     background-color: var(--color-level1-bg);
     border-radius: var(--size-radius-md);
     padding: var(--spacing-md);
+    word-break: break-all;
 }
 
 .header{
@@ -28,6 +29,7 @@
 .tags{
     display: flex;
     flex-wrap: wrap;
+    min-width: var(--size-sidebar-min-width);
     max-width: var(--size-sidebar-max-width);
     gap: var(--spacing-sm);
 }

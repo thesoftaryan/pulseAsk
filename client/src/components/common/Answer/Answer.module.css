@@ -6,6 +6,7 @@
     background-color: var(--color-level2-bg);
     color: var(--color-text);
     padding: var(--spacing-md);
+    word-break: break-all;
 }
 
 .level1-container{

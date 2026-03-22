@@ -1,3 +1,5 @@
+import type { TagPayload } from "../ApiRequest/tag.type";
+
 export interface TagInterface{
     _id: string;
     
@@ -8,3 +10,7 @@ export interface TagInterface{
 
     usageCount: number;
 }
+
+export interface TagResponse{
+    tags: TagPayload[];
+};

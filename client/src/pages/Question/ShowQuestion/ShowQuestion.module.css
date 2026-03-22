@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: stretch;
     color: var(--color-text);
+    word-break: break-all;
 }
 
 .main-content{
@@ -48,11 +49,13 @@
     align-items: center;
 
     /* margin: var(--spacing-md); */
-    margin-top: var(--spacing-lg);
+    margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
     padding: var(--spacing-lg);
 
     background-color: var(--color-level1-bg);
     border-radius: var(--size-radius-md);
+
+    flex-wrap: wrap;
 
     font-size: var(--font-size-md);
 }

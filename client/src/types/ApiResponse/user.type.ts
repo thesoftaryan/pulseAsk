@@ -1,4 +1,4 @@
-import type { TagResponseData } from "./index.type";
+import type { TagResponse } from "./tag.type";
 
 // export interface User{
 //     uid : string;
@@ -7,6 +7,10 @@ import type { TagResponseData } from "./index.type";
 //     lastName : string;
 //     profile?:string;
 // }
+
+export interface UserResponse{
+    user: Partial<UserInterface>;
+};
 
 
 interface StripeConnection{
@@ -80,7 +84,7 @@ export interface UserInterface{
     degree : string;
     college : string;
     description : string;
-    tags : TagResponseData[];
+    tags : TagResponse[];
     instagram : string;
     facebook : string;
     linkedin : string;

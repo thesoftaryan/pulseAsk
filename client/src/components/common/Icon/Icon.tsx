@@ -8,12 +8,13 @@ interface IconProps{
     left?: boolean;
     danger?: boolean;
     onClick?: VoidFunction; 
+    disabled?: boolean;
 }
 
-export const Icon : React.FC<IconProps> = ({IconData, text, level2, active, left, danger, onClick})=>{
+export const Icon : React.FC<IconProps> = ({IconData, text, level2, active, left, danger, onClick, disabled})=>{
     return (
         <>
-            <div onClick={onClick} className={`${IconStyle["action-icon-container"]} ${level2? IconStyle["level2"]:""}`}>
+            <div onClick={(disabled? undefined:onClick)} className={`${IconStyle["action-icon-container"]} ${level2? IconStyle["level2"]:""}`}>
                 {text && (left) && 
                     (<div className={`${IconStyle["text"]} ${active? IconStyle["active-icon"]:""} ${danger? IconStyle["danger-icon"]:""}`}>
                         {text}

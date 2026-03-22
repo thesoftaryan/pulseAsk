@@ -6,6 +6,7 @@
     background-color: var(--color-level1-bg); 
     color: var(--color-text);
     max-width: var(--size-max-width);
+    word-break: break-all;
 }
 
 /* Header : Start */
@@ -50,6 +51,7 @@
 .header .meta-data{
     margin: 0 var(--spacing-sm);
     color: var(--color-placeholder-text);
+    word-break: keep-all;
 }
 
 /* Header : Ends */

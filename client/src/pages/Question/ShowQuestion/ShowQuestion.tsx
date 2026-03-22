@@ -30,6 +30,7 @@ import { useShowQuestionHandler } from "./ShowQuestion.handler";
 import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
+import { relativeTimeFormat } from "../../../utils/formatDateTime.util";
 
 
 type QuestionParams = {
@@ -98,9 +99,23 @@ export const ShowQuestion = ()=>{
                         </div>
                         <div className={ShowQuestionStyle["question-meta"]}>
                             <div className={ShowQuestionStyle["left"]}>
-                                <div className={ShowQuestionStyle["question-time"]}>Asked <span className={ShowQuestionStyle["time-val"]}>{question.askedAt.toLocaleString()}</span></div>
-                                <Icon active={true} IconData={UpvoteIcon} text="Upvote"/>
-                                <Icon IconData={DownvoteIcon}/>
+                                <div className={ShowQuestionStyle["question-time"]}>Asked <span className={ShowQuestionStyle["time-val"]}>{relativeTimeFormat(question.askedAt)}</span></div>
+                                <Icon active={(question.voteCount>=0)?true:false} IconData={UpvoteIcon} text={(question.voteCount === 0)? "Upvote":(question.voteCount>0)?question.voteCount.toString():""} onClick={()=>{
+                                    setQuestion(
+                                        {
+                                            ...question,
+                                            voteCount: question.voteCount+1,
+                                        }
+                                    )
+                                }}/>
+                                <Icon IconData={DownvoteIcon} left={true} danger={(question.voteCount<0)?true:false} text={(question.voteCount<0)?question.voteCount.toString():""} onClick={()=>{
+                                    setQuestion(
+                                        {
+                                            ...question,
+                                            voteCount: question.voteCount-1,
+                                        }
+                                    )
+                                }}/>
                             </div>
                             <div className={ShowQuestionStyle["right"]}>
                                 <div className={ShowQuestionStyle["profile"]}>
@@ -125,9 +140,9 @@ export const ShowQuestion = ()=>{
                         <TextEditor onChange={setAnswerContent} placeholder="Enter your Answer here!!"/>
                         <Button text="Post Answer" onClick={()=>{console.log(answerContent)}}/>
                     </div>
-                    <FilterBar reverse={true} text="381 Answers Found"/>
                     <div className={ShowQuestionStyle["answers-container"]}>
                         <div className={ShowQuestionStyle["answers"]}>
+                            <FilterBar reverse={true} text="381 Answers Found"/>
                             <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
                             <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
                             <Answer author={answerObj.author} content={answerObj.content} level1={true}/>

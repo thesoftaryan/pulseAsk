@@ -5,6 +5,7 @@
   /* MaxWidth */
   --size-max-width: 1400px;
   --size-sidebar-max-width:500px;
+  --size-sidebar-min-width:250px;
   --size-notification-modal-width:400px;
   --size-notification-modal-width-small: 90%;
   --size-notification-modal-height:70vh;

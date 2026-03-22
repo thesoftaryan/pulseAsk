@@ -10,7 +10,12 @@ export interface QuestionInterface{
     descriptionHTML: string;
     author: Partial<UserInterface>;
     askedAt: Date;
-    voteCount: Number;
+    voteCount: number;
     bestAnswer?: AnswerInterface;
     tags: TagInterface[];
+}
+
+export interface AskQuestionResponse{
+    qid: string;
+    slug: string;
 }
