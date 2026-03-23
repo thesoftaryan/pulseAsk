@@ -8,3 +8,12 @@ export interface AnswerInterface{
     voteCount: number;
     askedAt: Date;
 };
+
+
+export interface PostAnswerResponse{
+
+}
+
+export interface FetchAnswersResponse{
+    answers: AnswerInterface[];
+}

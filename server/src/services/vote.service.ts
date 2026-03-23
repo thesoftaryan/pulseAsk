@@ -12,6 +12,13 @@ import { VoteResponse } from "../types/response/vote.type";
  * @returns updated vote count
  */
 export const voteService = async (uid: Types.ObjectId, data : VotePayload, target: TargetType)=>{
+    if(!(Types.ObjectId.isValid(data.targetId))){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            `${target==="answer"? "Answer":"Question"} not found`,
+        );
+    }
+    
     if(data.targetAuthor == uid){
         throw new ApiError(
             STATUS.CLIENT_ERROR.FORBIDDEN,
@@ -22,7 +29,6 @@ export const voteService = async (uid: Types.ObjectId, data : VotePayload, targe
         userId: uid,
         targetId: data.targetId,
         targetType: target,
-        value: data.vote,
     };
     const vote = await Vote.findOne(voteObj);
 
@@ -30,10 +36,12 @@ export const voteService = async (uid: Types.ObjectId, data : VotePayload, targe
     let voteCount=0;
 
     let newVote=data.vote as number;
-
+    let flag=false;
     if(vote){
+        // console.log("vote val: ", vote.value);
         if(data.vote == vote.value){
-            newVote=0;
+            newVote=(data.vote==1)? -1:1;
+            flag=true;
         }else{
             if(data.vote==1 && vote.value==-1){
                 newVote = 2;
@@ -44,7 +52,7 @@ export const voteService = async (uid: Types.ObjectId, data : VotePayload, targe
             }
         }
     }else{
-        await Vote.create(voteObj);
+        await Vote.create({...voteObj, value:newVote});
     }
 
 
@@ -60,6 +68,7 @@ export const voteService = async (uid: Types.ObjectId, data : VotePayload, targe
                 "Question not found",
             );
         }
+        // console.log("new vote: ", question.voteCount);
         voteCount = (question.voteCount) as number;
     }else{
         await Answer.updateOne(
@@ -76,7 +85,11 @@ export const voteService = async (uid: Types.ObjectId, data : VotePayload, targe
         voteCount = (answer.voteCount) as number;
     }
 
-    await vote?.save();
+    if(flag){
+        await Vote.deleteOne({_id: vote?.id});
+    }else{
+        await vote?.save();
+    }
     
     return voteCount;
 }

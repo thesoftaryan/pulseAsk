@@ -6,7 +6,7 @@ import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes";
 
 
-export const answerController = async (req:Request, res:Response)=>{
+export const voteAnswerController = async (req:Request, res:Response)=>{
     const data = req.body as VotePayload;
     const voteCount = await voteService(req.user!.uid, data, "answer");
     const response:VoteResponse = {
