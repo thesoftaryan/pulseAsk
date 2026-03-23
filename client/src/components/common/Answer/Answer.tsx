@@ -18,42 +18,60 @@ import { FilterBar } from "../../layout/FilterBar/FilterBar";
 
 import { Comment } from "../Comment/Comment";
 import Button from "../Button/Button";
-import type { UserInterface } from "../../../types/ApiResponse/user.type";
+import type { AnswerInterface } from "../../../types/ApiResponse/answer.type";
+import { relativeTimeFormat } from "../../../utils/formatDateTime.util";
+
+import { useAnswerHandler } from "./Answer.handler";
 
 interface AnswerProps{
-    author : Partial<UserInterface>;
-    content : string;
+    answer: AnswerInterface,
     level1?: boolean;
     level1Comments?: boolean;
 }
 
-export const Answer : React.FC<AnswerProps> = ({author, content, level1, level1Comments})=>{
+export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})=>{
     const [isComment, setIsComment] = useState(false);
-    
+
+    const [voting, setVoting] = useState(false);
+    const [voteCount, setVoteCount] = useState(answer.voteCount);
+
+    const {voteAnswerHandler} = useAnswerHandler(
+        setVoting,
+        setVoteCount,
+    );
+
     return (
         <>
             <div className={`${AnswerStyle["container"]} ${level1? AnswerStyle["level1-container"]:""}`}>
                 <div className={AnswerStyle["time-answered"]}>
-                    12h ago
+                    {relativeTimeFormat(answer.askedAt)}
                 </div>
                 <div className={AnswerStyle["header"]}>
                     <UserProfile className={AnswerStyle["user-profile"]}/>
                     <div className={AnswerStyle["user-data"]}>
-                        {author.firstName + " " + author.lastName}
+                        {answer.author.firstName + " " + answer.author.lastName}
                         <div className={AnswerStyle["user-education"]}>
                             {/* User Education detail will go here */}
-                            Khandani Institute of Technology
+                            {answer.author.college}
                         </div>
                     </div>
 
                 </div>
                 <div className={AnswerStyle["answer-wrapper"]}>
-                    {content}
+                    {answer.contentHTML}
                 </div>
                 <div className={AnswerStyle["footer"]}>
                     <div className={AnswerStyle["left"]}>
-                        <Icon level2={level1} active={true} IconData={UpvoteIcon} text="Upvote"/>
-                        <Icon level2={level1} IconData={DownvoteIcon}/>
+                        <Icon disabled={voting} active={(voteCount>=0)? true:false} text={(voteCount>0)? voteCount.toString():"Upvote"} level2={level1} IconData={UpvoteIcon} 
+                        onClick={()=>{
+                            voteAnswerHandler(1, answer._id, answer.author._id??"");
+                        }}    
+                        />
+                        <Icon disabled={voting} danger={(voteCount<0)? true:false} text={(voteCount<0)? voteCount.toString():""} level2={level1} IconData={DownvoteIcon}  
+                        onClick={()=>{
+                            voteAnswerHandler(-1, answer._id, answer.author._id??"");
+                        }}    
+                        />
                         <Icon level2={level1} IconData={CommentIcon} onClick={()=>{setIsComment(!isComment)}}/>
                     </div>
                     <div className={AnswerStyle["right"]}>

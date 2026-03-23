@@ -32,6 +32,7 @@ import { homeRoutes } from "../../../routes/routesConstants";
 import { relativeTimeFormat } from "../../../utils/formatDateTime.util";
 import type { PostAnswerPayload } from "../../../types/ApiRequest/answer.type";
 import { postAnswerValidator } from "./ShowQuestion.validator";
+import InlineError from "../../../components/common/InlineError/InlineError";
 
 
 
@@ -69,6 +70,8 @@ export const ShowQuestion = ()=>{
 
     const [answers, setAnswers] = useState<AnswerInterface[]>([]);
     
+    const [errors, setErrors] = useState<Partial<PostAnswerPayload>>({});
+
     const{fetchQuestionHandler, fetchAnswersHandler, postAnswerHandler, voteQuestionHandler} = useShowQuestionHandler(setQuestion, setAnswers);
 
 
@@ -81,7 +84,7 @@ export const ShowQuestion = ()=>{
         }
     }, []);
 
-    const handlePostAnswer = ()=>{
+    const handlePostAnswer = async ()=>{
 
         const postAnswerPaylod : PostAnswerPayload = {
             qid: qid!,
@@ -89,20 +92,22 @@ export const ShowQuestion = ()=>{
             contentHTML: answerContent?.html??"",
         }
         const valError = postAnswerValidator(postAnswerPaylod);
-
+        setErrors(valError);
         if(Object.keys(valError).length===0){
-            postAnswerHandler(postAnswerPaylod);
+            await postAnswerHandler(postAnswerPaylod);
+            await fetchAnswersHandler({qid:qid!});
         }
     }
 
-    const answerObj : AnswerInterface = {
-        _id:"something",
-        questionId: "asd",
-        askedAt:new Date(),
-        voteCount: 0,
-        author : {_id: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
-        content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
-    }
+    // const answerObj : AnswerInterface = {
+    //     _id:"something",
+    //     qid: "asd",
+    //     askedAt:new Date(),
+    //     voteCount: 0,
+    //     author : {_id: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
+    //     content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
+    //     contentHTML : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
+    // }
     
 
     return (
@@ -153,12 +158,13 @@ export const ShowQuestion = ()=>{
                     <div className={ShowQuestionStyle["submit-answer-container"]}>
                         {/* <textarea className={ShowQuestionStyle["submit-answer-textarea"]}/> */}
                         <TextEditor onChange={setAnswerContent} placeholder="Enter your Answer here!!"/>
+                        {errors.content && <InlineError message={errors.content}/>}
                         <Button text="Post Answer" onClick={()=>{console.log(answerContent); handlePostAnswer();}}/>
                     </div>
                     <div className={ShowQuestionStyle["answers-container"]}>
                         <div className={ShowQuestionStyle["answers"]}>
                             <FilterBar reverse={true} text="381 Answers Found"/>
-                            <Answer author={answerObj.author} content={answerObj.content} level1={true}/>
+                            {/* <Answer author={answerObj.author} content={answerObj.content} level1={true}/> */}
                             {
                                 (answers.length===0)
                                 &&
@@ -170,7 +176,7 @@ export const ShowQuestion = ()=>{
                                 <>
                                 {
                                 answers.map((answer)=>{
-                                    return <Answer author={answer.author} content={answer.content} level1={true}/>
+                                    return <Answer key={answer._id} answer={answer} level1={true}/>
                                 })
                                 }
                                 </>

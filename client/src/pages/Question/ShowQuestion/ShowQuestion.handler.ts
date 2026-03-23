@@ -43,6 +43,7 @@ export const useShowQuestionHandler = (
         try{
             const response = await fetchAnswersService(data);
             const result = parseSuccessResponse<FetchAnswersResponse>(response);
+            console.log(result.data?.answers);
             setAnswers(result.data!.answers)
         }catch(error){
             const err = parseErrorResponse(error);

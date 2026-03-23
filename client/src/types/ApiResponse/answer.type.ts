@@ -2,9 +2,10 @@ import type { UserInterface } from "./user.type";
 
 export interface AnswerInterface{
     _id: string;
-    questionId: string;
+    qid: string;
     author: Partial<UserInterface>;
     content: string;
+    contentHTML: string;
     voteCount: number;
     askedAt: Date;
 };

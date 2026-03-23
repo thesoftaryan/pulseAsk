@@ -4,6 +4,9 @@ import { voteService } from "../services/vote.service";
 import { VoteResponse } from "../types/response/vote.type";
 import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes";
+import { FetchAnswersPayload, PostAnswerPayload } from "../types/answer.type";
+import { fetchAnswersService, postAnswerService } from "../services/answer.service";
+import { FetchAnswersResponse } from "../types/response/answer.type";
 
 
 export const voteAnswerController = async (req:Request, res:Response)=>{
@@ -16,5 +19,29 @@ export const voteAnswerController = async (req:Request, res:Response)=>{
         res,
         STATUS.SUCCESS.OK,
         "Voted successfully",
+    );
+}
+
+export const postAnswerController = async (req: Request, res: Response)=>{
+    const data = req.body as PostAnswerPayload;
+    await postAnswerService(req.user!.uid, data);
+    return successResponse(
+        res,
+        STATUS.SUCCESS.CREATED,
+        "Answer posted successfully",
+    );
+}
+
+export const fetchAnswersController = async (req:Request, res:Response)=>{
+    const data = req.body as FetchAnswersPayload;
+    const answers = await fetchAnswersService(data);
+    const response:FetchAnswersResponse={
+        answers,
+    }
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Answers Fetched Successfully",
+        response,
     );
 }

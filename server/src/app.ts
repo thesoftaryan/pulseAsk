@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import homeRoutes from "./routes/home.route";
 import authRoutes from "./routes/auth.route";
 import questionRoute from "./routes/question.route";
+import answerRoute from "./routes/answer.route";
 import tagRoutes from "./routes/tag.route";
 import generalRoutes from "./routes/general.route";
 import { errorMiddleware } from "./middlewares/error.middleware";
@@ -38,6 +39,9 @@ app.use("/home", authMiddleware, homeRoutes);
 
 // ********** Question Route *********** \\
 app.use("/question", authMiddleware, questionRoute);
+
+// ********** Answer Route *********** \\
+app.use("/answer", authMiddleware, answerRoute);
 
 // ********** Tag Route *********** \\
 app.use("/tag", authMiddleware,tagRoutes);

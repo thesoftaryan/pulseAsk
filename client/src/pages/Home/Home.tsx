@@ -65,7 +65,7 @@ export const Home = ()=>{
                 <div className={HomeStyle["question-leaderboard-section"]}>
                     <div className={HomeStyle["question-section"]}>
                         <Question onClick={()=>{safeNavigate(homeRoutes.question)}} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/>
-                        <Question onClick={()=>{safeNavigate(homeRoutes.question)}} best_answer={<Answer level1Comments={true} author={answerObj.author!} content={answerObj.content!}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/>
+                        {/* <Question onClick={()=>{safeNavigate(homeRoutes.question)}} best_answer={<Answer level1Comments={true} author={answerObj.author!} content={answerObj.content!}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/> */}
 
                         <div className={HomeStyle["load-more-button"]}>
                             <Button text="Load More" isSmall={true} level1={true} Icon={LoadMoreIcon}/>

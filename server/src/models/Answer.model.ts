@@ -3,16 +3,17 @@ import { UserInterface } from "./User.model";
 
 export interface AnswerInterface extends Document{
     _id: Types.ObjectId;
-    questionId: Types.ObjectId;
-    author: UserInterface;
+    qid: Types.ObjectId;
+    author: Types.ObjectId;
     content: string;
+    contentHTML: string;
     voteCount: number;
     askedAt: Date;
 };
 
 const AnswerSchema = new Schema<AnswerInterface>(
     {
-        questionId: {
+        qid: {
             type: Schema.Types.ObjectId,
             ref: "Question",
             required: true,
@@ -23,6 +24,10 @@ const AnswerSchema = new Schema<AnswerInterface>(
             required: true,
         },
         content:{
+            type: String,
+            required: true,
+        },
+        contentHTML:{
             type: String,
             required: true,
         },
