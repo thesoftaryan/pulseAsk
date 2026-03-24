@@ -114,7 +114,7 @@ export const refreshTokenController = async (req : Request, res : Response)=>{
         return errorResponse(
             res,
             STATUS.CLIENT_ERROR.UNAUTHORIZED,
-            "Refresh token is required",
+            "Please login again!",
         );
     }
     const newAccessToken = await refreshTokenService({refreshToken : refreshToken});

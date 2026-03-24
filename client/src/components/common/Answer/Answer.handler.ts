@@ -4,12 +4,16 @@ import type { VotePayload, VoteType } from "../../../types/ApiRequest/vote.type"
 import { showToast } from "../../../utils/toast.util";
 import type { VoteResponse } from "../../../types/ApiResponse/vote.type";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
+import type { FetchCommentsPayload, PostCommentPayload } from "../../../types/ApiRequest/comment.type";
+import { fetchAnswerCommentsService, postAnswerCommentService } from "../../../services/answer/answerComment.service";
+import type { PostCommentResponse, CommentInterface, FetchCommentsResponse } from "../../../types/ApiResponse/comment.typs";
 
 
 
 export const useAnswerHandler = (
     setVoting: React.Dispatch<React.SetStateAction<boolean>>,
     setVoteCount: React.Dispatch<React.SetStateAction<number>>,
+    setComments: React.Dispatch<React.SetStateAction<CommentInterface[]>>,
 )=>{
 
     const auth = useAppSelector(state=>state.auth);
@@ -34,6 +38,7 @@ export const useAnswerHandler = (
             setVoting(true);
             const response = await voteAnswerService(voteObj);
             const result = parseSuccessResponse<VoteResponse>(response);
+            // console.log(result.data?.voteCount);
             setVoteCount(result.data?.voteCount??0);
         }catch(error){
             const err = parseErrorResponse(error);
@@ -43,7 +48,44 @@ export const useAnswerHandler = (
         }
     }
 
+    const fetchAnswerCommentsHandler = async (aid:string, setFetching: React.Dispatch<React.SetStateAction<boolean>>)=>{
+        try{
+            const reqObj:FetchCommentsPayload = {
+                targetId: aid,
+            };
+            setFetching(true);
+            const response = await fetchAnswerCommentsService(reqObj);
+            const result = parseSuccessResponse<FetchCommentsResponse>(response);
+            setComments(result.data?.comments??[]);
+        }catch(error){
+            const err = parseErrorResponse(error);
+            showToast.error(err.message);
+        }finally{
+            setFetching(false);
+        }
+    }
+
+    const postAnswerCommentHandler = async (aid:string, content: string, setPostingComment: React.Dispatch<React.SetStateAction<boolean>>)=>{
+        try{
+            const reqObj:PostCommentPayload = {
+                targetId: aid,
+                content,
+            };
+            setPostingComment(true);
+            const response = await postAnswerCommentService(reqObj);
+            const result = parseSuccessResponse<PostCommentResponse>(response);
+            showToast.success(result.message);
+        }catch(error){
+            const err = parseErrorResponse(error);
+            showToast.error(err.message);
+        }finally{
+            setPostingComment(false);
+        }
+    }
+
     return {
         voteAnswerHandler,
+        fetchAnswerCommentsHandler,
+        postAnswerCommentHandler,
     }
 }

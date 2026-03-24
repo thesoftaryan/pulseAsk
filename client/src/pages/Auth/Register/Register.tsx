@@ -62,7 +62,7 @@ function Register() {
 
 
     const handleRegister = ()=>{
-        const data : RegisterFormData = {firstName:firstName, lastName: lastName, email, password, agreement};
+        const data : RegisterFormData = {firstName:firstName.trim(), lastName: lastName.trim(), email: email.trim(), password, agreement};
         const validation = registerFormValidator(data);
         setErrors(validation);
 

@@ -13,7 +13,7 @@ import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
 import { UserProfile } from "../UserProfile/UserProfile";
 import { Icon } from "../Icon/Icon";
 // import type { User } from "../../../types/user.types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FilterBar } from "../../layout/FilterBar/FilterBar";
 
 import { Comment } from "../Comment/Comment";
@@ -22,6 +22,9 @@ import type { AnswerInterface } from "../../../types/ApiResponse/answer.type";
 import { relativeTimeFormat } from "../../../utils/formatDateTime.util";
 
 import { useAnswerHandler } from "./Answer.handler";
+import type { CommentInterface } from "../../../types/ApiResponse/comment.typs";
+import { Spinner } from "../Spinner/Spinner";
+import InlineError from "../InlineError/InlineError";
 
 interface AnswerProps{
     answer: AnswerInterface,
@@ -30,15 +33,35 @@ interface AnswerProps{
 }
 
 export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})=>{
-    const [isComment, setIsComment] = useState(false);
 
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const [commentContent, setCommentContent] = useState("");
+    const [isComment, setIsComment] = useState(false);
+    const [comments, setComments] = useState<CommentInterface[]>([]);
+
+    const [fetching, setFetching] = useState(false);
+    const [postingComment, setPostingComment] = useState(false);
     const [voting, setVoting] = useState(false);
     const [voteCount, setVoteCount] = useState(answer.voteCount);
 
-    const {voteAnswerHandler} = useAnswerHandler(
+    const {voteAnswerHandler, fetchAnswerCommentsHandler, postAnswerCommentHandler} = useAnswerHandler(
         setVoting,
         setVoteCount,
+        setComments,
     );
+
+    useEffect(()=>{
+        fetchAnswerCommentsHandler(answer._id, setFetching);
+    }, []);
+
+    const handleCommentPost = ()=>{
+        if(!commentContent || commentContent.length < 10){
+            setErrors({commentContent:"Comment is required to be of at least 10 characters"})
+            return;
+        }
+        postAnswerCommentHandler(answer._id, commentContent, setPostingComment);
+    }
 
     return (
         <>
@@ -67,7 +90,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                             voteAnswerHandler(1, answer._id, answer.author._id??"");
                         }}    
                         />
-                        <Icon disabled={voting} danger={(voteCount<0)? true:false} text={(voteCount<0)? voteCount.toString():""} level2={level1} IconData={DownvoteIcon}  
+                        <Icon disabled={voting} danger={(voteCount<0)? true:false} text={(voteCount<0)? voteCount.toString():""} left={true} level2={level1} IconData={DownvoteIcon}  
                         onClick={()=>{
                             voteAnswerHandler(-1, answer._id, answer.author._id??"");
                         }}    
@@ -87,22 +110,54 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                                 <div className={AnswerStyle["user-profile"]}>
                                     <UserProfile/>
                                 </div>
-                                <input type="text" placeholder="Add your comment !" className={AnswerStyle["input-field"]}>
-                                    
-                                </input>
+
+                                <input type="text" placeholder="Add your comment !" className={AnswerStyle["input-field"]}
+                                    onChange={(e)=>{
+                                        setCommentContent(e.target.value.trim());
+                                        setErrors({...errors, commentContent: ""});
+                                    }}
+                                    onKeyDown={(e)=>{
+                                        if(e.key==="Enter"){
+                                            handleCommentPost();
+                                        }
+                                    }}    
+                                />
+                                
                                 <div className={AnswerStyle["comment-submit-button"]}>
-                                    <Button text="Post" isSmall={true}/>
+                                    <Button loading={postingComment} text="Post" isSmall={true}
+                                    onClick={handleCommentPost}
+                                    />
                                 </div>
                             </div>
-                                <FilterBar text="21 comments" reverse={true} noFilter={true} level2={!level1Comments}/>
+                                {errors.commentContent && <InlineError message={errors.commentContent}/>}
+
+                                {
+                                    comments.length!==0
+                                    &&
+                                    <FilterBar text="21 comments" reverse={true} noFilter={true} level2={!level1Comments}/>
+                                }
                             <div className={AnswerStyle["comments"]}>
-                                <Comment level1={level1Comments}/>
-                                <Comment level1={level1Comments}/>
-                                <Comment level1={level1Comments}/>
+                                {
+                                    fetching && <Spinner/>
+                                }
+                                {
+                                    comments.length===0 && !fetching
+                                    &&
+                                    <p>No Comments, be the first one to comment</p>
+                                }
+                                {
+                                    comments.map((comment)=>{
+                                        return <Comment key={comment._id} comment={comment} level1={level1Comments}/>;
+                                    })
+                                }
                             </div>
-                            <div className={AnswerStyle["load-more-button"]}>
-                                <Button text="Load More Comments" isSmall={true} level1={level1Comments} level2={!level1Comments} Icon={LoadMoreIcon}/>
-                            </div>
+                            {
+                                comments.length!==0
+                                &&
+                                <div className={AnswerStyle["load-more-button"]}>
+                                <Button text="Show More Comments" isSmall={true} level1={level1Comments} level2={!level1Comments} Icon={LoadMoreIcon}/>
+                                </div>
+                            }
                         </div>
                     )
                 }

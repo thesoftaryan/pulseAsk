@@ -37,7 +37,7 @@ function ForgotPassword(){
     const [errors, setErrors] = useState<Partial<ForgotPasswordFormData>>({});
 
     const handleForgotPassword = ()=>{
-        const data : ForgotPasswordFormData = {email};
+        const data : ForgotPasswordFormData = {email:email.trim()};
         const error = forgotPasswordValidator(data);
         setErrors(error);
 

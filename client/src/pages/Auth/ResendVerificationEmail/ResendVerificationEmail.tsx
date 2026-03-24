@@ -39,7 +39,7 @@ function ResendVerificationEmail(){
 
 
             const handleResendVerificationEmail = ()=>{
-                const data = {email};
+                const data = {email:email.trim()};
                 const error = verifyEmailValidator(data);
                 setErrors(error);
 

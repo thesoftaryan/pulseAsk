@@ -37,6 +37,7 @@ const AnswerSchema = new Schema<AnswerInterface>(
         },
         askedAt:{
             type: Date,
+            required: true,
         }
     },
     {timestamps: false},

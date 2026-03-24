@@ -181,9 +181,13 @@ export const ShowQuestion = ()=>{
                                 }
                                 </>
                             }
-                            <div className={ShowQuestionStyle["load-more-answers"]}>
-                                <Button text="Load More Answers" isSmall={true} level1={true}  Icon={LoadMoreIcon}/>
-                            </div>
+                            {
+                                (answers.length!==0)
+                                &&
+                                <div className={ShowQuestionStyle["load-more-answers"]}>
+                                <Button text="Show More Answers" isSmall={true} level1={true}  Icon={LoadMoreIcon}/>
+                                </div>
+                            }
                         </div>
                         <div className={ShowQuestionStyle["question-tags"]}>
                             <QuestionTags tags={question.tags}/>

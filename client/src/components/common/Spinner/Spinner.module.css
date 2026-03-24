@@ -1,0 +1,21 @@
+.container{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+.spinner{
+    width: var(--size-icon-sm);
+    height: var(--size-icon-sm);
+    border: var(--size-border-md) solid transparent;
+    border-top: var(--size-border-md) solid currentColor;
+    border-right: var(--size-border-md) solid currentColor;
+    border-radius: var(--size-radius-circle);
+    animation: spin 0.3s linear infinite;
+    transition-duration: 200ms;
+}
+
+@keyframes spin {
+    to{
+        transform: rotate(360deg);
+    }
+}

@@ -9,8 +9,10 @@
     display: flex;
     justify-content: center;
     /* align-items: center; */
+    /* background-color: red; */
 }
 
+/* 
 .ask-question{
     position: absolute;
     display: flex;
@@ -25,4 +27,4 @@
     color: var(--color-icon-general);
     height: var(--size-icon-md);
     width: var(--size-icon-md);
-}
+} */

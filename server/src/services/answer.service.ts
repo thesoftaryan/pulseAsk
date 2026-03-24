@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { Answer } from "../models/Answer.model";
+import { Answer, AnswerInterface } from "../models/Answer.model";
 import { FetchAnswersPayload, PostAnswerPayload } from "../types/answer.type";
 
 
@@ -8,10 +8,12 @@ import { FetchAnswersPayload, PostAnswerPayload } from "../types/answer.type";
  * @returns answer object of type AnswerInterface
  */
 export const postAnswerService = async (author:Types.ObjectId, data : PostAnswerPayload)=>{
-    await Answer.create({
+    const answerObj = {
         ...data,
         author,
-    });
+        askedAt: Date.now(),
+    };
+    await Answer.create(answerObj);
 }
 
 /**

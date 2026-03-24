@@ -19,6 +19,7 @@ export const voteAnswerController = async (req:Request, res:Response)=>{
         res,
         STATUS.SUCCESS.OK,
         "Voted successfully",
+        response,
     );
 }
 

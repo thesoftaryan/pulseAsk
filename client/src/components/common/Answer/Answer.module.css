@@ -1,4 +1,5 @@
 .container{
+    flex-grow: 1;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -6,7 +7,7 @@
     background-color: var(--color-level2-bg);
     color: var(--color-text);
     padding: var(--spacing-md);
-    word-break: break-all;
+    /* word-break: break-all; */
 }
 
 .level1-container{
