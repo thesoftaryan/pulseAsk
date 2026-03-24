@@ -1,5 +1,8 @@
 import { getHomeMessageAPI } from "../../api/home.api";
 import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResponseParser.service";
+import { fetchQuestionsService } from "../../services/question/fetchQuestion.service";
+import type { QuestionInterface } from "../../types/ApiResponse/question.type";
+import { showToast } from "../../utils/toast.util";
 
 
 export const useHomeHandler = ()=>{
@@ -17,7 +20,22 @@ export const useHomeHandler = ()=>{
         }
     }
 
+    const fetchQuestionsHandler = async (
+        setQuestions: React.Dispatch<React.SetStateAction<QuestionInterface[]>>
+    ) => {
+        try{
+            // console.log("calling api");
+            const response = await fetchQuestionsService();
+            const result = parseSuccessResponse<QuestionInterface[]>(response);
+            setQuestions(result.data!);
+        }catch(error){
+            const err = parseErrorResponse(error);
+            showToast.error(err.message);
+        }
+    }
+
     return {
         homeHandler,
+        fetchQuestionsHandler,
     };
 }

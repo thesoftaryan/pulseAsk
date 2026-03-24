@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { AskQuestionPayload, FetchQuestionPayload } from "../types/question.type"
-import { askQuestionService, fetchQuestionService } from "../services/question.service";
+import { askQuestionService, fetchQuestionService, fetchQuestionsService } from "../services/question.service";
 import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes";
 import { VotePayload } from "../types/vote.type";
@@ -28,15 +28,15 @@ export const askQuestionController = async (req:Request, res: Response)=>{
 export const fetchQuestionController = async (req: Request, res: Response)=>{
     const data = req.body as FetchQuestionPayload;
     // console.log("qid: ",data)
-    const question = await fetchQuestionService(data);
+    const response = await fetchQuestionService(data);
 
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "Question fetched successfully",
-        question,
+        response,
     );
-}
+};
 
 export const voteQuestionController = async (req: Request, res: Response) => {
     const data = req.body as VotePayload;
@@ -49,5 +49,15 @@ export const voteQuestionController = async (req: Request, res: Response) => {
         STATUS.SUCCESS.OK,
         "voted successfully",
         response,
+    );
+};
+
+export const fetchQuestionsController = async (req:Request, res:Response)=>{
+    const questions = await fetchQuestionsService();
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Questions fetched successfully",
+        questions,
     );
 }

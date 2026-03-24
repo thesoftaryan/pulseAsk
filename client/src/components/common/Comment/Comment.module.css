@@ -24,11 +24,13 @@
 }
 
 .user-name{
+    margin-left: var(--spacing-sm);
     font-size: var(--font-size-xm);
     font-weight: var(--font-weight-medium);
 }
 
 .comment-time{
+    font-size: var(--font-size-sm);
     color: var(--color-subheading-text);
 }
 

@@ -77,3 +77,19 @@ export const fetchQuestionService = async (data : FetchQuestionPayload) : Promis
 
     return question;
 }
+
+/**
+ * @param qid Id of the question to fetch
+ * @returns question object of type FetchQuestionReponse
+ */
+export const fetchQuestionsService = async () : Promise<QuestionInterface[]> =>{
+    
+    const questions = await Question.find().populate([
+        {path:"tags"},
+        {path:"author", select:"_id firstName lastName profile reputationScore"},
+        {path:"bestAnswer"},
+    ]); 
+
+    return questions;
+}
+

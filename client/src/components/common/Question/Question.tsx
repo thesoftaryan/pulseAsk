@@ -12,9 +12,13 @@ import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
 import { Icon } from "../Icon/Icon";
 // import type { User } from "../../../types/user.types";
-import type { ReactElement } from "react";
-import type { TagPayload } from "../../../types/ApiRequest/tag.type";
-import type { UserInterface } from "../../../types/ApiResponse/user.type";
+// import type { ReactElement } from "react";
+// import type { TagPayload } from "../../../types/ApiRequest/tag.type";
+// import type { UserInterface } from "../../../types/ApiResponse/user.type";
+import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
+import { relativeTimeFormat } from "../../../utils/formatDateTime.util";
+import { Answer } from "../Answer/Answer";
+// import { UserProfile } from "../UserProfile/UserProfile";
 
 const NoAnswerMessage = ()=>{
     return (
@@ -33,40 +37,48 @@ const NoAnswerMessage = ()=>{
 }
 
 interface QuestionProps{
-    id? : string;
-    author? : Partial<UserInterface>;
-    title : string;
-    tags? : TagPayload[];
-    best_answer? : ReactElement<any, any>;
+    question: QuestionInterface;
     onClick?:VoidFunction;
 }
 
-export const Question:React.FC<QuestionProps> = ({title, best_answer, onClick})=>{
+export const Question:React.FC<QuestionProps> = ({question, onClick})=>{
     return (
         <>
             <div className={QuestionStyle["container"]}>
                 <div className={QuestionStyle["header"]}>
                     <div className={QuestionStyle["title"]} onClick={onClick}>
-                        {title}
+                        {question.title}
                     </div>
                     <div className={QuestionStyle["actions"]}>
                         <Icon level2={true} IconData={ReportIcon}/>
                         <Icon level2={true} IconData={BookmarkIcon}/>
                     </div>
-                    <div className={QuestionStyle["meta-data"]}>2h ago</div>
+                    <div className={QuestionStyle["meta-data"]}>{relativeTimeFormat(question.askedAt)}</div>
                 </div>
                 <div className={QuestionStyle["wrapper"]}>
                     {
-                        (best_answer)??
+                        (question.bestAnswer)?
+                        <Answer answer={question.bestAnswer}/>
+                        :
                         <NoAnswerMessage/>
                     }
                 </div>
                 <div className={QuestionStyle["footer"]}>
                     <TagIcon className={QuestionStyle["icon"]}/>
                     <div className={QuestionStyle["tags"]}>
-                        <TagChip text="Neumonia" color="red"/>
-                        <TagChip text="Heart" color="blue"/>
+                        {
+                            question.tags.map((tag)=>{
+                                return <TagChip key={tag._id} text={tag.name} color={tag.color}/>
+                            })
+                        }
                     </div>
+                    {/* <UserProfile className={QuestionStyle["user-profile"]}/>
+                    <div className={QuestionStyle["user-data"]}>
+                        {question.author.firstName + " " + (question.author.lastName??"")}
+                        <div className={QuestionStyle["user-education"]}>
+                            {question.author.college??""}
+                        </div>
+                    </div> */}
                 </div>
             </div>
         </>

@@ -5,8 +5,10 @@ import { VoteResponse } from "../types/response/vote.type";
 import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes";
 import { FetchAnswersPayload, PostAnswerPayload } from "../types/answer.type";
-import { fetchAnswersService, postAnswerService } from "../services/answer.service";
+import { fetchAnswerCommentsService, fetchAnswersService, postAnswerCommentService, postAnswerService } from "../services/answer.service";
 import { FetchAnswersResponse } from "../types/response/answer.type";
+import { FetchCommentsPayload, PostCommentPayload } from "../types/comment.type";
+import { FetchCommentsResponse, PostCommentResponse } from "../types/response/comment.type";
 
 
 export const voteAnswerController = async (req:Request, res:Response)=>{
@@ -43,6 +45,32 @@ export const fetchAnswersController = async (req:Request, res:Response)=>{
         res,
         STATUS.SUCCESS.OK,
         "Answers Fetched Successfully",
+        response,
+    );
+}
+
+export const fetchAnswerCommentsController = async (req:Request, res:Response)=>{
+    const data = req.body as FetchCommentsPayload;
+    const comments = await fetchAnswerCommentsService(data);
+
+    const response:FetchCommentsResponse = {comments};
+    
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Comments fetched successfully",
+        response,
+    );
+}
+
+export const postAnswerCommentController = async (req:Request, res:Response)=>{
+    const data = req.body as PostCommentPayload;
+    await postAnswerCommentService(req.user?.uid!, data);
+    const response:PostCommentResponse = {};
+    return successResponse(
+        res,
+        STATUS.SUCCESS.CREATED,
+        "Commented successfully",
         response,
     );
 }

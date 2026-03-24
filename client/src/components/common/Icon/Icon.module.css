@@ -14,9 +14,14 @@
 }
 
 .action-icon{
+    height: var(--size-icon-sm);
+    width: var(--size-icon-sm);
+    color: var(--color-general-icon);
+}
+
+.large-icon{
     height: var(--size-icon-ls);
     width: var(--size-icon-ls);
-    color: var(--color-general-icon);
 }
 
 .active-icon{

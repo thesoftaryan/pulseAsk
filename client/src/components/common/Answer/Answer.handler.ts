@@ -65,7 +65,12 @@ export const useAnswerHandler = (
         }
     }
 
-    const postAnswerCommentHandler = async (aid:string, content: string, setPostingComment: React.Dispatch<React.SetStateAction<boolean>>)=>{
+    const postAnswerCommentHandler = async (
+            aid:string, 
+            content: string, 
+            setPostingComment: React.Dispatch<React.SetStateAction<boolean>>,
+            setCommentContent: React.Dispatch<React.SetStateAction<string>>,
+        )=>{
         try{
             const reqObj:PostCommentPayload = {
                 targetId: aid,
@@ -75,6 +80,7 @@ export const useAnswerHandler = (
             const response = await postAnswerCommentService(reqObj);
             const result = parseSuccessResponse<PostCommentResponse>(response);
             showToast.success(result.message);
+            setCommentContent("");
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);

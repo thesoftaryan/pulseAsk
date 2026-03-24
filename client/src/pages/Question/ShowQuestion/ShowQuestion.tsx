@@ -118,8 +118,8 @@ export const ShowQuestion = ()=>{
                             <QuestionIcon className={ShowQuestionStyle["question-icon"]}/>
                             <div className={ShowQuestionStyle["title-text"]}>{question.title}</div>
                             <div className={ShowQuestionStyle["actions-container"]}>
-                                <Icon IconData={BookmarkIcon} />
-                                <Icon IconData={ReportIcon}/>
+                                <Icon isLarge={true} IconData={BookmarkIcon} />
+                                <Icon isLarge={true} IconData={ReportIcon}/>
                             </div>
                         </div>
                         <div className={ShowQuestionStyle["question-content"]}>
@@ -163,12 +163,12 @@ export const ShowQuestion = ()=>{
                     </div>
                     <div className={ShowQuestionStyle["answers-container"]}>
                         <div className={ShowQuestionStyle["answers"]}>
-                            <FilterBar reverse={true} text="381 Answers Found"/>
+                            <FilterBar reverse={true} text={`${answers.length} Answers Found`}/>
                             {/* <Answer author={answerObj.author} content={answerObj.content} level1={true}/> */}
                             {
                                 (answers.length===0)
                                 &&
-                                <p> No answers Available yet, Be the first one to answer</p>
+                                <p className="system-wide-placeholder"> No answers Available yet, Be the first one to answer</p>
                             }
                             {
                                 (answers.length!==0)

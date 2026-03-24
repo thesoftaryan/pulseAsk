@@ -31,7 +31,7 @@ const CommentSchema = new Schema<CommentInterface>(
             required: true,
         }
     },
-    {timestamps: true},
+    {timestamps: false},
 );
 
 export const Comment = model<CommentInterface>("Comment", CommentSchema);

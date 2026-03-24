@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import { useHomeHandler } from "./Home.handler";
 import { useAppSelector } from "../../hooks/store.hook";
 import { authRoutes, homeRoutes } from "../../routes/routesConstants";
@@ -15,6 +15,8 @@ import { Question } from "../../components/common/Question/Question";
 // import type { AnswerInterface } from "../../types/ApiResponse/answer.type";
 import { Leaderboard } from "./Leaderboard/Leaderboard";
 import { useSafeNavigate } from "../../hooks/useSafeNavigate.hook";
+import type { QuestionInterface } from "../../types/ApiResponse/question.type";
+import { useHomeHandler } from "./Home.handler";
 
 export const Home = ()=>{
 
@@ -30,13 +32,17 @@ export const Home = ()=>{
     //     homeHandler(setBackendMessage);
     // }, []);
 
+    const [questions, setQuestions] = useState<QuestionInterface[]>([]);
+
+
+    const {fetchQuestionsHandler} = useHomeHandler();
 
     useEffect(()=>{
         if(!state.isAuthenticated){
             replaceNavigate(authRoutes.login);
         }
+        fetchQuestionsHandler(setQuestions);
     }, [state.isAuthenticated]);
-
     // const answerObj : Partial<AnswerInterface> = {
     //     author : {_id: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
     //     content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
@@ -63,7 +69,18 @@ export const Home = ()=>{
                 </div>
                 <div className={HomeStyle["question-leaderboard-section"]}>
                     <div className={HomeStyle["question-section"]}>
-                        <Question onClick={()=>{safeNavigate(homeRoutes.question)}} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/>
+                        {/* <Question onClick={()=>{safeNavigate(homeRoutes.question)}} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/> */}
+                        {
+                            questions.length===0
+                            &&
+                            <p className="system-wide-placeholder">No Questions available, be the first one to ask</p>
+                        }
+                        {
+                            questions.map((question)=>{
+                                return <Question key={question._id} question={question} onClick={()=>{safeNavigate(homeRoutes.question+`/${question._id}/${question.slug}`)}}/>
+                            })
+                        }
+
                         {/* <Question onClick={()=>{safeNavigate(homeRoutes.question)}} best_answer={<Answer level1Comments={true} author={answerObj.author!} content={answerObj.content!}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/> */}
 
                         <div className={HomeStyle["load-more-button"]}>

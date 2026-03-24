@@ -11,6 +11,10 @@ export const fetchQuestionAPI = (data : FetchQuestionPayload)=>{
     return api.post("question/fetch", data);
 }
 
+export const fetchQuestionsAPI = ()=>{
+    return api.post("question/fetchAll");
+}
+
 export const voteQuestionAPI = (data : VotePayload)=>{
     return api.post("question/vote", data);
 }

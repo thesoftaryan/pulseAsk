@@ -31,7 +31,6 @@ body{
 
 
 
-
 a{
     text-decoration: none;
     color: var(--color-primary);
@@ -40,6 +39,14 @@ a{
 
 button{
     cursor: pointer;
+}
+
+
+.system-wide-placeholder{
+    margin: var(--spacing-md) 0px;
+    align-self: center;
+    color: var(--color-subheading-text);
+    font-size: var(--font-size-md);
 }
 
 /* Gaps for GapBox */

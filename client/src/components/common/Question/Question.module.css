@@ -6,7 +6,7 @@
     background-color: var(--color-level1-bg); 
     color: var(--color-text);
     max-width: var(--size-max-width);
-    word-break: break-all;
+    /* word-break: break-all; */
 }
 
 /* Header : Start */
@@ -22,6 +22,7 @@
     flex-grow: 2;
     font-size: var(--font-heading);
     cursor: pointer;
+    word-break: break-all;
 }
 
 .header .actions{
@@ -60,8 +61,28 @@
 
 .footer{
     display: flex;
-    /* justify-content: center; */
+    /* justify-content: flex-end; */
     align-items: center;
+}
+
+.user-profile{
+    width: var(--size-icon-ls);
+    height: var(--size-icon-ls);
+}
+
+.user-data{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    margin-left: var(--spacing-md);
+    font-size: var(--font-size-lg);
+    /* user-select: none; */
+    cursor: pointer;
+}
+
+.user-education{
+    font-size: var(--font-size-sm);
+    color: var(--color-subheading-text);
 }
 
 .icon{
@@ -73,9 +94,11 @@
 }
 
 .tags{
-    flex-grow: 1;
+    /* flex-grow: 1; */
     display: flex;
-    margin-left: var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    /* margin-left: var(--spacing-md); */
 }
 
 /* Footer : Ends */
@@ -96,6 +119,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    word-break: break-all;
 }
 
 .rank-icon{

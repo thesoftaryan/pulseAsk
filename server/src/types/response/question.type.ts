@@ -2,16 +2,11 @@ import { Types } from "mongoose";
 import { AnswerInterface } from "../../models/Answer.model";
 import { TagInterface } from "../../models/Tag.model";
 import { UserInterface } from "../../models/User.model";
+import { QuestionInterface } from "../../models/Question.model";
 
-export interface FetchQuestionReponse{
-    _id: Types.ObjectId;
-    slug:String;
-    title: String;
-    description: String;
-    descriptionHTML: String;
-    author: Partial<UserInterface>;
-    askedAt: Date;
-    voteCount: Number;
-    bestAnswer?: AnswerInterface;
-    tags: TagInterface[];
+export interface FetchQuestionReponse extends QuestionInterface{
+}
+
+export interface FetchQuestionsResponse{
+    questions: QuestionInterface[],
 }

@@ -55,12 +55,14 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
         fetchAnswerCommentsHandler(answer._id, setFetching);
     }, []);
 
-    const handleCommentPost = ()=>{
-        if(!commentContent || commentContent.length < 10){
+    const handleCommentPost = async ()=>{
+        const newComment = commentContent.trim();
+        if(!newComment || newComment.length < 10){
             setErrors({commentContent:"Comment is required to be of at least 10 characters"})
             return;
         }
-        postAnswerCommentHandler(answer._id, commentContent, setPostingComment);
+        await postAnswerCommentHandler(answer._id, commentContent, setPostingComment, setCommentContent);
+        await fetchAnswerCommentsHandler(answer._id, setFetching);
     }
 
     return (
@@ -95,7 +97,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                             voteAnswerHandler(-1, answer._id, answer.author._id??"");
                         }}    
                         />
-                        <Icon level2={level1} IconData={CommentIcon} onClick={()=>{setIsComment(!isComment)}}/>
+                        <Icon active={isComment} level2={level1} IconData={CommentIcon} onClick={()=>{setIsComment(!isComment)}}/>
                     </div>
                     <div className={AnswerStyle["right"]}>
                         <Icon level2={level1} IconData={ReportIcon}/>
@@ -111,9 +113,9 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                                     <UserProfile/>
                                 </div>
 
-                                <input type="text" placeholder="Add your comment !" className={AnswerStyle["input-field"]}
+                                <input value={commentContent} type="text" placeholder="Add your comment !" className={AnswerStyle["input-field"]}
                                     onChange={(e)=>{
-                                        setCommentContent(e.target.value.trim());
+                                        setCommentContent(e.target.value);
                                         setErrors({...errors, commentContent: ""});
                                     }}
                                     onKeyDown={(e)=>{
@@ -134,7 +136,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                                 {
                                     comments.length!==0
                                     &&
-                                    <FilterBar text="21 comments" reverse={true} noFilter={true} level2={!level1Comments}/>
+                                    <FilterBar text={`${comments.length} comments`} reverse={true} noFilter={true} level2={!level1Comments}/>
                                 }
                             <div className={AnswerStyle["comments"]}>
                                 {
@@ -143,7 +145,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                                 {
                                     comments.length===0 && !fetching
                                     &&
-                                    <p>No Comments, be the first one to comment</p>
+                                    <p className="system-wide-placeholder">No Comments, be the first one to comment</p>
                                 }
                                 {
                                     comments.map((comment)=>{
