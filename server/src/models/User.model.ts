@@ -309,23 +309,29 @@ const userSchema = new Schema<UserInterface>(
         //************* Stats Information ********** //
         questionsAsked: {
             type : Number,
+            default:0,
         },
         answersGiven: {
             type : Number,
+            default:0,
         },
         upvotes: {
             type : Number,
+            default:0,
         },
         downvotes: {
             type : Number,
+            default:0,
         },
         reputationScore: {
             type : Number,
+            default:0,
         },
         
         //************* Payment Information ********** //
         enablePayment: {
             type : Boolean,
+            default: false,
         },
         paymentAccounts : {
             type: paymentAccountsSchema,
@@ -338,6 +344,7 @@ const userSchema = new Schema<UserInterface>(
         },
         enableChat: {
             type: Boolean,
+            default: true,
         },
     },
     {timestamps:true,}

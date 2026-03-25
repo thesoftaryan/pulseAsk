@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // import { useHomeHandler } from "./Home.handler";
-import { useAppSelector } from "../../hooks/store.hook";
-import { authRoutes, homeRoutes } from "../../routes/routesConstants";
+// import { useAppSelector } from "../../hooks/store.hook";
+import { homeRoutes } from "../../routes/routesConstants";
 import Button from "../../components/common/Button/Button";
 
 // import ExploreIcon from "../../assets/icons/home/explore.svg?react";
@@ -22,8 +22,7 @@ export const Home = ()=>{
 
     // const navigate = useNavigate();
 
-    const {safeNavigate, replaceNavigate} = useSafeNavigate();
-    const state = useAppSelector(state => state.auth);
+    const {safeNavigate} = useSafeNavigate();
 
     // const {homeHandler} = useHomeHandler();
     // const [backendMessage, setBackendMessage] = useState("");
@@ -38,11 +37,8 @@ export const Home = ()=>{
     const {fetchQuestionsHandler} = useHomeHandler();
 
     useEffect(()=>{
-        if(!state.isAuthenticated){
-            replaceNavigate(authRoutes.login);
-        }
         fetchQuestionsHandler(setQuestions);
-    }, [state.isAuthenticated]);
+    }, []);
     // const answerObj : Partial<AnswerInterface> = {
     //     author : {_id: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
     //     content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
@@ -84,7 +80,7 @@ export const Home = ()=>{
                         {/* <Question onClick={()=>{safeNavigate(homeRoutes.question)}} best_answer={<Answer level1Comments={true} author={answerObj.author!} content={answerObj.content!}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/> */}
 
                         <div className={HomeStyle["load-more-button"]}>
-                            <Button text="Load More" isSmall={true} level1={true} Icon={LoadMoreIcon}/>
+                            <Button text="Show More Questions" isSmall={true} level1={true} Icon={LoadMoreIcon}/>
                         </div>
                     </div>
                     <div className={HomeStyle["leaderboard-section"]}>

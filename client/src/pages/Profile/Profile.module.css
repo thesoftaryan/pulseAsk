@@ -47,8 +47,8 @@
     top: 0px;
     left: 0px;
     z-index: 1000;
-    height: var(--size-icon-ls);
-    width: var(--size-icon-ls);
+    height: var(--size-icon-sm);
+    width: var(--size-icon-sm);
     color: var(--color-error);
 }
 

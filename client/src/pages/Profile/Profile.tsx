@@ -19,6 +19,7 @@ import { UserActivity } from "./UserActivity/UserActivity";
 
 export const Profile = ()=>{
     const user = useAppSelector(state=>state.auth.user);
+    console.log(user);
     return (
         <div className={ProfileStyle["container"]}>
             <div className={ProfileStyle["top-profile"]}>
@@ -30,26 +31,31 @@ export const Profile = ()=>{
                     <div className={ProfileStyle["user-name"]}>
                         {user?.firstName}  {user?.lastName}
                     </div>
-                    <div className={ProfileStyle["user-education"]}>
-                        <EducationIcon className={ProfileStyle["icon"]}/>
-                        <p className={ProfileStyle["user-education-text"]}>Indian Institute of Technology, Bhilai</p>
-                    </div>
+                    {
+                        user?.college 
+                        && 
+                        <div className={ProfileStyle["user-education"]}>
+                            <EducationIcon className={ProfileStyle["icon"]}/>
+                            <p className={ProfileStyle["user-education-text"]}>{user.college}</p>
+                        </div>
+                    }
+
                     <div className={ProfileStyle["user-actions"]}>
-                        <ChatIcon className={ProfileStyle["icon"]}/>
-                        <DonateIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["donate-icon"]}`}/>
+                        {user?.enableChat && <ChatIcon className={ProfileStyle["icon"]}/>}
+                        {user?.enablePayment && <DonateIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["donate-icon"]}`}/>}
                     </div>
                 </div>
                 <div className={ProfileStyle["right"]}>
                     <div className={ProfileStyle["user-highlights"]}>
                         <div className={ProfileStyle["title"]}>Highlights</div>
                         <div className={ProfileStyle["user-stats"]}>
-                            <HighlightTile Icon={QuestionsAskedIcon} title="Questions Asked" value="84"/>
-                            <HighlightTile Icon={AnswersGivenIcon} title="Answers Given" value="2384"/>
-                            <HighlightTile Icon={UpvoteCountIcon} title="Upvotes" value="1184"/>
-                            <HighlightTile Icon={DownvoteCountIcon} title="Downvotes" value="84"/>
+                            <HighlightTile Icon={QuestionsAskedIcon} title="Questions Asked" value={(user?.questionsAsked??0).toString()}/>
+                            <HighlightTile Icon={AnswersGivenIcon} title="Answers Given" value={(user?.questionsAsked??0).toString()}/>
+                            <HighlightTile Icon={UpvoteCountIcon} title="Upvotes" value={(user?.questionsAsked??0).toString()}/>
+                            <HighlightTile Icon={DownvoteCountIcon} title="Downvotes" value={(user?.questionsAsked??0).toString()}/>
                         </div>
                         <div className={ProfileStyle["user-reputation"]}>
-                            <HighlightTile Icon={ReputationIcon} title="Reputation Score" value="18.4K"/>
+                            <HighlightTile Icon={ReputationIcon} title="Reputation Score" value={(user?.questionsAsked??0).toString()}/>
                         </div>
                     </div>
                 </div>

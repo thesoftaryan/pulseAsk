@@ -74,7 +74,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                 <div className={AnswerStyle["header"]}>
                     <UserProfile className={AnswerStyle["user-profile"]}/>
                     <div className={AnswerStyle["user-data"]}>
-                        {answer.author.firstName + " " + answer.author.lastName}
+                        {answer.author.firstName} {answer.author.lastName}
                         <div className={AnswerStyle["user-education"]}>
                             {/* User Education detail will go here */}
                             {answer.author.college}

@@ -3,7 +3,7 @@ import HighlightTileStyle from "./HighlightTile.module.css";
 interface HighlightTileProps{
     Icon : React.FunctionComponent<React.SVGProps<SVGSVGElement>>, 
     title: string, 
-    value: string,
+    value?: string,
 }
 
 export const HighlightTile:React.FC<HighlightTileProps> = ({Icon, title, value})=>{
