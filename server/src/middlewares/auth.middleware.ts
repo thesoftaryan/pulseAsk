@@ -4,9 +4,10 @@ import { verifyToken } from "../utils/jwt.util";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
 import { TokenData } from "../types/auth.type";
+import { User } from "../models/User.model";
 
 
-export const authMiddleware = (req : Request, res : Response, next : NextFunction)=>{
+export const authMiddleware = async (req : Request, res : Response, next : NextFunction)=>{
     
     const token = req.cookies?.access_token;
 
@@ -23,6 +24,13 @@ export const authMiddleware = (req : Request, res : Response, next : NextFunctio
             uid: decoded.uid,
             email : decoded.email,
         };
+        const user = await User.findById(decoded.uid);
+        if(!user){
+            throw new ApiError(
+                STATUS.CLIENT_ERROR.UNAUTHORIZED,
+                "Invalid or expired token",
+            );
+        }
         next();
     }catch(err){
         throw new ApiError(

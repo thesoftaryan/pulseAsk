@@ -72,6 +72,8 @@ export const ShowQuestion = ()=>{
     
     const [errors, setErrors] = useState<Partial<PostAnswerPayload>>({});
 
+    const [posting, setPosting] = useState(false);
+
     const{fetchQuestionHandler, fetchAnswersHandler, postAnswerHandler, voteQuestionHandler} = useShowQuestionHandler(setQuestion, setAnswers);
 
 
@@ -94,8 +96,10 @@ export const ShowQuestion = ()=>{
         const valError = postAnswerValidator(postAnswerPaylod);
         setErrors(valError);
         if(Object.keys(valError).length===0){
+            setPosting(true);
             await postAnswerHandler(postAnswerPaylod);
             await fetchAnswersHandler({qid:qid!});
+            setPosting(false);
         }
     }
 
@@ -159,7 +163,7 @@ export const ShowQuestion = ()=>{
                         {/* <textarea className={ShowQuestionStyle["submit-answer-textarea"]}/> */}
                         <TextEditor onChange={setAnswerContent} placeholder="Enter your Answer here!!"/>
                         {errors.content && <InlineError message={errors.content}/>}
-                        <Button text="Post Answer" onClick={()=>{console.log(answerContent); handlePostAnswer();}}/>
+                        <Button loading={posting} text="Post Answer" onClick={()=>{console.log(answerContent); handlePostAnswer();}}/>
                     </div>
                     <div className={ShowQuestionStyle["answers-container"]}>
                         <div className={ShowQuestionStyle["answers"]}>

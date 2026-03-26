@@ -4,7 +4,7 @@ import type { VotePayload } from "../types/ApiRequest/vote.type";
 import api from "./axios";
 
 export const fetchAnswersAPI = (data : FetchAnswersPayload)=>{
-    return api.post("answer/fetch", data);
+    return api.post("answer/fetchMany", data);
 }
 
 export const postAnswerAPI = (data : PostAnswerPayload)=>{
@@ -16,7 +16,7 @@ export const voteAnswerAPI = (data : VotePayload)=>{
 }
 
 export const fetchAnswerCommentsAPI = (data : FetchCommentsPayload)=>{
-    return api.post("answer/comment/fetch", data);
+    return api.post("answer/comment/fetchMany", data);
 }
 
 export const postAnswerCommentAPI = (data : PostCommentPayload)=>{

@@ -72,6 +72,10 @@ export const useAnswerHandler = (
             setCommentContent: React.Dispatch<React.SetStateAction<string>>,
         )=>{
         try{
+            if(!content || content.length<5){
+                showToast.error("comment must be of atleast 5 characters");
+                return;
+            }
             const reqObj:PostCommentPayload = {
                 targetId: aid,
                 content,

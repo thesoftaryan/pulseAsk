@@ -5,6 +5,9 @@ import { FetchCommentsPayload, PostCommentPayload } from "../types/comment.type"
 import { Comment } from "../models/Comment.model";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
+import { Question } from "../models/Question.model";
+import { User } from "../models/User.model";
+import { reputationPolicy } from "../utils/reputation.util";
 
 
 /**
@@ -12,12 +15,24 @@ import { STATUS } from "../constants/statusCodes";
  * @returns answer object of type AnswerInterface
  */
 export const postAnswerService = async (author:Types.ObjectId, data : PostAnswerPayload)=>{
+    if(!Types.ObjectId.isValid(data.qid)){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.NOT_FOUND,
+            "Question not found, it might be deleted",
+        );
+    }
     const answerObj = {
         ...data,
         author,
         askedAt: Date.now(),
     };
     await Answer.create(answerObj);
+    await User.updateOne({_id: author},{
+        $inc: {
+            reputationScore: reputationPolicy.answerPosted,
+            answersGiven: 1,
+        }
+    });
 }
 
 /**
@@ -25,6 +40,13 @@ export const postAnswerService = async (author:Types.ObjectId, data : PostAnswer
  * @returns array of answer objects for that particular question.
  */
 export const fetchAnswersService = async (data : FetchAnswersPayload)=>{
+    if(!Types.ObjectId.isValid(data.qid)){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.NOT_FOUND,
+            "Question not found, it might be deleted",
+        );
+    }
+
     const answers = await Answer.find({qid: data.qid}).populate([
         {path: "author", select:"_id firstName lastName profile college"}
     ]);
@@ -36,6 +58,12 @@ export const fetchAnswersService = async (data : FetchAnswersPayload)=>{
  * @returns array of comments for given answer
  */
 export const fetchAnswerCommentsService = async (data : FetchCommentsPayload)=>{
+    if(!Types.ObjectId.isValid(data.targetId)){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.NOT_FOUND,
+            "Answer not found, it might be deleted",
+        );
+    }
     const comments = await Comment.find({answerId: data.targetId}).populate([
         {path:"author", select:"_id profile firstName lastName"},
     ]);
@@ -53,8 +81,17 @@ export const postAnswerCommentService = async (author:Types.ObjectId, data : Pos
         content: data.content,
         commentedAt: Date.now(),
     };
+    if(!Types.ObjectId.isValid(data.targetId)){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.NOT_FOUND,
+            "Answer not found, it might be deleted",
+        );
+    }
     try{
         await Comment.create(commentObj);
+        await User.updateOne({_id: author},{
+            $inc: {reputationScore: reputationPolicy.commented}
+        });
     }catch(error){
         throw new ApiError(
             STATUS.SERVER_ERROR.BAD_GATEWAY,

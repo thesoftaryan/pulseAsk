@@ -21,3 +21,7 @@
     font-weight: var(--font-weight-bold);
     margin-top: var(--spacing-xs);
 }
+
+.danger{
+    color: var(--color-danger);
+}

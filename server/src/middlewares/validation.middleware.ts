@@ -12,7 +12,7 @@ export const validate = (validator : ValidatorFunction) =>
         if(Object.keys(errors).length >0){
             throw new ApiError(
                 STATUS.CLIENT_ERROR.BAD_REQUEST,
-                "Invalid request",
+                errors.message??"Invalid request",
                 errors
             );
         }

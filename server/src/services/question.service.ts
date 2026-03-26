@@ -6,6 +6,8 @@ import { slugifyText } from "../utils/general.util";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes";
 import { FetchQuestionReponse } from "../types/response/question.type";
+import { User } from "../models/User.model";
+import { reputationPolicy } from "../utils/reputation.util";
 
 
 
@@ -45,6 +47,15 @@ export const askQuestionService = async (data : AskQuestionPayload, uid: Types.O
         tags: tags,
     };
     const question = await Question.create(questionObj);
+
+    await User.updateOne({_id: uid}, 
+        {
+            $inc: {
+                reputationScore: reputationPolicy.questionAsked,
+                questionsAsked: 1,
+            }
+        }
+    );
 
     return question;
 }

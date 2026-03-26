@@ -13,6 +13,6 @@ router.post("/fetch", validate(validateFetchQuestion),fetchQuestionController);
 
 router.post("/vote", validate(validateVote), voteQuestionController);
 
-router.post("/fetchAll", fetchQuestionsController);
+router.post("/fetchMany", fetchQuestionsController);
 
 export default router;

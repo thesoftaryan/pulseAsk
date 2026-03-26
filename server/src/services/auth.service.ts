@@ -25,13 +25,17 @@ export const refreshTokenService = async (payload : RefreshTokenPayload)=>{
             uid : data.uid,
             email : data.email,
         };
+        const user = await User.findById(data.uid);
+        if(!user) {
+            throw new Error("Login expired, please login again");
+        }
         const newAccessToken = signToken(tokenPayload, "access");
-        return newAccessToken;
+        return newAccessToken
     }catch(error){
         // console.error("refresh error : ", error);
         throw new ApiError(
             STATUS.CLIENT_ERROR.UNAUTHORIZED,
-            "Refresh token invalid or expired",
+            "Login expired, please login again",
         );
     }
 }

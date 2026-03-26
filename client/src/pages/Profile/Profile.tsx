@@ -50,12 +50,12 @@ export const Profile = ()=>{
                         <div className={ProfileStyle["title"]}>Highlights</div>
                         <div className={ProfileStyle["user-stats"]}>
                             <HighlightTile Icon={QuestionsAskedIcon} title="Questions Asked" value={(user?.questionsAsked??0).toString()}/>
-                            <HighlightTile Icon={AnswersGivenIcon} title="Answers Given" value={(user?.questionsAsked??0).toString()}/>
-                            <HighlightTile Icon={UpvoteCountIcon} title="Upvotes" value={(user?.questionsAsked??0).toString()}/>
-                            <HighlightTile Icon={DownvoteCountIcon} title="Downvotes" value={(user?.questionsAsked??0).toString()}/>
+                            <HighlightTile Icon={AnswersGivenIcon} title="Answers Given" value={(user?.answersGiven??0).toString()}/>
+                            <HighlightTile Icon={UpvoteCountIcon} title="Upvotes" value={(user?.upvotes??0).toString()}/>
+                            <HighlightTile Icon={DownvoteCountIcon} title="Downvotes" value={(user?.downvotes??0).toString()}/>
                         </div>
                         <div className={ProfileStyle["user-reputation"]}>
-                            <HighlightTile Icon={ReputationIcon} title="Reputation Score" value={(user?.questionsAsked??0).toString()}/>
+                            <HighlightTile danger={(user?.reputationScore??0)<0} Icon={ReputationIcon} title="Reputation Score" value={(user?.reputationScore??0).toString()}/>
                         </div>
                     </div>
                 </div>

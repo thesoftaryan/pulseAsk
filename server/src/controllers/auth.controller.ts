@@ -273,12 +273,7 @@ export const meController = async (req : Request, res : Response) => {
     const payload = req.user!;
     const user = await meService(payload);
     const response : UserResponse = {
-        user: {
-                _id : user?._id,
-                email : user?.email,
-                firstName : user?.firstName,
-                lastName : user?.lastName,
-            }
+        user: user??{},
     };
     return successResponse(
         res,
