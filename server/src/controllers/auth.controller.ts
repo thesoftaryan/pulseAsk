@@ -189,12 +189,7 @@ export const loginController = async (req: Request, res: Response)=>{
     });
     
     const response : UserResponse = {
-        user: {
-                _id : user._id,
-                email : user.email,
-                firstName : user.firstName,
-                lastName : user.lastName,
-            }
+        user:user!,
     };
     return successResponse(
         res,

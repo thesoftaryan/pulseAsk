@@ -1,5 +1,6 @@
 import {Schema, model, Document, Types} from "mongoose";
 import { TagInterface } from "./Tag.model";
+import { slugifyText } from "../utils/general.util";
 
 interface StripeConnection{
     id : string;
@@ -48,6 +49,8 @@ export interface UserInterface extends Document{
     // ********** Profile Information ************ //
     profile? : string;
     createdAt : Date;
+
+    userName: string;
 
     firstName : string;
     lastName : string;
@@ -222,6 +225,11 @@ const userSchema = new Schema<UserInterface>(
             type: String,
             required: false,
         },
+        userName:{
+            type: String,
+            trim: true,
+            unique: true,
+        },
         firstName : {
             type: String, 
             required: true, 
@@ -349,5 +357,12 @@ const userSchema = new Schema<UserInterface>(
     },
     {timestamps:true,}
 );
+
+userSchema.pre("save", function(next){
+    if(!this.userName){
+        this.userName = `${slugifyText(this.firstName)}_${this._id.toString().slice(-10)}`;
+        next();
+    }
+});
 
 export const User = model<UserInterface>("User", userSchema);
