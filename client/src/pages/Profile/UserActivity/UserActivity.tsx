@@ -3,10 +3,20 @@ import UserActivityStyle from "./UserActivity.module.css";
 import { UserQuestions } from "./UserQuestions/UserQuestions";
 import { UserAnswers } from "./UserAnswers/UserAnswers";
 import { AboutUser } from "./AboutUser/AboutUser";
+import type { UserInterface } from "../../../types/ApiResponse/user.type";
+import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
+import type { AnswerInterface } from "../../../types/ApiResponse/answer.type";
+
+
+interface UserActivityProps{
+    user: Partial<UserInterface>,
+    questions: QuestionInterface[],
+    answers: AnswerInterface[],
+}
 
 export type TabsType = "answers"|"questions"|"about";
 
-export const UserActivity = ()=>{
+export const UserActivity:React.FC<UserActivityProps> = ({user, questions, answers})=>{
 
     const tabs = [
         { label: "Answers", value: "answers" },
@@ -35,9 +45,9 @@ export const UserActivity = ()=>{
                 </div>
             </div>
             <div className={UserActivityStyle["tab-content"]}>
-                {activeTab=="answers" && <UserAnswers/>}
-                {activeTab=="questions" && <UserQuestions/>}
-                {activeTab=="about" && <AboutUser/>}
+                {activeTab=="answers" && <UserAnswers answers={answers}/>}
+                {activeTab=="questions" && <UserQuestions questions={questions}/>}
+                {activeTab=="about" && <AboutUser user={user}/>}
             </div>
         </div>
     );

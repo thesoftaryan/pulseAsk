@@ -156,4 +156,11 @@
     .social-links{
         grid-template-columns: repeat(1, 1fr);
     }
+    .user-name{
+        flex-direction: column;
+    }
+
+    .user-education{
+        flex-direction: column;
+    }
 }

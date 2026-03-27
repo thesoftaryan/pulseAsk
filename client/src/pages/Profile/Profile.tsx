@@ -17,6 +17,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useProfileHandler } from "./Profile.handler";
 import type { UserInterface } from "../../types/ApiResponse/user.type";
+import type { QuestionInterface } from "../../types/ApiResponse/question.type";
+import type { AnswerInterface } from "../../types/ApiResponse/answer.type";
 
 
 
@@ -30,9 +32,13 @@ export const Profile = ()=>{
 
 
     const [fetchingProfile, setFetchingProfile] = useState(false);
+    
     const [user, setUser] = useState<Partial<UserInterface>>({});
+    const [questions, setQuestions] = useState<QuestionInterface[]>([]);
+    const [answers, setAnswers] = useState<AnswerInterface[]>([]);
 
-    const {fetchProfileHandler} = useProfileHandler(setUser, setFetchingProfile);
+
+    const {fetchProfileHandler} = useProfileHandler(setUser, setQuestions, setAnswers, setFetchingProfile);
 
     useEffect(()=>{
         fetchProfileHandler(userName);
@@ -81,7 +87,7 @@ export const Profile = ()=>{
                 </div>
             </div>
             <div className={ProfileStyle["activity-container"]}>
-                <UserActivity/>
+                <UserActivity user={user} questions={questions} answers={answers}/>
             </div>
         </div>
     );

@@ -7,25 +7,10 @@ import { STATUS } from "../constants/statusCodes";
 
 export const fetchProfileController = async (req: Request, res: Response) =>{
     const data = req.body as FetchProfilePayload;
-    console.log("received request for username: ", data.userName);
+    // console.log("received request for username: ", data.userName);
     
-    const user = await fetchProfileService(data);
-    // console.log("user: ", user);
-    
-    // const responseObj = {
-    //     _id : user?._id,
-    //     profile: user?.profile,
-    //     userName: user?.userName,
-    //     firstName: user?.firstName,
-    //     lastName: user?.lastName,
-    //     email: user?.email,
-    //     college: user?.college,
-    //     description: user?.description,
-    //     tags: user?.tags,
-    // }
-    const responseObj = {
-        user,
-    }
+    const responseObj = await fetchProfileService(data);
+
     return successResponse(
         res,
         STATUS.SUCCESS.OK,

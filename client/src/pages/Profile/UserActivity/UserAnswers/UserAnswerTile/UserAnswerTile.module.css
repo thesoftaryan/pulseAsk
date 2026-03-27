@@ -27,6 +27,7 @@
 }
 
 .user-data{
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content:space-evenly;
@@ -39,6 +40,13 @@
 .user-education{
     font-size: var(--font-size-sm);
     color: var(--color-subheading-text);
+}
+
+.time-asked{
+    justify-self: flex-end;
+    font-size: var(--font-size-sm);
+    color: var(--color-subheading-text);
+    padding-right: var(--spacing-xs);
 }
 
 /* Header : End */

@@ -36,14 +36,18 @@ export const AccountSettings = ()=>{
                     </div>
                 </div>
                 <div className={AccountSettingsStyle["user-details-settings"]}>
+                    <div className={AccountSettingsStyle["user-userName"]}>
+                        <div className={AccountSettingsStyle["label"]}>User Name</div>
+                        <InputField placeholder="Change your user name" onChange={()=>{}} value={user?.userName}/>
+                    </div>
                     <div className={AccountSettingsStyle["user-name"]}>
                         <div className={AccountSettingsStyle["first-name"]}>
                             <div className={AccountSettingsStyle["label"]}>First Name</div>
-                            <InputField placeholder="" onChange={()=>{}} value={user?.firstName}/>
+                            <InputField placeholder="Enter your first name" onChange={()=>{}} value={user?.firstName}/>
                         </div>
                         <div className={AccountSettingsStyle["last-name"]}>
                             <div className={AccountSettingsStyle["label"]}>Last Name</div>
-                            <InputField placeholder="" onChange={()=>{}} value={user?.lastName}/>
+                            <InputField placeholder="Enter your last name" onChange={()=>{}} value={user?.lastName}/>
                         </div>
                     </div>
                     <div className={AccountSettingsStyle["user-email"]}>
@@ -54,11 +58,11 @@ export const AccountSettings = ()=>{
                     <div className={AccountSettingsStyle["user-education"]}>
                         <div className={AccountSettingsStyle["user-degree"]}>
                             <div className={AccountSettingsStyle["label"]}>Degree</div>
-                            <InputField placeholder="" onChange={()=>{}} value="B.Tech"/>
+                            <InputField placeholder="Enter your degree, e.g. MBBS, MD" onChange={()=>{}} value={user?.degree}/>
                         </div>
                         <div className={AccountSettingsStyle["user-college"]}>
                             <div className={AccountSettingsStyle["label"]}>College</div>
-                            <InputField placeholder="" onChange={()=>{}} value="IIT Bhilai"/>
+                            <InputField placeholder="Enter your college name" onChange={()=>{}} value={user?.college}/>
                         </div>
                     </div>
                     
@@ -76,20 +80,23 @@ export const AccountSettings = ()=>{
             <div className={AccountSettingsStyle["social-links"]}>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <InstagramIcon className={AccountSettingsStyle["icon"]}/>
-                    <InputField placeholder="Instagram Profile Link"/>
+                    <InputField placeholder="Instagram Profile Link" value={user?.instagram}/>
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <FacebookIcon className={AccountSettingsStyle["icon"]}/>
-                    <InputField placeholder="Facebook Profile Link"/>
+                    <InputField placeholder="Facebook Profile Link" value={user?.facebook}/>
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <LinkedinIcon className={AccountSettingsStyle["icon"]}/>
-                    <InputField placeholder="Linkedin Profile Link"/>
+                    <InputField placeholder="Linkedin Profile Link" value={user?.linkedin}/>
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <YoutubeIcon className={AccountSettingsStyle["icon"]}/>
-                    <InputField placeholder="Youtube Channel Link"/>
+                    <InputField placeholder="Youtube Channel Link" value={user?.youtube}/>
                 </div>
+            </div>
+            <div className={AccountSettingsStyle["save-button"]}>
+                <SettingsActionButton text="Save Details" Icon={SaveIcon}/>
             </div>
             <Divider text="Set your knowledge tags"/>
             <div className={AccountSettingsStyle["knowledge-tags"]}>

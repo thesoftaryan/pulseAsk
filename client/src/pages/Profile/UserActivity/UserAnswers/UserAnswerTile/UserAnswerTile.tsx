@@ -2,17 +2,20 @@ import UserAnswerTileStyle from "./UserAnswerTile.module.css";
 
 import { UserProfile } from "../../../../../components/common/UserProfile/UserProfile";
 
-import type { UserInterface } from "../../../../../types/ApiResponse/user.type";
 import Button from "../../../../../components/common/Button/Button";
+import { relativeTimeFormat } from "../../../../../utils/formatDateTime.util";
+import type { AnswerInterface } from "../../../../../types/ApiResponse/answer.type";
+import { useSafeNavigate } from "../../../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../../../routes/routesConstants";
 
 interface UserAnswerTileProps{
-    author : Partial<UserInterface>;
-    content : string;
+    answer: AnswerInterface,
     level1?: boolean;
 }
 
-export const UserAnswerTile : React.FC<UserAnswerTileProps> = ({author, content, level1})=>{
+export const UserAnswerTile : React.FC<UserAnswerTileProps> = ({answer, level1})=>{
 
+    const {safeNavigate} = useSafeNavigate();
     
     return (
         <>
@@ -20,19 +23,19 @@ export const UserAnswerTile : React.FC<UserAnswerTileProps> = ({author, content,
                 <div className={UserAnswerTileStyle["header"]}>
                     <UserProfile className={UserAnswerTileStyle["user-profile"]}/>
                     <div className={UserAnswerTileStyle["user-data"]}>
-                        {author.firstName + " " + author.lastName}
+                        {answer.author.firstName} {answer.author.lastName}
                         <div className={UserAnswerTileStyle["user-education"]}>
                             {/* User Education detail will go here */}
-                            Khandani Institute of Technology
+                            {answer.author.college}
                         </div>
                     </div>
-
+                    <div className={UserAnswerTileStyle["time-asked"]}>{relativeTimeFormat(answer.askedAt)}</div>
                 </div>
                 <div className={UserAnswerTileStyle["answer-wrapper"]}>
-                    {content}
+                    {answer.contentHTML}
                 </div>
                 <div className={UserAnswerTileStyle["footer"]}>
-                    <Button text="See Question" isSmall={true}/>
+                    <Button text="See Question" isSmall={true} onClick={()=>safeNavigate(homeRoutes.question+`/${answer.qid._id}/${answer.qid.slug}`)}/>
                 </div>
             </div>
         </>

@@ -48,7 +48,8 @@ export const fetchAnswersService = async (data : FetchAnswersPayload)=>{
     }
 
     const answers = await Answer.find({qid: data.qid}).populate([
-        {path: "author", select:"_id firstName lastName profile college"}
+        {path: "author", select:"_id firstName lastName profile college"},
+        {path: "qid", select:"_id slug"},
     ]);
     return answers;
 }
