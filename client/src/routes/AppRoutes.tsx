@@ -28,7 +28,7 @@ const router = createBrowserRouter([
                 {path: homeRoutes.tag, element: <Tag/>},
                 {path: homeRoutes.question+"/:qid/:slug", element: <ShowQuestion/>},
                 {path: homeRoutes.askQuestion, element: <AskQuestion/>},
-                {path: homeRoutes.profile, element: <Profile/>},
+                {path: homeRoutes.profile+"/:userName", element: <Profile/>},
                 {path: homeRoutes.chat, element: <Chat/>},
                 {path: homeRoutes.search, element: <Search/>},
                 {path: homeRoutes.settings, element: <Settings/>},

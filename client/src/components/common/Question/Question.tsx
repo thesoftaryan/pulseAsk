@@ -18,9 +18,12 @@ import { Icon } from "../Icon/Icon";
 import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
 import { relativeTimeFormat } from "../../../utils/formatDateTime.util";
 import { Answer } from "../Answer/Answer";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../routes/routesConstants";
 // import { UserProfile } from "../UserProfile/UserProfile";
 
-const NoAnswerMessage = ()=>{
+const NoAnswerMessage = (question: QuestionInterface)=>{
+    const {safeNavigate} = useSafeNavigate();
     return (
         <div className={QuestionStyle["no-answer-wrapper"]}>
             <div className={QuestionStyle["content-wrapper"]}>
@@ -30,7 +33,7 @@ const NoAnswerMessage = ()=>{
                 </div>
             </div>
             <div className={QuestionStyle["answer-now-button"]} >
-                <Button text="Answer Now"/>
+                <Button text="Answer Now" onClick={()=>safeNavigate(homeRoutes.question+`/${question._id}/${question.slug}`)}/>
             </div>
         </div>
     );
@@ -60,7 +63,7 @@ export const Question:React.FC<QuestionProps> = ({question, onClick})=>{
                         (question.bestAnswer)?
                         <Answer answer={question.bestAnswer}/>
                         :
-                        <NoAnswerMessage/>
+                        NoAnswerMessage(question)
                     }
                 </div>
                 <div className={QuestionStyle["footer"]}>

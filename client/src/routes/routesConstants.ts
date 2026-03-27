@@ -16,6 +16,7 @@ export const homeRoutes = {
     question: "/question",
     askQuestion: "/question/ask",
     search: "/search",
+    // requires /profile/:userName
     profile: "/profile",
     settings: "/settings"
 }

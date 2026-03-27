@@ -1,5 +1,4 @@
 import { UserProfile } from "../../components/common/UserProfile/UserProfile";
-import { useAppSelector } from "../../hooks/store.hook";
 
 import ProfileStyle from "./Profile.module.css";
 
@@ -14,12 +13,33 @@ import UpvoteCountIcon from "../../assets/icons/profile/upvote_count.svg?react";
 import DownvoteCountIcon from "../../assets/icons/profile/downvote_count.svg?react";
 import { HighlightTile } from "./HighlightTile/HighlightTile";
 import { UserActivity } from "./UserActivity/UserActivity";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useProfileHandler } from "./Profile.handler";
+import type { UserInterface } from "../../types/ApiResponse/user.type";
 
 
 
 export const Profile = ()=>{
-    const user = useAppSelector(state=>state.auth.user);
-    console.log(user);
+    // const user = useAppSelector(state=>state.auth.user);
+
+    // console.log(user);
+
+    const params = useParams();
+    const userName = params.userName;
+
+
+    const [fetchingProfile, setFetchingProfile] = useState(false);
+    const [user, setUser] = useState<Partial<UserInterface>>({});
+
+    const {fetchProfileHandler} = useProfileHandler(setUser, setFetchingProfile);
+
+    useEffect(()=>{
+        fetchProfileHandler(userName);
+    }, []);
+
+    if(fetchingProfile) return "Loading";
+
     return (
         <div className={ProfileStyle["container"]}>
             <div className={ProfileStyle["top-profile"]}>

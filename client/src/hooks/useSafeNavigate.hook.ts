@@ -5,6 +5,10 @@ export const useSafeNavigate = ()=>{
     const navigate = useNavigate();
     const location  = useLocation();
 
+    const backNavigate = ()=>{
+        navigate(-1);
+    }
+
     const safeNavigate = (path : string)=>{
         if(location.pathname !== path){
             navigate(path);
@@ -16,5 +20,5 @@ export const useSafeNavigate = ()=>{
             navigate(path, {replace:true});
         }
     }
-    return {safeNavigate, replaceNavigate};
+    return {safeNavigate, replaceNavigate, backNavigate};
 }

@@ -11,3 +11,7 @@
 //     //************* Stats Information ********** //
 //     reputationScore: number;
 // }
+
+export interface FetchProfilePayload{
+    userName: string;
+}

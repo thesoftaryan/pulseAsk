@@ -45,7 +45,7 @@ export const refreshTokenService = async (payload : RefreshTokenPayload)=>{
  * @param payload : RegisterPayload -> data received over http
  * @returns user : User Model -> Newly created user
  */
-export const registerUser = async (payload : RegisterPayload) => {
+export const registerUserService = async (payload : RegisterPayload) => {
     const {email, password, firstName, lastName} = payload;
 
     const userCheck = await User.findOne({email});
@@ -85,7 +85,7 @@ export const registerUser = async (payload : RegisterPayload) => {
  * @param password string
  * @returns authenticated user (with stripped password)
 */
-export const loginUser = async (payload : LoginPayload) => {
+export const loginUserService = async (payload : LoginPayload) => {
     const {email, password} = payload;
     // .select("+password") is required because in model we have 
     // specified not to select password field whenever any query
@@ -128,7 +128,7 @@ export const loginUser = async (payload : LoginPayload) => {
  * @param token of the type string
  * @returns Nothing
  */
-export const verifyEmail = async (token : any) =>{
+export const verifyEmailService = async (token : any) =>{
 
     if(!token){
         throw new RedirectError(
@@ -161,7 +161,7 @@ export const verifyEmail = async (token : any) =>{
  * @param payload of type VerifyEmailPayload
  * @returns rawToken:string which is then sent to the user via email
  */
-export const resendEmailVerificationLink = async (payload : VerifyEmailPayload)=>{
+export const resendEmailVerificationLinkService = async (payload : VerifyEmailPayload)=>{
     const {email} = payload;
 
     const user = await User.findOne({email});
@@ -194,7 +194,7 @@ export const resendEmailVerificationLink = async (payload : VerifyEmailPayload)=
  * @param payload of Type ForgotPasswordPayload
  * @returns Token for resetting password
  */
-export const forgotPassword = async ( payload : ForgotPasswordPayload)=>{
+export const forgotPasswordService = async ( payload : ForgotPasswordPayload)=>{
     const {email} = payload;
 
     const user = await User.findOne({email});
@@ -221,7 +221,7 @@ export const forgotPassword = async ( payload : ForgotPasswordPayload)=>{
  * @param payload of Type ResetPasswordPayload
  * @returns Nothing
  */
-export const resetPassword = async (payload : ResetPasswordPayload)=>{
+export const resetPasswordService = async (payload : ResetPasswordPayload)=>{
     const {password, token} = payload;
 
     const hashedToken = generateHash(token);

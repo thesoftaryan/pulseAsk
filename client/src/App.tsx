@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 import {Toaster} from "react-hot-toast";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "./hooks/store.hook";
+import { useAppDispatch } from "./hooks/store.hook";
 import { logoutThunk } from "./store/auth/thunks/logout.thunk";
 import { authRoutes } from "./routes/routesConstants";
 import { checkAuthThunk } from "./store/auth/thunks/checkAuth.thunk";
@@ -18,7 +18,7 @@ const App = ()=>{
  
   const dispatch = useAppDispatch();
 
-  const state = useAppSelector(state => state.auth);
+  // const state = useAppSelector(state => state.auth);
   const {replaceNavigate} = useSafeNavigate();
 
   useEffect(()=>{
@@ -40,7 +40,7 @@ const App = ()=>{
     }
   }, [dispatch]);
   
-  if(state.status==="loading") return "Loading...";
+  // if(state.status==="loading") return "Loading...";
 
   return (
     <>

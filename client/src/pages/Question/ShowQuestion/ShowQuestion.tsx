@@ -149,8 +149,8 @@ export const ShowQuestion = ()=>{
                                     <div className={ShowQuestionStyle["user-name"]}>
                                         {question.author.firstName} {question.author.lastName} 
                                     </div>
-                                    <div className={ShowQuestionStyle["user-reputation"]}>
-                                        <ReputationIcon className={ShowQuestionStyle["reputation-icon"]}/>
+                                    <div className={`${ShowQuestionStyle["user-reputation"]}  ${((question.author.reputationScore??0)<0)? ShowQuestionStyle["danger"]:""}`}>
+                                        <ReputationIcon className={`${ShowQuestionStyle["reputation-icon"]}  ${((question.author.reputationScore??0)<0)? ShowQuestionStyle["danger"]:""}`}/>
                                         <div className={ShowQuestionStyle["reputation-count"]}>
                                             {question.author.reputationScore}
                                         </div>

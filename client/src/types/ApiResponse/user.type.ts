@@ -61,6 +61,8 @@ export interface UserInterface{
     profile : string;
     createdAt : Date;
 
+    userName: string;
+
     firstName : string;
     lastName : string;
     email : string;

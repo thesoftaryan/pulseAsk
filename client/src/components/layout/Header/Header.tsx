@@ -26,7 +26,9 @@ import { SearchBar } from "../SearchBar/SearchBar";
 
 export const Header = ()=>{
 
+    const user = useAppSelector(state=>state.auth.user);
     const theme = useAppSelector(state=>state.theme.theme);
+
     const dispatch = useAppDispatch();
     
     const {safeNavigate, replaceNavigate} = useSafeNavigate();
@@ -99,7 +101,7 @@ export const Header = ()=>{
                             isProfileOpen && (
                             <div className={HeaderStyle["user-action"]}>
                                 <ul>
-                                    <li onClick={()=>{safeNavigate(homeRoutes.profile)}}>Profile</li>
+                                    <li onClick={()=>{safeNavigate(homeRoutes.profile+`/${user?.userName}`)}}>Profile</li>
                                     <li onClick={()=>{safeNavigate(homeRoutes.settings)}}>Settings</li>
                                     <li onClick={handleLogout}>Logout</li>
                                 </ul>

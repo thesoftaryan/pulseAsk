@@ -11,7 +11,7 @@ import { errorResponse, successResponse, redirectResponse} from "../utils/respon
 import { LoginPayload, RegisterPayload, ForgotPasswordPayload, GoogleTokenResponse, GoogleUserInfo, ResetPasswordPayload, VerifyEmailPayload, RefreshTokenPayload, TokenData } from "../types/auth.type";
 
 // Auth Services
-import { forgotPassword, loginUser, meService, refreshTokenService, registerUser, resendEmailVerificationLink, resetPassword, verifyEmail } from "../services/auth.service";
+import { forgotPasswordService, loginUserService, meService, refreshTokenService, registerUserService, resendEmailVerificationLinkService, resetPasswordService, verifyEmailService } from "../services/auth.service";
 import { signToken } from "../utils/jwt.util";
 import { User } from "../models/User.model";
 
@@ -110,14 +110,7 @@ export const googleOAuthController = (req:Request, res : Response)=>{
 
 export const refreshTokenController = async (req : Request, res : Response)=>{
     const refreshToken = req.cookies?.refresh_token;
-    if(!refreshToken){
-        return errorResponse(
-            res,
-            STATUS.CLIENT_ERROR.UNAUTHORIZED,
-            "Please login again!",
-        );
-    }
-    const newAccessToken = await refreshTokenService({refreshToken : refreshToken});
+    const newAccessToken = await refreshTokenService({refreshToken : refreshToken??""});
     res.cookie("access_token", newAccessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -143,7 +136,7 @@ export const registerController = async (req: Request, res: Response)=>{
     
     const payload = req.body as RegisterPayload;
     
-    const {user, rawToken} = await registerUser(payload);
+    const {user, rawToken} = await registerUserService(payload);
     
     console.log(user);
     
@@ -159,7 +152,7 @@ export const registerController = async (req: Request, res: Response)=>{
 export const loginController = async (req: Request, res: Response)=>{
     const payload = req.body as LoginPayload;
     
-    const user = await loginUser(payload);
+    const user = await loginUserService(payload);
     
     // console.log(user);
     
@@ -213,7 +206,7 @@ export const logoutController = (req : Request, res : Response)=>{
 export const resendEmailVerificationLinkController = async (req:Request, res:Response)=>{
     const data = req.body as VerifyEmailPayload;
     
-    const token = await resendEmailVerificationLink(data);
+    const token = await resendEmailVerificationLinkService(data);
     
     await sendVerificationMail(data.email, token);
     
@@ -227,7 +220,7 @@ export const resendEmailVerificationLinkController = async (req:Request, res:Res
 export const emailVerificationController = async (req : Request, res : Response)=>{
     const {token} = req.query;
 
-    await verifyEmail(token);
+    await verifyEmailService(token);
 
     return redirectResponse(
         res,
@@ -240,7 +233,7 @@ export const forgotPasswordController = async (req : Request, res : Response) =>
     
     const data = req.body as ForgotPasswordPayload;
     
-    const token = await forgotPassword(data);
+    const token = await forgotPasswordService(data);
     
     await sendResetPasswordMail(data.email, token);
     
@@ -255,7 +248,7 @@ export const resetPasswordController = async (req : Request, res : Response) => 
     
     const data = req.body as ResetPasswordPayload;
     
-    await resetPassword(data);
+    await resetPasswordService(data);
     
     return successResponse(
         res,
