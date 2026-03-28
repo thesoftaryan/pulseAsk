@@ -25,7 +25,7 @@ export const googleOAuthCallbackController = async (req : Request, res : Respons
     // console.log("google callback code: ", code);
     
     if(!code){
-        return redirectResponse(res, `${process.env.CLIENT_URL}/login`);
+        return redirectResponse(res, `${process.env.CLIENT_URL}/auth/login`);
     }
 
     const tokenResponse = await axios.post<GoogleTokenResponse>("https://oauth2.googleapis.com/token",{
