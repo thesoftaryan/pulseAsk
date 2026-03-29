@@ -14,7 +14,7 @@ export const isValidName = (name:string) : boolean => {
 }
 
 export const isValidUserName = (userName:string) : boolean =>{
-    const pattern = /^[a-zA-Z0-9][a-zA-Z0-9_]{1,18}[a-zA-Z0-9]$/;
+    const pattern = /^[a-zA-Z0-9][a-zA-Z0-9_-]{1,18}[a-zA-Z0-9]$/;
     return pattern.test(userName);
 }
 

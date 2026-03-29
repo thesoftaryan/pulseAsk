@@ -361,7 +361,7 @@ const userSchema = new Schema<UserInterface>(
 userSchema.pre("save", function(next){
     if(!this.userName){
         // console.log("creating username: ",`${slugifyText(this.firstName)}_${this._id.toString().slice(-10)}`);
-        this.userName = `${slugifyText(this.firstName)}_${this._id.toString().slice(-10)}`;
+        this.userName = `${slugifyText(this.firstName)}_${this._id.toString().slice(-10)}`.slice(-20);
     }
     next();
 });

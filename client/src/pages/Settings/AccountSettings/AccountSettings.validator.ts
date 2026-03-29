@@ -10,11 +10,13 @@ export const basicProfileValidator = (data : UpdateBasicProfilePayload)=>{
 
     if(!userName || userName.length < 3){
         errors.userName = "User Name must be of atleast 3 characters.";
+    }else if(userName.length>20){
+        errors.userName = "User Name must be of atmost 20 characters.";
     }else if(!isValidUserName(userName)){
         errors.userName = "Only Numbers, Letters and Underscore allowed";
     }else if(!isValidName(firstName)){
         errors.firstName = "First Name is not valid, only Characters and no whitespaces allowed";
-    }else if(!isValidName(lastName)){
+    }else if(lastName && !isValidName(lastName)){
         errors.lastName = "Last Name is not valid, only Characters and no whitespaces allowed";
     }else if(degree && isSpecialNumericString(degree)){
         errors.degree = "Degree can't contain any special character or number";

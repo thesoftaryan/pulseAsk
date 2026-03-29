@@ -1,9 +1,10 @@
+import { Types } from "mongoose";
 import { STATUS } from "../constants/statusCodes";
 import { Answer } from "../models/Answer.model";
 import { Question } from "../models/Question.model";
 import { User } from "../models/User.model";
-import { FetchProfilePayload } from "../types/profile.type";
-import { FetchProfileResponse } from "../types/response/profile.type";
+import { FetchProfilePayload, UpdateBasicProfilePayload } from "../types/profile.type";
+import { FetchProfileResponse, UpdateBasicProfileResponse } from "../types/response/profile.type";
 import { ApiError } from "../utils/error.util";
 
 
@@ -40,4 +41,17 @@ export const fetchProfileService = async (data : FetchProfilePayload) : Promise<
     }
 
     return responseObj;
+}
+
+
+/**
+ * @param data of type UpdateBasicProfilePayload
+ * @returns updated data of type UpdateBasicProfileResponse
+ */
+export const updateBasicProfileService = async (uid:Types.ObjectId ,data : UpdateBasicProfilePayload):Promise<UpdateBasicProfileResponse>=>{
+    await User.updateOne({_id:uid},{
+
+    });
+    const user = User.findById(uid);
+    return user;
 }
