@@ -20,10 +20,74 @@ import TextEditor from "../../../components/common/TextEditor/TextEditor";
 import Button from "../../../components/common/Button/Button";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { authRoutes } from "../../../routes/routesConstants";
+import { useEffect, useState } from "react";
+import { useAccountSettingsHandler } from "./AccountSettings.handler";
+import InlineError from "../../../components/common/InlineError/InlineError";
+
+interface BasicProfileProps{
+    userName: string;
+    firstName: string;
+    lastName: string;
+    degree: string;
+    college:string;
+    descriptionHTML: string;
+    descriptionJSON: string;
+    descriptionContent?: string;
+}
+interface SocialProfileProps{
+    instagram: string;
+    facebook: string;
+    linkedin: string;
+    youtube: string;
+}
 
 export const AccountSettings = ()=>{
     const {safeNavigate} = useSafeNavigate();
     const user = useAppSelector(state=>state.auth.user);
+
+    let initBasicProfile:BasicProfileProps={
+        userName: user?.userName??"",
+        firstName: user?.firstName??"",
+        lastName: user?.lastName??"",
+        degree: user?.degree??"",
+        college: user?.college??"",
+        descriptionHTML: user?.description??"",
+        descriptionJSON: user?.description??"",
+    }
+
+    let initSocialProfile:SocialProfileProps = {
+        instagram: user?.instagram??"",
+        facebook: user?.facebook??"",
+        linkedin: user?.linkedin??"",
+        youtube: user?.youtube??"",
+    }
+
+    const updateProfileObjects = ()=>{
+        initBasicProfile = {
+            userName: user?.userName??"",
+            firstName: user?.firstName??"",
+            lastName: user?.lastName??"",
+            degree: user?.degree??"",
+            college: user?.college??"",
+            descriptionHTML: user?.description??"",
+            descriptionJSON: user?.description??"",
+        }
+    }
+
+    useEffect(()=>{
+        updateProfileObjects();
+        setBasicProfile(initBasicProfile);
+    }, [user]);
+
+    const [basicProfile, setBasicProfile] = useState<BasicProfileProps>(initBasicProfile);
+    const [socialProfile, setSocialProfile] = useState<SocialProfileProps>(initSocialProfile);
+
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const {UpdateBasicProfileHandler, updateSocialProfileHandler} = useAccountSettingsHandler(setBasicProfile, setSocialProfile, setErrors);
+
+
+
     return (
         <div className={AccountSettingsStyle["container"]}>
             <Divider text="Set your profile details"/>
@@ -38,16 +102,19 @@ export const AccountSettings = ()=>{
                 <div className={AccountSettingsStyle["user-details-settings"]}>
                     <div className={AccountSettingsStyle["user-userName"]}>
                         <div className={AccountSettingsStyle["label"]}>User Name</div>
-                        <InputField placeholder="Change your user name" onChange={()=>{}} value={user?.userName}/>
+                        <InputField placeholder="Change your user name" onChange={(e)=>{setBasicProfile({...basicProfile, userName:e.target.value})}} value={basicProfile?.userName}/>
+                        {errors.userName && <InlineError message={errors.userName}/>}
                     </div>
                     <div className={AccountSettingsStyle["user-name"]}>
                         <div className={AccountSettingsStyle["first-name"]}>
                             <div className={AccountSettingsStyle["label"]}>First Name</div>
-                            <InputField placeholder="Enter your first name" onChange={()=>{}} value={user?.firstName}/>
+                            <InputField placeholder="Enter your first name" onChange={(e)=>{setBasicProfile({...basicProfile, firstName:e.target.value})}} value={basicProfile?.firstName}/>
+                            {errors.firstName && <InlineError message={errors.firstName}/>}
                         </div>
                         <div className={AccountSettingsStyle["last-name"]}>
                             <div className={AccountSettingsStyle["label"]}>Last Name</div>
-                            <InputField placeholder="Enter your last name" onChange={()=>{}} value={user?.lastName}/>
+                            <InputField placeholder="Enter your last name" onChange={(e)=>{setBasicProfile({...basicProfile, lastName:e.target.value})}} value={basicProfile?.lastName}/>
+                            {errors.lastName && <InlineError message={errors.lastName}/>}
                         </div>
                     </div>
                     <div className={AccountSettingsStyle["user-email"]}>
@@ -58,21 +125,24 @@ export const AccountSettings = ()=>{
                     <div className={AccountSettingsStyle["user-education"]}>
                         <div className={AccountSettingsStyle["user-degree"]}>
                             <div className={AccountSettingsStyle["label"]}>Degree</div>
-                            <InputField placeholder="Enter your degree, e.g. MBBS, MD" onChange={()=>{}} value={user?.degree}/>
+                            <InputField placeholder="Enter your degree, e.g. MBBS, MD" onChange={(e)=>{setBasicProfile({...basicProfile, degree:e.target.value})}} value={basicProfile?.degree}/>
+                            {errors.degree && <InlineError message={errors.degree}/>}
                         </div>
                         <div className={AccountSettingsStyle["user-college"]}>
                             <div className={AccountSettingsStyle["label"]}>College</div>
-                            <InputField placeholder="Enter your college name" onChange={()=>{}} value={user?.college}/>
+                            <InputField placeholder="Enter your college name" onChange={(e)=>{setBasicProfile({...basicProfile, college:e.target.value})}} value={basicProfile?.college}/>
+                            {errors.college && <InlineError message={errors.college}/>}
                         </div>
                     </div>
                     
                     <div className={AccountSettingsStyle["user-description"]}>
                         <div className={AccountSettingsStyle["label"]}>Description</div>
-                        <TextEditor onChange={()=>{}}/>
+                        <TextEditor placeholder="Write here what you want others to know about you!!" onChange={(e)=>{setBasicProfile({...basicProfile, descriptionContent:e.text, descriptionHTML:e.html, descriptionJSON:String(e.json)})}}/>
+                        {errors.description && <InlineError message={errors.description}/>}
                     </div>
 
                     <div className={AccountSettingsStyle["save-button"]}>
-                        <SettingsActionButton text="Save Details" Icon={SaveIcon}/>
+                        <SettingsActionButton onClick={()=>{UpdateBasicProfileHandler(basicProfile)}} text="Save Details" Icon={SaveIcon}/>
                     </div>
                 </div>
             </div>
@@ -80,23 +150,31 @@ export const AccountSettings = ()=>{
             <div className={AccountSettingsStyle["social-links"]}>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <InstagramIcon className={AccountSettingsStyle["icon"]}/>
-                    <InputField placeholder="Instagram Profile Link" value={user?.instagram}/>
+                    <p style={{margin: 10,}}>@</p>
+                    <InputField placeholder="Instagram username" onChange={(e)=>{setSocialProfile({...socialProfile, instagram: e.target.value})}} value={user?.instagram}/>
+                    {errors.instagram && <InlineError message={errors.instagram}/>}
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <FacebookIcon className={AccountSettingsStyle["icon"]}/>
-                    <InputField placeholder="Facebook Profile Link" value={user?.facebook}/>
+                    <p style={{margin: 10,}}>@</p>
+                    <InputField placeholder="Facebook username" onChange={(e)=>{setSocialProfile({...socialProfile, facebook: e.target.value})}} value={user?.facebook}/>
+                    {errors.facebook && <InlineError message={errors.facebook}/>}
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <LinkedinIcon className={AccountSettingsStyle["icon"]}/>
-                    <InputField placeholder="Linkedin Profile Link" value={user?.linkedin}/>
+                    <p style={{margin: 10,}}>@</p>
+                    <InputField placeholder="Linkedin username" onChange={(e)=>{setSocialProfile({...socialProfile, linkedin: e.target.value})}} value={user?.linkedin}/>
+                    {errors.linkedin && <InlineError message={errors.linkedin}/>}
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <YoutubeIcon className={AccountSettingsStyle["icon"]}/>
-                    <InputField placeholder="Youtube Channel Link" value={user?.youtube}/>
+                    <p style={{margin: 10,}}>@</p>
+                    <InputField placeholder="Youtube Channel username" onChange={(e)=>{setSocialProfile({...socialProfile, youtube: e.target.value})}} value={user?.youtube}/>
+                    {errors.youtube && <InlineError message={errors.youtube}/>}
                 </div>
             </div>
             <div className={AccountSettingsStyle["save-button"]}>
-                <SettingsActionButton text="Save Details" Icon={SaveIcon}/>
+                <SettingsActionButton onClick={()=>{updateSocialProfileHandler(socialProfile)}} text="Save Details" Icon={SaveIcon}/>
             </div>
             <Divider text="Set your knowledge tags"/>
             <div className={AccountSettingsStyle["knowledge-tags"]}>
