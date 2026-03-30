@@ -48,7 +48,7 @@ export const fetchAnswersService = async (data : FetchAnswersPayload)=>{
     }
 
     const answers = await Answer.find({qid: data.qid}).populate([
-        {path: "author", select:"_id firstName lastName profile college"},
+        {path: "author", select:"_id userName firstName lastName profile college"},
         {path: "qid", select:"_id slug"},
     ]);
     return answers;
@@ -66,7 +66,7 @@ export const fetchAnswerCommentsService = async (data : FetchCommentsPayload)=>{
         );
     }
     const comments = await Comment.find({answerId: data.targetId}).populate([
-        {path:"author", select:"_id profile firstName lastName"},
+        {path:"author", select:"_id userName profile firstName lastName"},
     ]);
     return comments;
 }

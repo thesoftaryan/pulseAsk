@@ -99,6 +99,8 @@
     background-color: var(--color-level1-bg);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--size-radius-ls);
+
+    cursor: pointer;
 }
 
 .profile{

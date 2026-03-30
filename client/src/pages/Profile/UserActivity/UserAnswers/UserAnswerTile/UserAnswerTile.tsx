@@ -21,8 +21,8 @@ export const UserAnswerTile : React.FC<UserAnswerTileProps> = ({answer, level1})
         <>
             <div className={`${UserAnswerTileStyle["container"]} ${level1? UserAnswerTileStyle["level1-container"]:""}`}>
                 <div className={UserAnswerTileStyle["header"]}>
-                    <UserProfile className={UserAnswerTileStyle["user-profile"]}/>
-                    <div className={UserAnswerTileStyle["user-data"]}>
+                    <UserProfile onClick={()=>{safeNavigate(homeRoutes.profile+`/${answer.author.userName}`)}} className={UserAnswerTileStyle["user-profile"]}/>
+                    <div onClick={()=>{safeNavigate(homeRoutes.profile+`/${answer.author.userName}`)}} className={UserAnswerTileStyle["user-data"]}>
                         {answer.author.firstName} {answer.author.lastName}
                         <div className={UserAnswerTileStyle["user-education"]}>
                             {/* User Education detail will go here */}

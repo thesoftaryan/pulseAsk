@@ -25,6 +25,8 @@ import { useAnswerHandler } from "./Answer.handler";
 import type { CommentInterface } from "../../../types/ApiResponse/comment.typs";
 import { Spinner } from "../Spinner/Spinner";
 import InlineError from "../InlineError/InlineError";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../routes/routesConstants";
 
 interface AnswerProps{
     answer: AnswerInterface,
@@ -33,6 +35,8 @@ interface AnswerProps{
 }
 
 export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})=>{
+
+    const {safeNavigate} = useSafeNavigate();
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -71,7 +75,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                 <div className={AnswerStyle["time-answered"]}>
                     {relativeTimeFormat(answer.askedAt)}
                 </div>
-                <div className={AnswerStyle["header"]}>
+                <div  onClick={()=>{safeNavigate(homeRoutes.profile+`/${answer.author.userName}`)}}  className={AnswerStyle["header"]}>
                     <UserProfile className={AnswerStyle["user-profile"]}/>
                     <div className={AnswerStyle["user-data"]}>
                         {answer.author.firstName} {answer.author.lastName}

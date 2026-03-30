@@ -26,11 +26,11 @@ export const fetchProfileService = async (data : FetchProfilePayload) : Promise<
 
     const questions = await Question.find({author: user._id}).populate([
         {path:"tags"},
-        {path:"author", select:"_id firstName lastName profile reputationScore"},
+        {path:"author", select:"_id userName firstName lastName profile reputationScore"},
         {path:"bestAnswer"},
     ]);
     const answers = await Answer.find({author: user._id}).populate([
-        {path: "author", select:"_id firstName lastName profile college"},
+        {path: "author", select:"_id userName firstName lastName profile college"},
         {path: "qid", select:"_id slug"},
     ]);
 

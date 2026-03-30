@@ -3,7 +3,7 @@
 
 :root {
   /* MaxWidth */
-  --size-max-width: 1400px;
+  --size-max-width: 1200px;
   --size-sidebar-max-width:380px;
   --size-sidebar-min-width:250px;
   --size-notification-modal-width:400px;

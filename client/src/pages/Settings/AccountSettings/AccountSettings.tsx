@@ -1,7 +1,6 @@
 import AccountSettingsStyle from "./AccountSettings.module.css";
 import { SettingsActionButton } from "./SettingsActionButton/SettingsActionButton";
 
-import CloseIcon from "../../../assets/icons/general/close.svg?react";
 import ChangeIcon from "../../../assets/icons/general/change.svg?react";
 import SaveIcon from "../../../assets/icons/general/save.svg?react";
 import DeleteIcon from "../../../assets/icons/general/delete.svg?react";
@@ -23,6 +22,8 @@ import { authRoutes } from "../../../routes/routesConstants";
 import { useEffect, useState } from "react";
 import { useAccountSettingsHandler } from "./AccountSettings.handler";
 import InlineError from "../../../components/common/InlineError/InlineError";
+import { TagChip } from "../../../components/common/TagChip/TagChip";
+import type { TagInterface } from "../../../types/ApiResponse/tag.type";
 
 interface BasicProfileProps{
     userName: string;
@@ -89,10 +90,22 @@ export const AccountSettings = ()=>{
     const [basicProfile, setBasicProfile] = useState<BasicProfileProps>(initBasicProfile);
     const [socialProfile, setSocialProfile] = useState<SocialProfileProps>(initSocialProfile);
 
+    const [kTagState, setKTagState] = useState<{adding:boolean, removing:boolean}>({adding:false, removing:false});
+    const [kTags, setKTags] = useState<TagInterface[]>([]);
+
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    const {UpdateBasicProfileHandler, updateSocialProfileHandler} = useAccountSettingsHandler(setBasicProfile, setSocialProfile, setErrors);
+    const {UpdateBasicProfileHandler, updateSocialProfileHandler, addKTagHandler, removeKTagHandler} = useAccountSettingsHandler(setBasicProfile, setSocialProfile, setKTags, setErrors);
 
+
+
+    const handleRemoveKTag = (kTid: string)=>{
+        removeKTagHandler(setKTagState);
+    }
+
+    const handleAddKTag = (kTid: string)=>{
+        addKTagHandler(setKTagState);
+    }
 
 
     return (
@@ -196,16 +209,18 @@ export const AccountSettings = ()=>{
                     </div>
                 </div>
                 <div className={AccountSettingsStyle["knowledge-tags-container"]}>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
-                    <SettingsActionButton text="Neuro" Icon={CloseIcon} color={"purple"}/>
+                    
+                    {
+                        !kTags.length
+                        && 
+                        <p className={AccountSettingsStyle["label"]}> Add knowledge tags to tell people in which field you have knowledge <small>e.g. Heart</small></p>
+                    }
+                    {
+                        kTags.map((tag)=>{
+                            return <TagChip key={tag._id} onDelete={()=>{}} text={tag.name} color={tag.color}/>
+                        })
+                    }
+
                 </div>
             </div>
             <Divider text="Danger Zone" color={color.colorDanger}/>

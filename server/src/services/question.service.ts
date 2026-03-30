@@ -82,7 +82,7 @@ export const fetchQuestionService = async (data : FetchQuestionPayload) : Promis
 
     await question.populate([
         {path:"tags"},
-        {path:"author", select:"_id firstName lastName profile reputationScore"},
+        {path:"author", select:"_id userName firstName lastName profile reputationScore"},
         {path:"bestAnswer"},
     ]);
 
@@ -97,7 +97,7 @@ export const fetchQuestionsService = async () : Promise<QuestionInterface[]> =>{
     
     const questions = await Question.find().populate([
         {path:"tags"},
-        {path:"author", select:"_id firstName lastName profile reputationScore"},
+        {path:"author", select:"_id userName firstName lastName profile reputationScore"},
         {path:"bestAnswer"},
     ]); 
 

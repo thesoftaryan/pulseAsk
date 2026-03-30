@@ -43,7 +43,7 @@ type QuestionParams = {
 
 export const ShowQuestion = ()=>{
 
-    const {replaceNavigate} = useSafeNavigate();
+    const {replaceNavigate, safeNavigate} = useSafeNavigate();
     const {qid, slug} = useParams<QuestionParams>();
 
     const initObj = {
@@ -141,7 +141,7 @@ export const ShowQuestion = ()=>{
                                     voteQuestionHandler(-1, question._id, question.author._id??"", setVoting);
                                 }}/>
                             </div>
-                            <div className={ShowQuestionStyle["right"]}>
+                            <div  onClick={()=>{safeNavigate(homeRoutes.profile+`/${question.author.userName}`)}}  className={ShowQuestionStyle["right"]}>
                                 <div className={ShowQuestionStyle["profile"]}>
                                     <UserProfile/>
                                 </div>
