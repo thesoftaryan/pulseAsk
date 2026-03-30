@@ -51,8 +51,8 @@ export const AccountSettings = ()=>{
         lastName: user?.lastName??"",
         degree: user?.degree??"",
         college: user?.college??"",
-        descriptionHTML: user?.description??"",
-        descriptionJSON: user?.description??"",
+        descriptionHTML: user?.descriptionHTML??"",
+        descriptionJSON: user?.descriptionJSON??"",
     }
 
     let initSocialProfile:SocialProfileProps = {
@@ -69,8 +69,8 @@ export const AccountSettings = ()=>{
             lastName: user?.lastName??"",
             degree: user?.degree??"",
             college: user?.college??"",
-            descriptionHTML: user?.description??"",
-            descriptionJSON: user?.description??"",
+            descriptionHTML: user?.descriptionHTML??"",
+            descriptionJSON: user?.descriptionJSON??"",
         }
         initSocialProfile = {
             instagram: user?.instagram??"",
@@ -158,25 +158,25 @@ export const AccountSettings = ()=>{
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <InstagramIcon className={AccountSettingsStyle["icon"]}/>
                     <p style={{margin: 10,}}>@</p>
-                    <InputField placeholder="Instagram username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, instagram: e.target.value})}} value={user?.instagram}/>
+                    <InputField placeholder="Instagram username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, instagram: e.target.value})}} value={socialProfile?.instagram}/>
                     {errors.instagram && <InlineError message={errors.instagram}/>}
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <FacebookIcon className={AccountSettingsStyle["icon"]}/>
                     <p style={{margin: 10,}}>@</p>
-                    <InputField placeholder="Facebook username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, facebook: e.target.value})}} value={user?.facebook}/>
+                    <InputField placeholder="Facebook username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, facebook: e.target.value})}} value={socialProfile?.facebook}/>
                     {errors.facebook && <InlineError message={errors.facebook}/>}
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <LinkedinIcon className={AccountSettingsStyle["icon"]}/>
                     <p style={{margin: 10,}}>@</p>
-                    <InputField placeholder="Linkedin username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, linkedin: e.target.value})}} value={user?.linkedin}/>
+                    <InputField placeholder="Linkedin username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, linkedin: e.target.value})}} value={socialProfile?.linkedin}/>
                     {errors.linkedin && <InlineError message={errors.linkedin}/>}
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <YoutubeIcon className={AccountSettingsStyle["icon"]}/>
                     <p style={{margin: 10,}}>@</p>
-                    <InputField placeholder="Youtube Channel username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, youtube: e.target.value})}} value={user?.youtube}/>
+                    <InputField placeholder="Youtube Channel username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, youtube: e.target.value})}} value={socialProfile?.youtube}/>
                     {errors.youtube && <InlineError message={errors.youtube}/>}
                 </div>
             </div>

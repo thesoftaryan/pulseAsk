@@ -85,7 +85,8 @@ export interface UserInterface{
     //************* Social Information ********** //
     degree : string;
     college : string;
-    description : string;
+    descriptionHTML? : string;
+    descriptionJSON?: string;
     tags : TagResponse[];
     instagram : string;
     facebook : string;

@@ -74,7 +74,8 @@ export interface UserInterface extends Document{
     //************* Social Information ********** //
     degree? : string;
     college? : string;
-    description? : string;
+    descriptionHTML? : string;
+    descriptionJSON?: string;
     tags : TagInterface[];
     instagram? : string;
     facebook? : string;
@@ -293,7 +294,10 @@ const userSchema = new Schema<UserInterface>(
         college : {
             type : String,
         },
-        description : {
+        descriptionHTML : {
+            type : String,
+        },
+        descriptionJSON : {
             type : String,
         },
         tags : [

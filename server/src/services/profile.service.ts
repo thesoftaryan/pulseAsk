@@ -1,10 +1,10 @@
-import { Types } from "mongoose";
+import { Collection, Types } from "mongoose";
 import { STATUS } from "../constants/statusCodes";
 import { Answer } from "../models/Answer.model";
 import { Question } from "../models/Question.model";
 import { User } from "../models/User.model";
-import { FetchProfilePayload, UpdateBasicProfilePayload } from "../types/profile.type";
-import { FetchProfileResponse, UpdateBasicProfileResponse } from "../types/response/profile.type";
+import { FetchProfilePayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../types/profile.type";
+import { FetchProfileResponse, UpdateBasicProfileResponse, UpdateSocialProfileResponse } from "../types/response/profile.type";
 import { ApiError } from "../utils/error.util";
 
 
@@ -49,9 +49,35 @@ export const fetchProfileService = async (data : FetchProfilePayload) : Promise<
  * @returns updated data of type UpdateBasicProfileResponse
  */
 export const updateBasicProfileService = async (uid:Types.ObjectId ,data : UpdateBasicProfilePayload):Promise<UpdateBasicProfileResponse>=>{
-    await User.updateOne({_id:uid},{
+    const duplicate = await User.findOne({userName: data.userName});
+    if(duplicate && (duplicate._id != uid)){
+        // !== won't work because type of _id is object and type of uid is string
+        // console.log(typeof(duplicate._id), ", ", typeof(uid));
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.CONFLICT,
+            "Username already taken",
+        );
+    }
+    
+    await User.updateOne({_id:uid}, data);
+    // const user = await User.findById(uid);
+    // const updatedDetails = {
+    //     userName: user!.userName,
+    //     firstName: user!.firstName,
+    //     lastName: user!.lastName,
+    //     degree: user!.degree??"",
+    //     college: user!.college??"",
+    //     descriptionHTML: user!.descriptionHTML??"",
+    //     descriptionJSON: user!.descriptionJSON??"",
+    // };
+    return data;
+}
 
-    });
-    const user = User.findById(uid);
-    return user;
+/**
+ * @param data of type UpdateSocialProfilePayload
+ * @returns updated data of type UpdateSocialProfileResponse
+ */
+export const updateSocialProfileService = async (uid:Types.ObjectId, data : UpdateSocialProfilePayload):Promise<UpdateSocialProfileResponse>=>{
+    await User.updateOne({_id: uid}, data);
+    return data;
 }

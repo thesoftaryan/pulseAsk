@@ -17,16 +17,40 @@ export const AboutUser:React.FC<AboutUserProps> = ({user})=>{
                 <div className={AboutUserStyle["label"]}>
                     Description
                 </div>
-                {user.description??(<p className={AboutUserStyle["label"]}>No Description available</p>)}
+                {user.descriptionHTML??(<p className={AboutUserStyle["label"]}>No Description available</p>)}
             </div>
             <div className={AboutUserStyle["social-links"]}>
                 <div className={AboutUserStyle["label"]}>
                     Social Links
                 </div>
-                {user.instagram && <InstagramIcon className={AboutUserStyle["icon"]}/>}
-                {user.facebook && <FacebookIcon className={AboutUserStyle["icon"]} />}
-                {user.linkedin && <LinkedinIcon className={AboutUserStyle["icon"]} />}
-                {user.youtube && <YoutubeIcon className={AboutUserStyle["icon"]} />}
+                {
+                    user.instagram 
+                    && 
+                    <a href={`https://instagram.com/${user.instagram}`} target="_blank">
+                    <InstagramIcon className={AboutUserStyle["icon"]}/>
+                    </a>
+                }
+                {
+                    user.facebook 
+                    && 
+                    <a href={`https://facebook.com/${user.facebook}`} target="_blank">
+                    <FacebookIcon className={AboutUserStyle["icon"]} />
+                    </a>
+                }
+                {
+                    user.linkedin 
+                    && 
+                    <a href={`https://linkedin.com/in/${user.linkedin}`} target="_blank">
+                    <LinkedinIcon className={AboutUserStyle["icon"]} />
+                    </a>
+                }
+                {
+                    user.youtube 
+                    && 
+                    <a href={`https://youtube.com/@${user.youtube}`} target="_blank">
+                    <YoutubeIcon className={AboutUserStyle["icon"]} />
+                    </a>
+                }
             </div>
         </div>
     );

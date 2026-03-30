@@ -39,6 +39,9 @@ export const useProfileHandler = (
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
+            // console.log("showing message")
+            // Todo: Have to build a 404 page
+            backNavigate();
         }finally{
             setFetchingProfile(false);
         }
