@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 /* **************** Account Interfaces *************** */
 export interface UpdateBasicProfilePayload{
     userName: string;
@@ -21,7 +23,7 @@ export interface AddKTagPayload{
 }
 
 export interface RemoveKTagPayload{
-    kTid: string;
+    kTid: Types.ObjectId;
 }
 
 

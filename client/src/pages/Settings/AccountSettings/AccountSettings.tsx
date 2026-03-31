@@ -23,7 +23,6 @@ import { useEffect, useState } from "react";
 import { useAccountSettingsHandler } from "./AccountSettings.handler";
 import InlineError from "../../../components/common/InlineError/InlineError";
 import { TagChip } from "../../../components/common/TagChip/TagChip";
-import type { TagInterface } from "../../../types/ApiResponse/tag.type";
 
 interface BasicProfileProps{
     userName: string;
@@ -46,7 +45,7 @@ export const AccountSettings = ()=>{
     const {safeNavigate} = useSafeNavigate();
     const user = useAppSelector(state=>state.auth.user);
 
-    let initBasicProfile:BasicProfileProps={
+    const initBasicProfile:BasicProfileProps={
         userName: user?.userName??"",
         firstName: user?.firstName??"",
         lastName: user?.lastName??"",
@@ -56,36 +55,31 @@ export const AccountSettings = ()=>{
         descriptionJSON: user?.descriptionJSON??"",
     }
 
-    let initSocialProfile:SocialProfileProps = {
+    const initSocialProfile:SocialProfileProps = {
         instagram: user?.instagram??"",
         facebook: user?.facebook??"",
         linkedin: user?.linkedin??"",
         youtube: user?.youtube??"",
     }
 
-    const updateProfileObjects = ()=>{
-        initBasicProfile = {
-            userName: user?.userName??"",
-            firstName: user?.firstName??"",
-            lastName: user?.lastName??"",
-            degree: user?.degree??"",
-            college: user?.college??"",
-            descriptionHTML: user?.descriptionHTML??"",
-            descriptionJSON: user?.descriptionJSON??"",
-        }
-        initSocialProfile = {
-            instagram: user?.instagram??"",
-            facebook: user?.facebook??"",
-            linkedin: user?.linkedin??"",
-            youtube: user?.youtube??"",
-        }
-    }
 
     useEffect(()=>{
-        updateProfileObjects();
-        setBasicProfile(initBasicProfile);
-        setSocialProfile(initSocialProfile);
-        setKTags(user?.tags??[]);
+        setBasicProfile({
+            userName: user?.userName ?? "",
+            firstName: user?.firstName ?? "",
+            lastName: user?.lastName ?? "",
+            degree: user?.degree ?? "",
+            college: user?.college ?? "",
+            descriptionHTML: user?.descriptionHTML ?? "",
+            descriptionJSON: user?.descriptionJSON ?? "",
+        });
+
+        setSocialProfile({
+            instagram: user?.instagram ?? "",
+            facebook: user?.facebook ?? "",
+            linkedin: user?.linkedin ?? "",
+            youtube: user?.youtube ?? "",
+        });
     }, [user]);
 
     const [basicProfile, setBasicProfile] = useState<BasicProfileProps>(initBasicProfile);
@@ -94,11 +88,13 @@ export const AccountSettings = ()=>{
     const [tagName, setTagName] = useState("");
 
     const [kTagState, setKTagState] = useState<{adding:boolean, removing:boolean}>({adding:false, removing:false});
-    const [kTags, setKTags] = useState<TagInterface[]>([]);
+    // const [kTags, setKTags] = useState<TagInterface[]>([]);
+
+    const kTags = user?.tags??[];
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    const {UpdateBasicProfileHandler, updateSocialProfileHandler, addKTagHandler, removeKTagHandler} = useAccountSettingsHandler(setBasicProfile, setSocialProfile, setKTags, setErrors);
+    const {UpdateBasicProfileHandler, updateSocialProfileHandler, addKTagHandler, removeKTagHandler} = useAccountSettingsHandler(setBasicProfile, setSocialProfile, setErrors);
 
 
 
@@ -229,7 +225,7 @@ export const AccountSettings = ()=>{
                     }
                     {
                         kTags.map((tag)=>{
-                            return <TagChip key={tag._id} onDelete={()=>{handleRemoveKTag(tag._id)}} level1={true} text={tag.name} color={tag.color}/>
+                            return <TagChip key={tag._id} onDelete={()=>{handleRemoveKTag(tag._id)}} disabled={kTagState.removing} level1={true} text={tag.name} color={tag.color}/>
                         })
                     }
 

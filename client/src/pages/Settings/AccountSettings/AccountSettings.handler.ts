@@ -1,8 +1,9 @@
+import { useAppDispatch } from "../../../hooks/store.hook";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service"
 import { addKTagService, removeKTagService, updateBasicProfileService, updateSocialProfileService } from "../../../services/setting/accountSettings.service";
+import { addKTag, removeKTag } from "../../../store/auth/auth.slice";
 import type { UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../../../types/ApiRequest/setting.type"
-import type { RemoveKTagResponse,  AddKTagResponse,  UpdateBasicProfileResponse,  UpdateSocialProfileResponse } from "../../../types/ApiResponse/setting.type";
-import type { TagInterface } from "../../../types/ApiResponse/tag.type";
+import type { AddKTagResponse,  UpdateBasicProfileResponse,  UpdateSocialProfileResponse } from "../../../types/ApiResponse/setting.type";
 import { showToast } from "../../../utils/toast.util";
 import { basicProfileValidator, socialProfileValidator } from "./AccountSettings.validator";
 
@@ -10,9 +11,11 @@ import { basicProfileValidator, socialProfileValidator } from "./AccountSettings
 export const useAccountSettingsHandler = (
     setBasicProfile: React.Dispatch<React.SetStateAction<UpdateBasicProfilePayload>>,
     setSocialProfile: React.Dispatch<React.SetStateAction<UpdateSocialProfilePayload>>,
-    setKTags: React.Dispatch<React.SetStateAction<TagInterface[]>>,
     setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>,
 )=>{
+
+    const dispatch = useAppDispatch();
+
     const UpdateBasicProfileHandler = async (data : UpdateBasicProfilePayload)=>{
         try{
 
@@ -58,11 +61,13 @@ export const useAccountSettingsHandler = (
                 showToast.error("Tag must be of atleast 3 characters");
                 return;
             }
+            setKTagState((state)=>{return {removing: state.removing, adding : true}});
             const response = await addKTagService({name});
             const result = parseSuccessResponse<AddKTagResponse>(response);
-            setKTags((state)=>{return [...state, result.data!]});
+            dispatch(addKTag({tag: result.data}));
+            // setKTags((state)=>{return [...state, result.data!]});
+            // await dispatch(checkAuthThunk()).unwrap();
         }catch(error){
-            setKTagState((state)=>{return {removing: state.removing, adding : true}});
             const err = parseErrorResponse(error);
             showToast.error(err.message);
         }finally{
@@ -79,9 +84,11 @@ export const useAccountSettingsHandler = (
     ) =>{
         try{
             setKTagState((state)=>{return {adding: state.adding, removing : true}});
-            const response = await removeKTagService({kTid});
-            const result = parseSuccessResponse<RemoveKTagResponse>(response);
-            setKTags((state)=>state.filter((kTag)=>kTag._id!==result.data));
+            await removeKTagService({kTid});
+            dispatch(removeKTag({kTid}));
+            // const response = await removeKTagService({kTid});
+            // const result = parseSuccessResponse<RemoveKTagResponse>(response);
+            // setKTags((state)=>state.filter((kTag)=>kTag._id!==kTid));
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);

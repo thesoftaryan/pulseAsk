@@ -9,10 +9,11 @@ interface TagChipProps{
     level1? : boolean;
     isLarge?: boolean;
     onDelete?: ()=>void;
+    disabled?: boolean;
     Key?: string;
 }
 
-export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, onDelete, Key})=>{
+export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, onDelete, disabled, Key})=>{
     return (
         <>
             <div key={Key} className={`${TagChipStyle["container"]} ${(level1)? TagChipStyle["level1"]:""} ${(isLarge)? TagChipStyle["large-container"]:""}`}>
@@ -24,7 +25,7 @@ export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, 
                 </div>
                 {
                     onDelete && (
-                        <div onClick={onDelete} className={TagChipStyle["delete-container"]}>
+                        <div onClick={disabled? undefined:onDelete} className={TagChipStyle["delete-container"]}>
                             <CloseIcon className={TagChipStyle["close-icon"]}/>
                         </div>
                     )

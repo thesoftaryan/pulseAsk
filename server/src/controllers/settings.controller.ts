@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { STATUS } from "../constants/statusCodes.constants";
-import { addKTagService, updateBasicProfileService, updateSocialProfileService } from "../services/settings.service";
+import { addKTagService, removeKTagService, updateBasicProfileService, updateSocialProfileService } from "../services/settings.service";
 import { successResponse } from "../utils/response.util";
-import { AddKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../types/settings.type";
+import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../types/settings.type";
 
 export const updateBasicProfileController = async (req:Request, res: Response)=>{
     const data = req.body as UpdateBasicProfilePayload;
@@ -33,6 +33,17 @@ export const addKTagController = async (req:Request, res:Response)=>{
         res,
         STATUS.SUCCESS.CREATED,
         "Tag added successfully",
+        responseObj,
+    );
+}
+
+export const removeKTagController = async (req:Request, res:Response)=>{
+    const data = req.body as RemoveKTagPayload;
+    const responseObj = await removeKTagService(req.user?.uid!, data);
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Tag removed successfully",
         responseObj,
     );
 }

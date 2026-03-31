@@ -2,8 +2,8 @@ import { Types } from "mongoose";
 import { STATUS } from "../constants/statusCodes.constants";
 import { User } from "../models/User.model";
 import { ApiError } from "../utils/error.util";
-import { AddKTagResponse, UpdateBasicProfileResponse, UpdateSocialProfileResponse } from "../types/response/settings.type";
-import { AddKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../types/settings.type";
+import { AddKTagResponse, RemoveKTagResponse, UpdateBasicProfileResponse, UpdateSocialProfileResponse } from "../types/response/settings.type";
+import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../types/settings.type";
 import { slugifyText } from "../utils/general.util";
 import { Tag } from "../models/Tag.model";
 import { generateTagColor } from "../utils/tag.util";
@@ -93,4 +93,31 @@ export const addKTagService = async (uid: Types.ObjectId, data : AddKTagPayload)
     await user?.save();
 
     return newTag!;
+}
+
+/**
+ * @param data of type RemoveKTagPayload
+ * @returns data of type RemoveKTagResponse
+ */
+export const removeKTagService = async (uid: Types.ObjectId, data : RemoveKTagPayload) : Promise<RemoveKTagResponse>=>{
+    if(!Types.ObjectId.isValid(data.kTid)){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.NOT_FOUND,
+            "Tag not found",
+        );
+    }
+
+    const user = await User.findById(uid);
+
+    let tags = user!.tags;
+
+    tags = tags.filter((tag)=>{
+        if(tag._id != data.kTid) return tag;
+    });
+
+    user!.tags = tags;
+
+    await user?.save();
+
+    return {};
 }

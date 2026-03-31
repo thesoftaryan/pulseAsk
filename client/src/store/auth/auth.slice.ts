@@ -21,6 +21,14 @@ const authSlice = createSlice({
     name : "auth",
     initialState,
     reducers : {
+        addKTag(state, action){
+            state.user?.tags?.push(action.payload.tag);
+        },
+        removeKTag(state, action){
+            state.user?.tags?.filter(
+                tag => tag._id !== action.payload.kTid,
+            );
+        },
         clearAuthError(state){
             state.error = null;
         },
@@ -141,5 +149,5 @@ const authSlice = createSlice({
     }
 });
 
-export const {clearAuthError} = authSlice.actions;
+export const {clearAuthError, addKTag, removeKTag} = authSlice.actions;
 export default authSlice.reducer;
