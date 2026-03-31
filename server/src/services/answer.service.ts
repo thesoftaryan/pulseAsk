@@ -4,10 +4,10 @@ import { FetchAnswersPayload, PostAnswerPayload } from "../types/answer.type";
 import { FetchCommentsPayload, PostCommentPayload } from "../types/comment.type";
 import { Comment } from "../models/Comment.model";
 import { ApiError } from "../utils/error.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 import { Question } from "../models/Question.model";
 import { User } from "../models/User.model";
-import { reputationPolicy } from "../utils/reputation.util";
+import { reputationPolicy } from "../constants/reputation.constants";
 
 
 /**

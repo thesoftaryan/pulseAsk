@@ -3,7 +3,7 @@ import { VotePayload } from "../types/vote.type";
 import { voteService } from "../services/vote.service";
 import { VoteResponse } from "../types/response/vote.type";
 import { successResponse } from "../utils/response.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 import { FetchAnswersPayload, PostAnswerPayload } from "../types/answer.type";
 import { fetchAnswerCommentsService, fetchAnswersService, postAnswerCommentService, postAnswerService } from "../services/answer.service";
 import { FetchAnswersResponse } from "../types/response/answer.type";

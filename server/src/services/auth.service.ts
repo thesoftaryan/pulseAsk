@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { User } from "../models/User.model";
 import { ApiError, RedirectError } from "../utils/error.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 
 // Verification Part
 import { generateRandomToken } from "../utils/token.util";
@@ -253,7 +253,9 @@ export const resetPasswordService = async (payload : ResetPasswordPayload)=>{
  * @returns the user with that credentials
  */
 export const meService = async (payload : TokenData)=>{
-    const user = User.findById(payload.uid);
+    const user = User.findById(payload.uid).populate(
+        [{path: "tags"}],
+    );
     if(!user){
         throw new ApiError(
             STATUS.CLIENT_ERROR.BAD_REQUEST,

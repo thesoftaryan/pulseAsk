@@ -4,10 +4,10 @@ import { AskQuestionPayload, FetchQuestionPayload } from "../types/question.type
 import { createTagService, generateTagService } from "./tag.service";
 import { slugifyText } from "../utils/general.util";
 import { ApiError } from "../utils/error.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 import { FetchQuestionReponse } from "../types/response/question.type";
 import { User } from "../models/User.model";
-import { reputationPolicy } from "../utils/reputation.util";
+import { reputationPolicy } from "../constants/reputation.constants";
 
 
 

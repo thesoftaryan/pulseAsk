@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { AskQuestionPayload, FetchQuestionPayload } from "../types/question.type"
 import { askQuestionService, fetchQuestionService, fetchQuestionsService } from "../services/question.service";
 import { successResponse } from "../utils/response.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 import { VotePayload } from "../types/vote.type";
 import { voteService } from "../services/vote.service";
 import { VoteResponse } from "../types/response/vote.type";

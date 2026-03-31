@@ -2,7 +2,7 @@ import { GenerateTagPayload, TagPayload } from "../types/tag.type";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ApiError } from "../utils/error.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 import { generateTagColor } from "../utils/tag.util";
 import { Tag } from "../models/Tag.model";
 import { Types } from "mongoose";
@@ -60,7 +60,7 @@ export const generateTagService = async (data : GenerateTagPayload)=>{
         tags.map((tagName)=>{
             const tag : GenerateTagResponse = {
                 name: tagName,
-                color: generateTagColor(tagName),
+                color: generateTagColor(slugifyText(tagName)),
             };
             tagsResponse.push(tag);
         });
@@ -81,7 +81,7 @@ export const createTagService = async (data : TagPayload[])=>{
         const tagObject = {
             slug: slugifyText(tagData.name),
             name: tagData.name,
-            color: generateTagColor(tagData.name),
+            color: generateTagColor(slugifyText(tagData.name)),
         }
         // console.log("tagObject: ",tagObject);
         let tag = await Tag.findOne({slug: tagObject.slug});

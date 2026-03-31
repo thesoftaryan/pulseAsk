@@ -85,10 +85,13 @@ export const AccountSettings = ()=>{
         updateProfileObjects();
         setBasicProfile(initBasicProfile);
         setSocialProfile(initSocialProfile);
+        setKTags(user?.tags??[]);
     }, [user]);
 
     const [basicProfile, setBasicProfile] = useState<BasicProfileProps>(initBasicProfile);
     const [socialProfile, setSocialProfile] = useState<SocialProfileProps>(initSocialProfile);
+
+    const [tagName, setTagName] = useState("");
 
     const [kTagState, setKTagState] = useState<{adding:boolean, removing:boolean}>({adding:false, removing:false});
     const [kTags, setKTags] = useState<TagInterface[]>([]);
@@ -100,11 +103,11 @@ export const AccountSettings = ()=>{
 
 
     const handleRemoveKTag = (kTid: string)=>{
-        removeKTagHandler(setKTagState);
+        removeKTagHandler(setKTagState, kTid);
     }
 
-    const handleAddKTag = (kTid: string)=>{
-        addKTagHandler(setKTagState);
+    const handleAddKTag = ()=>{
+        addKTagHandler(setKTagState, tagName);
     }
 
 
@@ -203,9 +206,18 @@ export const AccountSettings = ()=>{
                     <InputField placeholder="Add new knowledge tag"/>
                 </div> */}
                 <div className={AccountSettingsStyle["knowledge-tag-input-container"]}>
-                    <input type="text" placeholder="Enter your tag" className={AccountSettingsStyle["knowledge-tag-input"]}/>
+                    <input type="text" placeholder="Enter your tag" className={AccountSettingsStyle["knowledge-tag-input"]}
+                        onChange={(e)=>{
+                            setTagName(e.target.value);
+                        }}
+                        onKeyDown={(e)=>{
+                            if(e.key=="Enter"){
+                                handleAddKTag();
+                            }
+                        }}
+                    />
                     <div className={AccountSettingsStyle["add-knowledge-tag-button"]}>
-                        <Button text="Add Tag" level2={true} isSmall={true}/>
+                        <Button onClick={handleAddKTag} loading={kTagState.adding} text="Add Tag" level2={true} isSmall={true}/>
                     </div>
                 </div>
                 <div className={AccountSettingsStyle["knowledge-tags-container"]}>
@@ -217,7 +229,7 @@ export const AccountSettings = ()=>{
                     }
                     {
                         kTags.map((tag)=>{
-                            return <TagChip key={tag._id} onDelete={()=>{}} text={tag.name} color={tag.color}/>
+                            return <TagChip key={tag._id} onDelete={()=>{handleRemoveKTag(tag._id)}} level1={true} text={tag.name} color={tag.color}/>
                         })
                     }
 

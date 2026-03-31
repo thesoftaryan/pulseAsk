@@ -1,6 +1,7 @@
 import {Schema, model, Document, Types} from "mongoose";
 import { TagInterface } from "./Tag.model";
 import { slugifyText } from "../utils/general.util";
+import { ref } from "process";
 
 interface StripeConnection{
     id : string;
@@ -303,6 +304,7 @@ const userSchema = new Schema<UserInterface>(
         tags : [
             {
                 type: Schema.Types.ObjectId,
+                ref:"Tag",
             }
         ],
         instagram : {

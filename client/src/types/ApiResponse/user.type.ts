@@ -1,4 +1,4 @@
-import type { TagResponse } from "./tag.type";
+import type { TagInterface } from "./tag.type";
 
 // export interface User{
 //     uid : string;
@@ -87,7 +87,7 @@ export interface UserInterface{
     college : string;
     descriptionHTML? : string;
     descriptionJSON?: string;
-    tags : TagResponse[];
+    tags : TagInterface[];
     instagram : string;
     facebook : string;
     linkedin : string;

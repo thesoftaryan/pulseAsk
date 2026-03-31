@@ -1,7 +1,7 @@
 // Cloudinary image upload service
 import cloudinary from "../config/cloudinary.config";
 import { ApiError } from "../utils/error.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 
 /**
  * @param 

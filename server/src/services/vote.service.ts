@@ -4,9 +4,9 @@ import { TargetType, Vote } from "../models/Vote.model";
 import { VotePayload } from "../types/vote.type";
 import { Question } from "../models/Question.model";
 import { ApiError } from "../utils/error.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 import { VoteResponse } from "../types/response/vote.type";
-import { reputationPolicy } from "../utils/reputation.util";
+import { reputationPolicy } from "../constants/reputation.constants";
 import { User } from "../models/User.model";
 
 /**

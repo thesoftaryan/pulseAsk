@@ -1,4 +1,4 @@
-import type { TagInterface } from "./tag.type";
+import type { TagInterface } from "../../models/Tag.model"; 
 
 /* **************** Account Interfaces *************** */
 export interface UpdateBasicProfileResponse{

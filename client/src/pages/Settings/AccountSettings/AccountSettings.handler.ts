@@ -1,7 +1,7 @@
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service"
-import { updateBasicProfileService, updateSocialProfileService } from "../../../services/setting/accountSettings.service";
+import { addKTagService, removeKTagService, updateBasicProfileService, updateSocialProfileService } from "../../../services/setting/accountSettings.service";
 import type { UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../../../types/ApiRequest/setting.type"
-import type { UpdateBasicProfileResponse, UpdateSocialProfileResponse } from "../../../types/ApiResponse/setting.type";
+import type { RemoveKTagResponse,  AddKTagResponse,  UpdateBasicProfileResponse,  UpdateSocialProfileResponse } from "../../../types/ApiResponse/setting.type";
 import type { TagInterface } from "../../../types/ApiResponse/tag.type";
 import { showToast } from "../../../utils/toast.util";
 import { basicProfileValidator, socialProfileValidator } from "./AccountSettings.validator";
@@ -51,12 +51,16 @@ export const useAccountSettingsHandler = (
             adding: boolean;
             removing: boolean;
         }>>,
+        name: string,
     ) =>{
         try{
-            return true;
-            // const response = await removeKTagService();
-            // const result = parseSuccessResponse<TagInterface>();
-            // setKTags((state)=>{return {...state, result.data?}});
+            if(!name || name.length<3){
+                showToast.error("Tag must be of atleast 3 characters");
+                return;
+            }
+            const response = await addKTagService({name});
+            const result = parseSuccessResponse<AddKTagResponse>(response);
+            setKTags((state)=>{return [...state, result.data!]});
         }catch(error){
             setKTagState((state)=>{return {removing: state.removing, adding : true}});
             const err = parseErrorResponse(error);
@@ -71,12 +75,13 @@ export const useAccountSettingsHandler = (
             adding: boolean;
             removing: boolean;
         }>>,
+        kTid: string,
     ) =>{
         try{
             setKTagState((state)=>{return {adding: state.adding, removing : true}});
-            // const response = await removeKTagService();
-            // const result = parseSuccessResponse();
-            // setKTags((state)=>state.filter((kTag)=>kTag._id!==result.data));
+            const response = await removeKTagService({kTid});
+            const result = parseSuccessResponse<RemoveKTagResponse>(response);
+            setKTags((state)=>state.filter((kTag)=>kTag._id!==result.data));
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);

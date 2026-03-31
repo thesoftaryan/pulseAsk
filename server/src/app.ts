@@ -8,6 +8,7 @@ import profileRoutes from "./routes/profile.route";
 import questionRoute from "./routes/question.route";
 import answerRoute from "./routes/answer.route";
 import tagRoutes from "./routes/tag.route";
+import settingsRoute from "./routes/settings.route";
 import generalRoutes from "./routes/general.route";
 import { errorMiddleware } from "./middlewares/error.middleware";
 import { authMiddleware } from "./middlewares/auth.middleware";
@@ -50,6 +51,9 @@ app.use("/answer", authMiddleware, answerRoute);
 
 // ********** Tag Route *********** \\
 app.use("/tag", authMiddleware,tagRoutes);
+
+// ********** Settings Route *********** \\
+app.use("/settings", authMiddleware,settingsRoute);
 
 // ********** General Routes *********** \\
 app.use("/", authMiddleware, generalRoutes);

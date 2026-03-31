@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 
-import { STATUS } from "../constants/statusCodes"
+import { STATUS } from "../constants/statusCodes.constants"
 import { errorResponse, successResponse } from "../utils/response.util"
 import { uploadImageService } from "../services/general.service";
 

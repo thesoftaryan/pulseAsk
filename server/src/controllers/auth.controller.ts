@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import axios from "axios";
 
 // Custom status codes for http responses
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 
 // Custom response structure
 import { errorResponse, successResponse, redirectResponse} from "../utils/response.util"

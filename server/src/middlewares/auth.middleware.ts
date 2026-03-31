@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from "express";
 
 import { verifyToken } from "../utils/jwt.util";
 import { ApiError } from "../utils/error.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 import { TokenData } from "../types/auth.type";
 import { User } from "../models/User.model";
 

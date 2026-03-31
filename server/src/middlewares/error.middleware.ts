@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from "express";
 import { ApiError, RedirectError } from "../utils/error.util";
-import { STATUS } from "../constants/statusCodes";
+import { STATUS } from "../constants/statusCodes.constants";
 import { errorResponse, redirectResponse } from "../utils/response.util";
 
 export const errorMiddleware = (err : unknown, req : Request, res : Response, next : NextFunction)=>{
