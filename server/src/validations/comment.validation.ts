@@ -4,10 +4,7 @@ import { FetchCommentsPayload, PostCommentPayload } from "../types/comment.type"
 
 export const validateFetchComments = (body : FetchCommentsPayload)=>{
     const errors:Record<string, string> = {};
-    if(!body || typeof(body)!=="object"){
-        errors.body = "Request body is required";
-        return errors;
-    }
+
 
     const {targetId} = body;
 

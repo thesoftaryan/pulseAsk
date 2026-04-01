@@ -9,10 +9,6 @@ import { VotePayload } from "../types/vote.type";
 
 export const validateVote = (body : VotePayload)=>{
     const errors:Record<string, string> = {};
-    if(!body || typeof(body) !== "object"){
-        errors.body = "request body is required";
-        return errors;
-    }
 
     const {targetId, targetAuthor, vote} = body;
 

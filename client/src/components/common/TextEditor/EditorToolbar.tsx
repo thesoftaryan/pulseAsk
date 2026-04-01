@@ -3,8 +3,6 @@ import type {Level} from "@tiptap/extension-heading";
 
 import EditorToolbarStyle from "./TextEditor.module.css";
 
-import imageCompression from "browser-image-compression";
-
 import UndoIcon from "../../../assets/icons/text_editor/undo.svg?react";
 import RedoIcon from "../../../assets/icons/text_editor/redo.svg?react";
 import DropdownIcon from "../../../assets/icons/general/dropdown.svg?react";
@@ -14,8 +12,7 @@ import UnderlineIcon from "../../../assets/icons/text_editor/underline.svg?react
 import LinkIcon from "../../../assets/icons/text_editor/link.svg?react";
 import ImageIcon from "../../../assets/icons/text_editor/image.svg?react";
 import { useRef, useState } from "react";
-import { showToast } from "../../../utils/toast.util";
-import { uploadImageHandler } from "./ImageHandler/Image.handler";
+import { useUploadImage } from "../../../hooks/uploadImage.hook";
 
 
 
@@ -61,27 +58,14 @@ export function EditorToolbar({editor}:EditorToolbarProps){
 
     const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>)=>{
       const file = event.target.files?.[0];
-      if(!file) return;
-      if (!file.type.startsWith("image/")){
-        showToast.error("Only images are allowed");
-        return;
+      
+      const imageUrl = await uploadImageHandler(file, true);
+
+      if(imageUrl){
+        editor.chain().focus().setImage({
+          src : imageUrl,
+        }).run();
       }
-      if(file.size > 5*1024*1024){
-        showToast.error("Max file size is 5MB");
-        return;
-      }
-
-      setUploading(true);
-      const compressedFile = await imageCompression(file, {
-        maxSizeMB: 2,
-        maxWidthOrHeight: 1280,
-        useWebWorker: true,
-      });
-      console.log(compressedFile);
-
-      await uploadImageHandler(compressedFile, editor.chain().focus());
-      setUploading(false);
-
     }
 
 
@@ -99,7 +83,9 @@ export function EditorToolbar({editor}:EditorToolbarProps){
     //     // }
     // }, []);
 
-    const [uploading, setUploading] = useState(false);
+    // const [uploading, setUploading] = useState(false);
+
+    const {uploading, uploadImageHandler} = useUploadImage();
 
     const inputFileRef = useRef<HTMLInputElement>(null);
 

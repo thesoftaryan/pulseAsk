@@ -8,7 +8,7 @@ const router = Router();
 const upload = multer({
     storage: multer.memoryStorage(),
     limits: {
-        fileSize: Number(process.env.FILE_SIZE),
+        fileSize: Number(process.env.FILE_SIZE) || 5*1024*1024,
     }
 });
 

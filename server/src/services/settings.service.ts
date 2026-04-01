@@ -2,14 +2,15 @@ import { Types } from "mongoose";
 import { STATUS } from "../constants/statusCodes.constants";
 import { User } from "../models/User.model";
 import { ApiError } from "../utils/error.util";
-import { AddKTagResponse, RemoveKTagResponse, UpdateBasicProfileResponse, UpdateSocialProfileResponse } from "../types/response/settings.type";
-import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../types/settings.type";
+import { AddKTagResponse, RemoveKTagResponse, UpdateBasicProfileResponse, UpdateSocialProfileResponse, UpdateUserProfileImageResponse } from "../types/response/settings.type";
+import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
 import { slugifyText } from "../utils/general.util";
 import { Tag } from "../models/Tag.model";
 import { generateTagColor } from "../utils/tag.util";
 
 import {accountConstants} from "../constants/settings.constants";
 import { createTagService } from "./tag.service";
+import cloudinary from "../config/cloudinary.config";
 
 /**
  * @param data of type UpdateBasicProfilePayload
@@ -120,4 +121,29 @@ export const removeKTagService = async (uid: Types.ObjectId, data : RemoveKTagPa
     await user?.save();
 
     return {};
+}
+
+/**
+ * @param data of Type UpdateUserProfileImagePayload
+ * @returns data of Type UpdateUserProfileImageResponse
+ */
+export const updateUserProfileImageService = async (uid:Types.ObjectId, data : UpdateUserProfileImagePayload) : Promise<UpdateUserProfileImageResponse>=>{
+    const {imageUrl} = data;
+    const user = await User.findById(uid);
+
+    user!.profile = imageUrl;
+    await user?.save();
+
+    return {};
+}
+
+/**
+ * @param "None"
+ * @returns "NULL"
+ */
+export const removeUserProfileImageService = async (uid:Types.ObjectId)=>{
+    const user = await User.findById(uid);
+    user!.profile = undefined;
+    user?.save();
+    return;
 }

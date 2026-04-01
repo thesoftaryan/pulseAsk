@@ -55,3 +55,7 @@
     background-color: var(--color-level2-bg);
     border-radius: var(--size-radius-circle);
 }
+
+.spinner{
+    padding: var(--spacing-xs);
+}

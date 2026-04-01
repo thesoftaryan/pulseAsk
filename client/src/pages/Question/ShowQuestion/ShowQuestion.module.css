@@ -103,7 +103,7 @@
     cursor: pointer;
 }
 
-.profile{
+.user-profile{
     width: var(--size-icon-md);
     height: var(--size-icon-md);
 }

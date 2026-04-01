@@ -21,13 +21,26 @@ const authSlice = createSlice({
     name : "auth",
     initialState,
     reducers : {
+        updateUserProfileImage(state, action){
+            
+            if(state.user) {
+                console.log(action.payload.imageUrl);
+                state.user.profile = action.payload.imageUrl;
+            }
+        },
         addKTag(state, action){
+            // console.log(action);
             state.user?.tags?.push(action.payload.tag);
         },
         removeKTag(state, action){
-            state.user?.tags?.filter(
-                tag => tag._id !== action.payload.kTid,
-            );
+            // console.log(action);
+            // console.log("removing: ", action.payload.kTid);
+            // console.log("before: ", state.user?.tags);
+            if(state.user){
+                state.user.tags =  state.user?.tags?.filter(
+                    tag => tag._id != action.payload.kTid,
+                );
+            }
         },
         clearAuthError(state){
             state.error = null;
@@ -149,5 +162,5 @@ const authSlice = createSlice({
     }
 });
 
-export const {clearAuthError, addKTag, removeKTag} = authSlice.actions;
+export const {clearAuthError, updateUserProfileImage, addKTag, removeKTag} = authSlice.actions;
 export default authSlice.reducer;

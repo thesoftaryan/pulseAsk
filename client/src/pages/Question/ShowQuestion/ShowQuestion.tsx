@@ -142,9 +142,7 @@ export const ShowQuestion = ()=>{
                                 }}/>
                             </div>
                             <div  onClick={()=>{safeNavigate(homeRoutes.profile+`/${question.author.userName}`)}}  className={ShowQuestionStyle["right"]}>
-                                <div className={ShowQuestionStyle["profile"]}>
-                                    <UserProfile/>
-                                </div>
+                                <UserProfile small={true} src={question.author.profile} className={ShowQuestionStyle["user-profile"]}/>
                                 <div className={ShowQuestionStyle["user-data"]}>
                                     <div className={ShowQuestionStyle["user-name"]}>
                                         {question.author.firstName} {question.author.lastName} 

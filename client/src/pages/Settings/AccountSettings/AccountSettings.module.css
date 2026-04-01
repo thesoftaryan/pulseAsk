@@ -151,6 +151,10 @@
     margin-top: var(--spacing-md);
 }
 
+.file-input{
+    display: none;
+}
+
 
 @media (max-width: 800px) {
     .social-links{

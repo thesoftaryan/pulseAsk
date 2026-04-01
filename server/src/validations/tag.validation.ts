@@ -3,11 +3,6 @@ import { GenerateTagPayload } from "../types/tag.type";
 export const validateGenerateTag = (body : GenerateTagPayload)=>{
     const errors : Record<string, string> = {};
 
-    if(!body || typeof body !=="object"){
-        errors.body = "Request body is required";
-        return errors;
-    }
-
     let {title, description} = body;
 
     if(title) title  = title.trim();

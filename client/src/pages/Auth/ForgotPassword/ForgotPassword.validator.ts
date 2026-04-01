@@ -1,5 +1,5 @@
 import type { ForgotPasswordFormData } from "../../../types/ApiRequest/auth.type";
-import { isValidEmail } from "../../../utils/validationHelpers.util";
+import { isValidEmail } from "../../../utils/validation.util";
 
 export const forgotPasswordValidator = (data : ForgotPasswordFormData)=>{
     const errors : Record<string, string> = {};

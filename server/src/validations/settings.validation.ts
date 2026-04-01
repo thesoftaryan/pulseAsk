@@ -1,6 +1,6 @@
-import type { UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../../../types/ApiRequest/setting.type";
-import { isSpecialNumericString, isValidName, isValidURL, isValidUserName } from "../../../utils/validation.util";
-
+import { Types } from "mongoose";
+import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
+import { isValidUserName, isValidName, isSpecialNumericString, isValidURL } from "../utils/validation.util";
 
 export const basicProfileValidator = (data : UpdateBasicProfilePayload)=>{
     const errors:Record<string, string> = {};
@@ -41,5 +41,41 @@ export const socialProfileValidator = (data : UpdateSocialProfilePayload)=>{
         errors.youtube = "Enter only youtube username";
     }
 
+    return errors;
+}
+
+export const addKTagValidator = (data : AddKTagPayload)=>{
+    const errors:Record<string, string> = {};
+
+    const {name} = data;
+
+    if(!name || (name.trim()).length<3){
+        errors.name = "name must be of atleast 3 characters";
+    }
+    return errors;
+}
+
+export const removeKTagValidator = (data : RemoveKTagPayload)=>{
+    const errors:Record<string, string> = {};
+
+    const {kTid} = data;
+
+    if(!kTid){
+        errors.kTid = "Knowledge Tag is required";
+    }else if(!Types.ObjectId.isValid(kTid)){
+        errors.kTid = "Invalid Tag Id";
+        errors.message = "Invalid Tag Id";
+    }
+    return errors;
+}
+
+export const updateUserProfileImageValidator = (data : UpdateUserProfileImagePayload)=>{
+    const errors:Record<string, string> = {};
+
+    const {imageUrl} = data;
+
+    if(!imageUrl){
+        errors.imageUrl = "imageUrl is required";
+    }
     return errors;
 }

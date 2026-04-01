@@ -36,6 +36,10 @@
     width: var(--size-icon-xm);
     height: var(--size-icon-xm);
 }
+.user-profile-small{
+    width: var(--size-icon-md);
+    height: var(--size-icon-md);
+}
 
 .user-data{
     display: flex;

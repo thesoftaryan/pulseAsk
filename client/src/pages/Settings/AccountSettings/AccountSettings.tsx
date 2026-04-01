@@ -19,10 +19,12 @@ import TextEditor from "../../../components/common/TextEditor/TextEditor";
 import Button from "../../../components/common/Button/Button";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { authRoutes } from "../../../routes/routesConstants";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAccountSettingsHandler } from "./AccountSettings.handler";
 import InlineError from "../../../components/common/InlineError/InlineError";
 import { TagChip } from "../../../components/common/TagChip/TagChip";
+import { useUploadImage } from "../../../hooks/uploadImage.hook";
+import { Spinner } from "../../../components/common/Spinner/Spinner";
 
 interface BasicProfileProps{
     userName: string;
@@ -94,29 +96,59 @@ export const AccountSettings = ()=>{
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    const {UpdateBasicProfileHandler, updateSocialProfileHandler, addKTagHandler, removeKTagHandler} = useAccountSettingsHandler(setBasicProfile, setSocialProfile, setErrors);
+    const {removeUserProfileImageHandler, updateUserProfileImageHandler,updateBasicProfileHandler, updateSocialProfileHandler, addKTagHandler, removeKTagHandler} = useAccountSettingsHandler(setBasicProfile, setSocialProfile, setErrors);
 
+    const {uploadImageHandler} = useUploadImage();
 
+    const [updatingProfile, setUpdatingProfile] = useState(false);
 
     const handleRemoveKTag = (kTid: string)=>{
         removeKTagHandler(setKTagState, kTid);
     }
 
     const handleAddKTag = ()=>{
-        addKTagHandler(setKTagState, tagName);
+        addKTagHandler(setKTagState, setTagName, tagName);
     }
 
+    const handleUserProfileImageChange = async (event : React.ChangeEvent<HTMLInputElement>)=>{
+        const file = event.target.files?.[0];
+        setUpdatingProfile(true);
+        const imageUrl = await uploadImageHandler(file, true);
+        if(imageUrl){
+            await updateUserProfileImageHandler({imageUrl});
+        }
+        setUpdatingProfile(false);
+    }
+
+    const handleUserProfileImageDelete = async ()=>{
+        setUpdatingProfile(true);
+        await removeUserProfileImageHandler();
+        setUpdatingProfile(false);
+    }
+
+    const inputFileRef = useRef<HTMLInputElement>(null);
+    
 
     return (
         <div className={AccountSettingsStyle["container"]}>
             <Divider text="Set your profile details"/>
             <div className={AccountSettingsStyle["profile-details"]}>
                 <div className={AccountSettingsStyle["user-profile-settings"]}>
-                    <UserProfile className={AccountSettingsStyle["user-profile"]}/>
-                    <div className={AccountSettingsStyle["user-profile-actions"]}>
-                        <DeleteIcon className={AccountSettingsStyle["icon"]}/>
-                        <ChangeIcon className={AccountSettingsStyle["icon"]}/>
-                    </div>
+                    <UserProfile src={user?.profile} className={AccountSettingsStyle["user-profile"]}/>
+                    {
+                        updatingProfile?
+                        <Spinner/>
+                        :
+                        <div className={AccountSettingsStyle["user-profile-actions"]}>
+                            <DeleteIcon onClick={handleUserProfileImageDelete} className={AccountSettingsStyle["icon"]}/>
+                            <input type="file" accept="image/*" ref={inputFileRef} onChange={handleUserProfileImageChange} className={AccountSettingsStyle["file-input"]}/>
+                            <ChangeIcon onMouseDown={
+                                ()=>{
+                                    inputFileRef.current?.click();
+                                }
+                            } className={AccountSettingsStyle["icon"]}/>
+                        </div>
+                    }
                 </div>
                 <div className={AccountSettingsStyle["user-details-settings"]}>
                     <div className={AccountSettingsStyle["user-userName"]}>
@@ -161,7 +193,7 @@ export const AccountSettings = ()=>{
                     </div>
 
                     <div className={AccountSettingsStyle["save-button"]}>
-                        <SettingsActionButton onClick={()=>{UpdateBasicProfileHandler(basicProfile)}} text="Save Details" Icon={SaveIcon}/>
+                        <SettingsActionButton onClick={()=>{updateBasicProfileHandler(basicProfile)}} text="Save Details" Icon={SaveIcon}/>
                     </div>
                 </div>
             </div>
@@ -170,25 +202,25 @@ export const AccountSettings = ()=>{
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <InstagramIcon className={AccountSettingsStyle["icon"]}/>
                     <p style={{margin: 10,}}>@</p>
-                    <InputField placeholder="Instagram username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, instagram: e.target.value})}} value={socialProfile?.instagram}/>
+                    <InputField isError={errors.instagram?.length}  placeholder="Instagram username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, instagram: e.target.value})}} value={socialProfile?.instagram}/>
                     {errors.instagram && <InlineError message={errors.instagram}/>}
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <FacebookIcon className={AccountSettingsStyle["icon"]}/>
                     <p style={{margin: 10,}}>@</p>
-                    <InputField placeholder="Facebook username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, facebook: e.target.value})}} value={socialProfile?.facebook}/>
+                    <InputField isError={errors.facebook?.length} placeholder="Facebook username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, facebook: e.target.value})}} value={socialProfile?.facebook}/>
                     {errors.facebook && <InlineError message={errors.facebook}/>}
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <LinkedinIcon className={AccountSettingsStyle["icon"]}/>
                     <p style={{margin: 10,}}>@</p>
-                    <InputField placeholder="Linkedin username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, linkedin: e.target.value})}} value={socialProfile?.linkedin}/>
+                    <InputField isError={errors.linkedin?.length} placeholder="Linkedin username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, linkedin: e.target.value})}} value={socialProfile?.linkedin}/>
                     {errors.linkedin && <InlineError message={errors.linkedin}/>}
                 </div>
                 <div className={AccountSettingsStyle["social-links-group"]}>
                     <YoutubeIcon className={AccountSettingsStyle["icon"]}/>
                     <p style={{margin: 10,}}>@</p>
-                    <InputField placeholder="Youtube Channel username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, youtube: e.target.value})}} value={socialProfile?.youtube}/>
+                    <InputField isError={errors.youtube?.length} placeholder="Youtube Channel username" onChange={(e)=>{ setErrors({}); setSocialProfile({...socialProfile, youtube: e.target.value})}} value={socialProfile?.youtube}/>
                     {errors.youtube && <InlineError message={errors.youtube}/>}
                 </div>
             </div>
@@ -202,7 +234,7 @@ export const AccountSettings = ()=>{
                     <InputField placeholder="Add new knowledge tag"/>
                 </div> */}
                 <div className={AccountSettingsStyle["knowledge-tag-input-container"]}>
-                    <input type="text" placeholder="Enter your tag" className={AccountSettingsStyle["knowledge-tag-input"]}
+                    <input value={tagName} type="text" placeholder="Enter your tag" className={AccountSettingsStyle["knowledge-tag-input"]}
                         onChange={(e)=>{
                             setTagName(e.target.value);
                         }}
@@ -225,7 +257,7 @@ export const AccountSettings = ()=>{
                     }
                     {
                         kTags.map((tag)=>{
-                            return <TagChip key={tag._id} onDelete={()=>{handleRemoveKTag(tag._id)}} disabled={kTagState.removing} level1={true} text={tag.name} color={tag.color}/>
+                            return <TagChip key={tag._id} onDelete={()=>{handleRemoveKTag(tag._id)}} loading={kTagState.removing} level1={true} text={tag.name} color={tag.color}/>
                         })
                     }
 

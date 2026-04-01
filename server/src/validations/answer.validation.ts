@@ -2,10 +2,7 @@ import { FetchAnswersPayload, PostAnswerPayload } from "../types/answer.type";
 
 export const validatePostAnswer = (body : PostAnswerPayload)=>{
     const errors:Record<string, string> = {};
-    if(!body || typeof(body)!=="object"){
-        errors.body = "Request body is required";
-        return errors;
-    }
+
 
     const {qid, content, contentHTML} = body;
 
@@ -21,10 +18,7 @@ export const validatePostAnswer = (body : PostAnswerPayload)=>{
 
 export const validateFetchAnswers = (body : FetchAnswersPayload)=>{
     const errors:Record<string, string> = {};
-    if(!body || typeof(body)!=="object"){
-        errors.body = "Request body is required";
-        return errors;
-    }
+
 
     const {qid} = body;
 

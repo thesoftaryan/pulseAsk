@@ -2,6 +2,7 @@
 import TagChipStyle from "./TagChip.module.css";
 
 import CloseIcon from "../../../assets/icons/general/close.svg?react";
+// import { Spinner } from "../Spinner/Spinner";
 
 interface TagChipProps{
     color : string;
@@ -9,11 +10,11 @@ interface TagChipProps{
     level1? : boolean;
     isLarge?: boolean;
     onDelete?: ()=>void;
-    disabled?: boolean;
+    loading?: boolean;
     Key?: string;
 }
 
-export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, onDelete, disabled, Key})=>{
+export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, onDelete, loading, Key})=>{
     return (
         <>
             <div key={Key} className={`${TagChipStyle["container"]} ${(level1)? TagChipStyle["level1"]:""} ${(isLarge)? TagChipStyle["large-container"]:""}`}>
@@ -25,8 +26,15 @@ export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, 
                 </div>
                 {
                     onDelete && (
-                        <div onClick={disabled? undefined:onDelete} className={TagChipStyle["delete-container"]}>
+                        <div onClick={loading? undefined:onDelete} className={TagChipStyle["delete-container"]}>
                             <CloseIcon className={TagChipStyle["close-icon"]}/>
+                            {/* {
+                                loading?
+                                <div className={TagChipStyle["spinner"]}><Spinner small={true}/></div>
+                                :
+                                <CloseIcon className={TagChipStyle["close-icon"]}/>
+                            } */}
+                                
                         </div>
                     )
                 }

@@ -1,9 +1,9 @@
 import { useAppDispatch } from "../../../hooks/store.hook";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service"
-import { addKTagService, removeKTagService, updateBasicProfileService, updateSocialProfileService } from "../../../services/setting/accountSettings.service";
-import { addKTag, removeKTag } from "../../../store/auth/auth.slice";
-import type { UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../../../types/ApiRequest/setting.type"
-import type { AddKTagResponse,  UpdateBasicProfileResponse,  UpdateSocialProfileResponse } from "../../../types/ApiResponse/setting.type";
+import { addKTagService, removeKTagService, removeUserProfileImageService, updateBasicProfileService, updateSocialProfileService, updateUserProfileImageService } from "../../../services/settings/accountSettings.service";
+import { addKTag, removeKTag, updateUserProfileImage } from "../../../store/auth/auth.slice";
+import type { UpdateBasicProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../../../types/ApiRequest/setting.type"
+import type { AddKTagResponse,  UpdateBasicProfileResponse,  UpdateSocialProfileResponse, UpdateUserProfileImageResponse } from "../../../types/ApiResponse/setting.type";
 import { showToast } from "../../../utils/toast.util";
 import { basicProfileValidator, socialProfileValidator } from "./AccountSettings.validator";
 
@@ -16,7 +16,31 @@ export const useAccountSettingsHandler = (
 
     const dispatch = useAppDispatch();
 
-    const UpdateBasicProfileHandler = async (data : UpdateBasicProfilePayload)=>{
+    const removeUserProfileImageHandler = async ()=>{
+        try{
+            const response = await removeUserProfileImageService();
+            const result = parseSuccessResponse(response);
+            dispatch(updateUserProfileImage({imageUrl: null}));
+            showToast.success(result.message);
+        }catch(error){
+            const err = parseErrorResponse(error);
+            showToast.error(err.message);
+        }
+    }
+
+    const updateUserProfileImageHandler = async (data : UpdateUserProfileImagePayload)=>{
+        try{
+            const response = await updateUserProfileImageService(data);
+            const result = parseSuccessResponse<UpdateUserProfileImageResponse>(response);
+            dispatch(updateUserProfileImage({imageUrl: data.imageUrl}));
+            showToast.success(result.message);
+        }catch(error){
+            const err = parseErrorResponse(error);
+            showToast.error(err.message);
+        }
+    }
+
+    const updateBasicProfileHandler = async (data : UpdateBasicProfilePayload)=>{
         try{
 
             const errors = basicProfileValidator(data);
@@ -54,16 +78,21 @@ export const useAccountSettingsHandler = (
             adding: boolean;
             removing: boolean;
         }>>,
+        setTagName: React.Dispatch<React.SetStateAction<string>>,
         name: string,
     ) =>{
         try{
+            name = name.trim();
             if(!name || name.length<3){
                 showToast.error("Tag must be of atleast 3 characters");
                 return;
             }
             setKTagState((state)=>{return {removing: state.removing, adding : true}});
+            // console.log(new Date());
             const response = await addKTagService({name});
             const result = parseSuccessResponse<AddKTagResponse>(response);
+            // console.log(new Date());
+            setTagName("");
             dispatch(addKTag({tag: result.data}));
             // setKTags((state)=>{return [...state, result.data!]});
             // await dispatch(checkAuthThunk()).unwrap();
@@ -84,7 +113,9 @@ export const useAccountSettingsHandler = (
     ) =>{
         try{
             setKTagState((state)=>{return {adding: state.adding, removing : true}});
+            // console.log(new Date());
             await removeKTagService({kTid});
+            // console.log(new Date());
             dispatch(removeKTag({kTid}));
             // const response = await removeKTagService({kTid});
             // const result = parseSuccessResponse<RemoveKTagResponse>(response);
@@ -98,7 +129,9 @@ export const useAccountSettingsHandler = (
     }
 
     return {
-        UpdateBasicProfileHandler,
+        removeUserProfileImageHandler,
+        updateUserProfileImageHandler,
+        updateBasicProfileHandler,
         updateSocialProfileHandler,
         addKTagHandler,
         removeKTagHandler,

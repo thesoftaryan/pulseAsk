@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { STATUS } from "../constants/statusCodes.constants";
-import { addKTagService, removeKTagService, updateBasicProfileService, updateSocialProfileService } from "../services/settings.service";
+import { addKTagService, removeKTagService, removeUserProfileImageService, updateBasicProfileService, updateSocialProfileService, updateUserProfileImageService } from "../services/settings.service";
 import { successResponse } from "../utils/response.util";
-import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../types/settings.type";
+import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
 
 export const updateBasicProfileController = async (req:Request, res: Response)=>{
     const data = req.body as UpdateBasicProfilePayload;
@@ -45,5 +45,26 @@ export const removeKTagController = async (req:Request, res:Response)=>{
         STATUS.SUCCESS.OK,
         "Tag removed successfully",
         responseObj,
+    );
+}
+
+export const updateUserProfileImageController = async (req:Request, res:Response)=>{
+    const data = req.body as UpdateUserProfileImagePayload;
+    const responseObj = await updateUserProfileImageService(req.user?.uid!, data);
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "User profile updated successfully",
+        responseObj,
+    );
+}
+
+export const removeUserProfileImageController = async (req:Request, res:Response)=>{
+    const resopnseObj = await removeUserProfileImageService(req.user?.uid!);
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Profile image removed successfully",
+        resopnseObj,
     );
 }

@@ -1,6 +1,10 @@
 import { Types } from "mongoose";
 
 /* **************** Account Interfaces *************** */
+export interface UpdateUserProfileImagePayload{
+    imageUrl : string;
+}
+
 export interface UpdateBasicProfilePayload{
     userName: string;
     firstName: string;

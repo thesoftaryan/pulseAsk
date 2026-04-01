@@ -1,6 +1,13 @@
-import type { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload } from "../types/ApiRequest/setting.type";
+import type { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/ApiRequest/setting.type";
 import api from "./axios";
 
+export const removeUserProfileImageAPI = ()=>{
+    return api.post("/settings/account/remove/image");
+}
+
+export const updateUserProfileImageAPI = (data : UpdateUserProfileImagePayload)=>{
+    return api.post("/settings/account/update/image", data);
+}
 
 export const updateBasicProfileAPI = (data : UpdateBasicProfilePayload)=>{
     return api.post("/settings/account/update/basic", data);

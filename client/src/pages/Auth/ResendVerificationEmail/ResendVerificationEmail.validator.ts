@@ -1,5 +1,5 @@
 import type { ResendVerificationEmailFormData } from "../../../types/ApiRequest/auth.type";
-import { isValidEmail } from "../../../utils/validationHelpers.util";
+import { isValidEmail } from "../../../utils/validation.util";
 
 export const verifyEmailValidator = (data : ResendVerificationEmailFormData)=>{
     const errors : Record<string, string> = {};

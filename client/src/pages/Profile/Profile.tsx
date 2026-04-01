@@ -52,7 +52,7 @@ export const Profile = ()=>{
                 <div className={ProfileStyle["left"]}>
                     <ReportUserIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["report-user"]}`}/>
                     <div className={ProfileStyle["user-profile"]}>
-                        <UserProfile/>
+                        <UserProfile src={user?.profile}  className={ProfileStyle["user-profile"]}/>
                     </div>
                     <div className={ProfileStyle["user-name"]}>
                         {user?.firstName}  {user?.lastName}

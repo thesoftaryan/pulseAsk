@@ -1,4 +1,9 @@
 /* **************** Account Interfaces *************** */
+
+export interface UpdateUserProfileImagePayload{
+    imageUrl : string;
+}
+
 export interface UpdateBasicProfilePayload{
     userName: string;
     firstName: string;
@@ -23,6 +28,7 @@ export interface AddKTagPayload{
 export interface RemoveKTagPayload{
     kTid: string;
 }
+
 
 
 /* **************** Payment Interfaces *************** */

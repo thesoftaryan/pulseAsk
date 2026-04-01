@@ -27,6 +27,7 @@ export const uploadImageService = async (fileBuffer : Buffer) : Promise<string> 
         }
         return result.secure_url;
     }catch(err){
+        console.log(err);
         throw new ApiError(
             STATUS.SERVER_ERROR.BAD_GATEWAY,
             "Image upload failed",

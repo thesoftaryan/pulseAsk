@@ -1,9 +1,9 @@
 import SpinnerStyle from "./Spinner.module.css";
 
-export const Spinner = ()=>{
+export const Spinner = ({small} : {small?: boolean})=>{
     return (
         <div className={SpinnerStyle["container"]}>
-            <span className={`${SpinnerStyle["spinner"]}`} />
+            <div className={`${SpinnerStyle["spinner"]} ${small? SpinnerStyle["small"]:""}`} />
         </div>
     );
 }

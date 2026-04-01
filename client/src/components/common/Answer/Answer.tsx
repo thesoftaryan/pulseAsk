@@ -76,7 +76,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                     {relativeTimeFormat(answer.askedAt)}
                 </div>
                 <div  onClick={()=>{safeNavigate(homeRoutes.profile+`/${answer.author.userName}`)}}  className={AnswerStyle["header"]}>
-                    <UserProfile className={AnswerStyle["user-profile"]}/>
+                    <UserProfile small={true} src={answer.author.profile} className={AnswerStyle["user-profile"]}/>
                     <div className={AnswerStyle["user-data"]}>
                         {answer.author.firstName} {answer.author.lastName}
                         <div className={AnswerStyle["user-education"]}>
@@ -113,9 +113,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                     isComment && (
                         <div className={AnswerStyle["comment-container"]}>
                             <div className={`${AnswerStyle["post-comment"]} ${level1Comments? AnswerStyle["level1-comments"]:""}`}>
-                                <div className={AnswerStyle["user-profile"]}>
-                                    <UserProfile/>
-                                </div>
+                                <UserProfile small={true} src={answer.author.profile} className={AnswerStyle["user-profile-small"]}/>
 
                                 <input value={commentContent} type="text" placeholder="Add your comment !" className={AnswerStyle["input-field"]}
                                     onChange={(e)=>{

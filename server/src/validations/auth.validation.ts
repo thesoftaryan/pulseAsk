@@ -4,10 +4,6 @@ import { isValidName, isValidEmail, isStrongPassword } from "../utils/validation
 export const validateRegister = (body : RegisterPayload) => {
     const errors : Record<string, string> = {};
 
-    if(!body || typeof body !== "object"){
-        errors.body = "Request Body is Required";
-        return errors;
-    }
 
     const {firstName, lastName, email, password} = body;
 
@@ -32,10 +28,7 @@ export const validateRegister = (body : RegisterPayload) => {
 export const validateLogin = (body : LoginPayload) => {
     const errors : Record<string, string> = {};
 
-    if(!body || typeof body !== "object"){
-        errors.body = "Request Body is Required";
-        return errors;
-    }
+
 
     const {email, password} = body;
     const rememberMe = body.rememberMe;
@@ -60,10 +53,7 @@ export const validateLogin = (body : LoginPayload) => {
 export const validateForgotPassword = (body : ForgotPasswordPayload) => {
     const errors : Record<string, string> = {};
 
-    if(!body || typeof body !== "object"){
-        errors.body = "Request Body is Required";
-        return errors;
-    }
+
 
     const {email} = body;
 
@@ -77,10 +67,7 @@ export const validateForgotPassword = (body : ForgotPasswordPayload) => {
 export const validateResetPassword = (body : ResetPasswordPayload)=>{
     const errors : Record<string, string> = {};
 
-    if(!body || typeof body !== "object"){
-        errors.body = "Request Body is Required";
-        return errors;
-    }
+
 
     const {password, token} = body;
 
@@ -97,10 +84,7 @@ export const validateResetPassword = (body : ResetPasswordPayload)=>{
 export const validateVerifyEmail = (body : VerifyEmailPayload)=>{
     const errors : Record<string, string> = {};
 
-    if(!body || typeof body !== "object"){
-        errors.body = "Request Body is Required";
-        return errors;
-    }
+
 
     const {email} = body;
 

@@ -1,6 +1,8 @@
 import type { TagInterface } from "./tag.type";
 
 /* **************** Account Interfaces *************** */
+export interface UpdateUserProfileImageResponse{}
+
 export interface UpdateBasicProfileResponse{
     userName: string;
     firstName: string;

@@ -8,6 +8,13 @@ type ValidatorFunction = (body : any) => Record<string, string>;
 export const validate = (validator : ValidatorFunction) => 
     (req : Request, res : Response, next : NextFunction) => {
         // console.log("inside validation middleware");
+        if(!req.body || typeof(req.body)!="object"){
+            throw new ApiError(
+                STATUS.CLIENT_ERROR.BAD_REQUEST,
+                "Invalid request",
+                {body: "Request body is required"},
+            );
+        }
         const errors = validator(req.body);
         if(Object.keys(errors).length >0){
             throw new ApiError(

@@ -96,7 +96,7 @@ export const Header = ()=>{
                     </div>
                     
                     <div ref={profileRef} className={HeaderStyle["profile-wrapper"]}>
-                        <UserProfile className={HeaderStyle["user-profile"]} onClick={()=>{setIsProfileOpen((isOpen)=>!isOpen)}}/>
+                        <UserProfile small={true} src={user?.profile} className={HeaderStyle["user-profile"]} onClick={()=>{setIsProfileOpen((isOpen)=>!isOpen)}}/>
                         {
                             isProfileOpen && (
                             <div className={HeaderStyle["user-action"]}>
