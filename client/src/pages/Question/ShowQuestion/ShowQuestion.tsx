@@ -84,7 +84,7 @@ export const ShowQuestion = ()=>{
         }else{
             replaceNavigate(homeRoutes.home);
         }
-    }, []);
+    }, [qid, slug]);
 
     const handlePostAnswer = async ()=>{
 

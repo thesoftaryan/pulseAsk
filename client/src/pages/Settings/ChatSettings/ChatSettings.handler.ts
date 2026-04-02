@@ -18,6 +18,7 @@ export const useChatSettingsHandler = (
             const result = parseSuccessResponse<UpdateChatProfileResponse>(response);
             dispatch(updateChatPreferences({...(result.data)}));
             setChatPreferences(result.data!);
+            // showToast.success(result.message);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);

@@ -8,19 +8,21 @@ import { PreferenceTile } from "../PreferenceTile/PreferenceTile";
 import { useState } from "react";
 import { useAppSelector } from "../../../hooks/store.hook";
 import { usePaymentSettingsHandler } from "./PaymentSettings.handler";
+import type { PaymentPreferencesInterface } from "../../../types/ApiResponse/user.type";
 
 export const PaymentSettings = ()=>{
     const user = useAppSelector(state=>state.auth.user);
-    const [paymentActive, setPaymentActive] = useState(user?.paymentPreferences?.enablePayment??false);
+    const initObj = {enablePayment:false};
+    const [paymentPreferences, setPaymentPreferences] = useState<PaymentPreferencesInterface>(user?.paymentPreferences??initObj);
     
     const [updating, setUpdating] = useState(false);
 
-    const {updatePaymentProfile} = usePaymentSettingsHandler(setPaymentActive);
+    const {updatePaymentProfile} = usePaymentSettingsHandler(setPaymentPreferences);
 
     const handlePaymentSettingsChange = async ()=>{
         // setPaymentActive(!paymentActive)
         setUpdating(true);
-        await updatePaymentProfile(!paymentActive);
+        await updatePaymentProfile(!paymentPreferences.enablePayment);
         setUpdating(false);
     }
 
@@ -28,7 +30,7 @@ export const PaymentSettings = ()=>{
         <div className={PaymentSettingsStyle["container"]}>
             <Divider text="Set your payment details"/>
             <div className={PaymentSettingsStyle["preferences"]}>
-                <PreferenceTile onClick={updating?undefined:handlePaymentSettingsChange} text="Enable Users to send you payments" active={paymentActive}/>
+                <PreferenceTile onClick={updating?undefined:handlePaymentSettingsChange} text="Enable Users to send you payments" active={paymentPreferences.enablePayment}/>
             </div>
             <div className={PaymentSettingsStyle["label"]}>
                 Connect to

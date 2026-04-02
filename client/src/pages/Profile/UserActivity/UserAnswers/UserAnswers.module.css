@@ -11,6 +11,13 @@
     gap: var(--spacing-ls);
 }
 
+.label{
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-placeholder-text);
+}
+
 @media (max-width : 900px) {
     .answers{
         grid-template-columns: repeat(1, 1fr);    

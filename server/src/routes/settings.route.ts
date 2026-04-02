@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addKTagController, removeKTagController, removeUserProfileImageController, updateBasicProfileController, updatePaymentProfileController, updateSocialProfileController, updateUserProfileImageController } from "../controllers/settings.controller";
+import { addKTagController, removeKTagController, removeUserProfileImageController, updateBasicProfileController, updateChatProfileController, updateNotificationProfileController, updatePaymentProfileController, updateSocialProfileController, updateUserProfileImageController } from "../controllers/settings.controller";
 import { validate } from "../middlewares/validation.middleware";
 import { addKTagValidator, basicProfileValidator, removeKTagValidator, socialProfileValidator, updateUserProfileImageValidator } from "../validations/settings.validation";
 
@@ -22,5 +22,12 @@ router.post("/account/k-tag/remove", validate(removeKTagValidator),removeKTagCon
 
 /* **************** Payment Settings Route *************** */
 router.post("/payment/preferences", updatePaymentProfileController);
+
+/* **************** Notification Settings Route *************** */
+router.post("/notification/preferences", updateNotificationProfileController);
+
+/* **************** Chat Settings Route *************** */
+router.post("/chat/preferences", updateChatProfileController);
+
 
 export default router;

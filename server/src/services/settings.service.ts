@@ -2,8 +2,8 @@ import { Types } from "mongoose";
 import { STATUS } from "../constants/statusCodes.constants";
 import { User } from "../models/User.model";
 import { ApiError } from "../utils/error.util";
-import { AddKTagResponse, RemoveKTagResponse, UpdateBasicProfileResponse, UpdatePaymentProfileResponse, UpdateSocialProfileResponse, UpdateUserProfileImageResponse } from "../types/response/settings.type";
-import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdatePaymentProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
+import { AddKTagResponse, RemoveKTagResponse, UpdateBasicProfileResponse, UpdateChatProfileResponse, UpdateNotificationProfileResponse, UpdatePaymentProfileResponse, UpdateSocialProfileResponse, UpdateUserProfileImageResponse } from "../types/response/settings.type";
+import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateChatProfilePayload, UpdateNotificationProfilePayload, UpdatePaymentProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
 import { slugifyText } from "../utils/general.util";
 import { Tag } from "../models/Tag.model";
 import { generateTagColor } from "../utils/tag.util";
@@ -163,4 +163,28 @@ export const updatePaymentProfileService = async (uid:Types.ObjectId, data : Upd
     user!.paymentPreferences = data;
     await user!.save();
     return user!.paymentPreferences;
+}
+
+/* **************** Notification Settings Services *************** */
+/**
+ * @param data of type UpdateNotificationProfilePayload
+ * @returns updated object of type UpdateNotificationProfileResponse
+ */
+export const updateNotificationProfileService = async (uid:Types.ObjectId, data : UpdateNotificationProfilePayload):Promise<UpdateNotificationProfileResponse>=>{
+    const user = await User.findById(uid);
+    user!.notificationPreferences = data;
+    await user!.save();
+    return user!.notificationPreferences;
+}
+
+/* **************** Chat Settings Services *************** */
+/**
+ * @param data of type UpdateChatProfilePayload
+ * @returns updated object of type UpdateChatProfileResponse
+ */
+export const updateChatProfileService = async (uid:Types.ObjectId, data : UpdateChatProfilePayload):Promise<UpdateChatProfileResponse>=>{
+    const user = await User.findById(uid);
+    user!.chatPreferences = data;
+    await user!.save();
+    return user!.chatPreferences;
 }

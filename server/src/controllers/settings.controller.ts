@@ -1,8 +1,8 @@
 import { Request, response, Response } from "express";
 import { STATUS } from "../constants/statusCodes.constants";
-import { addKTagService, removeKTagService, removeUserProfileImageService, updateBasicProfileService, updatePaymentProfileService, updateSocialProfileService, updateUserProfileImageService } from "../services/settings.service";
+import { addKTagService, removeKTagService, removeUserProfileImageService, updateBasicProfileService, updateChatProfileService, updateNotificationProfileService, updatePaymentProfileService, updateSocialProfileService, updateUserProfileImageService } from "../services/settings.service";
 import { successResponse } from "../utils/response.util";
-import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdatePaymentProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
+import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateChatProfilePayload, UpdateNotificationProfilePayload, UpdatePaymentProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
 
 export const updateBasicProfileController = async (req:Request, res: Response)=>{
     const data = req.body as UpdateBasicProfilePayload;
@@ -79,6 +79,30 @@ export const updatePaymentProfileController = async (req:Request, res:Response)=
         res,
         STATUS.SUCCESS.OK,
         "Payment preferences updated successfully",
+        responseObj,
+    );
+}
+
+/* **************** Notification Settings Controllers *************** */
+export const updateNotificationProfileController = async (req:Request, res:Response)=>{
+    const data = req.body as UpdateNotificationProfilePayload;
+    const responseObj = await updateNotificationProfileService(req.user?.uid!, data);
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Notification preferences updated successfully",
+        responseObj,
+    );
+}
+
+/* **************** Chat Settings Controllers *************** */
+export const updateChatProfileController = async (req:Request, res:Response)=>{
+    const data = req.body as UpdateChatProfilePayload;
+    const responseObj = await updateChatProfileService(req.user?.uid!, data);
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Chat preferences updated successfully",
         responseObj,
     );
 }

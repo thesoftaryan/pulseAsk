@@ -15,7 +15,9 @@ export const UserQuestions:React.FC<UserQUestionsProps> = ({questions})=>{
     return (
         <div className={UserQuestionsStyle["container"]}>
             <div className={UserQuestionsStyle["questions"]}>
-                {/* <Question question={}/> */}
+                {
+                    questions.length===0 && <p className={UserQuestionsStyle["label"]}> No Question posted by this user</p>
+                }
                 {
                     questions.map((question)=>{
                         return <Question key={question._id} question={question} onClick={()=>{safeNavigate(homeRoutes.question+`/${question._id}/${question.slug}`)}}/>

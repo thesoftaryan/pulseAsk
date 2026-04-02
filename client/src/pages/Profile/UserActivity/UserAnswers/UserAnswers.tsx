@@ -13,6 +13,9 @@ export const UserAnswers:React.FC<UserAnswersProps> = ({answers})=>{
         <div className={UserAnswerStyle["container"]}>
             <div className={UserAnswerStyle["answers"]}>
                 {
+                    answers.length===0 && <p className={UserAnswerStyle["label"]}> No answers posted by this user</p>
+                }
+                {
                     answers.map((answer)=>{
                         return <UserAnswerTile key={answer._id} answer={answer} level1={true}/>;
                     })

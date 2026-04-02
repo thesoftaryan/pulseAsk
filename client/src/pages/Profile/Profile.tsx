@@ -42,7 +42,7 @@ export const Profile = ()=>{
 
     useEffect(()=>{
         fetchProfileHandler(userName);
-    }, []);
+    }, [userName]);
 
     if(fetchingProfile) return "Loading";
 
@@ -67,8 +67,8 @@ export const Profile = ()=>{
                     }
 
                     <div className={ProfileStyle["user-actions"]}>
-                        {user?.enableChat && <ChatIcon className={ProfileStyle["icon"]}/>}
-                        {user?.enablePayment && <DonateIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["donate-icon"]}`}/>}
+                        {user?.chatPreferences?.enableChat && <ChatIcon className={ProfileStyle["icon"]}/>}
+                        {user?.paymentPreferences?.enablePayment && <DonateIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["donate-icon"]}`}/>}
                     </div>
                 </div>
                 <div className={ProfileStyle["right"]}>

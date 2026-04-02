@@ -18,6 +18,7 @@ export const useNotificationSettingsHandler = (
             const result = parseSuccessResponse<UpdateNotificationProfileResponse>(response);
             dispatch(updateNotificationPreferences({...(result.data)}));
             setNotificationPreferences(result.data!);
+            // showToast.success(result.message);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
