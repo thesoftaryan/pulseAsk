@@ -6,14 +6,29 @@ import StripeIcon from "../../../assets/icons/general/stripe.svg?react";
 import { PaymentGatewayTile } from "./PaymentGatewayTile/PaymentGatewayTile";
 import { PreferenceTile } from "../PreferenceTile/PreferenceTile";
 import { useState } from "react";
+import { useAppSelector } from "../../../hooks/store.hook";
+import { usePaymentSettingsHandler } from "./PaymentSettings.handler";
 
 export const PaymentSettings = ()=>{
-    const [paymentActive, setPaymentActive] = useState(false);
+    const user = useAppSelector(state=>state.auth.user);
+    const [paymentActive, setPaymentActive] = useState(user?.paymentPreferences?.enablePayment??false);
+    
+    const [updating, setUpdating] = useState(false);
+
+    const {updatePaymentProfile} = usePaymentSettingsHandler(setPaymentActive);
+
+    const handlePaymentSettingsChange = async ()=>{
+        // setPaymentActive(!paymentActive)
+        setUpdating(true);
+        await updatePaymentProfile(!paymentActive);
+        setUpdating(false);
+    }
+
     return (
         <div className={PaymentSettingsStyle["container"]}>
             <Divider text="Set your payment details"/>
             <div className={PaymentSettingsStyle["preferences"]}>
-                <PreferenceTile text="Enable Users to send you payments" active={paymentActive} setActive={setPaymentActive}/>
+                <PreferenceTile onClick={updating?undefined:handlePaymentSettingsChange} text="Enable Users to send you payments" active={paymentActive}/>
             </div>
             <div className={PaymentSettingsStyle["label"]}>
                 Connect to

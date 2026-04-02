@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { PaymentPreferencesInterface, NotificationPreferencesInterface, ChatPreferencesInterface } from "../models/User.model";
 
 /* **************** Account Interfaces *************** */
 export interface UpdateUserProfileImagePayload{
@@ -32,21 +33,14 @@ export interface RemoveKTagPayload{
 
 
 /* **************** Payment Interfaces *************** */
-export interface UpdatePaymentProfilePayload{
-    enablePayments: boolean;
+export interface UpdatePaymentProfilePayload extends PaymentPreferencesInterface{
 }
 
 
 /* **************** Notification Interfaces *************** */
-export interface UpdateNotificationProfilePayload{
-    answer: boolean;
-    chat: boolean;
-    payment: boolean;
-    announcement: boolean;
-    promotional: boolean;
+export interface UpdateNotificationProfilePayload extends NotificationPreferencesInterface{
 }
 
 /* **************** Chat Interfaces *************** */
-export interface UpdateChatProfilePayload{
-    enableChat: boolean;
+export interface UpdateChatProfilePayload extends ChatPreferencesInterface{
 }

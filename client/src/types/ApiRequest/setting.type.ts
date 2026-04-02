@@ -1,5 +1,7 @@
 /* **************** Account Interfaces *************** */
 
+import type { PaymentPreferencesInterface, NotificationPreferencesInterface, ChatPreferencesInterface } from "../ApiResponse/user.type";
+
 export interface UpdateUserProfileImagePayload{
     imageUrl : string;
 }
@@ -32,21 +34,14 @@ export interface RemoveKTagPayload{
 
 
 /* **************** Payment Interfaces *************** */
-export interface UpdatePaymentProfilePayload{
-    enablePayments: boolean;
+export interface UpdatePaymentProfilePayload extends PaymentPreferencesInterface{
 }
 
 
 /* **************** Notification Interfaces *************** */
-export interface UpdateNotificationProfilePayload{
-    answer: boolean;
-    chat: boolean;
-    payment: boolean;
-    announcement: boolean;
-    promotional: boolean;
+export interface UpdateNotificationProfilePayload extends NotificationPreferencesInterface{
 }
 
 /* **************** Chat Interfaces *************** */
-export interface UpdateChatProfilePayload{
-    enableChat: boolean;
+export interface UpdateChatProfilePayload extends ChatPreferencesInterface{
 }

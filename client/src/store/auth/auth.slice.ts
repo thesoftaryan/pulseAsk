@@ -24,7 +24,7 @@ const authSlice = createSlice({
         updateUserProfileImage(state, action){
             
             if(state.user) {
-                console.log(action.payload.imageUrl);
+                // console.log(action.payload.imageUrl);
                 state.user.profile = action.payload.imageUrl;
             }
         },
@@ -42,6 +42,19 @@ const authSlice = createSlice({
                 );
             }
         },
+
+        updatePaymentPreferences(state, action){
+            if(state.user) state.user.paymentPreferences = action.payload;
+        },
+
+        updateNotificationPreferences(state, action){
+            if(state.user) state.user.notificationPreferences = action.payload;
+        },
+
+        updateChatPreferences(state, action){
+            if(state.user) state.user.chatPreferences = action.payload;
+        },
+
         clearAuthError(state){
             state.error = null;
         },
@@ -162,5 +175,5 @@ const authSlice = createSlice({
     }
 });
 
-export const {clearAuthError, updateUserProfileImage, addKTag, removeKTag} = authSlice.actions;
+export const {clearAuthError, updateChatPreferences, updateNotificationPreferences, updatePaymentPreferences, updateUserProfileImage, addKTag, removeKTag} = authSlice.actions;
 export default authSlice.reducer;

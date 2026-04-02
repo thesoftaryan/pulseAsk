@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { addKTagController, removeKTagController, removeUserProfileImageController, updateBasicProfileController, updateSocialProfileController, updateUserProfileImageController } from "../controllers/settings.controller";
+import { addKTagController, removeKTagController, removeUserProfileImageController, updateBasicProfileController, updatePaymentProfileController, updateSocialProfileController, updateUserProfileImageController } from "../controllers/settings.controller";
 import { validate } from "../middlewares/validation.middleware";
 import { addKTagValidator, basicProfileValidator, removeKTagValidator, socialProfileValidator, updateUserProfileImageValidator } from "../validations/settings.validation";
 
 const router = Router();
+
+/* **************** Account Settings Route *************** */
 
 router.post("/account/remove/image", removeUserProfileImageController);
 
@@ -16,5 +18,9 @@ router.post("/account/update/social", validate(socialProfileValidator),updateSoc
 router.post("/account/k-tag/add", validate(addKTagValidator),addKTagController);
 
 router.post("/account/k-tag/remove", validate(removeKTagValidator),removeKTagController);
+
+
+/* **************** Payment Settings Route *************** */
+router.post("/payment/preferences", updatePaymentProfileController);
 
 export default router;

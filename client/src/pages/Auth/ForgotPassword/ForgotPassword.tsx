@@ -19,6 +19,7 @@ import { forgotPasswordValidator } from "./ForgotPassword.validator";
 import { useForgotPasswordHandler } from "./ForgotPassword.handler";
 import { BackButton } from "../../../components/common/BackButton/BackButton";
 import { useAppSelector } from "../../../hooks/store.hook";
+import { useSearchParams } from "react-router-dom";
 
 
 
@@ -28,12 +29,16 @@ function ForgotPassword(){
 
     // {**************** ForgotPassword Logic : start ******************}
     
-
+    const [searchParams] = useSearchParams();
+    const userEmail = searchParams.get("userEmail");
+    
+        
     const state = useAppSelector(state => state.auth);
-
+    
     const {forgotPasswordHandler} = useForgotPasswordHandler();
+    
+    const [email, setEmail] = useState(userEmail??"");
 
-    const [email, setEmail] = useState("");
     const [errors, setErrors] = useState<Partial<ForgotPasswordFormData>>({});
 
     const handleForgotPassword = ()=>{
@@ -64,7 +69,7 @@ function ForgotPassword(){
                     <GapBox className="gap-y-md"></GapBox>
                     
                     <div className={ForgotPasswordStyle["form"]}>
-                        <InputField isError={errors.email?.length} placeholder="Email Address" type="email" onChange={(e)=>{setEmail(e.target.value); setErrors({});}}/>
+                        <InputField value={email} isError={errors.email?.length} placeholder="Email Address" type="email" onChange={(e)=>{setEmail(e.target.value); setErrors({});}}/>
                         {errors.email?.length && <InlineError message={errors.email}/>}
                         <GapBox className="gap-y-md"></GapBox>
                         <Button text="Send Link" onClick={handleForgotPassword} loading={state.status==="loading"} />

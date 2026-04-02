@@ -2,15 +2,19 @@ import { Types } from "mongoose";
 import { STATUS } from "../constants/statusCodes.constants";
 import { User } from "../models/User.model";
 import { ApiError } from "../utils/error.util";
-import { AddKTagResponse, RemoveKTagResponse, UpdateBasicProfileResponse, UpdateSocialProfileResponse, UpdateUserProfileImageResponse } from "../types/response/settings.type";
-import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
+import { AddKTagResponse, RemoveKTagResponse, UpdateBasicProfileResponse, UpdatePaymentProfileResponse, UpdateSocialProfileResponse, UpdateUserProfileImageResponse } from "../types/response/settings.type";
+import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdatePaymentProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
 import { slugifyText } from "../utils/general.util";
 import { Tag } from "../models/Tag.model";
 import { generateTagColor } from "../utils/tag.util";
 
 import {accountConstants} from "../constants/settings.constants";
 import { createTagService } from "./tag.service";
-import cloudinary from "../config/cloudinary.config";
+
+
+
+/* **************** Account Settings Services *************** */
+
 
 /**
  * @param data of type UpdateBasicProfilePayload
@@ -146,4 +150,17 @@ export const removeUserProfileImageService = async (uid:Types.ObjectId)=>{
     user!.profile = undefined;
     user?.save();
     return;
+}
+
+
+/* **************** Payment Settings Services *************** */
+/**
+ * @param data of type UpdatePaymentProfilePayload
+ * @returns updated object of type UpdatePaymentProfileResponse
+ */
+export const updatePaymentProfileService = async (uid:Types.ObjectId, data : UpdatePaymentProfilePayload):Promise<UpdatePaymentProfileResponse>=>{
+    const user = await User.findById(uid);
+    user!.paymentPreferences = data;
+    await user!.save();
+    return user!.paymentPreferences;
 }

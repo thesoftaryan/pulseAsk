@@ -266,7 +266,7 @@ export const AccountSettings = ()=>{
             <Divider text="Danger Zone" color={color.colorDanger}/>
             <div className={AccountSettingsStyle["danger-zone"]}>
                 <SettingsActionButton text="Delete Account" Icon={DeleteIcon} color={color.colorDanger}/>
-                <SettingsActionButton onClick={()=>{safeNavigate(authRoutes.forgotPassword)}} text="Change Password" Icon={passwordIcon} color={color.colorOrange}/>
+                <SettingsActionButton onClick={()=>{safeNavigate(authRoutes.forgotPassword+`?userEmail=${user?.email}`)}} text="Change Password" Icon={passwordIcon} color={color.colorOrange}/>
             </div>
         </div>
     );

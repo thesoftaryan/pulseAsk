@@ -1,4 +1,5 @@
 import type { TagInterface } from "../../models/Tag.model"; 
+import { PaymentPreferencesInterface, NotificationPreferencesInterface, ChatPreferencesInterface } from "../../models/User.model";
 
 /* **************** Account Interfaces *************** */
 export interface UpdateUserProfileImageResponse{}
@@ -26,21 +27,14 @@ export interface RemoveKTagResponse{}
 
 
 /* **************** Payment Interfaces *************** */
-export interface UpdatePaymentProfileResponse{
-    enablePayments: boolean;
+export interface UpdatePaymentProfileResponse extends PaymentPreferencesInterface{
 }
 
 
 /* **************** Notification Interfaces *************** */
-export interface UpdateNotificationProfileResponse{
-    answer: boolean;
-    chat: boolean;
-    payment: boolean;
-    announcement: boolean;
-    promotional: boolean;
+export interface UpdateNotificationProfileResponse extends NotificationPreferencesInterface{
 }
 
 /* **************** Chat Interfaces *************** */
-export interface UpdateChatProfileResponse{
-    enableChat: boolean;
+export interface UpdateChatProfileResponse extends ChatPreferencesInterface{
 }

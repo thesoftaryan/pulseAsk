@@ -35,12 +35,20 @@ interface PaymentAccountsInterface{
     paypalAccount? : PaypalConnection | null;
 }
 
-interface NotificationPreferencesInterface{
-    answer:Boolean;
-    chat:Boolean;
-    payment:Boolean;
-    announcement:Boolean;
-    promotional:Boolean;
+export interface NotificationPreferencesInterface{
+    answer:boolean;
+    chat:boolean;
+    payment:boolean;
+    announcement:boolean;
+    promotional:boolean;
+}
+
+export interface PaymentPreferencesInterface{
+    enablePayment: boolean;
+}
+
+export interface ChatPreferencesInterface{
+    enableChat: boolean;
 }
 
 
@@ -91,12 +99,12 @@ export interface UserInterface extends Document{
     reputationScore: number;
     
     //************* Payment Information ********** //
-    enablePayment: Boolean;
     paymentAccounts : PaymentAccountsInterface;
-
+    
     //************* Preferences Information ********** //
+    paymentPreferences: PaymentPreferencesInterface,
     notificationPreferences: NotificationPreferencesInterface;
-    enableChat: Boolean;
+    chatPreferences: ChatPreferencesInterface,
 }
 
 
@@ -213,8 +221,28 @@ const notificationPreferencesSchema = new Schema(
     },
     promotional: {
         type: Boolean,
-        default: false
+        default: true
     }
+},
+{ _id: false, },
+);
+
+const paymentPreferencesSchema = new Schema(
+{
+    enablePayment: {
+        type: Boolean,
+        default: false,
+    },
+},
+{ _id: false, },
+);
+
+const chatPreferencesSchema = new Schema(
+{
+    enableChat: {
+        type: Boolean,
+        default: true
+    },
 },
 { _id: false, },
 );
@@ -343,23 +371,21 @@ const userSchema = new Schema<UserInterface>(
         },
         
         //************* Payment Information ********** //
-        enablePayment: {
-            type : Boolean,
-            default: false,
-        },
         paymentAccounts : {
             type: paymentAccountsSchema,
             select : false,
         },
-
+        
         //************* Preferences Information ********** //
+        paymentPreferences: {
+            type : paymentPreferencesSchema,
+        },
         notificationPreferences: {
             type: notificationPreferencesSchema
         },
-        enableChat: {
-            type: Boolean,
-            default: true,
-        },
+        chatPreferences:{
+            type: chatPreferencesSchema,
+        }
     },
     {timestamps:true,}
 );

@@ -1,5 +1,8 @@
-import type { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/ApiRequest/setting.type";
+import type { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateChatProfilePayload, UpdateNotificationProfilePayload, UpdatePaymentProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/ApiRequest/setting.type";
 import api from "./axios";
+
+
+/* **************** Account Settings API *************** */
 
 export const removeUserProfileImageAPI = ()=>{
     return api.post("/settings/account/remove/image");
@@ -23,4 +26,22 @@ export const addKTagAPI = (data : AddKTagPayload)=>{
 
 export const removeKTagAPI = (data: RemoveKTagPayload)=>{
     return api.post("/settings/account/k-tag/remove", data);
+}
+
+
+/* **************** Payment Settings APIs *************** */
+export const updatePaymentProfileAPI = (data:UpdatePaymentProfilePayload)=>{
+    return api.post("/settings/payment/preferences", data);
+}
+
+
+/* **************** Notifications Settings APIs *************** */
+export const updateNotificationProfileAPI = (data : UpdateNotificationProfilePayload)=>{
+    return api.post("/settings/notification/preferences", data);
+}
+
+
+/* **************** Chat Settings APIs *************** */
+export const updateChatProfileAPI = (data : UpdateChatProfilePayload)=>{
+    return api.post("/settings/chat/preferences", data);
 }

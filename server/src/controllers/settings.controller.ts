@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import { STATUS } from "../constants/statusCodes.constants";
-import { addKTagService, removeKTagService, removeUserProfileImageService, updateBasicProfileService, updateSocialProfileService, updateUserProfileImageService } from "../services/settings.service";
+import { addKTagService, removeKTagService, removeUserProfileImageService, updateBasicProfileService, updatePaymentProfileService, updateSocialProfileService, updateUserProfileImageService } from "../services/settings.service";
 import { successResponse } from "../utils/response.util";
-import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
+import { AddKTagPayload, RemoveKTagPayload, UpdateBasicProfilePayload, UpdatePaymentProfilePayload, UpdateSocialProfilePayload, UpdateUserProfileImagePayload } from "../types/settings.type";
 
 export const updateBasicProfileController = async (req:Request, res: Response)=>{
     const data = req.body as UpdateBasicProfilePayload;
@@ -66,5 +66,19 @@ export const removeUserProfileImageController = async (req:Request, res:Response
         STATUS.SUCCESS.OK,
         "Profile image removed successfully",
         resopnseObj,
+    );
+}
+
+
+
+/* **************** Payment Settings Controllers *************** */
+export const updatePaymentProfileController = async (req:Request, res:Response)=>{
+    const data = req.body as UpdatePaymentProfilePayload;
+    const responseObj = await updatePaymentProfileService(req.user?.uid!, data);
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Payment preferences updated successfully",
+        responseObj,
     );
 }

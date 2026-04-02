@@ -17,9 +17,9 @@ interface StripeConnection{
     id : string;
     userId: string;
     stripeAccountId : string;
-    payoutsEnabled: Boolean;
-    chargesEnabled: Boolean;
-    stripeOnboardingUrl?: Boolean | null;
+    payoutsEnabled: boolean;
+    chargesEnabled: boolean;
+    stripeOnboardingUrl?: boolean | null;
     connectedAt: string;
     lastSyncedAt?: string | null;    
 }
@@ -45,14 +45,21 @@ interface PaymentAccountsInterface{
     paypalAccount? : PaypalConnection | null;
 }
 
-interface NotificationPreferencesInterface{
-    answer:Boolean;
-    chat:Boolean;
-    payment:Boolean;
-    announcement:Boolean;
-    promotional:Boolean;
+export interface NotificationPreferencesInterface{
+    answer:boolean;
+    chat:boolean;
+    payment:boolean;
+    announcement:boolean;
+    promotional:boolean;
 }
 
+export interface PaymentPreferencesInterface{
+    enablePayment: boolean;
+}
+
+export interface ChatPreferencesInterface{
+    enableChat: boolean;
+}
 
 
 export interface UserInterface{
@@ -67,14 +74,14 @@ export interface UserInterface{
     lastName : string;
     email : string;
     password : string;
-    isVerified : Boolean;
+    isVerified : boolean;
     
     // *********** Reset Password ******************** //
     resetPasswordToken : string;
     resetPasswordExpires : Date;
     
     // *********** Security ******************** //
-    emailVerified : Boolean;
+    emailVerified : boolean;
     emailVerificationToken : string;
     emailVerificationExpires : Date;
     
@@ -101,10 +108,10 @@ export interface UserInterface{
     reputationScore: number;
     
     //************* Payment Information ********** //
-    enablePayment: Boolean;
     paymentAccounts : PaymentAccountsInterface;
 
     //************* Preferences Information ********** //
+    paymentPreferences: PaymentPreferencesInterface,
     notificationPreferences: NotificationPreferencesInterface;
-    enableChat: Boolean;
+    chatPreferences: ChatPreferencesInterface,
 }

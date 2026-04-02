@@ -3,15 +3,15 @@ import { Switch } from "./Switch/Switch";
 
 interface PreferenceTileProps{
     active: boolean;
-    setActive: React.Dispatch<React.SetStateAction<boolean>>;
+    onClick?:()=>void;
     text: string;
 }
 
-export const PreferenceTile:React.FC<PreferenceTileProps> = ({text, active, setActive})=>{
+export const PreferenceTile:React.FC<PreferenceTileProps> = ({text, onClick, active})=>{
     return (
         <div className={PreferenceTileStyle["container"]}>
             <div className={PreferenceTileStyle["statement"]}>{text}</div>
-            <div className={PreferenceTileStyle["switch"]} onClick={()=>setActive(!active)}>
+            <div onClick={onClick} className={PreferenceTileStyle["switch"]}>
                 <Switch active={active}/>
             </div>
         </div>
