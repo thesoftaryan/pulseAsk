@@ -2,38 +2,54 @@ import {Schema, Types, model} from "mongoose";
 
 export interface ChatMessageInterface{
     _id: Types.ObjectId;
-    sentAt: Date;
+    conversationId: Types.ObjectId;
     sender: Types.ObjectId;
-    receiver: Types.ObjectId;
     content: string;
-    read: boolean;
+
+    type: "text" | "image";
+
+    status: "sent" | "seen";
+
+    sentAt: Date;
 }
 
 const ChatMessageSchema = new Schema<ChatMessageInterface>(
     {
-        sentAt: {
-            type: Date,
-            required: true,
+        conversationId:{
+            type: Schema.Types.ObjectId,
+            ref: "Conversation",
         },
+
         sender:{
             type: Schema.Types.ObjectId,
             ref:"User",
             required: true,
         },
-        receiver:{
-            type: Schema.Types.ObjectId,
-            ref:"User",
-            required: true,
-        },
+
         content: {
             type: String,
             required:true,
         },
-        read:{
-            type: Boolean,
-            default: false,
+
+        type:{
+            type: String,
+            enum:["text", "image"],
+            default: "text",
+        },
+
+        status:{
+            type: String,
+            enum:["seen", "sent"],
+            default: "sent",
+        },
+
+        sentAt: {
+            type: Date,
+            required: true,
         },
     }
 );
+
+ChatMessageSchema.index({ conversationId: 1, sentAt:-1 });
 
 export const ChatMessage = model<ChatMessageInterface>("ChatMessage", ChatMessageSchema);
