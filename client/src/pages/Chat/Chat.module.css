@@ -22,7 +22,7 @@
     max-width: var(--size-chat-left-section-max-width);
 }
 
-.label{
+.heading{
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-medium);
 }
@@ -99,7 +99,8 @@
 .messages{
     flex-grow: 1;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    /* flex-direction: column-reverse; */
     gap: var(--spacing-md);
 
     padding: var(--spacing-md);
@@ -161,4 +162,16 @@
 .large{
     width: var(--size-icon-ls);
     height: var(--size-icon-ls);
+}
+
+.label{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: var(--font-size-sm);
+    color: var(--color-placeholder-text);
+    word-break: break-all;
+    overflow-wrap: anywhere;
 }

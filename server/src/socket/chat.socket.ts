@@ -5,7 +5,6 @@ of chat system of the app
 
 import { Server, Socket } from "socket.io";
 import { ChatMessage } from "../models/ChatMessage.model";
-import { createChatMessage } from "../services/chatMessage.service";
 
 const onlineUsers = new Map<string, string>();
 

@@ -24,18 +24,27 @@ interface chatInterface{
 }
 
 export const Chat = ()=>{
+
+    const [chats, setChats] = useState<chatInterface[]>([]);
+    
     const user = useAppSelector(state=>state.auth.user);
     useEffect(()=>{
         console.log(user?._id);
         const socket = connectSocket(user?._id!);
         socket.on("receive_message", (message)=>{
             console.log("setting chats")
-            setChats([...chats, message]);
+            setChats((chats)=>[...chats, message]);
             console.log("Received message: ", message);
         });
+
+        socket.on("message_sent", (message)=>{
+            console.log("message sent successfully :", message);
+            setChats((chats)=>[...chats, message]);
+        })
+
         return ()=>{
             socket.disconnect();
-        };        
+        };
     }, [user]);
 
     
@@ -43,7 +52,6 @@ export const Chat = ()=>{
     
     const [message, setMessage] = useState("");
 
-    const [chats, setChats] = useState<chatInterface[]>([]);
 
     const handleSendChat = ()=>{
         const data = {
@@ -51,14 +59,14 @@ export const Chat = ()=>{
             receiverId:"69c60ef9d72e1e55ff754880",
             content:message,
         };
-        const socket = connectSocket(user?._id!);
+        const socket = getSocket();
         socket.emit("send_message", data);
     }
 
     return (
         <div className={ChatStyle["container"]}>
             <div className={ChatStyle["left"]}>
-                <div className={ChatStyle["label"]}>
+                <div className={ChatStyle["heading"]}>
                     Persons
                 </div>
                 <div className={ChatStyle["search-bar"]}>
@@ -97,13 +105,17 @@ export const Chat = ()=>{
 
 
                 <div className={ChatStyle["messages"]}>
-                    
+                    {
+                        chats.length===0
+                        &&
+                        <p className={ChatStyle["label"]}>No messages yet, Say hi to Aryan alsdkfj </p>
+                    }
                     {
                         chats.map((chat)=>{
-                            return <MessageTile message={chat.content} time={new Date()} self={chat.senderId==user?._id}/>
+                            return <MessageTile key={chat.content} message={chat.content} time={new Date()} self={chat.senderId==user?._id}/>
                         })
                     }
-                    <MessageTile message="How is it going1?" time={new Date()} self={false}/>
+                    {/* <MessageTile message="How is it going1?" time={new Date()} self={false}/>
                     <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
                     <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
                     <MessageTile message="Very soon" time={new Date()} self={true}/>
@@ -116,7 +128,7 @@ export const Chat = ()=>{
                     <MessageTile message="How is it going?" time={new Date()} self={false}/>
                     <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
                     <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
-                    <MessageTile message="Very soon" time={new Date()} self={true}/>
+                    <MessageTile message="Very soon" time={new Date()} self={true}/> */}
                 </div>
 
 
