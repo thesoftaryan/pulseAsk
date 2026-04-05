@@ -3,6 +3,7 @@ import { connectDB } from "./config/db.config";
 import app from "./app";
 import http from "http";
 import {Server} from "socket.io";
+import { registerChatSocket } from './socket/chat.socket';
 
 const PORT = process.env.PORT || 2903;
 
@@ -20,6 +21,7 @@ connectDB()
     });
 
     // We have to initialize socket here.
+    registerChatSocket(io);
 
     server.listen(PORT, ()=>{
         console.log(`Server running on port ${PORT}`);

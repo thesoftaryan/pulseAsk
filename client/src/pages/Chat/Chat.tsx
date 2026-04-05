@@ -12,12 +12,48 @@ import SearchIcon from "../../assets/icons/header/search.svg?react";
 import ReportUserIcon from "../../assets/icons/general/report_user.svg?react";
 import { MessageTile } from "./MessageTile/MessageTile";
 import { TimelineTile } from "./TimelineTile/TimelineTile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+// Socket io
+import { connectSocket, getSocket } from "../../services/socket.service";
+import { useAppSelector } from "../../hooks/store.hook";
+
+interface chatInterface{
+    senderId: string,
+    content: string,
+}
 
 export const Chat = ()=>{
+    const user = useAppSelector(state=>state.auth.user);
+    useEffect(()=>{
+        console.log(user?._id);
+        const socket = connectSocket(user?._id!);
+        socket.on("receive_message", (message)=>{
+            console.log("setting chats")
+            setChats([...chats, message]);
+            console.log("Received message: ", message);
+        });
+        return ()=>{
+            socket.disconnect();
+        };        
+    }, [user]);
 
+    
     const [searchText, setSearchText] = useState("");
+    
+    const [message, setMessage] = useState("");
+
+    const [chats, setChats] = useState<chatInterface[]>([]);
+
+    const handleSendChat = ()=>{
+        const data = {
+            senderId: user?._id,
+            receiverId:"69c60ef9d72e1e55ff754880",
+            content:message,
+        };
+        const socket = connectSocket(user?._id!);
+        socket.emit("send_message", data);
+    }
 
     return (
         <div className={ChatStyle["container"]}>
@@ -62,6 +98,11 @@ export const Chat = ()=>{
 
                 <div className={ChatStyle["messages"]}>
                     
+                    {
+                        chats.map((chat)=>{
+                            return <MessageTile message={chat.content} time={new Date()} self={chat.senderId==user?._id}/>
+                        })
+                    }
                     <MessageTile message="How is it going1?" time={new Date()} self={false}/>
                     <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
                     <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
@@ -76,7 +117,6 @@ export const Chat = ()=>{
                     <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
                     <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
                     <MessageTile message="Very soon" time={new Date()} self={true}/>
-
                 </div>
 
 
@@ -86,7 +126,16 @@ export const Chat = ()=>{
                         <div className={ChatStyle["message-attachment"]}>
                             <AttachmentIcon className={`${ChatStyle["icon"]} ${ChatStyle["large"]}`}/>
                         </div>
-                        <input type="text" placeholder="Enter your message" className={ChatStyle["message-input"]}>
+                        <input value={message} type="text" placeholder="Enter your message" className={ChatStyle["message-input"]}
+                            onChange={(e)=>{
+                                setMessage(e.target.value);
+                            }}
+                            onKeyDown={(e)=>{
+                                if(e.key==="Enter"){
+                                    handleSendChat();
+                                }
+                            }}
+                        >
                             
                         </input>
                         <div className={ChatStyle["message-send"]}>

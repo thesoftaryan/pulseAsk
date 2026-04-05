@@ -1,6 +1,6 @@
 import { model, Schema, Types } from "mongoose";
 
-interface ConversationInterface{
+export interface ConversationInterface{
     _id: Types.ObjectId;
     participants: Types.ObjectId[];
     lastMessage?:{
@@ -8,31 +8,39 @@ interface ConversationInterface{
         sender: Types.ObjectId;
         sentAt: Date;
     };
-    updatedAt: Date;
+    // updatedAt: Date;
 }
 
 const ConversationSchema = new Schema<ConversationInterface>({
-    participants:[
-        {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-        },
-    ],
+    participants:{
+        types:[
+            {
+                type: Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
+    },
     lastMessage:{
-        text: String,
-        sender: {
-            type: Schema.Types.ObjectId,
-            ref:"User",
-        },
-        sentAt: Date,
+        type:{
+            text: {
+                type: String,
+            },
+            sender: {
+                type: Schema.Types.ObjectId,
+                ref:"User",
+            },
+            sentAt: {
+                type: Date,
+            },
+        }
     },
-    updatedAt:{
-        type: Date,
-    },
+    // updatedAt:{
+    //     type: Date,
+    // },
 },
 {timestamps: true},
 );
 
-ConversationSchema.index({participants: 1});
+ConversationSchema.index({participants: 1}, {unique:true});
 
 export const Conversation = model<ConversationInterface>("Conversation", ConversationSchema);
