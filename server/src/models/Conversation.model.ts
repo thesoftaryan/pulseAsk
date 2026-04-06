@@ -12,14 +12,12 @@ export interface ConversationInterface{
 }
 
 const ConversationSchema = new Schema<ConversationInterface>({
-    participants:{
-        types:[
-            {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-            },
-        ],
-    },
+    participants:[
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
     lastMessage:{
         type:{
             text: {

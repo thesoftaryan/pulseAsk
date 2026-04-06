@@ -9,10 +9,40 @@ import { ConversationInterface, Conversation } from "../models/Conversation.mode
  * @returns a list of Users with whom the user had talked in the past
  */
 export const getContactsService = async (uid: Types.ObjectId)=>{
-    
+    const conversations = await Conversation.find({
+        participants: uid,
+    }).populate("participants", "_id userName firstName lastName profile");
+
+    console.log(conversations);
+
+    let contacts = [];
+    for(let conversation of conversations){
+        const obj = {
+            conversationId: conversation._id,
+            person: 
+            (conversation.participants[0]._id==uid)? 
+            conversation.participants[1]
+            :
+            conversation.participants[0]
+            ,
+            lastMessage : conversation.lastMessage,
+        };
+        contacts.push(obj);
+    }
+    return contacts;
 }
 
 
+/**
+ * @param conversationId of Type Types.ObjectId
+ * @returns Array of Objects of type ChatMessage
+ */
+export const fetchMessagesService = async (conversationId: Types.ObjectId)=>{
+    const messages = await ChatMessage.find({
+        conversationId,
+    }).sort({sentAt:1});
+    return messages;
+}
 
 
 
@@ -23,6 +53,8 @@ export const getContactsService = async (uid: Types.ObjectId)=>{
 export const createChatMessageService = async (data : any) : Promise<ChatMessageInterface>=>{
     const {senderId, receiverId, content} = data;
     
+    console.log("data received: ", data);
+
     const conversation = await getOrCreateConversationService(senderId, receiverId);
 
     const message = await ChatMessage.create({
@@ -45,8 +77,10 @@ export const getOrCreateConversationService = async ( uid1: Types.ObjectId, uid2
         return a.toString().localeCompare(b.toString());
     });
 
+    console.log("participants: ", participants);
+
     let conversation = await Conversation.findOne({
-        participants: participants,
+        participants,
     });
 
     if(!conversation){
@@ -54,5 +88,6 @@ export const getOrCreateConversationService = async ( uid1: Types.ObjectId, uid2
             participants,
         });
     }
+    console.log("created conversation: ", conversation);
     return conversation;
 }
