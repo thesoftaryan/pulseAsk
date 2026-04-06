@@ -19,6 +19,8 @@ import { useProfileHandler } from "./Profile.handler";
 import type { UserInterface } from "../../types/ApiResponse/user.type";
 import type { QuestionInterface } from "../../types/ApiResponse/question.type";
 import type { AnswerInterface } from "../../types/ApiResponse/answer.type";
+import { useSafeNavigate } from "../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../routes/routesConstants";
 
 
 
@@ -26,6 +28,8 @@ export const Profile = ()=>{
     // const user = useAppSelector(state=>state.auth.user);
 
     // console.log(user);
+
+    const {safeNavigate} = useSafeNavigate();
 
     const params = useParams();
     const userName = params.userName;
@@ -67,7 +71,7 @@ export const Profile = ()=>{
                     }
 
                     <div className={ProfileStyle["user-actions"]}>
-                        {user?.chatPreferences?.enableChat && <ChatIcon className={ProfileStyle["icon"]}/>}
+                        {user?.chatPreferences?.enableChat && <ChatIcon className={ProfileStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat+`?new=${user._id}`)}}/>}
                         {user?.paymentPreferences?.enablePayment && <DonateIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["donate-icon"]}`}/>}
                     </div>
                 </div>

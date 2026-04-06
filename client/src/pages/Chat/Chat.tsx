@@ -12,22 +12,46 @@ import SearchIcon from "../../assets/icons/header/search.svg?react";
 import ReportUserIcon from "../../assets/icons/general/report_user.svg?react";
 import { MessageTile } from "./MessageTile/MessageTile";
 import { TimelineTile } from "./TimelineTile/TimelineTile";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Socket io
 import { connectSocket, getSocket } from "../../services/socket.service";
 import { useAppSelector } from "../../hooks/store.hook";
 import { useChatHandler } from "./Chat.handler";
+import { useSearchParams } from "react-router-dom";
 
 interface chatInterface{
+    _id: string;
     sender: string,
     content: string,
+    sentAt: Date,
 }
 
 export const Chat = ()=>{
 
-    const [contacts, setContacts] = useState<any[]>([]);
-    const [activeContact, setActiveContact] = useState<any>();
+    const [searchParams] = useSearchParams();
+    const newUserId = searchParams.get("new");
+    const contactObj = (newUserId)? {
+        person:{
+            _id: newUserId,
+            profile:"",
+            firstName:"New chat",
+            lastName:"",
+        }
+    }:undefined;
+    const contactArray = (newUserId)? [{
+        person:{
+            _id: newUserId,
+            profile:"",
+            firstName:"New chat",
+            lastName:"",
+        }
+    }]:[];
+
+    const messageEndRef = useRef<HTMLDivElement>(null);
+
+    const [contacts, setContacts] = useState<any[]>(contactArray);
+    const [activeContact, setActiveContact] = useState<any>(contactObj);
     const [fetching, setFetching] = useState(false);
     const [chats, setChats] = useState<chatInterface[]>([]);
     
@@ -53,6 +77,11 @@ export const Chat = ()=>{
         socket.on("message_sent", (message)=>{
             console.log("message sent successfully :", message);
             setChats((chats)=>[...chats, message]);
+            if(!activeContact.conversationId){
+                setActiveContact((prev: any)=>{
+                    return {...prev, conversationId: message.conversationId}
+                });
+            }
         })
 
         return ()=>{
@@ -63,6 +92,13 @@ export const Chat = ()=>{
     useEffect(()=>{
         fetchMessagesHandler(activeContact?.conversationId);
     }, [activeContact]);
+
+
+    useEffect(()=>{
+        messageEndRef.current?.scrollIntoView({
+            behavior: "smooth",
+        })
+    }, [chats]);
 
     
     const [searchText, setSearchText] = useState("");
@@ -136,9 +172,10 @@ export const Chat = ()=>{
                         }
                         {
                             chats.map((chat)=>{
-                                return <MessageTile key={chat.content} message={chat.content} time={new Date()} self={chat.sender==user?._id}/>
+                                return <MessageTile key={chat._id} message={chat.content} time={chat.sentAt} self={chat.sender==user?._id}/>
                             })
                         }
+                        <div ref={messageEndRef}/>
                         {/* <MessageTile message="How is it going1?" time={new Date()} self={false}/>
                         <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
                         <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
@@ -175,7 +212,7 @@ export const Chat = ()=>{
                                 
                             </input>
                             <div className={ChatStyle["message-send"]}>
-                                <SendIcon className={`${ChatStyle["icon"]} ${ChatStyle["large"]}`}/>
+                                <SendIcon onClick={handleSendChat} className={`${ChatStyle["icon"]} ${ChatStyle["large"]}`}/>
                             </div>
                         </div>
                     </div>

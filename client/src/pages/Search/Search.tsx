@@ -45,10 +45,10 @@ export const Search = ()=>{
                     activeSearchType==="question" && 
                     (
                         <div className={SearchStyle["questions-container"]}>
+                            {/* <Question title="How to do CPR"/>
                             <Question title="How to do CPR"/>
                             <Question title="How to do CPR"/>
-                            <Question title="How to do CPR"/>
-                            <Question title="How to do CPR"/>
+                            <Question title="How to do CPR"/> */}
                         </div>
                     )
                 }

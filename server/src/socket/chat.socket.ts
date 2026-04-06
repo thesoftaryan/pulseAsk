@@ -37,8 +37,8 @@ export const registerChatSocket = (io:Server)=>{
 
             if(receiverSocket){
                 io.to(receiverSocket).emit("receive_message", message);
-                socket.emit("message_sent", message);
             }
+            socket.emit("message_sent", message);
         });
 
         socket.on("disconnect", ()=>{

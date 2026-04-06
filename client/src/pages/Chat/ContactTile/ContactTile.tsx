@@ -1,9 +1,7 @@
 import ContactTileStyle from "./ContactTile.module.css";
 
-import PersonImage from "../../../assets/images/user.png";
-
 interface ContactInterface{
-    conversationId: string;
+    conversationId?: string;
     person:{
         firstName: string;
         lastName: string;
