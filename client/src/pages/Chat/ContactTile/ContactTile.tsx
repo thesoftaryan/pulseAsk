@@ -1,5 +1,7 @@
 import ContactTileStyle from "./ContactTile.module.css";
 
+import defaultImage from "../../../assets/images/user.png";
+
 interface ContactInterface{
     conversationId?: string;
     person:{
@@ -21,11 +23,12 @@ interface ContactTileProps{
 }
 
 export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active})=>{
+    if(!contact) return "";
     return (
         <div onClick={onClick} className={`${ContactTileStyle["container"]} ${ContactTileStyle[active? "active":""]}`}>
             
             <div className={ContactTileStyle["person-profile-container"]}>
-                <img src={contact.person?.profile} className={ContactTileStyle["person-profile"]}/>
+                <img src={contact.person?.profile??defaultImage} className={ContactTileStyle["person-profile"]}/>
             </div>
             
             <div className={ContactTileStyle["person-data"]}>

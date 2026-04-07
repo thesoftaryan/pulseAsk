@@ -1,6 +1,8 @@
 import { Types } from "mongoose";
 import { ChatMessageInterface, ChatMessage } from "../models/ChatMessage.model";
 import { ConversationInterface, Conversation } from "../models/Conversation.model";
+import { ApiError } from "../utils/error.util";
+import { User } from "../models/User.model";
 
 
 
@@ -30,6 +32,26 @@ export const getContactsService = async (uid: Types.ObjectId)=>{
         contacts.push(obj);
     }
     return contacts;
+}
+
+/**
+ * @param UserId whose contact details is required
+ * @returns contact details of required user
+ */
+export const userContactDetailsService = async (uid:Types.ObjectId, userId: Types.ObjectId)=>{
+    const user = await User.findById(userId).select("_id userName profile firstName lastName");
+    const conversationId = await getConversationIdService(uid, userId);
+    const obj = {
+        conversationId,
+        person: {
+            _id: user?._id,
+            firstName: user?.firstName,
+            lastName: user?.lastName,
+            profile: user?.profile,
+            userName: user?.userName,
+        },
+    };
+    return obj;
 }
 
 
@@ -90,4 +112,23 @@ export const getOrCreateConversationService = async ( uid1: Types.ObjectId, uid2
     }
     console.log("created conversation: ", conversation);
     return conversation;
+}
+
+/**
+ * @param uid1 and uid2 of two participating users
+ * @returns Object of Type ConversationInterface
+ */
+export const getConversationIdService = async ( uid1: Types.ObjectId, uid2: Types.ObjectId) : Promise<string>=>{
+    const participants = [uid1, uid2].sort((a, b)=>{
+        return a.toString().localeCompare(b.toString());
+    });
+
+    // console.log("participants: ", participants);
+
+    let conversation = await Conversation.findOne({
+        participants,
+    });
+
+    // console.log("created conversation: ", conversation);
+    return conversation?._id.toString()??"new_conversation";
 }

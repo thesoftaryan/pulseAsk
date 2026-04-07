@@ -66,6 +66,19 @@ export const registerUserService = async (payload : RegisterPayload) => {
         lastName,
         password : hashedPassword,
         email,
+        paymentPreferences : {
+            enablePayment: true,
+        },
+        chatPreferences : {
+            enableChat: true,
+        },
+        notificationPreferences: {
+            answer : true,
+            chat : true,
+            payment : true,
+            announcement : true,
+            promotional : true,
+        },        
         emailVerificationToken : hashedToken,
         emailVerificationExpires : new Date(
             Date.now() + 10*60*1000 // 10 minutes

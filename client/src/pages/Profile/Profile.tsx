@@ -71,7 +71,7 @@ export const Profile = ()=>{
                     }
 
                     <div className={ProfileStyle["user-actions"]}>
-                        {user?.chatPreferences?.enableChat && <ChatIcon className={ProfileStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat+`?new=${user._id}`)}}/>}
+                        {user?.chatPreferences?.enableChat && <ChatIcon className={ProfileStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat+`?user=${user._id}`)}}/>}
                         {user?.paymentPreferences?.enablePayment && <DonateIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["donate-icon"]}`}/>}
                     </div>
                 </div>

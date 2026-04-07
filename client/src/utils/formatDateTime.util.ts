@@ -7,6 +7,7 @@ export const formatDate = (time : Date):string =>{
 }
 
 export const formatTime = (time : Date):string => {
+    time = new Date(time);
     return time.toLocaleTimeString("en-US", {
         hour: "numeric",
         minute: "2-digit",

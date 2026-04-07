@@ -3,7 +3,7 @@ import ChatStyle from "./Chat.module.css";
 import { ContactTile } from "./ContactTile/ContactTile";
 
 
-import UserImage from "../../assets/images/user.png";
+import defaultImage from "../../assets/images/user.png";
 
 import SendIcon from "../../assets/icons/general/send.svg?react";
 import AttachmentIcon from "../../assets/icons/general/attachment.svg?react";
@@ -19,6 +19,7 @@ import { connectSocket, getSocket } from "../../services/socket.service";
 import { useAppSelector } from "../../hooks/store.hook";
 import { useChatHandler } from "./Chat.handler";
 import { useSearchParams } from "react-router-dom";
+import Divider from "../../components/common/Divider/Divider";
 
 interface chatInterface{
     _id: string;
@@ -29,35 +30,38 @@ interface chatInterface{
 
 export const Chat = ()=>{
 
-    const [searchParams] = useSearchParams();
-    const newUserId = searchParams.get("new");
-    const contactObj = (newUserId)? {
-        person:{
-            _id: newUserId,
-            profile:"",
-            firstName:"New chat",
-            lastName:"",
-        }
-    }:undefined;
-    const contactArray = (newUserId)? [{
-        person:{
-            _id: newUserId,
-            profile:"",
-            firstName:"New chat",
-            lastName:"",
-        }
-    }]:[];
-
+    
     const messageEndRef = useRef<HTMLDivElement>(null);
-
-    const [contacts, setContacts] = useState<any[]>(contactArray);
-    const [activeContact, setActiveContact] = useState<any>(contactObj);
+    
+    const [contacts, setContacts] = useState<any[]>([]);
+    const [activeContact, setActiveContact] = useState<any>();
     const [fetching, setFetching] = useState(false);
     const [chats, setChats] = useState<chatInterface[]>([]);
     
     const user = useAppSelector(state=>state.auth.user);
     
-    const {getContactsHandler, fetchMessagesHandler} = useChatHandler(setChats, setContacts, setFetching);
+    const {initChatHandler, getContactsHandler, fetchMessagesHandler} = useChatHandler(setChats, setContacts, setFetching);
+    
+    const [searchParams] = useSearchParams();
+    const chatUserId = searchParams.get("user");
+    // const [initContact, setInitContact] = useState({
+    //     person:{
+    //         _id: chatUserId,
+    //         profile:"",
+    //         firstName:"Anonymous",
+    //         lastName:"",
+    //     }
+    // });
+
+    if(chatUserId){
+        useEffect(()=>{
+            initChatHandler(chatUserId, setActiveContact);
+        }, []);
+    }
+
+
+
+    
     
     useEffect(()=>{
         console.log("calling getContactsHandler");
@@ -132,6 +136,16 @@ export const Chat = ()=>{
                 </div>
                 <div className={ChatStyle["persons"]}>
                     {
+                        (contacts.length===0 && !chatUserId)
+                        &&
+                        <p className={ChatStyle["label"]}>You haven't talked with anyone</p>
+                    }
+                    {
+                        chatUserId
+                        &&
+                        <ContactTile key={-1} contact={activeContact} active={activeContact?.conversationId==="new_conversation"} onClick={()=>setActiveContact({...activeContact, conversationId:"new_conversation"})}/>
+                    }
+                    {
                         contacts.map((contact)=>{
                             return <ContactTile active={contact.conversationId === activeContact?.conversationId} onClick={()=>{setActiveContact(contact)}} contact={contact} key={contact.conversationId}/>
                         })
@@ -148,7 +162,7 @@ export const Chat = ()=>{
                     <div className={ChatStyle["header"]}>
                         <div className={ChatStyle["person-profile-status"]}>
                             <div className={ChatStyle["person-profile-container"]}>
-                                <img src={activeContact.person.profile} className={ChatStyle["person-profile"]}/>
+                                <img src={activeContact.person.profile??defaultImage} className={ChatStyle["person-profile"]}/>
                             </div>
                             <div className={ChatStyle["person-data"]}>
                                 <div className={ChatStyle["person-name"]}>{activeContact.person.firstName} {activeContact.person.lastName}</div>
