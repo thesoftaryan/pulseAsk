@@ -1,6 +1,5 @@
 import { Types } from "mongoose";
-import { ChatMessageInterface, ChatMessage } from "../models/ChatMessage.model";
-import { ConversationInterface, Conversation } from "../models/Conversation.model";
+import { ChatMessageInterface, ChatMessage, ConversationInterface, Conversation } from "../models/Chat.model";
 import { ApiError } from "../utils/error.util";
 import { User } from "../models/User.model";
 
@@ -15,7 +14,7 @@ export const getContactsService = async (uid: Types.ObjectId)=>{
         participants: uid,
     }).populate("participants", "_id userName firstName lastName profile");
 
-    console.log(conversations);
+    // console.log(conversations);
 
     let contacts = [];
     for(let conversation of conversations){
@@ -62,7 +61,9 @@ export const userContactDetailsService = async (uid:Types.ObjectId, userId: Type
 export const fetchMessagesService = async (conversationId: Types.ObjectId)=>{
     const messages = await ChatMessage.find({
         conversationId,
-    }).sort({sentAt:1});
+    }).sort({sentAt:1}).populate([
+        {path: "sender", select:"_id userName profile firstName lastName"}
+    ]);
     return messages;
 }
 
@@ -75,16 +76,29 @@ export const fetchMessagesService = async (conversationId: Types.ObjectId)=>{
 export const createChatMessageService = async (data : any) : Promise<ChatMessageInterface>=>{
     const {senderId, receiverId, content} = data;
     
-    console.log("data received: ", data);
+    // console.log("data received: ", data);
 
     const conversation = await getOrCreateConversationService(senderId, receiverId);
 
-    const message = await ChatMessage.create({
+    const message = await (await ChatMessage.create({
         conversationId: conversation._id,
         sender: senderId,
         content,
         sentAt: new Date(),
+    })).populate([
+        {path: "sender", select:"_id userName profile firstName lastName"}
+    ]);
+
+
+    await Conversation.updateOne({conversationKey: conversation.conversationKey}, {
+        lastMessage : {
+            sender: message.sender,
+            sentAt: message.sentAt,
+            content: content,
+        },
     });
+
+    // await conversation.save();
 
     return message;
 }
@@ -99,14 +113,16 @@ export const getOrCreateConversationService = async ( uid1: Types.ObjectId, uid2
         return a.toString().localeCompare(b.toString());
     });
 
-    console.log("participants: ", participants);
+    // console.log("participants: ", participants);
 
+    const conversationKey = `${participants[0]}_${participants[1]}`;
     let conversation = await Conversation.findOne({
-        participants,
+        conversationKey,
     });
 
     if(!conversation){
         conversation = await Conversation.create({
+            conversationKey,
             participants,
         });
     }
@@ -125,8 +141,10 @@ export const getConversationIdService = async ( uid1: Types.ObjectId, uid2: Type
 
     // console.log("participants: ", participants);
 
+    const conversationKey = `${participants[0]}_${participants[1]}`;
+
     let conversation = await Conversation.findOne({
-        participants,
+        conversationKey,
     });
 
     // console.log("created conversation: ", conversation);

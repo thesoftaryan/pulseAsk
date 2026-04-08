@@ -10,6 +10,7 @@ interface ContactInterface{
         profile: string;
     };
     lastMessage?:{
+        messageType: string;
         sentAt: Date;
         content: string;
         sender: string;
@@ -36,7 +37,12 @@ export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active
                     {contact.person?.firstName} {contact.person?.lastName}
                 </div>
                 <div className={ContactTileStyle["person-last-message"]}>
-                    {contact.lastMessage?.content}
+                    {
+                        (contact.lastMessage?.content.length??0) > 30 ?
+                        contact.lastMessage?.content.slice(0, 30)+"..."
+                        :
+                        contact.lastMessage?.content
+                    }
                 </div>
             </div>
             <div className={ContactTileStyle["unread-count"]}>

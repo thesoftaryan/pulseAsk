@@ -12,7 +12,7 @@ import SearchIcon from "../../assets/icons/header/search.svg?react";
 import ReportUserIcon from "../../assets/icons/general/report_user.svg?react";
 import { MessageTile } from "./MessageTile/MessageTile";
 import { TimelineTile } from "./TimelineTile/TimelineTile";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 // Socket io
 import { connectSocket, getSocket } from "../../services/socket.service";
@@ -44,7 +44,7 @@ export const Chat = ()=>{
     
     const [searchParams] = useSearchParams();
     const chatUserId = searchParams.get("user");
-    // const [initContact, setInitContact] = useState({
+    const [initContact, setInitContact] = useState<any>();
     //     person:{
     //         _id: chatUserId,
     //         profile:"",
@@ -53,21 +53,40 @@ export const Chat = ()=>{
     //     }
     // });
 
-    if(chatUserId){
-        useEffect(()=>{
-            initChatHandler(chatUserId, setActiveContact);
-        }, []);
-    }
-
-
-
-    
-    
     useEffect(()=>{
         console.log("calling getContactsHandler");
         
         getContactsHandler();
     }, []);
+
+    if(chatUserId){
+        useEffect(()=>{
+            initChatHandler(chatUserId, setInitContact, setActiveContact);
+        }, []);
+    }
+
+    /*  Handling the case when current user already
+        have a conversation with a person and he
+        (current User) comes from the profile of 
+        that user with which he already talked with
+    */
+    const contactsMap = useMemo(()=>{
+        const map = new Map();
+        contacts.forEach((contact)=>map.set(contact.person._id, contact));
+        return map;
+    }, [contacts]);
+
+    useEffect(()=>{
+        if(!initContact) return;
+        // console.log("init Contact: ", initContact);
+        const contact = contactsMap.get(initContact.person._id);
+        if(contact){
+            // console.log("duplicate contact: ", contact);
+            setActiveContact(contact);
+            setInitContact(undefined);
+        }
+    }, [contactsMap]);
+    
 
     useEffect(()=>{
         console.log(user?._id);
@@ -80,6 +99,9 @@ export const Chat = ()=>{
 
         socket.on("message_sent", (message)=>{
             console.log("message sent successfully :", message);
+            if(message.sender._id === "new_conversation"){
+                
+            }
             setChats((chats)=>[...chats, message]);
             if(!activeContact.conversationId){
                 setActiveContact((prev: any)=>{
@@ -92,6 +114,7 @@ export const Chat = ()=>{
             socket.disconnect();
         };
     }, [user]);
+    
 
     useEffect(()=>{
         fetchMessagesHandler(activeContact?.conversationId);
@@ -143,7 +166,7 @@ export const Chat = ()=>{
                     {
                         chatUserId
                         &&
-                        <ContactTile key={-1} contact={activeContact} active={activeContact?.conversationId==="new_conversation"} onClick={()=>setActiveContact({...activeContact, conversationId:"new_conversation"})}/>
+                        <ContactTile key={-1} contact={initContact} active={activeContact?.conversationId===initContact?.conversationId} onClick={()=>setActiveContact(initContact)}/>
                     }
                     {
                         contacts.map((contact)=>{

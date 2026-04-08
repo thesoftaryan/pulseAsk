@@ -13,6 +13,8 @@
     padding: var(--spacing-md);
     border-radius: var(--size-radius-md);
     background-color: var(--color-level2-bg);
+
+    word-break: break-all;
 }
 
 

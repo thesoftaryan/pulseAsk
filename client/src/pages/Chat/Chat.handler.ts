@@ -2,6 +2,7 @@ import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResp
 import { fetchMessagesService } from "../../services/chat/fetchMessages.service";
 import { getContactsService, getUserContactDetailsService } from "../../services/chat/contacts.service"
 import { showToast } from "../../utils/toast.util";
+import type { GetContactsResponse } from "../../types/ApiResponse/chat.type";
 
 
 export const useChatHandler = (
@@ -14,8 +15,8 @@ export const useChatHandler = (
         try{
             setFetching(true);
             const response = await getContactsService();
-            const result = parseSuccessResponse<any>(response);
-            setContacts(result.data);
+            const result = parseSuccessResponse<GetContactsResponse>(response);
+            setContacts(result.data?.contacts??[]);
             console.log("here: ", result.data);
         }catch(error){
             const err = parseErrorResponse(error);
@@ -28,6 +29,7 @@ export const useChatHandler = (
     const fetchMessagesHandler = async (conversationId: string)=>{
         try{
             if(conversationId==="new_conversation"){
+                setChats([]);
                 return;
             }
             const response = await fetchMessagesService({conversationId});
@@ -41,22 +43,16 @@ export const useChatHandler = (
 
     const initChatHandler = async (
         chatUser: string, 
-        setInitContact: React.Dispatch<React.SetStateAction<{
-            person: {
-                _id: string | null;
-                profile: string;
-                firstName: string;
-                lastName: string;
-            };
-        }>>,
+        setInitContact: React.Dispatch<React.SetStateAction<any>>,
+        setActiveContact: React.Dispatch<React.SetStateAction<any>>,
     )=>{
         try{
             setFetching(true);
             const response = await getUserContactDetailsService({userId: chatUser});
             const result = parseSuccessResponse<any>(response);
             console.log(result.data);
-            
             setInitContact(result.data);
+            setActiveContact(result.data);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);

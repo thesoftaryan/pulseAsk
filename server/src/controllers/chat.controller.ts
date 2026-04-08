@@ -10,7 +10,7 @@ export const getContactsController = async (req:Request, res:Response) =>{
         res,
         STATUS.SUCCESS.OK,
         "User Contacts fetchted successfully",
-        contacts,
+        {contacts},
     );
 }
 
