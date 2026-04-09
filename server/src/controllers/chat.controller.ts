@@ -5,6 +5,7 @@ import { STATUS } from "../constants/statusCodes.constants";
 
 
 export const getContactsController = async (req:Request, res:Response) =>{
+    // Person will be containing the populated details
     const contacts = await getContactsService(req.user?.uid!);
     return successResponse(
         res,
@@ -25,11 +26,12 @@ export const userContactDetailsController = async (req:Request, res:Response)=>{
 }
 
 export const fetchMessagesController = async (req:Request, res:Response)=>{
+    const data = req.body;
     const messages = await fetchMessagesService(req.body.conversationId);
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "Fetched messages Successfully",
-        messages,
+        {messages},
     );
 }

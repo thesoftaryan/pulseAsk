@@ -6,6 +6,7 @@ import { STATUS } from "../constants/statusCodes.constants";
 import { VotePayload } from "../types/vote.type";
 import { voteService } from "../services/vote.service";
 import { VoteResponse } from "../types/response/vote.type";
+import { FetchQuestionResponse } from "../types/response/question.type";
 
 export const askQuestionController = async (req:Request, res: Response)=>{
     const data = req.body as AskQuestionPayload;
@@ -28,13 +29,13 @@ export const askQuestionController = async (req:Request, res: Response)=>{
 export const fetchQuestionController = async (req: Request, res: Response)=>{
     const data = req.body as FetchQuestionPayload;
     // console.log("qid: ",data)
-    const response = await fetchQuestionService(data);
+    const question:FetchQuestionResponse = await fetchQuestionService(data);
 
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "Question fetched successfully",
-        response,
+        question,
     );
 };
 

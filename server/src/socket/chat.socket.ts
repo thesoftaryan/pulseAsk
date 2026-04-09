@@ -11,7 +11,7 @@ const onlineUsers = new Map<string, string>();
 
 export const registerChatSocket = (io:Server)=>{
     io.on("connection", (socket: Socket)=>{
-        // console.log("User connected at socket: ", socket.id);
+        console.log("User connected at socket: ", socket.id);
         
         socket.on("register", (userId : string) => {
             onlineUsers.set(userId, socket.id);

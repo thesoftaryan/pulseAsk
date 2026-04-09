@@ -5,7 +5,6 @@ import { createTagService, generateTagService } from "./tag.service";
 import { slugifyText } from "../utils/general.util";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes.constants";
-import { FetchQuestionReponse } from "../types/response/question.type";
 import { User } from "../models/User.model";
 import { reputationPolicy } from "../constants/reputation.constants";
 
@@ -64,7 +63,7 @@ export const askQuestionService = async (data : AskQuestionPayload, uid: Types.O
  * @param qid Id of the question to fetch
  * @returns question object of type FetchQuestionReponse
  */
-export const fetchQuestionService = async (data : FetchQuestionPayload) : Promise<FetchQuestionReponse> =>{
+export const fetchQuestionService = async (data : FetchQuestionPayload) =>{
     if(!mongoose.Types.ObjectId.isValid(data.qid)){
         throw new ApiError(
             STATUS.CLIENT_ERROR.NOT_FOUND,

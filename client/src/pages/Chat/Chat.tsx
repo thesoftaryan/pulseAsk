@@ -11,7 +11,7 @@ import BanIcon from "../../assets/icons/general/ban.svg?react";
 import SearchIcon from "../../assets/icons/header/search.svg?react";
 import ReportUserIcon from "../../assets/icons/general/report_user.svg?react";
 import { MessageTile } from "./MessageTile/MessageTile";
-import { TimelineTile } from "./TimelineTile/TimelineTile";
+// import { TimelineTile } from "./TimelineTile/TimelineTile";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 // Socket io
@@ -19,14 +19,8 @@ import { connectSocket, getSocket } from "../../services/socket.service";
 import { useAppSelector } from "../../hooks/store.hook";
 import { useChatHandler } from "./Chat.handler";
 import { useSearchParams } from "react-router-dom";
-import Divider from "../../components/common/Divider/Divider";
-
-interface chatInterface{
-    _id: string;
-    sender: string,
-    content: string,
-    sentAt: Date,
-}
+import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
+import type { ChatMessageInterface } from "../../types/ApiResponse/chat.type";
 
 export const Chat = ()=>{
 
@@ -36,26 +30,27 @@ export const Chat = ()=>{
     const [contacts, setContacts] = useState<any[]>([]);
     const [activeContact, setActiveContact] = useState<any>();
     const [fetching, setFetching] = useState(false);
-    const [chats, setChats] = useState<chatInterface[]>([]);
+    const [chats, setChats] = useState<ChatMessageInterface[]>([]);
     
     const user = useAppSelector(state=>state.auth.user);
     
-    const {initChatHandler, getContactsHandler, fetchMessagesHandler} = useChatHandler(setChats, setContacts, setFetching);
+    const {
+        initChatHandler,
+        getContactsHandler,
+        fetchMessagesHandler,
+    } = useChatHandler(
+        setChats,
+        setContacts,
+        setFetching
+    );
     
     const [searchParams] = useSearchParams();
     const chatUserId = searchParams.get("user");
     const [initContact, setInitContact] = useState<any>();
-    //     person:{
-    //         _id: chatUserId,
-    //         profile:"",
-    //         firstName:"Anonymous",
-    //         lastName:"",
-    //     }
-    // });
+
 
     useEffect(()=>{
-        console.log("calling getContactsHandler");
-        
+        // console.log("calling getContactsHandler");
         getContactsHandler();
     }, []);
 
@@ -89,26 +84,29 @@ export const Chat = ()=>{
     
 
     useEffect(()=>{
-        console.log(user?._id);
         const socket = connectSocket(user?._id!);
         socket.on("receive_message", (message)=>{
+            console.log("", message);
+            console.log("activeContact: ", activeContact);
+            
+            if(message.sender._id != activeContact?.person._id){
+                return;
+            }
             console.log("setting chats")
             setChats((chats)=>[...chats, message]);
             console.log("Received message: ", message);
         });
 
         socket.on("message_sent", (message)=>{
-            console.log("message sent successfully :", message);
-            if(message.sender._id === "new_conversation"){
-                
-            }
+            // console.log("message sent successfully :", message);
+            
             setChats((chats)=>[...chats, message]);
             if(!activeContact.conversationId){
                 setActiveContact((prev: any)=>{
                     return {...prev, conversationId: message.conversationId}
                 });
             }
-        })
+        });
 
         return ()=>{
             socket.disconnect();
@@ -134,10 +132,11 @@ export const Chat = ()=>{
 
 
     const handleSendChat = ()=>{
-        const data = {
-            senderId: user?._id,
+        const data:SendMessagePayload = {
+            senderId: user?._id!,
             receiverId: activeContact.person._id,
             content:message,
+            type: "text",
         };
         const socket = getSocket();
         socket.emit("send_message", data);
@@ -203,13 +202,13 @@ export const Chat = ()=>{
 
                     <div className={ChatStyle["messages"]}>
                         {
-                            chats.length===0
+                            (chats?.length??0)===0
                             &&
                             <p className={ChatStyle["label"]}>No messages yet, Say hi to Aryan alsdkfj </p>
                         }
                         {
-                            chats.map((chat)=>{
-                                return <MessageTile key={chat._id} message={chat.content} time={chat.sentAt} self={chat.sender==user?._id}/>
+                            chats?.map((chat)=>{
+                                return <MessageTile key={chat._id} message={chat.content} time={chat.sentAt} self={chat.sender._id==user?._id}/>
                             })
                         }
                         <div ref={messageEndRef}/>

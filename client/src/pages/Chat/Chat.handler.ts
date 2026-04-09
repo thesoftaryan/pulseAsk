@@ -2,7 +2,10 @@ import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResp
 import { fetchMessagesService } from "../../services/chat/fetchMessages.service";
 import { getContactsService, getUserContactDetailsService } from "../../services/chat/contacts.service"
 import { showToast } from "../../utils/toast.util";
-import type { GetContactsResponse } from "../../types/ApiResponse/chat.type";
+import type { FetchMessagesResponse, GetContactsResponse, GetUserContactDetailsResponse } from "../../types/ApiResponse/chat.type";
+import { connectSocket } from "../../services/socket.service";
+import { useAppSelector } from "../../hooks/store.hook";
+import { useEffect } from "react";
 
 
 export const useChatHandler = (
@@ -11,13 +14,36 @@ export const useChatHandler = (
     setFetching: React.Dispatch<React.SetStateAction<boolean>>,
 )=>{
 
+    // const user = useAppSelector(state=>state.auth.user);
+
+    // useEffect(()=>{
+    //     const socket = connectSocket(user?._id!);
+    //     socket.on("receive_message", (message)=>{
+    //         // console.log("setting chats")
+    //         setChats((chats: any)=>[...chats, message]);
+    //         // console.log("Received message: ", message);
+    //     });
+
+    //     socket.on("message_sent", (message)=>{
+    //         setChats((chats: any)=>[...chats, message]);
+    //     });
+    //     return ()=>{
+    //         socket.disconnect();
+    //     };
+    // }, [user]);
+
+
+    const sendMessageHandler = async ()=>{
+
+    }
+
     const getContactsHandler = async ()=>{
         try{
             setFetching(true);
             const response = await getContactsService();
             const result = parseSuccessResponse<GetContactsResponse>(response);
             setContacts(result.data?.contacts??[]);
-            console.log("here: ", result.data);
+            // console.log("here: ", result.data);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
@@ -33,8 +59,8 @@ export const useChatHandler = (
                 return;
             }
             const response = await fetchMessagesService({conversationId});
-            const result = parseSuccessResponse<any>(response);
-            setChats(result.data);
+            const result = parseSuccessResponse<FetchMessagesResponse>(response);
+            setChats(result.data?.messages);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
@@ -49,7 +75,7 @@ export const useChatHandler = (
         try{
             setFetching(true);
             const response = await getUserContactDetailsService({userId: chatUser});
-            const result = parseSuccessResponse<any>(response);
+            const result = parseSuccessResponse<GetUserContactDetailsResponse>(response);
             console.log(result.data);
             setInitContact(result.data);
             setActiveContact(result.data);

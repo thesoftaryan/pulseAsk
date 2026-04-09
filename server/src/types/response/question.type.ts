@@ -4,7 +4,7 @@ import { TagInterface } from "../../models/Tag.model";
 import { UserInterface } from "../../models/User.model";
 import { QuestionInterface } from "../../models/Question.model";
 
-export interface FetchQuestionReponse extends QuestionInterface{
+export interface FetchQuestionResponse extends QuestionInterface{
 }
 
 export interface FetchQuestionsResponse{

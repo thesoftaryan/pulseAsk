@@ -2,6 +2,7 @@ import { Types } from "mongoose";
 import { ChatMessageInterface, ChatMessage, ConversationInterface, Conversation } from "../models/Chat.model";
 import { ApiError } from "../utils/error.util";
 import { User } from "../models/User.model";
+import { ContactInterface } from "../types/response/chat.type";
 
 
 
@@ -16,7 +17,7 @@ export const getContactsService = async (uid: Types.ObjectId)=>{
 
     // console.log(conversations);
 
-    let contacts = [];
+    const contacts = [];
     for(let conversation of conversations){
         const obj = {
             conversationId: conversation._id,
@@ -56,7 +57,7 @@ export const userContactDetailsService = async (uid:Types.ObjectId, userId: Type
 
 /**
  * @param conversationId of Type Types.ObjectId
- * @returns Array of Objects of type ChatMessage
+ * @returns Object of Type FetchMessageService
  */
 export const fetchMessagesService = async (conversationId: Types.ObjectId)=>{
     const messages = await ChatMessage.find({
