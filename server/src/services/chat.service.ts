@@ -3,6 +3,7 @@ import { ChatMessageInterface, ChatMessage, ConversationInterface, Conversation 
 import { ApiError } from "../utils/error.util";
 import { User } from "../models/User.model";
 import { ContactInterface } from "../types/response/chat.type";
+import { log } from "console";
 
 
 
@@ -31,6 +32,8 @@ export const getContactsService = async (uid: Types.ObjectId)=>{
         };
         contacts.push(obj);
     }
+    // console.log("contacts for user: ", uid, " -> ", contacts);
+    
     return contacts;
 }
 
@@ -77,6 +80,7 @@ export const fetchMessagesService = async (conversationId: Types.ObjectId)=>{
 export const createChatMessageService = async (data : any) : Promise<ChatMessageInterface>=>{
     const {senderId, receiverId, content} = data;
     
+    // if(!)
     // console.log("data received: ", data);
 
     const conversation = await getOrCreateConversationService(senderId, receiverId);

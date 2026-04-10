@@ -1,24 +1,11 @@
 import ContactTileStyle from "./ContactTile.module.css";
 
 import defaultImage from "../../../assets/images/user.png";
+import type { ContactInterface } from "../../../types/ApiResponse/chat.type";
 
-interface ContactInterface{
-    conversationId?: string;
-    person:{
-        firstName: string;
-        lastName: string;
-        profile: string;
-    };
-    lastMessage?:{
-        messageType: string;
-        sentAt: Date;
-        content: string;
-        sender: string;
-    }
-}
 
 interface ContactTileProps{
-    contact: Partial<ContactInterface>,
+    contact: ContactInterface,
     onClick?: ()=>void,
     active?: boolean;
 }

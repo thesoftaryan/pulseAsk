@@ -14,11 +14,13 @@ export const registerChatSocket = (io:Server)=>{
         console.log("User connected at socket: ", socket.id);
         
         socket.on("register", (userId : string) => {
+            // console.log("user : ",userId, " is getting registered");
             onlineUsers.set(userId, socket.id);
         });
 
         socket.on("send_message", async (data)=>{
             const {senderId, receiverId, content} = data;
+            // console.log("user: ",senderId, ", has sent a message (", content,") to : ", receiverId);
             
             //* We also need to verify that the senderId is mapped to this socket
 

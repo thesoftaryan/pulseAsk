@@ -27,7 +27,7 @@ export interface LastMessageInterface{
     sentAt: Date;
 }
 
-interface ContactInterface{
+export interface ContactInterface{
     conversationId: string,
     person: PersonInterface,
     lastMessage? : LastMessageInterface,

@@ -15,33 +15,39 @@ import { MessageTile } from "./MessageTile/MessageTile";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 // Socket io
-import { connectSocket, getSocket } from "../../services/socket.service";
+// import { createSocket, getSocket } from "../../services/socket.service";
 import { useAppSelector } from "../../hooks/store.hook";
 import { useChatHandler } from "./Chat.handler";
 import { useSearchParams } from "react-router-dom";
 import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
-import type { ChatMessageInterface } from "../../types/ApiResponse/chat.type";
+import type { ChatMessageInterface, ContactInterface } from "../../types/ApiResponse/chat.type";
+import { useSocket } from "../../hooks/useSocket.hook";
 
 export const Chat = ()=>{
 
     
     const messageEndRef = useRef<HTMLDivElement>(null);
     
-    const [contacts, setContacts] = useState<any[]>([]);
-    const [activeContact, setActiveContact] = useState<any>();
+    const [contacts, setContacts] = useState<ContactInterface[]>([]);
+    const [activeContact, setActiveContact] = useState<ContactInterface | undefined>();
     const [fetching, setFetching] = useState(false);
     const [chats, setChats] = useState<ChatMessageInterface[]>([]);
     
     const user = useAppSelector(state=>state.auth.user);
     
+    const socket = useSocket(user?._id);
+
     const {
         initChatHandler,
         getContactsHandler,
         fetchMessagesHandler,
     } = useChatHandler(
+        socket,
+        activeContact,
         setChats,
         setContacts,
-        setFetching
+        setFetching,
+        setActiveContact,
     );
     
     const [searchParams] = useSearchParams();
@@ -84,37 +90,7 @@ export const Chat = ()=>{
     
 
     useEffect(()=>{
-        const socket = connectSocket(user?._id!);
-        socket.on("receive_message", (message)=>{
-            console.log("", message);
-            console.log("activeContact: ", activeContact);
-            
-            if(message.sender._id != activeContact?.person._id){
-                return;
-            }
-            console.log("setting chats")
-            setChats((chats)=>[...chats, message]);
-            console.log("Received message: ", message);
-        });
-
-        socket.on("message_sent", (message)=>{
-            // console.log("message sent successfully :", message);
-            
-            setChats((chats)=>[...chats, message]);
-            if(!activeContact.conversationId){
-                setActiveContact((prev: any)=>{
-                    return {...prev, conversationId: message.conversationId}
-                });
-            }
-        });
-
-        return ()=>{
-            socket.disconnect();
-        };
-    }, [user]);
-    
-
-    useEffect(()=>{
+        if(!activeContact) return;
         fetchMessagesHandler(activeContact?.conversationId);
     }, [activeContact]);
 
@@ -132,13 +108,15 @@ export const Chat = ()=>{
 
 
     const handleSendChat = ()=>{
+        if(!activeContact || !socket) return;
         const data:SendMessagePayload = {
             senderId: user?._id!,
-            receiverId: activeContact.person._id,
+            receiverId: activeContact?.person._id,
             content:message,
             type: "text",
         };
-        const socket = getSocket();
+        console.log("sending message to socket: ", data);
+        
         socket.emit("send_message", data);
         setMessage("");
     }
@@ -169,7 +147,7 @@ export const Chat = ()=>{
                     }
                     {
                         contacts.map((contact)=>{
-                            return <ContactTile active={contact.conversationId === activeContact?.conversationId} onClick={()=>{setActiveContact(contact)}} contact={contact} key={contact.conversationId}/>
+                            return <ContactTile active={contact.conversationId === activeContact?.conversationId} onClick={()=>{setActiveContact(contact); console.log("setting :", contact, " as active");}} contact={contact} key={contact.conversationId}/>
                         })
                     }
                     
