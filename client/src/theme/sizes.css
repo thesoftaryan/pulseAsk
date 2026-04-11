@@ -5,7 +5,7 @@
   /* MaxWidth */
   --size-max-width: 1200px;
   --size-sidebar-max-width:380px;
-  --size-sidebar-min-width:250px;
+  --size-sidebar-min-width:200px;
   --size-notification-modal-width:400px;
   --size-notification-modal-width-small: 90%;
   --size-notification-modal-height:70vh;
@@ -13,6 +13,7 @@
   /* MaxWidth Chat Page*/
   --size-input-section-max-width:800px;
   --size-chat-left-section-max-width:400px;
+  --size-chat-left-section-min-width:250px;
   --size-chat-section-max-height:440px;
   --size-chat-message-max-width: 800px;
   /* MaxWidth Settings page */

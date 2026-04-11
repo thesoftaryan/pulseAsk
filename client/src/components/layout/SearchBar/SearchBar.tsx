@@ -20,9 +20,13 @@ export const SearchBar:React.FC<SearchBarProps> = ({placeholder, level1, setSear
     return (
         <div className={`${SearchBarStyle["search-box"]} ${SearchBarStyle[level1?"level1":""]}`}>
             <input  onChange={(e)=>{setSearchText(e.target.value); setCurrInput(e.target.value);}} onKeyDown={(e)=>{if(e.key==="Enter") handleSubmit();}} type="text" placeholder={placeholder??"Search for questions, answer, persons..."} className={`${SearchBarStyle["search-input"]} ${SearchBarStyle[level1?"level1":""]}`}/>
-            <div onClick={handleSubmit} className={SearchBarStyle["search-icon-container"]}>
-                <SearchIcon className={SearchBarStyle["search-icon"]}/>
-            </div>
+            {
+                onSubmit
+                &&
+                <div onClick={handleSubmit} className={SearchBarStyle["search-icon-container"]}>
+                    <SearchIcon className={SearchBarStyle["search-icon"]}/>
+                </div>
+            }
         </div>
     );
 };

@@ -7,6 +7,7 @@ import type { ContactInterface, FetchMessagesResponse, GetContactsResponse, GetU
 import { useAppSelector } from "../../hooks/store.hook";
 import { useEffect } from "react";
 import type { Socket } from "socket.io-client";
+import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
 
 
 export const useChatHandler = (
@@ -57,9 +58,18 @@ export const useChatHandler = (
     }, [user, activeContact]);
 
 
-    // const sendMessageHandler = async ()=>{
-
-    // }
+    const sendMessageHandler = async (message:string)=>{
+        message = message.trim();
+        if(!activeContact || !socket || !message) return;
+        const data:SendMessagePayload = {
+            senderId: user?._id!,
+            receiverId: activeContact?.person._id,
+            content:message,
+            type: "text",
+        };
+        // console.log("sending message to socket: ", data);
+        socket.emit("send_message", data);
+    }
 
     const getContactsHandler = async ()=>{
         try{
@@ -112,6 +122,7 @@ export const useChatHandler = (
     }
 
     return {
+        sendMessageHandler,
         initChatHandler,
         getContactsHandler,
         fetchMessagesHandler,

@@ -66,6 +66,7 @@ export interface ConversationInterface{
         sender: Types.ObjectId;
         sentAt: Date;
     };
+    unreadCount: Number;
     // updatedAt: Date;
 }
 
@@ -99,6 +100,10 @@ const ConversationSchema = new Schema<ConversationInterface>({
             },
         }
     },
+    unreadCount: {
+        type: Number,
+        default: 0,
+    }
     // updatedAt:{
     //     type: Date,
     // },

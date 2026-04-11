@@ -19,7 +19,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useAppSelector } from "../../hooks/store.hook";
 import { useChatHandler } from "./Chat.handler";
 import { useSearchParams } from "react-router-dom";
-import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
+// import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
 import type { ChatMessageInterface, ContactInterface } from "../../types/ApiResponse/chat.type";
 import { useSocket } from "../../hooks/useSocket.hook";
 
@@ -38,6 +38,7 @@ export const Chat = ()=>{
     const socket = useSocket(user?._id);
 
     const {
+        sendMessageHandler,
         initChatHandler,
         getContactsHandler,
         fetchMessagesHandler,
@@ -52,7 +53,7 @@ export const Chat = ()=>{
     
     const [searchParams] = useSearchParams();
     const chatUserId = searchParams.get("user");
-    const [initContact, setInitContact] = useState<any>();
+    const [initContact, setInitContact] = useState<ContactInterface | undefined>();
 
 
     useEffect(()=>{
@@ -87,7 +88,7 @@ export const Chat = ()=>{
             setInitContact(undefined);
         }
     }, [contactsMap]);
-    
+
 
     useEffect(()=>{
         if(!activeContact) return;
@@ -108,18 +109,21 @@ export const Chat = ()=>{
 
 
     const handleSendChat = ()=>{
-        if(!activeContact || !socket) return;
-        const data:SendMessagePayload = {
-            senderId: user?._id!,
-            receiverId: activeContact?.person._id,
-            content:message,
-            type: "text",
-        };
-        console.log("sending message to socket: ", data);
-        
-        socket.emit("send_message", data);
+        sendMessageHandler(message);
         setMessage("");
     }
+
+    const currentContacts = useMemo(()=>{
+        const searchValue = searchText.trim().toLocaleLowerCase();
+        if(!searchValue) return contacts;
+
+        return contacts.filter(
+            (contact)=>{
+                const searchData = `${contact.person.firstName.toLowerCase()} ${contact.person.lastName?.toLowerCase()} ${contact.person.userName.toLowerCase()}`;
+                return searchData.includes(searchValue);
+            }
+        );
+    }, [contacts, searchText]);
 
     if(fetching){
         return "Loading";
@@ -129,10 +133,10 @@ export const Chat = ()=>{
         <div className={ChatStyle["container"]}>
             <div className={ChatStyle["left"]}>
                 <div className={ChatStyle["heading"]}>
-                    Persons
+                    Contacts
                 </div>
                 <div className={ChatStyle["search-bar"]}>
-                    <SearchBar setSearchText={setSearchText} placeholder="Search for Persons" level1={true}/>
+                    <SearchBar setSearchText={setSearchText} placeholder="Search for Person" level1={true}/>
                 </div>
                 <div className={ChatStyle["persons"]}>
                     {
@@ -143,10 +147,10 @@ export const Chat = ()=>{
                     {
                         chatUserId
                         &&
-                        <ContactTile key={-1} contact={initContact} active={activeContact?.conversationId===initContact?.conversationId} onClick={()=>setActiveContact(initContact)}/>
+                        <ContactTile key={-1} contact={initContact!} active={activeContact?.conversationId===initContact?.conversationId} onClick={()=>setActiveContact(initContact)}/>
                     }
                     {
-                        contacts.map((contact)=>{
+                        currentContacts.map((contact)=>{
                             return <ContactTile active={contact.conversationId === activeContact?.conversationId} onClick={()=>{setActiveContact(contact); console.log("setting :", contact, " as active");}} contact={contact} key={contact.conversationId}/>
                         })
                     }
