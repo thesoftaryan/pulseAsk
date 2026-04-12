@@ -23,61 +23,71 @@ import { useSearchParams } from "react-router-dom";
 import type { ChatMessageInterface, ContactInterface } from "../../types/ApiResponse/chat.type";
 import { useSocket } from "../../hooks/useSocket.hook";
 
+export interface ChatsMapInterface{
+    [conversationId: string] : ChatMessageInterface[],
+}
+
 export const Chat = ()=>{
 
-    
     const messageEndRef = useRef<HTMLDivElement>(null);
     
     const [contacts, setContacts] = useState<ContactInterface[]>([]);
     const [activeContact, setActiveContact] = useState<ContactInterface | undefined>();
     const [fetching, setFetching] = useState(false);
     const [chats, setChats] = useState<ChatMessageInterface[]>([]);
+    const [chatsMap, setChatsMap] = useState<ChatsMapInterface>({});
+    
+    // let chats:ChatMessageInterface[]=[];
     
     const user = useAppSelector(state=>state.auth.user);
     
     const socket = useSocket(user?._id);
 
-    const {
-        sendMessageHandler,
-        initChatHandler,
-        getContactsHandler,
-        fetchMessagesHandler,
-    } = useChatHandler(
-        socket,
-        activeContact,
-        setChats,
-        setContacts,
-        setFetching,
-        setActiveContact,
-    );
     
-    const [searchParams] = useSearchParams();
-    const chatUserId = searchParams.get("user");
-    const [initContact, setInitContact] = useState<ContactInterface | undefined>();
-
-
     useEffect(()=>{
         // console.log("calling getContactsHandler");
         getContactsHandler();
     }, []);
-
+    const [searchParams] = useSearchParams();
+    const chatUserId = searchParams.get("user");
+    const [initContact, setInitContact] = useState<ContactInterface | undefined>();
+ 
+ 
     if(chatUserId){
         useEffect(()=>{
             initChatHandler(chatUserId, setInitContact, setActiveContact);
         }, []);
     }
-
+ 
+ 
+ 
+ 
+    useEffect(()=>{
+        if(!activeContact) return;
+        fetchMessagesHandler(activeContact?.conversationId);
+    }, [activeContact]);
+ 
+    useEffect(()=>{
+        setChats(chatsMap[activeContact?.conversationId??""]??[])
+    }, [chatsMap]);
+ 
+    useEffect(()=>{
+        messageEndRef.current?.scrollIntoView({
+            behavior: "smooth",
+        })
+    }, [chats]);
+    
     /*  Handling the case when current user already
-        have a conversation with a person and he
-        (current User) comes from the profile of 
-        that user with which he already talked with
+    have a conversation with a person and he
+    (current User) comes from the profile of 
+    that user with which he already talked with
     */
-    const contactsMap = useMemo(()=>{
-        const map = new Map();
-        contacts.forEach((contact)=>map.set(contact.person._id, contact));
-        return map;
+   const contactsMap = useMemo(()=>{
+       const map = new Map();
+       contacts.forEach((contact)=>map.set(contact.person._id, contact));
+       return map;
     }, [contacts]);
-
+    
     useEffect(()=>{
         if(!initContact) return;
         // console.log("init Contact: ", initContact);
@@ -88,19 +98,22 @@ export const Chat = ()=>{
             setInitContact(undefined);
         }
     }, [contactsMap]);
-
-
-    useEffect(()=>{
-        if(!activeContact) return;
-        fetchMessagesHandler(activeContact?.conversationId);
-    }, [activeContact]);
-
-
-    useEffect(()=>{
-        messageEndRef.current?.scrollIntoView({
-            behavior: "smooth",
-        })
-    }, [chats]);
+    
+    const {
+        sendMessageHandler,
+        initChatHandler,
+        getContactsHandler,
+        fetchMessagesHandler,
+    } = useChatHandler(
+        socket,
+        activeContact,
+        contacts,
+        setChatsMap,
+        setContacts,
+        setFetching,
+        setActiveContact,
+    );
+    
 
     
     const [searchText, setSearchText] = useState("");
@@ -184,12 +197,12 @@ export const Chat = ()=>{
 
                     <div className={ChatStyle["messages"]}>
                         {
-                            (chats?.length??0)===0
+                            (chats.length??0)===0
                             &&
-                            <p className={ChatStyle["label"]}>No messages yet, Say hi to Aryan alsdkfj </p>
+                            <p className={ChatStyle["label"]}>No messages yet, Say hi to {activeContact.person.firstName} </p>
                         }
                         {
-                            chats?.map((chat)=>{
+                            chats.map((chat)=>{
                                 return <MessageTile key={chat._id} message={chat.content} time={chat.sentAt} self={chat.sender._id==user?._id}/>
                             })
                         }

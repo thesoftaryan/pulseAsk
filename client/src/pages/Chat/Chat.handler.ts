@@ -2,49 +2,95 @@ import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResp
 import { fetchMessagesService } from "../../services/chat/fetchMessages.service";
 import { getContactsService, getUserContactDetailsService } from "../../services/chat/contacts.service"
 import { showToast } from "../../utils/toast.util";
-import type { ContactInterface, FetchMessagesResponse, GetContactsResponse, GetUserContactDetailsResponse } from "../../types/ApiResponse/chat.type";
+import type { ChatMessageInterface, ContactInterface, FetchMessagesResponse, GetContactsResponse, GetUserContactDetailsResponse } from "../../types/ApiResponse/chat.type";
 // import { connectSocket } from "../../services/socket.service";
 import { useAppSelector } from "../../hooks/store.hook";
 import { useEffect } from "react";
 import type { Socket } from "socket.io-client";
 import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
+import type { ChatsMapInterface } from "./Chat";
 
 
 export const useChatHandler = (
     socket: Socket | null,
     activeContact: ContactInterface | undefined,
-    setChats: React.Dispatch<React.SetStateAction<any>>,
-    setContacts: React.Dispatch<React.SetStateAction<any[]>>,
+    contacts: ContactInterface[],
+    setChatsMap: React.Dispatch<React.SetStateAction<ChatsMapInterface>>,
+    setContacts: React.Dispatch<React.SetStateAction<ContactInterface[]>>,
     setFetching: React.Dispatch<React.SetStateAction<boolean>>,
     setActiveContact: React.Dispatch<React.SetStateAction<ContactInterface | undefined>>,
 )=>{
 
     const user = useAppSelector(state=>state.auth.user);
 
+    const setChatsHandler = (message: ChatMessageInterface)=>{
+        setChatsMap((chats)=>(
+            {
+                ...chats,
+                [message.conversationId] : [
+                    ...(chats[message.conversationId]||[]),
+                    message,
+                ]
+            }
+        ));
+    }
+
+    const setMultipleChatsHandler = (conversationId:string, messages: ChatMessageInterface[])=>{
+        setChatsMap((chats)=>(
+            {
+                ...chats,
+                [conversationId] : messages,
+            }
+        ));
+    }
+
     useEffect(()=>{
         if(!socket) return;
         
-        const receiveHandler = (message : any)=>{
+        const receiveHandler = (message : ChatMessageInterface)=>{
             // console.log("received message: ", message);
             // console.log("activeContact: ", activeContact);
             
-            if(message.sender._id != activeContact?.person._id){
+            // To prevent adding messages two times sent by user to himself
+            if(message.sender._id == user?._id) {
                 return;
             }
+            setChatsHandler(message);
             // console.log("setting chats")
-            if(message.sender._id != user?._id) setChats((chats: any)=>[...chats, message]);
             // console.log("Received message: ", message);
         };
 
-        const sentHandler = (message: any)=>{
+        const sentHandler = (message: ChatMessageInterface)=>{
             // console.log("message sent successfully :", message);
+            console.log("before: ");
             
-            setChats((chats: any)=>[...chats, message]);
-            if(!activeContact?.conversationId){
-                setActiveContact((prev: any)=>{
-                    return {...prev, conversationId: message.conversationId}
-                });
+            console.log("activeConversation id: ", activeContact);
+            setChatsMap((chats)=>{
+                console.log("new chatsMap: ", chats);
+                return chats;
+            })
+            if(!activeContact?.conversationId || activeContact.conversationId==="new_conversation"){
+                setContacts((prev)=>(
+                    prev.map(contact=>{
+                        if(contact.person._id === activeContact?.person._id){
+                            return {
+                                ...contact,
+                                conversationId: message.conversationId,
+                            };
+                        }
+                        return contact;
+                    })
+                ));
             }
+            setChatsHandler(message);
+
+            console.log("after: ");
+            
+            console.log("activeConversation id: ", activeContact);
+            setChatsMap((chats)=>{
+                console.log("new chatsMap: ", chats);
+                return chats;
+            })
         }
 
         socket.on("receive_message", receiveHandler);
@@ -89,12 +135,12 @@ export const useChatHandler = (
     const fetchMessagesHandler = async (conversationId: string)=>{
         try{
             if(conversationId==="new_conversation"){
-                setChats([]);
                 return;
             }
             const response = await fetchMessagesService({conversationId});
             const result = parseSuccessResponse<FetchMessagesResponse>(response);
-            setChats(result.data?.messages);
+            // setChats(result.data?.messages);
+            setMultipleChatsHandler(conversationId, result.data?.messages??[]);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
