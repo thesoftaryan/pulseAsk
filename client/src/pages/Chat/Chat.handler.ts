@@ -69,10 +69,14 @@ export const useChatHandler = (
                 console.log("new chatsMap: ", chats);
                 return chats;
             })
-            if(!activeContact?.conversationId || activeContact.conversationId==="new_conversation"){
+            if(activeContact?.conversationId==="new_conversation"){
+                // Todo: Have to make this work
+                
                 setContacts((prev)=>(
                     prev.map(contact=>{
                         if(contact.person._id === activeContact?.person._id){
+                            console.log("updating contact: ", contact);
+                            
                             return {
                                 ...contact,
                                 conversationId: message.conversationId,
@@ -81,6 +85,13 @@ export const useChatHandler = (
                         return contact;
                     })
                 ));
+                setActiveContact((prev)=>{
+                    if(!prev) return prev;
+                    return {
+                        ...prev,
+                        conversationId: message.conversationId,
+                    }
+                })
             }
             setChatsHandler(message);
 

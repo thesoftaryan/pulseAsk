@@ -127,9 +127,10 @@ export const Chat = ()=>{
     }
 
     const currentContacts = useMemo(()=>{
+        
         const searchValue = searchText.trim().toLocaleLowerCase();
         if(!searchValue) return contacts;
-
+        
         return contacts.filter(
             (contact)=>{
                 const searchData = `${contact.person.firstName.toLowerCase()} ${contact.person.lastName?.toLowerCase()} ${contact.person.userName.toLowerCase()}`;
@@ -137,6 +138,9 @@ export const Chat = ()=>{
             }
         );
     }, [contacts, searchText]);
+    useEffect(()=>{
+        console.log("current contacts: ", currentContacts);
+    }, [currentContacts]);
 
     if(fetching){
         return "Loading";
