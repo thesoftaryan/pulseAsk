@@ -107,7 +107,7 @@ export const Chat = ()=>{
     } = useChatHandler(
         socket,
         activeContact,
-        contacts,
+        contactsMap,
         setChatsMap,
         setContacts,
         setFetching,
@@ -138,9 +138,7 @@ export const Chat = ()=>{
             }
         );
     }, [contacts, searchText]);
-    useEffect(()=>{
-        console.log("current contacts: ", currentContacts);
-    }, [currentContacts]);
+    
 
     if(fetching){
         return "Loading";
@@ -153,7 +151,7 @@ export const Chat = ()=>{
                     Contacts
                 </div>
                 <div className={ChatStyle["search-bar"]}>
-                    <SearchBar setSearchText={setSearchText} placeholder="Search for Person" level1={true}/>
+                    <SearchBar collapse={false} setSearchText={setSearchText} placeholder="Search for Person" level1={true}/>
                 </div>
                 <div className={ChatStyle["persons"]}>
                     {

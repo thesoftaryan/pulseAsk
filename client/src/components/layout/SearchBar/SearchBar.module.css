@@ -56,7 +56,7 @@
 }
 
 @media (max-width : 600px) {
-    .search-input{
+    .collapse{
         display: none;
     }
     .search-box{

@@ -14,7 +14,7 @@ import type { ChatsMapInterface } from "./Chat";
 export const useChatHandler = (
     socket: Socket | null,
     activeContact: ContactInterface | undefined,
-    contacts: ContactInterface[],
+    contactsMap: Map<any, any>,
     setChatsMap: React.Dispatch<React.SetStateAction<ChatsMapInterface>>,
     setContacts: React.Dispatch<React.SetStateAction<ContactInterface[]>>,
     setFetching: React.Dispatch<React.SetStateAction<boolean>>,
@@ -55,6 +55,33 @@ export const useChatHandler = (
             if(message.sender._id == user?._id) {
                 return;
             }
+
+            // Flow :
+            /**
+             * When a message is received, we will make sure
+             * that along with message we are getting unreadCount
+             * as well. and then we will update the unread count
+             * in the respective contact.
+             */
+
+            const contact = contactsMap.get(message.sender._id);
+            if(!contact){
+                const contactObj:ContactInterface = {
+                    conversationId: message.conversationId,
+                    person: message.sender,
+                    lastMessage: {
+                        content: message.content,
+                        messageType: message.type,
+                        sender: message.sender._id,
+                        sentAt: message.sentAt,
+                    },
+                    unreadCount: 1,
+                }
+                setContacts(
+                    (prev)=>[contactObj, ...prev]
+                );
+            }
+
             setChatsHandler(message);
             // console.log("setting chats")
             // console.log("Received message: ", message);
@@ -62,46 +89,39 @@ export const useChatHandler = (
 
         const sentHandler = (message: ChatMessageInterface)=>{
             // console.log("message sent successfully :", message);
-            console.log("before: ");
+            // console.log("before: ");
             
-            console.log("activeConversation id: ", activeContact);
-            setChatsMap((chats)=>{
-                console.log("new chatsMap: ", chats);
-                return chats;
-            })
+            // console.log("activeConversation id: ", activeContact);
+            // setChatsMap((chats)=>{
+            //     console.log("new chatsMap: ", chats);
+            //     return chats;
+            // });
             if(activeContact?.conversationId==="new_conversation"){
                 // Todo: Have to make this work
                 
-                setContacts((prev)=>(
-                    prev.map(contact=>{
-                        if(contact.person._id === activeContact?.person._id){
-                            console.log("updating contact: ", contact);
-                            
-                            return {
-                                ...contact,
-                                conversationId: message.conversationId,
-                            };
-                        }
-                        return contact;
-                    })
-                ));
+                setContacts((prev)=>{
+                    return [{
+                        ...activeContact,
+                        conversationId: message.conversationId,
+                    }, ...prev];
+                });
                 setActiveContact((prev)=>{
                     if(!prev) return prev;
                     return {
                         ...prev,
                         conversationId: message.conversationId,
                     }
-                })
+                });
             }
             setChatsHandler(message);
 
-            console.log("after: ");
+            // console.log("after: ");
             
-            console.log("activeConversation id: ", activeContact);
-            setChatsMap((chats)=>{
-                console.log("new chatsMap: ", chats);
-                return chats;
-            })
+            // console.log("activeConversation id: ", activeContact);
+            // setChatsMap((chats)=>{
+            //     console.log("new chatsMap: ", chats);
+            //     return chats;
+            // })
         }
 
         socket.on("receive_message", receiveHandler);
@@ -146,6 +166,7 @@ export const useChatHandler = (
     const fetchMessagesHandler = async (conversationId: string)=>{
         try{
             if(conversationId==="new_conversation"){
+                // console.log("new_conversation request, contact: ", activeContact);
                 return;
             }
             const response = await fetchMessagesService({conversationId});

@@ -14,7 +14,6 @@ export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active
     if(!contact) return "";
     return (
         <div onClick={onClick} className={`${ContactTileStyle["container"]} ${ContactTileStyle[active? "active":""]}`}>
-            
             <div className={ContactTileStyle["person-profile-container"]}>
                 <img src={contact.person?.profile??defaultImage} className={ContactTileStyle["person-profile"]}/>
             </div>
@@ -32,9 +31,18 @@ export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active
                     }
                 </div>
             </div>
-            <div className={ContactTileStyle["unread-count"]}>
-                21
-            </div>
+            {
+                contact.unreadCount
+                &&
+                <div className={ContactTileStyle["unread-count"]}>
+                    {
+                        contact.unreadCount>99?
+                        contact.unreadCount
+                        :
+                        "99+"
+                    }
+                </div>
+            }
         </div>
     );
 }

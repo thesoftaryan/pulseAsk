@@ -63,12 +63,40 @@ export const userContactDetailsService = async (uid:Types.ObjectId, userId: Type
  * @returns Object of Type FetchMessageService
  */
 export const fetchMessagesService = async (conversationId: Types.ObjectId)=>{
+    await markAsSeen(conversationId);
     const messages = await ChatMessage.find({
         conversationId,
     }).sort({sentAt:1}).populate([
         {path: "sender", select:"_id userName profile firstName lastName"}
     ]);
     return messages;
+}
+
+/**
+ * @param conversationId of Type Types.ObjectId
+ * @returns nothing
+ */
+export const markAsSeen = async (conversationId: Types.ObjectId)=>{
+    const conversation = await Conversation.findById(conversationId);
+    if(conversation){
+        await ChatMessage.updateMany({conversationId, status:"sent"}, {
+            status: "seen",
+        });
+        conversation.unreadCount = 0;
+        await conversation.save();
+    }
+}
+
+/**
+ * @param conversationId of Type Types.ObjectId
+ * @returns nothing
+ */
+export const updateUnreadCount = async (conversationId: Types.ObjectId, change: number)=>{
+    const conversation = await Conversation.findById(conversationId);
+    if(conversation){
+        conversation.unreadCount = (change==-1)?0:((conversation.unreadCount as number)+1);
+        await conversation.save();
+    }
 }
 
 
