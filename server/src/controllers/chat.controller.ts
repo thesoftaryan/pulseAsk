@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { fetchMessagesService, getContactsService, userContactDetailsService } from "../services/chat.service";
+import { fetchMessagesService, getContactsService, markAsSeenService, userContactDetailsService } from "../services/chat.service";
 import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes.constants";
 
@@ -27,11 +27,21 @@ export const userContactDetailsController = async (req:Request, res:Response)=>{
 
 export const fetchMessagesController = async (req:Request, res:Response)=>{
     const data = req.body;
-    const messages = await fetchMessagesService(req.body.conversationId);
+    const messages = await fetchMessagesService(req.user?.uid!, req.body.conversationId);
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "Fetched messages Successfully",
         {messages},
+    );
+}
+
+export const markAsSeenController = async (req:Request, res:Response)=>{
+    await markAsSeenService(req.user?.uid!, req.body.conversationId);
+    return successResponse(
+        res,
+        STATUS.SUCCESS.OK,
+        "Message updated successfully",
+        {},
     );
 }

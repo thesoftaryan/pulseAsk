@@ -4,8 +4,7 @@ of chat system of the app
 */
 
 import { Server, Socket } from "socket.io";
-import { ChatMessage } from "../models/Chat.model";
-import { createChatMessageService, updateUnreadCount } from "../services/chat.service";
+import { createChatMessageService } from "../services/chat.service";
 
 const onlineUsers = new Map<string, string>();
 
@@ -40,9 +39,9 @@ export const registerChatSocket = (io:Server)=>{
             if(receiverSocket){
                 io.to(receiverSocket).emit("receive_message", message);
             }
-            await updateUnreadCount(message.conversationId, 1);
             socket.emit("message_sent", message);
         });
+
 
         socket.on("disconnect", ()=>{
             // console.log("User disconnected from socket: ", socket.id);

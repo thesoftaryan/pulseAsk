@@ -2,6 +2,7 @@ import ContactTileStyle from "./ContactTile.module.css";
 
 import defaultImage from "../../../assets/images/user.png";
 import type { ContactInterface } from "../../../types/ApiResponse/chat.type";
+import { useAppSelector } from "../../../hooks/store.hook";
 
 
 interface ContactTileProps{
@@ -12,6 +13,8 @@ interface ContactTileProps{
 
 export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active})=>{
     if(!contact) return "";
+    const user = useAppSelector(state=>state.auth.user);
+    // console.log(contact);
     return (
         <div onClick={onClick} className={`${ContactTileStyle["container"]} ${ContactTileStyle[active? "active":""]}`}>
             <div className={ContactTileStyle["person-profile-container"]}>
@@ -32,16 +35,16 @@ export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active
                 </div>
             </div>
             {
-                contact.unreadCount
+                ((contact.unreadCount > 0)  && (contact.lastMessage?.sender != user?._id))
                 &&
-                <div className={ContactTileStyle["unread-count"]}>
+                (<div className={ContactTileStyle["unread-count"]}>
                     {
-                        contact.unreadCount>99?
+                        (contact.unreadCount<=99)?
                         contact.unreadCount
                         :
                         "99+"
                     }
-                </div>
+                </div>)
             }
         </div>
     );

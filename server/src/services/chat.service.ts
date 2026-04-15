@@ -29,6 +29,7 @@ export const getContactsService = async (uid: Types.ObjectId)=>{
             conversation.participants[0]
             ,
             lastMessage : conversation.lastMessage,
+            unreadCount: conversation.unreadCount,
         };
         contacts.push(obj);
     }
@@ -62,8 +63,8 @@ export const userContactDetailsService = async (uid:Types.ObjectId, userId: Type
  * @param conversationId of Type Types.ObjectId
  * @returns Object of Type FetchMessageService
  */
-export const fetchMessagesService = async (conversationId: Types.ObjectId)=>{
-    await markAsSeen(conversationId);
+export const fetchMessagesService = async (uid:Types.ObjectId, conversationId: Types.ObjectId)=>{
+    await markAsSeenService(uid, conversationId);
     const messages = await ChatMessage.find({
         conversationId,
     }).sort({sentAt:1}).populate([
@@ -76,9 +77,9 @@ export const fetchMessagesService = async (conversationId: Types.ObjectId)=>{
  * @param conversationId of Type Types.ObjectId
  * @returns nothing
  */
-export const markAsSeen = async (conversationId: Types.ObjectId)=>{
+export const markAsSeenService = async (uid: Types.ObjectId, conversationId: Types.ObjectId)=>{
     const conversation = await Conversation.findById(conversationId);
-    if(conversation){
+    if(conversation && conversation.lastMessage?.sender != uid){
         await ChatMessage.updateMany({conversationId, status:"sent"}, {
             status: "seen",
         });
@@ -91,10 +92,10 @@ export const markAsSeen = async (conversationId: Types.ObjectId)=>{
  * @param conversationId of Type Types.ObjectId
  * @returns nothing
  */
-export const updateUnreadCount = async (conversationId: Types.ObjectId, change: number)=>{
+export const resetUnreadCountService = async (conversationId: Types.ObjectId)=>{
     const conversation = await Conversation.findById(conversationId);
     if(conversation){
-        conversation.unreadCount = (change==-1)?0:((conversation.unreadCount as number)+1);
+        conversation.unreadCount = 0;
         await conversation.save();
     }
 }
@@ -122,13 +123,13 @@ export const createChatMessageService = async (data : any) : Promise<ChatMessage
         {path: "sender", select:"_id userName profile firstName lastName"}
     ]);
 
-
     await Conversation.updateOne({conversationKey: conversation.conversationKey}, {
         lastMessage : {
             sender: message.sender,
             sentAt: message.sentAt,
             content: content,
         },
+        unreadCount : ((conversation.unreadCount as number)+1),
     });
 
     // await conversation.save();
@@ -159,7 +160,7 @@ export const getOrCreateConversationService = async ( uid1: Types.ObjectId, uid2
             participants,
         });
     }
-    console.log("created conversation: ", conversation);
+    // console.log("created conversation: ", conversation);
     return conversation;
 }
 

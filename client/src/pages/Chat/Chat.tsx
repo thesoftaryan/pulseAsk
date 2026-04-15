@@ -53,11 +53,10 @@ export const Chat = ()=>{
     const [initContact, setInitContact] = useState<ContactInterface | undefined>();
  
  
-    if(chatUserId){
-        useEffect(()=>{
-            initChatHandler(chatUserId, setInitContact, setActiveContact);
-        }, []);
-    }
+    useEffect(()=>{
+        if(!chatUserId) return;
+        initChatHandler(chatUserId, setInitContact, setActiveContact);
+    }, [chatUserId]);
  
  
  
@@ -107,7 +106,7 @@ export const Chat = ()=>{
     } = useChatHandler(
         socket,
         activeContact,
-        contactsMap,
+        // contactsMap,
         setChatsMap,
         setContacts,
         setFetching,
@@ -162,7 +161,7 @@ export const Chat = ()=>{
                     {
                         chatUserId
                         &&
-                        <ContactTile key={-1} contact={initContact!} active={activeContact?.conversationId===initContact?.conversationId} onClick={()=>setActiveContact(initContact)}/>
+                        <ContactTile key={initContact?.person._id} contact={initContact!} active={activeContact?.conversationId===initContact?.conversationId} onClick={()=>setActiveContact(initContact)}/>
                     }
                     {
                         currentContacts.map((contact)=>{

@@ -1,5 +1,5 @@
 import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResponseParser.service";
-import { fetchMessagesService } from "../../services/chat/fetchMessages.service";
+import { fetchMessagesService, markAsSeenService } from "../../services/chat/messages.service";
 import { getContactsService, getUserContactDetailsService } from "../../services/chat/contacts.service"
 import { showToast } from "../../utils/toast.util";
 import type { ChatMessageInterface, ContactInterface, FetchMessagesResponse, GetContactsResponse, GetUserContactDetailsResponse } from "../../types/ApiResponse/chat.type";
@@ -14,7 +14,7 @@ import type { ChatsMapInterface } from "./Chat";
 export const useChatHandler = (
     socket: Socket | null,
     activeContact: ContactInterface | undefined,
-    contactsMap: Map<any, any>,
+    // contactsMap: Map<any, any>,
     setChatsMap: React.Dispatch<React.SetStateAction<ChatsMapInterface>>,
     setContacts: React.Dispatch<React.SetStateAction<ContactInterface[]>>,
     setFetching: React.Dispatch<React.SetStateAction<boolean>>,
@@ -64,9 +64,17 @@ export const useChatHandler = (
              * in the respective contact.
              */
 
-            const contact = contactsMap.get(message.sender._id);
-            if(!contact){
-                const contactObj:ContactInterface = {
+            setContacts(prev => {
+                const exists = prev.find(
+                    c => c.person._id === message.sender._id
+                );
+
+                if (exists){
+                    console.log("contact already present! : ", exists);
+                    return prev;
+                }
+
+                const contactObj: ContactInterface = {
                     conversationId: message.conversationId,
                     person: message.sender,
                     lastMessage: {
@@ -76,10 +84,21 @@ export const useChatHandler = (
                         sentAt: message.sentAt,
                     },
                     unreadCount: 1,
+                };
+
+                return [contactObj, ...prev];
+            });
+
+            updateLastMessageHandler(message, true);
+
+            if(activeContact?.person._id === message.sender._id){
+                // console.log("captured as same");
+                
+                if((activeContact.unreadCount)>0){
+                    // console.log("Updating the current contact: ", activeContact);
+                    
+                    markAsSeenHandler(message.conversationId);
                 }
-                setContacts(
-                    (prev)=>[contactObj, ...prev]
-                );
             }
 
             setChatsHandler(message);
@@ -113,7 +132,9 @@ export const useChatHandler = (
                     }
                 });
             }
+            updateLastMessageHandler(message, false);
             setChatsHandler(message);
+
 
             // console.log("after: ");
             
@@ -163,12 +184,56 @@ export const useChatHandler = (
         }
     }
 
+    const updateLastMessageHandler = async (message: ChatMessageInterface, update: boolean)=>{
+        setContacts(
+            (prev)=>{
+                return prev.map((cont)=>{
+                    if(cont.conversationId === message.conversationId){
+                        const tempCont = {
+                            ...cont,
+                            lastMessage: {
+                                content: message.content,
+                                messageType: message.type,
+                                sender: message.sender._id,
+                                sentAt: message.sentAt,
+                            },
+                            unreadCount: (cont.unreadCount>=0)? (cont.unreadCount+(update?1:0)):0,
+                        };
+                        if(cont.conversationId === activeContact?.conversationId){
+                            activeContact.unreadCount = tempCont.unreadCount;
+                        }
+                        return tempCont;
+                    }
+                    return cont;
+                });
+            }
+        );
+    }
+
+    const markAsSeenHandler = async (conversationId: string)=>{
+        await markAsSeenService({conversationId});
+        setContacts(
+            (prev)=>{
+                return prev.map((cont)=>{
+                    if(cont.conversationId === conversationId){
+                        return {
+                            ...cont,
+                            unreadCount: 0,
+                        };
+                    }
+                    return cont;
+                });
+            }
+        );
+    }
+
     const fetchMessagesHandler = async (conversationId: string)=>{
         try{
             if(conversationId==="new_conversation"){
                 // console.log("new_conversation request, contact: ", activeContact);
                 return;
             }
+            markAsSeenHandler(conversationId);
             const response = await fetchMessagesService({conversationId});
             const result = parseSuccessResponse<FetchMessagesResponse>(response);
             // setChats(result.data?.messages);

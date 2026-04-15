@@ -12,3 +12,7 @@ export const getUserContactDetailsAPI = (data : GetUserContactDetailsPayload)=>{
 export const fetchMessagesAPI = (data:FetchMessagesPayload)=>{
     return api.post("/chat/fetchMessages", data);
 }
+
+export const markAsSeenAPI = (data : any)=>{
+    return api.post("/chat/markAsSeen", data);
+}

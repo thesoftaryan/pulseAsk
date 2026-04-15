@@ -31,7 +31,7 @@ export interface ContactInterface{
     conversationId: string,
     person: PersonInterface,
     lastMessage? : LastMessageInterface,
-    unreadCount?: number;
+    unreadCount: number;
 }
 
 export interface GetContactsResponse{
