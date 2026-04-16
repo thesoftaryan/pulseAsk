@@ -4,7 +4,8 @@ of chat system of the app
 */
 
 import { Server, Socket } from "socket.io";
-import { createChatMessageService } from "../services/chat.service";
+import { createChatMessageService, updateUserStatus } from "../services/chat.service";
+import { Types } from "mongoose";
 
 const onlineUsers = new Map<string, string>();
 
@@ -12,9 +13,11 @@ export const registerChatSocket = (io:Server)=>{
     io.on("connection", (socket: Socket)=>{
         console.log("User connected at socket: ", socket.id);
         
-        socket.on("register", (userId : string) => {
+        socket.on("register", async (userId : string) => {
             // console.log("user : ",userId, " is getting registered");
             onlineUsers.set(userId, socket.id);
+            await updateUserStatus(userId, "online");
+            socket.broadcast.emit("user_status", {userId, status:"online"});
         });
 
         socket.on("send_message", async (data)=>{
@@ -43,13 +46,18 @@ export const registerChatSocket = (io:Server)=>{
         });
 
 
-        socket.on("disconnect", ()=>{
+        socket.on("disconnect", async ()=>{
             // console.log("User disconnected from socket: ", socket.id);
-
+            let disconnectedUserId;
             for(const [userId, socketId] of onlineUsers.entries()){
                 if(socketId == socket.id){
+                    disconnectedUserId = userId;
                     onlineUsers.delete(userId);break;
                 }
+            }
+            if(disconnectedUserId){
+                await updateUserStatus(disconnectedUserId, "offline");
+                socket.broadcast.emit("user_status", {disconnectedUserId, status:"offline"});
             }
         })
 

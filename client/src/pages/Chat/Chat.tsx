@@ -184,7 +184,12 @@ export const Chat = ()=>{
                             </div>
                             <div className={ChatStyle["person-data"]}>
                                 <div className={ChatStyle["person-name"]}>{activeContact.person.firstName} {activeContact.person.lastName}</div>
-                                <div className={ChatStyle["person-status"]}>Last seen at 1:45 <span className={ChatStyle["time-specifier"]}>pm</span> </div>
+                                <div className={ChatStyle["person-status"]}>{
+                                    activeContact.person.status==="online"?
+                                    "online"
+                                    :
+                                    `Last seen ${activeContact.person.lastSeen}`
+                                }</div>
                             </div>
                         </div>
                         <div className={ChatStyle["person-actions"]}>

@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 import { ChatMessageInterface, ChatMessage, ConversationInterface, Conversation } from "../models/Chat.model";
 import { ApiError } from "../utils/error.util";
 import { User } from "../models/User.model";
-import { ContactInterface } from "../types/response/chat.type";
+import { ContactInterface, ContactPersonInterface } from "../types/response/chat.type";
 import { log } from "console";
 
 
@@ -14,22 +14,23 @@ import { log } from "console";
 export const getContactsService = async (uid: Types.ObjectId)=>{
     const conversations = await Conversation.find({
         participants: uid,
-    }).populate("participants", "_id userName firstName lastName profile");
+    }).populate("participants", "_id userName firstName lastName profile status lastSeen");
 
     // console.log(conversations);
 
     const contacts = [];
     for(let conversation of conversations){
-        const obj = {
-            conversationId: conversation._id,
-            person: 
-            (conversation.participants[0]._id==uid)? 
+        const conversationUser = ((conversation.participants[0]._id==uid)? 
             conversation.participants[1]
             :
-            conversation.participants[0]
-            ,
+            conversation.participants[0])as unknown as ContactPersonInterface;
+        const obj = {
+            conversationId: conversation._id,
+            person: conversationUser,
             lastMessage : conversation.lastMessage,
             unreadCount: conversation.unreadCount,
+            status: conversationUser.status,
+            lastSeen: conversationUser.lastSeen,
         };
         contacts.push(obj);
     }
@@ -53,6 +54,8 @@ export const userContactDetailsService = async (uid:Types.ObjectId, userId: Type
             lastName: user?.lastName,
             profile: user?.profile,
             userName: user?.userName,
+            status: user?.status,
+            lastSeen: user?.lastSeen,
         },
     };
     return obj;
@@ -183,4 +186,15 @@ export const getConversationIdService = async ( uid1: Types.ObjectId, uid2: Type
 
     // console.log("created conversation: ", conversation);
     return conversation?._id.toString()??"new_conversation";
+}
+
+/**
+ * @param userId of Type Types.ObjectId
+ * @returns nothing
+ */
+export const updateUserStatus = async (uid:string, status:string)=>{
+    await User.updateOne({_id: uid}, {
+        status,
+        lastSeen: new Date(),
+    });
 }

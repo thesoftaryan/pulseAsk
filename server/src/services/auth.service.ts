@@ -66,6 +66,8 @@ export const registerUserService = async (payload : RegisterPayload) => {
         lastName,
         password : hashedPassword,
         email,
+        lastSeen: new Date(),
+        status:"online",
         paymentPreferences : {
             enablePayment: true,
         },

@@ -97,6 +97,8 @@ export interface UserInterface extends Document{
     upvotes: number;
     downvotes: number;
     reputationScore: number;
+    lastSeen: Date;
+    status: "online" | "offline";
     
     //************* Payment Information ********** //
     paymentAccounts : PaymentAccountsInterface;
@@ -368,6 +370,13 @@ const userSchema = new Schema<UserInterface>(
         reputationScore: {
             type : Number,
             default:0,
+        },
+        lastSeen: {
+            type: Date,
+        },
+        status:{
+            type: String,
+            enum: ["online", "offline"],
         },
         
         //************* Payment Information ********** //

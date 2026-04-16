@@ -44,6 +44,38 @@ export const useChatHandler = (
         ));
     }
 
+    const updateUserStatusHandler = (data : any)=>{
+        const {userId, status} = data;
+        setContacts((prev)=>{
+            return prev.map((cont)=>{
+                if(userId===cont.person._id){
+                    if(activeContact?.person._id === userId){
+                        setActiveContact((prev)=>{
+                            if(!prev) return prev;
+                            return {
+                                ...prev,
+                                person:{
+                                    ...prev.person,
+                                    status,
+                                    lastSeen: new Date(),
+                                }
+                            }
+                        });
+                    }
+                    return {
+                        ...cont,
+                        person: {
+                            ...cont.person,
+                            status,
+                            lastSeen: new Date(),
+                        }
+                    }
+                }
+                return cont;
+            });
+        });
+    }
+
     useEffect(()=>{
         if(!socket) return;
         
@@ -145,13 +177,19 @@ export const useChatHandler = (
             // })
         }
 
+        
+
         socket.on("receive_message", receiveHandler);
 
         socket.on("message_sent", sentHandler);
 
+        socket.on("user_status", updateUserStatusHandler);
+
         return ()=>{
             socket.off("receive_message");
             socket.off("message_sent");
+            socket.off("user_online");
+            socket.off("user_offline");
         }
     }, [user, activeContact]);
 

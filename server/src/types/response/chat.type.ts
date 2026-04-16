@@ -7,6 +7,8 @@ export interface ContactPersonInterface{
     profile?: string;
     firstName: string;
     lastName?:string;
+    status:"online"|"offline";
+    lastSeen: Date;
 }
 
 export interface LastMessageInterface{

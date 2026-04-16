@@ -106,6 +106,8 @@ export interface UserInterface{
     upvotes: number;
     downvotes: number;
     reputationScore: number;
+    lastSeen: Date;
+    status: "online" | "offline";
     
     //************* Payment Information ********** //
     paymentAccounts : PaymentAccountsInterface;
