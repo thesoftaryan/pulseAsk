@@ -1,26 +1,38 @@
 import { useEffect, useRef } from "react";
 import { createSocket, getSocket } from "../services/socket.service"
 import type { Socket } from "socket.io-client";
+import { useAppSelector } from "./store.hook";
 
-export const useSocket = (userId?: string)=>{
+export const useSocket = ()=>{
     const socketRef = useRef<Socket | null>(null);
     
+    const user = useAppSelector(state=>state.auth.user);
+
     useEffect(()=>{
-        if(!userId) return;
         let socket = getSocket();
+        if(!user?._id) {
+            if(socket){
+                socket.disconnect();
+            }
+            return;
+        }
         if(!socket){
             socket = createSocket();
         }
+
+        if(!socket.connected){
+            socket.on("connect", ()=>{
+                console.log("Connected to socket: ", socket.id);
+                socket.emit("register", user._id);
+            });
+        }
+
         socketRef.current = socket;
     
-        socket.on("connect", ()=>{
-            console.log("Connected to socket: ", socket.id);
-            socket.emit("register", userId);
-        });
         return ()=>{
             socket.off("connect");
         }
-    }, [userId]);
+    }, [user?._id]);
 
     return socketRef.current;
 }

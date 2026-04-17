@@ -18,7 +18,7 @@ export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active
     return (
         <div onClick={onClick} className={`${ContactTileStyle["container"]} ${ContactTileStyle[active? "active":""]}`}>
             <div className={ContactTileStyle["person-profile-container"]}>
-                <img src={contact.person?.profile??defaultImage} className={ContactTileStyle["person-profile"]}/>
+                <img src={contact.person?.profile??defaultImage} className={`${ContactTileStyle["person-profile"]} ${contact.person.status==="online"? ContactTileStyle["person-online"]:""}`}/>
             </div>
             
             <div className={ContactTileStyle["person-data"]}>

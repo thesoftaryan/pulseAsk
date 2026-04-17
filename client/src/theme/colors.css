@@ -7,6 +7,7 @@
   --color-level2-bg:#ffffff;
   
   /* General Purpose Colors */
+  --color-success:#34C759;
   --color-error:#DC3545;
   --color-danger:#DC3545;
   --color-gold:#FAA629;
@@ -60,6 +61,7 @@
   --color-level2-bg:#191919;
   
   /* General Purpose Colors */
+  --color-success:#34C759;
   --color-error:#DC3545;
   --color-danger:#DC3545;
   --color-gold:#FAA629;

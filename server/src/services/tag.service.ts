@@ -56,6 +56,7 @@ export const generateTagService = async (data : GenerateTagPayload)=>{
         const text = result.response.text(); 
         let tags : string[]=JSON.parse(text);
         
+        // console.log(result);
         
         tags.map((tagName)=>{
             const tag : GenerateTagResponse = {
@@ -65,6 +66,7 @@ export const generateTagService = async (data : GenerateTagPayload)=>{
             tagsResponse.push(tag);
         });
     }catch(error){
+        // console.log(error);
         throw new ApiError(
             STATUS.SERVER_ERROR.BAD_GATEWAY,
             "Tag generation failed, please try later.",

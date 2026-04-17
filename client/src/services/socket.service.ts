@@ -9,4 +9,6 @@ export const createSocket = ()=>{
     return socket;
 }
 
+// export const resetSocket = ()=>{}
+
 export const getSocket = ()=>socket;

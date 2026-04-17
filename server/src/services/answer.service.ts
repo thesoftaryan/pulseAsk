@@ -26,7 +26,21 @@ export const postAnswerService = async (author:Types.ObjectId, data : PostAnswer
         author,
         askedAt: Date.now(),
     };
-    await Answer.create(answerObj);
+    const answer = await Answer.create(answerObj);
+
+    const question = await Question.findById(data.qid);
+    if(question){
+        if(question.bestAnswer){
+            const curr = await Answer.findById(question.bestAnswer);
+            if(curr && curr.voteCount < 0){
+                question.bestAnswer = answer._id;
+            }
+        }else{
+            question.bestAnswer = answer._id;
+        }
+        await question.save();
+    }
+
     await User.updateOne({_id: author},{
         $inc: {
             reputationScore: reputationPolicy.answerPosted,

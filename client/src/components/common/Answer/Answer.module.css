@@ -107,6 +107,7 @@
     padding: var(--spacing-sm);
     background-color: var(--color-level2-bg);
     border-radius: var(--size-radius-md);
+    word-break: normal;
 }
 
 .input-field{

@@ -15,6 +15,7 @@
 
 
 .person-profile-container{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +24,12 @@
     width: var(--size-icon-lg);
     height: var(--size-icon-lg);
     border-radius: var(--size-radius-circle);
+    object-fit:cover;
     padding: 0;
+    border: var(--size-border-lg) solid transparent;
+}
+.person-online{
+    border: var(--size-border-lg) solid var(--color-success);
 }
 
 .person-data{

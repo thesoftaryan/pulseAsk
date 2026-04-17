@@ -46,6 +46,10 @@ export const useChatHandler = (
 
     const updateUserStatusHandler = (data : any)=>{
         const {userId, status} = data;
+        // console.log("data: ", data);
+        
+        // console.log("userId: ", userId, " changed to ", status);
+        
         setContacts((prev)=>{
             return prev.map((cont)=>{
                 if(userId===cont.person._id){
@@ -102,7 +106,7 @@ export const useChatHandler = (
                 );
 
                 if (exists){
-                    console.log("contact already present! : ", exists);
+                    // console.log("contact already present! : ", exists);
                     return prev;
                 }
 
@@ -115,7 +119,7 @@ export const useChatHandler = (
                         sender: message.sender._id,
                         sentAt: message.sentAt,
                     },
-                    unreadCount: 1,
+                    unreadCount: 0,
                 };
 
                 return [contactObj, ...prev];
@@ -188,8 +192,7 @@ export const useChatHandler = (
         return ()=>{
             socket.off("receive_message");
             socket.off("message_sent");
-            socket.off("user_online");
-            socket.off("user_offline");
+            socket.off("user_status");
         }
     }, [user, activeContact]);
 
@@ -237,9 +240,6 @@ export const useChatHandler = (
                             },
                             unreadCount: (cont.unreadCount>=0)? (cont.unreadCount+(update?1:0)):0,
                         };
-                        if(cont.conversationId === activeContact?.conversationId){
-                            activeContact.unreadCount = tempCont.unreadCount;
-                        }
                         return tempCont;
                     }
                     return cont;
@@ -254,6 +254,15 @@ export const useChatHandler = (
             (prev)=>{
                 return prev.map((cont)=>{
                     if(cont.conversationId === conversationId){
+                        // if(cont.person._id === activeContact?.person._id){
+                        //     setActiveContact((prev)=>{
+                        //         if(!prev) return;
+                        //         return {
+                        //             ...prev,
+                        //             unreadCount:0,
+                        //         }
+                        //     });
+                        // }
                         return {
                             ...cont,
                             unreadCount: 0,

@@ -44,7 +44,7 @@ export const getContactsService = async (uid: Types.ObjectId)=>{
  * @returns contact details of required user
  */
 export const userContactDetailsService = async (uid:Types.ObjectId, userId: Types.ObjectId)=>{
-    const user = await User.findById(userId).select("_id userName profile firstName lastName");
+    const user = await User.findById(userId).select("_id userName profile firstName lastName status lastSeen");
     const conversationId = await getConversationIdService(uid, userId);
     const obj = {
         conversationId,
@@ -57,6 +57,7 @@ export const userContactDetailsService = async (uid:Types.ObjectId, userId: Type
             status: user?.status,
             lastSeen: user?.lastSeen,
         },
+        unreadCount:0,
     };
     return obj;
 }

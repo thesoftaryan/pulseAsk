@@ -10,6 +10,8 @@ import { authRoutes } from "./routes/routesConstants";
 import { checkAuthThunk } from "./store/auth/thunks/checkAuth.thunk";
 import { useApplyTheme } from "./hooks/useApplyTheme.hook";
 import { useSafeNavigate } from "./hooks/useSafeNavigate.hook";
+import { useSocket } from "./hooks/useSocket.hook";
+// import type { Socket } from "socket.io-client";
 // import { toggleTheme } from "./store/theme/theme.slice";
 
 const App = ()=>{
@@ -20,6 +22,8 @@ const App = ()=>{
 
   // const state = useAppSelector(state => state.auth);
   const {replaceNavigate} = useSafeNavigate();
+
+  useSocket();
 
   useEffect(()=>{
     const isActive = localStorage.getItem("session_active");

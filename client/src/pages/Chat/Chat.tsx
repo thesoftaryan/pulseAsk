@@ -21,7 +21,9 @@ import { useChatHandler } from "./Chat.handler";
 import { useSearchParams } from "react-router-dom";
 // import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
 import type { ChatMessageInterface, ContactInterface } from "../../types/ApiResponse/chat.type";
-import { useSocket } from "../../hooks/useSocket.hook";
+// import { useSocket } from "../../hooks/useSocket.hook";
+import { getSocket } from "../../services/socket.service";
+import { relativeTimeFormat } from "../../utils/formatDateTime.util";
 
 export interface ChatsMapInterface{
     [conversationId: string] : ChatMessageInterface[],
@@ -41,7 +43,7 @@ export const Chat = ()=>{
     
     const user = useAppSelector(state=>state.auth.user);
     
-    const socket = useSocket(user?._id);
+    let socket = getSocket();
 
     
     useEffect(()=>{
@@ -64,7 +66,7 @@ export const Chat = ()=>{
     useEffect(()=>{
         if(!activeContact) return;
         fetchMessagesHandler(activeContact?.conversationId);
-    }, [activeContact]);
+    }, [activeContact?.conversationId]);
  
     useEffect(()=>{
         setChats(chatsMap[activeContact?.conversationId??""]??[])
@@ -180,7 +182,8 @@ export const Chat = ()=>{
                     <div className={ChatStyle["header"]}>
                         <div className={ChatStyle["person-profile-status"]}>
                             <div className={ChatStyle["person-profile-container"]}>
-                                <img src={activeContact.person.profile??defaultImage} className={ChatStyle["person-profile"]}/>
+                                <img src={activeContact.person.profile??defaultImage} className={`${ChatStyle["person-profile"]} ${activeContact.person.status==="online"? ChatStyle["person-online"]:""}`}/>
+                                
                             </div>
                             <div className={ChatStyle["person-data"]}>
                                 <div className={ChatStyle["person-name"]}>{activeContact.person.firstName} {activeContact.person.lastName}</div>
@@ -188,7 +191,7 @@ export const Chat = ()=>{
                                     activeContact.person.status==="online"?
                                     "online"
                                     :
-                                    `Last seen ${activeContact.person.lastSeen}`
+                                    `Last seen ${relativeTimeFormat(activeContact.person.lastSeen)}`
                                 }</div>
                             </div>
                         </div>

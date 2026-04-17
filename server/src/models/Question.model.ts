@@ -12,7 +12,7 @@ export interface QuestionInterface extends Document{
     author: UserInterface;
     askedAt: Date;
     voteCount: Number;
-    bestAnswer?: AnswerInterface;
+    bestAnswer?: Types.ObjectId;
     tags: TagInterface[];
 }
 

@@ -69,6 +69,11 @@
     width: var(--size-icon-lg);
     height: var(--size-icon-lg);
     border-radius: var(--size-radius-circle);
+    border: var(--size-border-lg) solid transparent;
+    object-fit:cover;
+}
+.person-online{
+    border: var(--size-border-lg) solid var(--color-success);
 }
 
 .person-data{

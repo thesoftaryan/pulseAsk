@@ -47,7 +47,7 @@ export const registerChatSocket = (io:Server)=>{
 
 
         socket.on("disconnect", async ()=>{
-            // console.log("User disconnected from socket: ", socket.id);
+            console.log("User disconnected from socket: ", socket.id);
             let disconnectedUserId;
             for(const [userId, socketId] of onlineUsers.entries()){
                 if(socketId == socket.id){
@@ -57,7 +57,7 @@ export const registerChatSocket = (io:Server)=>{
             }
             if(disconnectedUserId){
                 await updateUserStatus(disconnectedUserId, "offline");
-                socket.broadcast.emit("user_status", {disconnectedUserId, status:"offline"});
+                socket.broadcast.emit("user_status", {userId:disconnectedUserId, status:"offline"});
             }
         })
 
