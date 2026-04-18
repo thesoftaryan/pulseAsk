@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: var(--spacing-sm) 0;
+    /* margin: var(--spacing-sm) 0; */
 }
 
 .timeline{

@@ -1,7 +1,7 @@
 import { formatTime } from "../../../utils/formatDateTime.util";
 import MessageTileStyle from "./MessageTile.module.css";
 
-interface MessageTileProps{
+export interface MessageTileProps{
     message : string;
     time : Date;
     self : boolean;

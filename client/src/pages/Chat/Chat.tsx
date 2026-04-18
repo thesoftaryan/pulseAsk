@@ -11,7 +11,6 @@ import BanIcon from "../../assets/icons/general/ban.svg?react";
 import SearchIcon from "../../assets/icons/header/search.svg?react";
 import ReportUserIcon from "../../assets/icons/general/report_user.svg?react";
 import { MessageTile } from "./MessageTile/MessageTile";
-// import { TimelineTile } from "./TimelineTile/TimelineTile";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 // Socket io
@@ -23,7 +22,8 @@ import { useSearchParams } from "react-router-dom";
 import type { ChatMessageInterface, ContactInterface } from "../../types/ApiResponse/chat.type";
 // import { useSocket } from "../../hooks/useSocket.hook";
 import { getSocket } from "../../services/socket.service";
-import { relativeTimeFormat } from "../../utils/formatDateTime.util";
+import { relativeDateFormat, relativeTimeFormat } from "../../utils/formatDateTime.util";
+import { TimelineTile } from "./TimelineTile/TimelineTile";
 
 export interface ChatsMapInterface{
     [conversationId: string] : ChatMessageInterface[],
@@ -45,33 +45,36 @@ export const Chat = ()=>{
     
     let socket = getSocket();
 
-    
+    // To get initial contacts of the user
     useEffect(()=>{
         // console.log("calling getContactsHandler");
         getContactsHandler();
     }, []);
+
     const [searchParams] = useSearchParams();
     const chatUserId = searchParams.get("user");
     const [initContact, setInitContact] = useState<ContactInterface | undefined>();
  
  
+    // To handle new chat flow creation
     useEffect(()=>{
         if(!chatUserId) return;
         initChatHandler(chatUserId, setInitContact, setActiveContact);
     }, [chatUserId]);
  
  
- 
- 
+    // To fetch messages every time active chat is changed
     useEffect(()=>{
         if(!activeContact) return;
         fetchMessagesHandler(activeContact?.conversationId);
     }, [activeContact?.conversationId]);
  
+    // For setting current chats when a new chat arrives and added to chatsMap
     useEffect(()=>{
         setChats(chatsMap[activeContact?.conversationId??""]??[])
     }, [chatsMap]);
  
+    // For scrolling to the end of chat if new message comes
     useEffect(()=>{
         messageEndRef.current?.scrollIntoView({
             behavior: "smooth",
@@ -89,6 +92,7 @@ export const Chat = ()=>{
        return map;
     }, [contacts]);
     
+    // To remove the initial contact upon getting conversation Id
     useEffect(()=>{
         if(!initContact) return;
         // console.log("init Contact: ", initContact);
@@ -100,6 +104,7 @@ export const Chat = ()=>{
         }
     }, [contactsMap]);
     
+    // Importing functions from Handler
     const {
         sendMessageHandler,
         initChatHandler,
@@ -127,6 +132,51 @@ export const Chat = ()=>{
         setMessage("");
     }
 
+
+    const getChatWithTimelines = (
+        chats: ChatMessageInterface[]
+    ): React.ReactNode[] => {
+
+        if (chats.length === 0) return [];
+
+        const components: React.ReactNode[] = [];
+
+        let currDay = relativeDateFormat(chats[0].sentAt);
+
+        components.push(
+            <div className={ChatStyle["sticky"]}>
+                <TimelineTile key={`timeline-0`} time={currDay}/>
+            </div>
+        );
+
+        chats.forEach((chat, index) => {
+            const chatDay = relativeDateFormat(chat.sentAt);
+
+            if (chatDay !== currDay) {
+                currDay = chatDay;
+                components.push(
+                    <div className={ChatStyle["sticky"]}>
+                        <TimelineTile key={`timeline-${index}`} time={chatDay}/>
+                    </div>
+                );
+            }
+
+            components.push(
+            <MessageTile
+                key={`msg-${index}`}
+                message={chat.content}
+                time={new Date(chat.sentAt)}
+                self={chat.sender._id === user?._id}
+            />
+            );
+        });
+
+    return components;
+    };
+
+
+
+    // To enable the feature of searching into current contacts
     const currentContacts = useMemo(()=>{
         
         const searchValue = searchText.trim().toLocaleLowerCase();
@@ -140,6 +190,9 @@ export const Chat = ()=>{
         );
     }, [contacts, searchText]);
     
+
+
+
 
     if(fetching){
         return "Loading";
@@ -206,30 +259,14 @@ export const Chat = ()=>{
 
                     <div className={ChatStyle["messages"]}>
                         {
-                            (chats.length??0)===0
-                            &&
+                            ((chats.length??0)===0)?
                             <p className={ChatStyle["label"]}>No messages yet, Say hi to {activeContact.person.firstName} </p>
-                        }
-                        {
-                            chats.map((chat)=>{
-                                return <MessageTile key={chat._id} message={chat.content} time={chat.sentAt} self={chat.sender._id==user?._id}/>
+                            :
+                            getChatWithTimelines(chats).map((component)=>{
+                                return component;
                             })
                         }
                         <div ref={messageEndRef}/>
-                        {/* <MessageTile message="How is it going1?" time={new Date()} self={false}/>
-                        <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
-                        <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
-                        <MessageTile message="Very soon" time={new Date()} self={true}/>
-                        <MessageTile message="How is it going?" time={new Date()} self={false}/>
-                        <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
-                        <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
-                        
-                        <TimelineTile time={new Date()}/>
-                        <MessageTile message="Very soon" time={new Date()} self={true}/>
-                        <MessageTile message="How is it going?" time={new Date()} self={false}/>
-                        <MessageTile message="When are you going to finish this project?" time={new Date()} self={false}/>
-                        <MessageTile message="When are you going to finisha skjdkfjalskd fjalskd fjalskdj falskdjflaskdjflaksdjfliwpoi jflkajsdfas pasdflka sdflasdoai sdflknasdlkf asd;lfjaspdofu this project?" time={new Date()} self={false}/>
-                        <MessageTile message="Very soon" time={new Date()} self={true}/> */}
                     </div>
 
 

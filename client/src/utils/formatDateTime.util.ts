@@ -1,4 +1,5 @@
 export const formatDate = (time : Date):string =>{
+    time = new Date(time);
     return time.toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",
@@ -15,13 +16,18 @@ export const formatTime = (time : Date):string => {
     });
 }
 
-// for time formats like, 2h ago, 3h ago, 32d ago, 52w ago
+// for date formats like, today, yesterday, prevDayName(e.g. Wednesday), Thursday, ..., Tuesday, "April 12, 2026", ...
 export const relativeTimeFormat = (time : Date): string=>{
     const now = Date.now();
     const prev = new Date(time).getTime();
     const diff = Math.floor((now-prev)/1000);
 
-    if (diff < 60) return `${diff}s ago`;
+    if (diff < 60){
+        if(diff < 30){
+            return "few seconds ago"
+        }
+        return `${diff}s ago`;
+    }
 
     const minutes = Math.floor(diff / 60);
     if (minutes < 60) return `${minutes}m ago`;
@@ -40,4 +46,24 @@ export const relativeTimeFormat = (time : Date): string=>{
 
     const years = Math.floor(days / 365);
     return `${years}y ago`;
+}
+
+export const relativeDateFormat = (time : Date): string=>{
+    time = new Date(time);
+    const currTime = (new Date(Date.now()));
+
+    const today = new Date(currTime.getFullYear(), currTime.getMonth(), currTime.getDate());
+    const target = new Date(time.getFullYear(), time.getMonth(), time.getDate());
+
+    const diffInMs = today.getTime() - target.getTime();
+    const diffInDays = diffInMs / (1000*60*60*24);
+
+    if(diffInDays == 0) return "Today";
+    if(diffInDays == 1) return "Yesterday";
+
+    if(diffInDays<7){
+        return time.toLocaleDateString("en-US", {weekday: "long"});
+    }
+
+    return formatDate(time);
 }

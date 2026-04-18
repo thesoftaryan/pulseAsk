@@ -5,11 +5,10 @@ import { showToast } from "../../utils/toast.util";
 import type { ChatMessageInterface, ContactInterface, FetchMessagesResponse, GetContactsResponse, GetUserContactDetailsResponse } from "../../types/ApiResponse/chat.type";
 // import { connectSocket } from "../../services/socket.service";
 import { useAppSelector } from "../../hooks/store.hook";
-import { useEffect } from "react";
+import { useEffect} from "react";
 import type { Socket } from "socket.io-client";
 import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
 import type { ChatsMapInterface } from "./Chat";
-
 
 export const useChatHandler = (
     socket: Socket | null,
@@ -80,6 +79,8 @@ export const useChatHandler = (
         });
     }
 
+
+    // To handle socket events
     useEffect(()=>{
         if(!socket) return;
         
@@ -128,13 +129,7 @@ export const useChatHandler = (
             updateLastMessageHandler(message, true);
 
             if(activeContact?.person._id === message.sender._id){
-                // console.log("captured as same");
-                
-                if((activeContact.unreadCount)>0){
-                    // console.log("Updating the current contact: ", activeContact);
-                    
-                    markAsSeenHandler(message.conversationId);
-                }
+                markAsSeenHandler(message.conversationId);
             }
 
             setChatsHandler(message);
@@ -230,7 +225,23 @@ export const useChatHandler = (
             (prev)=>{
                 return prev.map((cont)=>{
                     if(cont.conversationId === message.conversationId){
-                        const tempCont = {
+                        let newUnreadCount=cont.unreadCount;
+                        if(cont.lastMessage?.sender === user?._id){
+                            newUnreadCount=0;
+                        }
+                        if(cont.unreadCount>=0){
+                            newUnreadCount = newUnreadCount + (update? 1:0);
+                        }
+                        // if(activeContact?.conversationId === cont.conversationId){
+                        //     setActiveContact((prev)=>{
+                        //         if(!prev) return;
+                        //         return {
+                        //             ...prev,
+                        //             unreadCount: newUnreadCount,
+                        //         }
+                        //     });
+                        // }
+                        return {
                             ...cont,
                             lastMessage: {
                                 content: message.content,
@@ -238,9 +249,8 @@ export const useChatHandler = (
                                 sender: message.sender._id,
                                 sentAt: message.sentAt,
                             },
-                            unreadCount: (cont.unreadCount>=0)? (cont.unreadCount+(update?1:0)):0,
+                            unreadCount: newUnreadCount,
                         };
-                        return tempCont;
                     }
                     return cont;
                 });
@@ -249,29 +259,34 @@ export const useChatHandler = (
     }
 
     const markAsSeenHandler = async (conversationId: string)=>{
-        await markAsSeenService({conversationId});
-        setContacts(
-            (prev)=>{
-                return prev.map((cont)=>{
-                    if(cont.conversationId === conversationId){
-                        // if(cont.person._id === activeContact?.person._id){
-                        //     setActiveContact((prev)=>{
-                        //         if(!prev) return;
-                        //         return {
-                        //             ...prev,
-                        //             unreadCount:0,
-                        //         }
-                        //     });
-                        // }
-                        return {
-                            ...cont,
-                            unreadCount: 0,
-                        };
-                    }
-                    return cont;
-                });
-            }
-        );
+        try{
+            await markAsSeenService({conversationId});
+            setContacts(
+                (prev)=>{
+                    return prev.map((cont)=>{
+                        if(cont.conversationId === conversationId){
+                            // if(cont.person._id === activeContact?.person._id){
+                            //     setActiveContact((prev)=>{
+                            //         if(!prev) return;
+                            //         return {
+                            //             ...prev,
+                            //             unreadCount:0,
+                            //         }
+                            //     });
+                            // }
+                            return {
+                                ...cont,
+                                unreadCount: 0,
+                            };
+                        }
+                        return cont;
+                    });
+                }
+            );
+        }catch(error){
+            const err = parseErrorResponse(error);
+            showToast.error(err.message);
+        }
     }
 
     const fetchMessagesHandler = async (conversationId: string)=>{
@@ -310,6 +325,7 @@ export const useChatHandler = (
             setFetching(false);
         }
     }
+
 
     return {
         sendMessageHandler,
