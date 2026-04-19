@@ -111,7 +111,7 @@ export const resetUnreadCountService = async (conversationId: Types.ObjectId)=>{
  * @returns the Object of type ChatMessageInterface
  */
 export const createChatMessageService = async (data : any) : Promise<ChatMessageInterface>=>{
-    const {senderId, receiverId, content} = data;
+    const {senderId, receiverId, content, caption, type} = data;
     
     // if(!)
     // console.log("data received: ", data);
@@ -122,6 +122,8 @@ export const createChatMessageService = async (data : any) : Promise<ChatMessage
         conversationId: conversation._id,
         sender: senderId,
         content,
+        caption,
+        type,
         sentAt: new Date(),
     })).populate([
         {path: "sender", select:"_id userName profile firstName lastName"}

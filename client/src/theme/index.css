@@ -49,6 +49,10 @@ button{
     font-size: var(--font-size-md);
 }
 
+.display-none{
+    display: none;
+}
+
 /* Gaps for GapBox */
 
 .gap-y-md{

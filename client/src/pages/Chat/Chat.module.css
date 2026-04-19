@@ -123,19 +123,23 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--color-level1-bg);
-    text-align: center;
 }
 
 
 .message-input-wrapper{
+    position: relative;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    /* background-color: red; */
+    flex-direction: column;
+    justify-content: flex-end;
+    /* align-items: center; */
+}
+.image-message-preview{
+    bottom: 110%;
+    position: absolute;
 }
 
 .message-input-container{
+    width: 100%;
     flex-grow: 1;
     display: flex;
     align-items: center;

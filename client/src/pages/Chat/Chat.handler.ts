@@ -116,7 +116,7 @@ export const useChatHandler = (
                     person: message.sender,
                     lastMessage: {
                         content: message.content,
-                        messageType: message.type,
+                        type: message.type,
                         sender: message.sender._id,
                         sentAt: message.sentAt,
                     },
@@ -192,14 +192,15 @@ export const useChatHandler = (
     }, [user, activeContact]);
 
 
-    const sendMessageHandler = async (message:string)=>{
+    const sendMessageHandler = async (message:string, imageUrl?: string)=>{
         message = message.trim();
-        if(!activeContact || !socket || !message) return;
+        if(!activeContact || !socket || (!message && !imageUrl)) return;
         const data:SendMessagePayload = {
             senderId: user?._id!,
             receiverId: activeContact?.person._id,
-            content:message,
-            type: "text",
+            content:imageUrl??message,
+            caption: imageUrl? message:"",
+            type: imageUrl? "image":"text",
         };
         // console.log("sending message to socket: ", data);
         socket.emit("send_message", data);
@@ -245,7 +246,7 @@ export const useChatHandler = (
                             ...cont,
                             lastMessage: {
                                 content: message.content,
-                                messageType: message.type,
+                                type: message.type,
                                 sender: message.sender._id,
                                 sentAt: message.sentAt,
                             },

@@ -13,5 +13,6 @@
     border-radius: var(--size-radius-sm);
 
     padding: var(--spacing-sm);
+    white-space: pre-wrap;
     /* font-weight: var(--font-weight-medium); */
 }

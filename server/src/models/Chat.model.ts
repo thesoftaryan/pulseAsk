@@ -7,6 +7,7 @@ export interface ChatMessageInterface{
     content: string;
 
     type: "text" | "image";
+    caption?: string;
 
     status: "sent" | "seen";
 
@@ -29,6 +30,10 @@ const ChatMessageSchema = new Schema<ChatMessageInterface>(
         content: {
             type: String,
             required:true,
+        },
+
+        caption:{
+            type: String,
         },
 
         type:{
@@ -61,8 +66,9 @@ export interface ConversationInterface{
     conversationKey: string;
     participants: Types.ObjectId[];
     lastMessage?:{
-        messageType: "image" | "text";
+        type: "image" | "text";
         content: string;
+        caption?: string;
         sender: Types.ObjectId;
         sentAt: Date;
     };
@@ -83,12 +89,15 @@ const ConversationSchema = new Schema<ConversationInterface>({
     ],
     lastMessage:{
         type:{
-            messageType:{
+            "type":{
                 type:String,
                 enum: ["text", "image"],
                 default: "text",
             },
             content: {
+                type: String,
+            },
+            caption:{
                 type: String,
             },
             sender: {

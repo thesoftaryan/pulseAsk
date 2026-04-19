@@ -13,6 +13,7 @@ export interface ChatMessageInterface{
     conversationId: string;
     sender: PersonInterface;
     content: string;
+    caption?: string;
 
     type: "text" | "image";
 
@@ -23,8 +24,9 @@ export interface ChatMessageInterface{
 
 
 export interface LastMessageInterface{
-    messageType: "image" | "text";
+    type: "image" | "text";
     content: string;
+    caption?: string;
     sender: string;
     sentAt: Date;
 }

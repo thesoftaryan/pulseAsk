@@ -58,8 +58,8 @@ export const relativeDateFormat = (time : Date): string=>{
     const diffInMs = today.getTime() - target.getTime();
     const diffInDays = diffInMs / (1000*60*60*24);
 
-    if(diffInDays == 0) return "Today";
-    if(diffInDays == 1) return "Yesterday";
+    if(diffInDays == 0) return "   Today   ";
+    if(diffInDays == 1) return " Yesterday ";
 
     if(diffInDays<7){
         return time.toLocaleDateString("en-US", {weekday: "long"});

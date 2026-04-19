@@ -1,0 +1,23 @@
+.container{
+    position: relative;
+    display: flex;    
+    width: min-content;
+}
+
+.image{
+    max-width: var(--size-image-width);
+    max-height: var(--size-image-height);
+    border-radius: var(--size-radius-sm);
+}
+
+.close-icon{
+    position: absolute;
+    /* top: var(--spacing-xs);
+    right: var(--spacing-xs); */
+    top: -10px;
+    right: -10px;
+    padding: var(--spacing-xs);
+    background-color: var(--color-primary);
+    border-radius: var(--size-radius-circle);
+    cursor: pointer;
+}

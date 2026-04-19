@@ -24,6 +24,8 @@ import type { ChatMessageInterface, ContactInterface } from "../../types/ApiResp
 import { getSocket } from "../../services/socket.service";
 import { relativeDateFormat, relativeTimeFormat } from "../../utils/formatDateTime.util";
 import { TimelineTile } from "./TimelineTile/TimelineTile";
+import { PreviewImageTile } from "./PreviewImageTile/PreviewImageTile";
+import { useUploadImage } from "../../hooks/uploadImage.hook";
 
 export interface ChatsMapInterface{
     [conversationId: string] : ChatMessageInterface[],
@@ -127,55 +129,50 @@ export const Chat = ()=>{
     const [message, setMessage] = useState("");
 
 
-    const handleSendChat = ()=>{
-        sendMessageHandler(message);
-        setMessage("");
-    }
-
-
+    
+    
     const getChatWithTimelines = (
         chats: ChatMessageInterface[]
     ): React.ReactNode[] => {
-
+        
         if (chats.length === 0) return [];
-
+        
         const components: React.ReactNode[] = [];
-
+        
         let currDay = relativeDateFormat(chats[0].sentAt);
-
+        
         components.push(
-            <div className={ChatStyle["sticky"]}>
+            <div key={`timeline-div-0`} className={ChatStyle["sticky"]}>
                 <TimelineTile key={`timeline-0`} time={currDay}/>
             </div>
         );
-
+        
         chats.forEach((chat, index) => {
             const chatDay = relativeDateFormat(chat.sentAt);
-
+            
             if (chatDay !== currDay) {
                 currDay = chatDay;
                 components.push(
-                    <div className={ChatStyle["sticky"]}>
-                        <TimelineTile key={`timeline-${index}`} time={chatDay}/>
+                    <div key={`timeline-div-${index+1}`}  className={ChatStyle["sticky"]}>
+                        <TimelineTile key={`timeline-${index+1}`} time={chatDay}/>
                     </div>
                 );
             }
-
+            
             components.push(
-            <MessageTile
-                key={`msg-${index}`}
-                message={chat.content}
-                time={new Date(chat.sentAt)}
+                <MessageTile
+                key={chat._id}
+                message={chat}
                 self={chat.sender._id === user?._id}
-            />
+                />
             );
         });
-
-    return components;
+        
+        return components;
     };
-
-
-
+    
+    
+    
     // To enable the feature of searching into current contacts
     const currentContacts = useMemo(()=>{
         
@@ -190,9 +187,35 @@ export const Chat = ()=>{
         );
     }, [contacts, searchText]);
     
+    
+    // Image message handling
+    const [imageFile, setImageFile] = useState<File|null>();
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const {uploadImageHandler, uploading} = useUploadImage();
+    const inputFileRef = useRef<HTMLInputElement>(null);
+    
+    const handleImageMessage = (e : React.ChangeEvent<HTMLInputElement>)=>{
+        const file = e.target.files?.[0];
+        if(!file) return;
+        setImageFile(file);
+        setPreviewUrl(URL.createObjectURL(file));
+    }
+    
+    const handleImageRemoval = ()=>{
+        setImageFile(null);
+        setPreviewUrl(null);
+    }
 
-
-
+    const handleSendChat = async ()=>{
+        let imageUrl:string|undefined="";
+        if(imageFile){
+            imageUrl = await uploadImageHandler(imageFile,  true);
+            setImageFile(null);
+            setPreviewUrl(null);
+        }
+        sendMessageHandler(message, imageUrl);
+        setMessage("");
+    }
 
     if(fetching){
         return "Loading";
@@ -262,9 +285,7 @@ export const Chat = ()=>{
                             ((chats.length??0)===0)?
                             <p className={ChatStyle["label"]}>No messages yet, Say hi to {activeContact.person.firstName} </p>
                             :
-                            getChatWithTimelines(chats).map((component)=>{
-                                return component;
-                            })
+                            getChatWithTimelines(chats)
                         }
                         <div ref={messageEndRef}/>
                     </div>
@@ -272,9 +293,17 @@ export const Chat = ()=>{
 
 
                     <div className={ChatStyle["message-input-wrapper"]}>
+                        <div className={ChatStyle["image-message-preview"]}>
+                            {
+                                previewUrl
+                                &&
+                                <PreviewImageTile imageUrl={previewUrl} onDelete={handleImageRemoval} uploading={uploading}/>
+                            }
+                        </div>
                         <div className={ChatStyle["message-input-container"]}>
                             <div className={ChatStyle["message-attachment"]}>
-                                <AttachmentIcon className={`${ChatStyle["icon"]} ${ChatStyle["large"]}`}/>
+                                <input type="file" accept="image/*" ref={inputFileRef} onChange={handleImageMessage} className="display-none"/>
+                                <AttachmentIcon onClick={()=>{inputFileRef.current?.click()}} className={`${ChatStyle["icon"]} ${ChatStyle["large"]}`}/>
                             </div>
                             <input value={message} type="text" placeholder="Enter your message" className={ChatStyle["message-input"]}
                                 onChange={(e)=>{

@@ -10,27 +10,37 @@
     position: relative;
     max-width: var(--size-chat-message-max-width);
     align-self: flex-start;
-    padding: var(--spacing-md);
+    padding: var(--spacing-ls);
     border-radius: var(--size-radius-md);
     background-color: var(--color-level2-bg);
 
     word-break: break-all;
 }
 
+.image-style{
+    padding: var(--spacing-sm);
+    max-width: min-content;
+}
 
+.message-image{
+    width: var(--size-image-width);
+    border-radius: var(--size-radius-sm);
+}
 
 .message{
+    /* background-color: rebeccapurple; */
     display: flex;
     flex-wrap: wrap;
     font-size: var(--font-size-md);
-    margin-bottom: var(--spacing-sm);
+    /* margin-bottom: var(--spacing-md); */
 }
 
 .time{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    margin: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+    justify-self: flex-end;
+    word-break: keep-all;
+    width: max-content;
+
     font-size: var(--font-size-xs);
     color: var(--color-subheading-text);
 }
