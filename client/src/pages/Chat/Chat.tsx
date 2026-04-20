@@ -207,7 +207,7 @@ export const Chat = ()=>{
     }
 
     const handleSendChat = async ()=>{
-        let imageUrl:string|undefined="";
+        let imageUrl:string|undefined;
         if(imageFile){
             imageUrl = await uploadImageHandler(imageFile,  true);
             setImageFile(null);

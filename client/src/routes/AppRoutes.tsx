@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import AuthRoutes from "./AuthRoutes";
-import { authRoutes, homeRoutes } from "./routesConstants";
+import { homeRoutes } from "./routesConstants";
 import { Home } from "../pages/Home/Home";
 import App from "../App";
 import { MainLayout } from "../components/layout/MainLayout/MainLayout";
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
               element: <MainLayout/>,
               children:[
                 {path: homeRoutes.home, element: <Home/>},
-                {path: homeRoutes.tag, element: <Tag/>},
+                {path: homeRoutes.tag+"/:tagSlug", element: <Tag/>},
                 {path: homeRoutes.question+"/:qid/:slug", element: <ShowQuestion/>},
                 {path: homeRoutes.askQuestion, element: <AskQuestion/>},
                 {path: homeRoutes.profile+"/:userName", element: <Profile/>},
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
               ]  
             },
 
-            {path:"*", element:<Navigate to={authRoutes.login} replace/>}
+            {path:"*", element:<Navigate to={homeRoutes.home} replace/>}
         ],
     },
 ]);

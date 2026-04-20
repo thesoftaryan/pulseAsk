@@ -233,18 +233,10 @@ export const useChatHandler = (
                         if(cont.unreadCount>=0){
                             newUnreadCount = newUnreadCount + (update? 1:0);
                         }
-                        // if(activeContact?.conversationId === cont.conversationId){
-                        //     setActiveContact((prev)=>{
-                        //         if(!prev) return;
-                        //         return {
-                        //             ...prev,
-                        //             unreadCount: newUnreadCount,
-                        //         }
-                        //     });
-                        // }
                         return {
                             ...cont,
                             lastMessage: {
+                                caption: message.caption,
                                 content: message.content,
                                 type: message.type,
                                 sender: message.sender._id,
@@ -300,6 +292,7 @@ export const useChatHandler = (
             const response = await fetchMessagesService({conversationId});
             const result = parseSuccessResponse<FetchMessagesResponse>(response);
             // setChats(result.data?.messages);
+            console.log(result);
             setMultipleChatsHandler(conversationId, result.data?.messages??[]);
         }catch(error){
             const err = parseErrorResponse(error);

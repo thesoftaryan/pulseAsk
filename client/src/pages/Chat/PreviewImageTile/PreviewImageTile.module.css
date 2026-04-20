@@ -2,6 +2,7 @@
     position: relative;
     display: flex;    
     width: min-content;
+    /* background-color: red; */
 }
 
 .image{
@@ -20,4 +21,14 @@
     background-color: var(--color-primary);
     border-radius: var(--size-radius-circle);
     cursor: pointer;
+}
+
+.spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-primary);
+    padding: var(--spacing-xs);
+    border-radius: var(--size-radius-circle);
 }

@@ -15,7 +15,9 @@ export const PreviewImageTile:React.FC<PreviewImageTileProps> = ({imageUrl, uplo
             {
                 uploading
                 &&
-                <Spinner/>
+                <div className={PreviewImageTileStyle["spinner"]}>
+                    <Spinner/>
+                </div>
             }
             <img src={imageUrl} className={PreviewImageTileStyle["image"]}/>
             <CloseIcon onClick={uploading? undefined:onDelete} className={PreviewImageTileStyle["close-icon"]}/>

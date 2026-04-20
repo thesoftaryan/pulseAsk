@@ -71,7 +71,7 @@ export const Question:React.FC<QuestionProps> = ({question, onClick})=>{
                     <div className={QuestionStyle["tags"]}>
                         {
                             question.tags.map((tag)=>{
-                                return <TagChip key={tag._id} text={tag.name} color={tag.color}/>
+                                return <TagChip slug={tag.slug} key={tag._id} text={tag.name} color={tag.color}/>
                             })
                         }
                     </div>

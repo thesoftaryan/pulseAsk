@@ -21,7 +21,7 @@ export const registerChatSocket = (io:Server)=>{
         });
 
         socket.on("send_message", async (data)=>{
-            const {senderId, receiverId, content} = data;
+            const {receiverId} = data;
             // console.log("user: ",senderId, ", has sent a message (", content,") to : ", receiverId);
             
             //* We also need to verify that the senderId is mapped to this socket

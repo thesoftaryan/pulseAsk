@@ -122,7 +122,7 @@ export const AskQuestion = ()=>{
                         <div className={AskQuestionStyle["curr-tags-container"]}>
                             {
                                 tags.map((tag)=>{
-                                    return <TagChip Key={tag.name} text={tag.name?? ""} color={tag.color?? "red"} level1={true} onDelete={()=>{deleteTagHandler(tag.name??"")}}/>
+                                    return <TagChip slug={""} Key={tag.name} text={tag.name?? ""} color={tag.color?? "red"} level1={true} onDelete={()=>{deleteTagHandler(tag.name??"")}}/>
                                 })
                             }
                             {

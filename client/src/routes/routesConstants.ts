@@ -10,6 +10,7 @@ export const authRoutes = {
 
 export const homeRoutes = {
     home : "/home",
+    // requires /tag/:tagSlug
     tag: "/tag",
     chat: "/chat",
     // requires /question/:qid/:slug

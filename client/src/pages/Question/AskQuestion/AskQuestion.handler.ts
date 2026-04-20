@@ -4,7 +4,7 @@ import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
 import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiResponseParser.service";
 import { askQuestionService } from "../../../services/question/askQuestion.service";
-import { generateTagService } from "../../../services/question/generateTag.service";
+import { generateTagService } from "../../../services/tag.service";
 import type { AskQuestionPayload } from "../../../types/ApiRequest/question.type";
 import type { GenerateTagPayload, TagPayload } from "../../../types/ApiRequest/tag.type";
 import type { AskQuestionResponse } from "../../../types/ApiResponse/question.type";

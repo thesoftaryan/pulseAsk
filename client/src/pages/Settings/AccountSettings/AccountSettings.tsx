@@ -257,7 +257,7 @@ export const AccountSettings = ()=>{
                     }
                     {
                         kTags.map((tag)=>{
-                            return <TagChip key={tag._id} onDelete={()=>{handleRemoveKTag(tag._id)}} loading={kTagState.removing} level1={true} text={tag.name} color={tag.color}/>
+                            return <TagChip slug={tag.slug} key={tag._id} onDelete={()=>{handleRemoveKTag(tag._id)}} loading={kTagState.removing} level1={true} text={tag.name} color={tag.color}/>
                         })
                     }
 

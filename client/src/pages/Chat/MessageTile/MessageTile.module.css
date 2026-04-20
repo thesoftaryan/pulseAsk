@@ -10,7 +10,7 @@
     position: relative;
     max-width: var(--size-chat-message-max-width);
     align-self: flex-start;
-    padding: var(--spacing-ls);
+    padding: var(--spacing-ls) var(--spacing-ls) var(--spacing-sm) var(--spacing-ls);
     border-radius: var(--size-radius-md);
     background-color: var(--color-level2-bg);
 

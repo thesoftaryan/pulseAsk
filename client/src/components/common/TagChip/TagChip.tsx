@@ -2,11 +2,14 @@
 import TagChipStyle from "./TagChip.module.css";
 
 import CloseIcon from "../../../assets/icons/general/close.svg?react";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../routes/routesConstants";
 // import { Spinner } from "../Spinner/Spinner";
 
 interface TagChipProps{
     color : string;
     text : string;
+    slug?: string;
     level1? : boolean;
     isLarge?: boolean;
     onDelete?: ()=>void;
@@ -14,10 +17,11 @@ interface TagChipProps{
     Key?: string;
 }
 
-export const TagChip : React.FC<TagChipProps> = ({color, text, level1, isLarge, onDelete, loading, Key})=>{
+export const TagChip : React.FC<TagChipProps> = ({color, text, slug, level1, isLarge, onDelete, loading, Key})=>{
+    const {safeNavigate} = useSafeNavigate();
     return (
         <>
-            <div key={Key} className={`${TagChipStyle["container"]} ${(level1)? TagChipStyle["level1"]:""} ${(isLarge)? TagChipStyle["large-container"]:""}`}>
+            <div onClick={()=>{if(slug) safeNavigate(homeRoutes.tag+`/${slug}`)}} key={Key} className={`${TagChipStyle["container"]} ${(level1)? TagChipStyle["level1"]:""} ${(isLarge)? TagChipStyle["large-container"]:""}`}>
                 <div className={TagChipStyle["left"]}>
                     <div style={{backgroundColor: color}} className={`${TagChipStyle["circle"]} ${(isLarge)? TagChipStyle["large-circle"]:""}`} ></div>
                 </div>

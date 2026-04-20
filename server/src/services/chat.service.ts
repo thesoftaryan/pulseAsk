@@ -133,7 +133,9 @@ export const createChatMessageService = async (data : any) : Promise<ChatMessage
         lastMessage : {
             sender: message.sender,
             sentAt: message.sentAt,
-            content: content,
+            content,
+            caption,
+            type,
         },
         unreadCount : ((conversation.unreadCount as number)+1),
     });

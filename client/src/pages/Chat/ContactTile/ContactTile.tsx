@@ -19,14 +19,18 @@ export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active
     
     if(contact.lastMessage){
         if(contact.lastMessage.type==="image"){
-            if((contact.lastMessage?.caption?.length??0) > 30){
-                lastMessagePreview = contact.lastMessage?.caption?.slice(0, 30)+"...";
+            if(contact.lastMessage?.caption){
+                if((contact.lastMessage?.caption.length) > 30){
+                    lastMessagePreview = contact.lastMessage?.caption.slice(0, 30)+"...";
+                }else{
+                    lastMessagePreview = contact.lastMessage.caption;    
+                }
             }else{
                 lastMessagePreview = "📷 photo"
             }
         }
         else{
-            if((contact.lastMessage?.content.length??0) > 30){
+            if((contact.lastMessage?.content?.length??0) > 30){
                 lastMessagePreview = contact.lastMessage?.content.slice(0, 30)+"...";
             }else{
                 lastMessagePreview = contact.lastMessage.content;
