@@ -8,28 +8,34 @@ import TagStyle from "./Tag.module.css";
 import LoadMoreIcon from "../../assets/icons/general/load_more.svg?react";
 import Button from "../../components/common/Button/Button";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTagHandler } from "./Tag.handler";
+import type { TagInterface } from "../../types/ApiResponse/tag.type";
+import type { QuestionInterface } from "../../types/ApiResponse/question.type";
 
 
 export const Tag = ()=>{
     const params = useParams();
     const slug = params.tagSlug;
 
-    const [questions, setQuestions] = useState<any>();
+    const [tag, setTag] = useState<TagInterface>();
+    const [questions, setQuestions] = useState<QuestionInterface[]>([]);
 
-    const {fetchQuestions} = useTagHandler(
+    const {initPage} = useTagHandler(
         setQuestions,
+        setTag,
     );
+    useEffect(()=>{
+        if(slug){
+            // console.log("slug: ", slug)
+            initPage(slug);
+        }
+    }, []);
 
-    const answerObj : Partial<AnswerInterface> = {
-        author : {_id: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
-        content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
-    }
     return (
         <div className={TagStyle["container"]}>
             <div className={TagStyle["tag-section"]}>
-                <TagChip slug="heart-attack" color="green" text="Heart Attack" isLarge={true} level1={true}/>
+                <TagChip slug={tag?.slug} color={tag?.color??""} text={tag?.name??""} isLarge={true} level1={true}/>
                 <div className={TagStyle["question-count"]}>
                     7,023 Questions
                 </div>
@@ -41,7 +47,12 @@ export const Tag = ()=>{
                 <div className={TagStyle["main-content"]}>
                     {/* <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/>
                     <Question best_answer={<Answer level1Comments={true} author={answerObj.author!} content={answerObj.content!}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/> */}
-                    
+                    {
+                        questions && 
+                        questions.map((question)=>{
+                            return <Question key={question._id} question={question}/>;
+                        })
+                    }
                     <div className={TagStyle["load-more-button"]}>
                         <Button text="Load More" isSmall={true} level1={true} Icon={LoadMoreIcon}/>
                     </div>

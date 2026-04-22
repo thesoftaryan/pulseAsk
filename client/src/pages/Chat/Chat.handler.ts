@@ -116,7 +116,7 @@ export const useChatHandler = (
                     person: message.sender,
                     lastMessage: {
                         content: message.content,
-                        type: message.type,
+                        messageType: message.type,
                         sender: message.sender._id,
                         sentAt: message.sentAt,
                     },
@@ -238,7 +238,7 @@ export const useChatHandler = (
                             lastMessage: {
                                 caption: message.caption,
                                 content: message.content,
-                                type: message.type,
+                                messageType: message.type,
                                 sender: message.sender._id,
                                 sentAt: message.sentAt,
                             },

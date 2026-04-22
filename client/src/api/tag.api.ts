@@ -8,3 +8,8 @@ export const generateTagAPI = (data : GenerateTagPayload)=>{
 export const fetchQuestionsByTagAPI = (data : any)=>{
     return api.post("/tag/fetchQuestions", data);
 }
+
+export const fetchTagBySlugAPI = (data : any)=>{
+    return api.post("/tag/fetchTag", data);
+}
+

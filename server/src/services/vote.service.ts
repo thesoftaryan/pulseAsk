@@ -111,10 +111,6 @@ export const voteService = async (uid: Types.ObjectId, data : VotePayload, targe
         // console.log("new vote: ", question.voteCount);
         voteCount = (question.voteCount) as number;
     }else{
-        await Answer.updateOne(
-            {_id: data.targetId},
-            {$inc: {voteCount: newVote}},
-        );
         const answer = await Answer.findById(data.targetId);
         if(!answer){
             throw new ApiError(
@@ -122,7 +118,17 @@ export const voteService = async (uid: Types.ObjectId, data : VotePayload, targe
                 "Answer not found",
             );
         }
+        answer.voteCount += newVote;
+        await answer.save();
         voteCount = (answer.voteCount) as number;
+
+        // Updating question's best answer
+        const answers = await Answer.find({qid: answer.qid}).sort({voteCount: -1});
+
+        await Question.updateOne({_id: answer.qid},
+            {bestAnswer : answers[0]._id},
+        );
+
     }
 
     if(flag){

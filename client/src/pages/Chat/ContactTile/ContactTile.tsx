@@ -18,7 +18,7 @@ export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active
     let lastMessagePreview = "";
     
     if(contact.lastMessage){
-        if(contact.lastMessage.type==="image"){
+        if(contact.lastMessage.messageType==="image"){
             if(contact.lastMessage?.caption){
                 if((contact.lastMessage?.caption.length) > 30){
                     lastMessagePreview = contact.lastMessage?.caption.slice(0, 30)+"...";

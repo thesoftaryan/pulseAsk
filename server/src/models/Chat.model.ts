@@ -66,7 +66,7 @@ export interface ConversationInterface{
     conversationKey: string;
     participants: Types.ObjectId[];
     lastMessage?:{
-        type: "image" | "text";
+        messageType: "image" | "text";
         content: string;
         caption?: string;
         sender: Types.ObjectId;
@@ -89,7 +89,7 @@ const ConversationSchema = new Schema<ConversationInterface>({
     ],
     lastMessage:{
         type:{
-            "type":{
+            messageType:{
                 type:String,
                 enum: ["text", "image"],
                 default: "text",

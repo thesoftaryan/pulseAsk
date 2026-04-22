@@ -8,6 +8,7 @@ import { Tag } from "../models/Tag.model";
 import { Types } from "mongoose";
 import { slugifyText } from "../utils/general.util";
 import { GenerateTagResponse } from "../types/response/tag.type";
+import { Question } from "../models/Question.model";
 
 
 const generator = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
@@ -76,6 +77,10 @@ export const generateTagService = async (data : GenerateTagPayload)=>{
     return tagsResponse;
 }
 
+/**
+ * @param data of Type TagPayload[]
+ * @returns The id of created Tag
+ */
 export const createTagService = async (data : TagPayload[])=>{
     const response:Types.ObjectId[] = [];
     
@@ -96,4 +101,22 @@ export const createTagService = async (data : TagPayload[])=>{
 
     // console.log("responseObj: ", response);
     return response;
+}
+
+
+export const fetchTagBySlugService = async (tagSlug: string)=>{
+    const tag = await Tag.findOne({slug: tagSlug});
+    return tag;
+}
+
+export const fetchQuestionsByTagService = async (tagId : Types.ObjectId)=>{
+    const questions = await Question.find(
+        {tags: tagId}
+    ).populate([
+        {path:"tags"},
+        {path:"author", select:"_id userName firstName lastName profile reputationScore"},
+        {path:"bestAnswer"},
+    ]);
+
+    return questions;
 }

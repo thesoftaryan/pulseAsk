@@ -24,7 +24,7 @@ export interface ChatMessageInterface{
 
 
 export interface LastMessageInterface{
-    type: "image" | "text";
+    messageType: "image" | "text";
     content: string;
     caption?: string;
     sender: string;

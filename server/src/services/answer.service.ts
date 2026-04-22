@@ -64,7 +64,9 @@ export const fetchAnswersService = async (data : FetchAnswersPayload)=>{
     const answers = await Answer.find({qid: data.qid}).populate([
         {path: "author", select:"_id userName firstName lastName profile college"},
         {path: "qid", select:"_id slug"},
-    ]);
+    ]).sort(
+        {voteCount: -1}
+    );
     return answers;
 }
 
