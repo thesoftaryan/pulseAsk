@@ -81,7 +81,7 @@ export const generateTagService = async (data : GenerateTagPayload)=>{
  * @param data of Type TagPayload[]
  * @returns The id of created Tag
  */
-export const createTagService = async (data : TagPayload[])=>{
+export const createTagService = async (data : TagPayload[], update: boolean = false)=>{
     const response:Types.ObjectId[] = [];
     
     for(const tagData of data){
@@ -94,6 +94,11 @@ export const createTagService = async (data : TagPayload[])=>{
         let tag = await Tag.findOne({slug: tagObject.slug});
         if(!tag){
             tag = await Tag.create(tagObject);
+        }
+        if(update){
+            await Tag.updateOne({slug:tagObject.slug}, {
+                $inc:{usageCount: 1}
+            });
         }
         // console.log("tag: ", tag);
         response.push(tag._id);

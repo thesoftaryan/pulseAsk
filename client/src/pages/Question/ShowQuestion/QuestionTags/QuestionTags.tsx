@@ -22,7 +22,7 @@ export const QuestionTags:React.FC<QuestionTagsProps> = ({tags})=>{
             <div className={QuestionTagsStyle["tags"]}>
                 {
                     tags.map((tag)=>{
-                        return <TagChip key={tag._id} color={tag.color} text={tag.name}/>
+                        return <TagChip key={tag._id} slug={tag.slug} color={tag.color} text={tag.name}/>
                     })
                 }
             </div>

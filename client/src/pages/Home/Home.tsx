@@ -73,7 +73,7 @@ export const Home = ()=>{
                         }
                         {
                             questions.map((question)=>{
-                                return <Question key={question._id} question={question} onClick={()=>{safeNavigate(homeRoutes.question+`/${question._id}/${question.slug}`)}}/>
+                                return <Question key={question._id} question={question}/>
                             })
                         }
 

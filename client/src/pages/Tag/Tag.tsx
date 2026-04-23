@@ -1,8 +1,8 @@
-import { Answer } from "../../components/common/Answer/Answer";
+// import { Answer } from "../../components/common/Answer/Answer";
 import { Question } from "../../components/common/Question/Question";
 import { TagChip } from "../../components/common/TagChip/TagChip";
 import { FilterBar } from "../../components/layout/FilterBar/FilterBar";
-import type { AnswerInterface } from "../../types/ApiResponse/answer.type";
+// import type { AnswerInterface } from "../../types/ApiResponse/answer.type";
 import TagStyle from "./Tag.module.css";
 
 import LoadMoreIcon from "../../assets/icons/general/load_more.svg?react";
@@ -30,14 +30,14 @@ export const Tag = ()=>{
             // console.log("slug: ", slug)
             initPage(slug);
         }
-    }, []);
+    }, [slug]);
 
     return (
         <div className={TagStyle["container"]}>
             <div className={TagStyle["tag-section"]}>
                 <TagChip slug={tag?.slug} color={tag?.color??""} text={tag?.name??""} isLarge={true} level1={true}/>
                 <div className={TagStyle["question-count"]}>
-                    7,023 Questions
+                    {tag?.usageCount} Questions
                 </div>
             </div>
             <div className={TagStyle["filters-main-section"]}>

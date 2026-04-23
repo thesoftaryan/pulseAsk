@@ -36,7 +36,7 @@ export const askQuestionService = async (data : AskQuestionPayload, uid: Types.O
         });
     }
 
-    const tags = await createTagService(data.tags);
+    const tags = await createTagService(data.tags, true);
     // console.log("tags from create service: ",tags);
     const questionObj = {
         ...data,

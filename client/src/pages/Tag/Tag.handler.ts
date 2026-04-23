@@ -1,7 +1,7 @@
 import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResponseParser.service"
 import { fetchQuestionsByTagService, fetchTagBySlugService } from "../../services/tag.service";
-import type { QuestionInterface } from "../../types/ApiResponse/question.type";
-import type { TagInterface } from "../../types/ApiResponse/tag.type";
+// import type { QuestionInterface } from "../../types/ApiResponse/question.type";
+// import type { TagInterface } from "../../types/ApiResponse/tag.type";
 import { showToast } from "../../utils/toast.util";
 
 

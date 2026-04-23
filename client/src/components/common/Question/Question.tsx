@@ -45,11 +45,14 @@ interface QuestionProps{
 }
 
 export const Question:React.FC<QuestionProps> = ({question, onClick})=>{
+    
+    const {safeNavigate} = useSafeNavigate();
+
     return (
         <>
-            <div className={QuestionStyle["container"]}>
+            <div className={QuestionStyle["container"]} onClick={onClick}>
                 <div className={QuestionStyle["header"]}>
-                    <div className={QuestionStyle["title"]} onClick={onClick}>
+                    <div className={QuestionStyle["title"]} onClick={()=>{safeNavigate(homeRoutes.question+`/${question._id}/${question.slug}`)}}>
                         {question.title}
                     </div>
                     <div className={QuestionStyle["actions"]}>
@@ -71,7 +74,7 @@ export const Question:React.FC<QuestionProps> = ({question, onClick})=>{
                     <div className={QuestionStyle["tags"]}>
                         {
                             question.tags.map((tag)=>{
-                                return <TagChip slug={tag.slug} key={tag._id} text={tag.name} color={tag.color}/>
+                                return <TagChip slug={tag.slug} key={tag._id} text={tag.name} color={tag.color} />
                             })
                         }
                     </div>
