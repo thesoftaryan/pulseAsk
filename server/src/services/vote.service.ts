@@ -8,6 +8,7 @@ import { STATUS } from "../constants/statusCodes.constants";
 import { VoteResponse } from "../types/response/vote.type";
 import { reputationPolicy } from "../constants/reputation.constants";
 import { User } from "../models/User.model";
+import { updateUserStatsService } from "./profile.service";
 
 /**
  * @param data of form VotePayload
@@ -137,15 +138,22 @@ export const voteService = async (uid: Types.ObjectId, data : VotePayload, targe
         await vote?.save();
     }
 
-    await User.updateOne({_id: data.targetAuthor}, 
-      {$inc: 
-        {
-            reputationScore: reputationChange,
-            upvotes: upvoteChange,
-            downvotes: downvoteChange,
-        }
-      }
-    );
+
+    await updateUserStatsService(data.targetAuthor, {
+        reputationChange,
+        upvoteChange,
+        downvoteChange,
+    });
+
+    // await User.updateOne({_id: data.targetAuthor}, 
+    //   {$inc: 
+    //     {
+    //         reputationScore: reputationChange,
+    //         upvotes: upvoteChange,
+    //         downvotes: downvoteChange,
+    //     }
+    //   }
+    // );
     
     return voteCount;
 }

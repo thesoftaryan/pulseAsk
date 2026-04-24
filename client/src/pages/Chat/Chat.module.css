@@ -46,7 +46,7 @@
     /* width: 100%; */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 
@@ -109,6 +109,8 @@
     flex-direction: column;
     /* flex-direction: column-reverse; */
     gap: var(--spacing-md);
+
+    min-height: 0;
 
     padding: var(--spacing-md);
     padding-top: 0px;

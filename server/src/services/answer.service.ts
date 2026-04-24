@@ -8,6 +8,7 @@ import { STATUS } from "../constants/statusCodes.constants";
 import { Question } from "../models/Question.model";
 import { User } from "../models/User.model";
 import { reputationPolicy } from "../constants/reputation.constants";
+import { updateUserStatsService } from "./profile.service";
 
 
 /**
@@ -41,12 +42,17 @@ export const postAnswerService = async (author:Types.ObjectId, data : PostAnswer
         await question.save();
     }
 
-    await User.updateOne({_id: author},{
-        $inc: {
-            reputationScore: reputationPolicy.answerPosted,
-            answersGiven: 1,
-        }
+    await updateUserStatsService(author, {
+        reputationChange: reputationPolicy.answerPosted,
+        answersGivenChange: 1,
     });
+
+    // await User.updateOne({_id: author},{
+    //     $inc: {
+    //         reputationScore: reputationPolicy.answerPosted,
+    //         answersGiven: 1,
+    //     }
+    // });
 }
 
 /**
@@ -106,9 +112,18 @@ export const postAnswerCommentService = async (author:Types.ObjectId, data : Pos
     }
     try{
         await Comment.create(commentObj);
-        await User.updateOne({_id: author},{
-            $inc: {reputationScore: reputationPolicy.commented}
+
+
+        await updateUserStatsService(author, {
+            reputationChange: reputationPolicy.commented,
         });
+
+
+        // await User.updateOne({_id: author},{
+        //     $inc: {reputationScore: reputationPolicy.commented}
+        // });
+
+
     }catch(error){
         throw new ApiError(
             STATUS.SERVER_ERROR.BAD_GATEWAY,

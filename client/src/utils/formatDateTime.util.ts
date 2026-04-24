@@ -16,7 +16,6 @@ export const formatTime = (time : Date):string => {
     });
 }
 
-// for date formats like, today, yesterday, prevDayName(e.g. Wednesday), Thursday, ..., Tuesday, "April 12, 2026", ...
 export const relativeTimeFormat = (time : Date): string=>{
     const now = Date.now();
     const prev = new Date(time).getTime();
@@ -48,6 +47,7 @@ export const relativeTimeFormat = (time : Date): string=>{
     return `${years}y ago`;
 }
 
+// for date formats like, today, yesterday, prevDayName(e.g. Wednesday), Thursday, ..., Tuesday, "April 12, 2026", ...
 export const relativeDateFormat = (time : Date): string=>{
     time = new Date(time);
     const currTime = (new Date(Date.now()));
@@ -58,12 +58,13 @@ export const relativeDateFormat = (time : Date): string=>{
     const diffInMs = today.getTime() - target.getTime();
     const diffInDays = diffInMs / (1000*60*60*24);
 
-    if(diffInDays == 0) return "   Today   ";
-    if(diffInDays == 1) return " Yesterday ";
+    if(diffInDays == 0) return "     Today     ";
+    if(diffInDays == 1) return "   Yesterday   ";
 
     if(diffInDays<7){
-        return time.toLocaleDateString("en-US", {weekday: "long"});
+        let weekday = time.toLocaleDateString("en-US", {weekday: "long"});
+        weekday = "        " + weekday + "        ";
+        return weekday
     }
-
     return formatDate(time);
 }

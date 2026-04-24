@@ -7,7 +7,7 @@
 
 .timeline{
     display: flex;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-lxs);
     
     background-color: var(--color-level2-bg);
     border-radius: var(--size-radius-sm);

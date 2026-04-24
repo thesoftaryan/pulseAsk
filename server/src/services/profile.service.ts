@@ -42,3 +42,41 @@ export const fetchProfileService = async (data : FetchProfilePayload) : Promise<
 
     return responseObj;
 }
+
+
+interface UserStatsUpdateInterface {
+    reputationChange?: number;
+    upvoteChange?: number;
+    downvoteChange?: number;
+    questionsAskedChange?: number;
+    answersGivenChange?: number;
+}
+
+export const updateUserStatsService = async (
+    uid: Types.ObjectId, 
+    updates: UserStatsUpdateInterface,
+)=>{
+
+    const {
+        reputationChange = 0,
+        upvoteChange = 0,
+        downvoteChange = 0,
+        questionsAskedChange = 0,
+        answersGivenChange = 0,
+    } = updates;
+
+    await User.updateOne(
+        {_id: uid},
+        {
+            $inc:{
+                reputationScore: reputationChange,
+                upvotes: upvoteChange,
+                downvotes: downvoteChange,
+                questionsAsked: questionsAskedChange,
+                answersGiven: answersGivenChange,
+            }
+        }
+    );
+
+    return;
+}

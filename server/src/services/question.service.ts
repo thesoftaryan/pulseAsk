@@ -7,6 +7,7 @@ import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes.constants";
 import { User } from "../models/User.model";
 import { reputationPolicy } from "../constants/reputation.constants";
+import { updateUserStatsService } from "./profile.service";
 
 
 
@@ -47,14 +48,20 @@ export const askQuestionService = async (data : AskQuestionPayload, uid: Types.O
     };
     const question = await Question.create(questionObj);
 
-    await User.updateOne({_id: uid}, 
-        {
-            $inc: {
-                reputationScore: reputationPolicy.questionAsked,
-                questionsAsked: 1,
-            }
-        }
-    );
+
+    await updateUserStatsService(uid, {
+        reputationChange: reputationPolicy.questionAsked,
+        questionsAskedChange: 1,
+    });
+
+    // await User.updateOne({_id: uid}, 
+    //     {
+    //         $inc: {
+    //             reputationScore: reputationPolicy.questionAsked,
+    //             questionsAsked: 1,
+    //         }
+    //     }
+    // );
 
     return question;
 }
