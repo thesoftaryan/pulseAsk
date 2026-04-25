@@ -1,4 +1,4 @@
-import { Collection, Types } from "mongoose";
+import mongoose, { Collection, Types } from "mongoose";
 import { STATUS } from "../constants/statusCodes.constants";
 import { Answer } from "../models/Answer.model";
 import { Question } from "../models/Question.model";
@@ -6,6 +6,7 @@ import { User } from "../models/User.model";
 import { FetchProfilePayload} from "../types/profile.type";
 import { FetchProfileResponse} from "../types/response/profile.type";
 import { ApiError } from "../utils/error.util";
+import { updateLeaderboardService } from "./leaderboard.service";
 
 
 /**
@@ -53,7 +54,7 @@ interface UserStatsUpdateInterface {
 }
 
 export const updateUserStatsService = async (
-    uid: Types.ObjectId, 
+    targetId: Types.ObjectId, 
     updates: UserStatsUpdateInterface,
 )=>{
 
@@ -66,7 +67,7 @@ export const updateUserStatsService = async (
     } = updates;
 
     await User.updateOne(
-        {_id: uid},
+        {_id: targetId},
         {
             $inc:{
                 reputationScore: reputationChange,
@@ -77,6 +78,8 @@ export const updateUserStatsService = async (
             }
         }
     );
+
+    await updateLeaderboardService(targetId);
 
     return;
 }

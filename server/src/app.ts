@@ -10,6 +10,7 @@ import answerRoute from "./routes/answer.route";
 import tagRoutes from "./routes/tag.route";
 import settingsRoute from "./routes/settings.route";
 import chatRoute from "./routes/chat.route";
+import leaderboardRoute from "./routes/leaderboard.route";
 import generalRoutes from "./routes/general.route";
 import { errorMiddleware } from "./middlewares/error.middleware";
 import { authMiddleware } from "./middlewares/auth.middleware";
@@ -58,6 +59,9 @@ app.use("/settings", authMiddleware, settingsRoute);
 
 // ********** Chat Route *********** \\
 app.use("/chat", authMiddleware, chatRoute);
+
+// ********** Leaderboard Route *********** \\
+app.use("/leaderboard", authMiddleware, chatRoute);
 
 // ********** General Routes *********** \\
 app.use("/", authMiddleware, generalRoutes);
