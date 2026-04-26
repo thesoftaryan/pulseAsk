@@ -61,7 +61,7 @@ app.use("/settings", authMiddleware, settingsRoute);
 app.use("/chat", authMiddleware, chatRoute);
 
 // ********** Leaderboard Route *********** \\
-app.use("/leaderboard", authMiddleware, chatRoute);
+app.use("/leaderboard", authMiddleware, leaderboardRoute);
 
 // ********** General Routes *********** \\
 app.use("/", authMiddleware, generalRoutes);

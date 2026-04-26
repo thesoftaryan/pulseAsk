@@ -38,7 +38,10 @@ export const updateLeaderboardService = async (targetId:Types.ObjectId)=>{
         await session.commitTransaction();
     }catch(error){
         await session.abortTransaction();
-        throw error;
+        throw new ApiError(
+            STATUS.SERVER_ERROR.INTERNAL,
+            "Some error occurred",
+        );
     } finally{
         session.endSession();
     }
@@ -46,6 +49,8 @@ export const updateLeaderboardService = async (targetId:Types.ObjectId)=>{
 
 
 export const getLeaderboardService = async ()=>{
-    const leaderboard = await Leaderboard.find();
+    const leaderboard = await Leaderboard.find().populate(
+        {path:"uid", select:"_id userName profile firstName lastName reputationScore"}
+    ).sort({reputationScore:-1});
     return leaderboard;
 }

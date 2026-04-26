@@ -8,12 +8,27 @@ import LeaderboardIcon from "../../../assets/icons/general/leaderboard.svg?react
 import ReputationIcon from "../../../assets/icons/general/reputation.svg?react";
 
 import { UserProfile } from "../../../components/common/UserProfile/UserProfile";
+import { useEffect, useState } from "react";
+import { useLeaderboardHandler } from "./Leaderboard.handler";
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../routes/routesConstants";
+
+interface UserProfileInterface{
+    userName?:string;
+    profile?: string;
+    firstName?: string;
+    lastName?:string;
+    reputationScore?: number;
+}
 
 interface RankEntryProps{
     rank : number;
+    user: UserProfileInterface;
 }
 
-const RankEntry : React.FC<RankEntryProps> = ({rank})=>{
+const RankEntry : React.FC<RankEntryProps> = ({rank, user})=>{
+
+    const {safeNavigate} = useSafeNavigate();
 
     let RankIcon : React.FunctionComponent<React.SVGProps<SVGSVGElement>>|undefined = undefined;
     let rankColor : string | undefined = undefined;
@@ -40,18 +55,16 @@ const RankEntry : React.FC<RankEntryProps> = ({rank})=>{
                         (<span className={LeaderboardStyle["rank"]}>{rank}</span>)    
                     }
                 </div>
-                <div className={LeaderboardStyle["right"]}>
-                    <div className={LeaderboardStyle["user-profile"]}>
-                        <UserProfile color={rankColor}/>
-                    </div>
+                <div className={LeaderboardStyle["right"]} onClick={()=>safeNavigate(homeRoutes.profile+`/${user.userName}`)}>
+                    <UserProfile color={rankColor} src={user.profile} className={LeaderboardStyle["user-profile"]}/>
                     <div className={LeaderboardStyle["user-data"]}>
                         <div className={LeaderboardStyle["user-name"]}>
-                            Aryan Maurya
+                            {user.firstName} {user.lastName}
                         </div>
-                        <div className={LeaderboardStyle["user-reputation"]}>
-                            <ReputationIcon className={LeaderboardStyle["reputation-icon"]}/>
+                        <div className={`${LeaderboardStyle["user-reputation"]} ${((user.reputationScore??0)<0)? LeaderboardStyle["danger"]:""}`}>
+                            <ReputationIcon className={`${LeaderboardStyle["reputation-icon"]} ${((user.reputationScore??0)<0)? LeaderboardStyle["danger"]:""}`}/>
                             <div className={LeaderboardStyle["reputation-count"]}>
-                                2.6K
+                                {user.reputationScore}
                             </div>
                         </div>
                     </div>
@@ -62,6 +75,15 @@ const RankEntry : React.FC<RankEntryProps> = ({rank})=>{
 }
 
 export const Leaderboard = ()=>{
+
+    const [entries, setEntries] = useState<any[]>([]);
+
+    const {getLeaderboardHandler} = useLeaderboardHandler(setEntries);
+
+    useEffect(()=>{
+        getLeaderboardHandler();
+    }, []);
+
     return (
         <>
             <div className={LeaderboardStyle["container"]}>
@@ -70,16 +92,12 @@ export const Leaderboard = ()=>{
                     <div className={LeaderboardStyle["heading"]}>Leaderboard</div>
                 </div>
                 <div className={LeaderboardStyle["rankings"]}>
-                    <RankEntry rank={1}/>
-                    <RankEntry rank={2}/>
-                    <RankEntry rank={3}/>
-                    <RankEntry rank={4}/>
-                    <RankEntry rank={5}/>
-                    <RankEntry rank={6}/>
-                    <RankEntry rank={7}/>
-                    <RankEntry rank={8}/>
-                    <RankEntry rank={9}/>
-                    <RankEntry rank={10}/>
+                    {/* <RankEntry rank={1}/> */}
+                    {
+                        entries.map((elem, ind)=>{
+                            return <RankEntry key={elem.uid._id} rank={ind+1} user={elem.uid}/>
+                        })
+                    }
                 </div>
             </div>
         </>

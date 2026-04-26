@@ -56,6 +56,7 @@
 .right{
     display: flex;
     margin-left: var(--spacing-sm);
+    cursor: pointer;
 }
 
 
@@ -83,10 +84,15 @@
     display: flex;
 }
 
+
 .reputation-icon{
     height: var(--size-icon-sm);
     width: var(--size-icon-sm);
     color: var(--color-primary);
+}
+
+.danger{
+    color: var(--color-danger);
 }
 
 .reputation-count{

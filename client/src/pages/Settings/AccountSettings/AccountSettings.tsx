@@ -66,6 +66,9 @@ export const AccountSettings = ()=>{
 
 
     useEffect(()=>{
+        if(!user){
+            safeNavigate(authRoutes.login);
+        }
         setBasicProfile({
             userName: user?.userName ?? "",
             firstName: user?.firstName ?? "",

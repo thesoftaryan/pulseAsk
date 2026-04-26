@@ -79,7 +79,7 @@ export const updateUserStatsService = async (
         }
     );
 
-    await updateLeaderboardService(targetId);
+    updateLeaderboardService(targetId);
 
     return;
 }

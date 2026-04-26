@@ -3,6 +3,6 @@ import { getLeaderboardController } from "../controllers/leaderboard.controller"
 
 const router = Router();
 
-router.get("getLeaderboard", getLeaderboardController);
+router.get("/getLeaderboard", getLeaderboardController);
 
 export default router;

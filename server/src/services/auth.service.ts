@@ -10,6 +10,7 @@ import { generateRandomToken } from "../utils/token.util";
 import { ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPayload, ResetPasswordPayload, TokenData, VerifyEmailPayload } from "../types/auth.type";
 import { generateHash } from "../utils/hash.util";
 import { signToken, verifyToken } from "../utils/jwt.util";
+import { updateLeaderboardService } from "./leaderboard.service";
 
 
 /**
@@ -86,6 +87,8 @@ export const registerUserService = async (payload : RegisterPayload) => {
             Date.now() + 10*60*1000 // 10 minutes
         ),
     });
+
+    updateLeaderboardService(user._id);
 
     user.password = undefined as unknown as string;
 
