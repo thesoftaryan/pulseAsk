@@ -108,7 +108,7 @@ export const fetchQuestionsService = async () : Promise<QuestionInterface[]> =>{
             path:"bestAnswer",
             populate: {
                 path: "author",
-                select: "_id userName firstName lastName profile"
+                select: "_id userName firstName lastName profile college"
             }
         },
     ]); 

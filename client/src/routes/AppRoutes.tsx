@@ -11,6 +11,7 @@ import { Profile } from "../pages/Profile/Profile";
 import { Chat } from "../pages/Chat/Chat";
 import { Search } from "../pages/Search/Search";
 import { Settings } from "../pages/Settings/Settings";
+import { Bookmarks } from "../pages/Bookmarks/Bookmarks";
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
                 {path: homeRoutes.question+"/:qid/:slug", element: <ShowQuestion/>},
                 {path: homeRoutes.askQuestion, element: <AskQuestion/>},
                 {path: homeRoutes.profile+"/:userName", element: <Profile/>},
+                {path: homeRoutes.bookmarks, element: <Bookmarks/>},
                 {path: homeRoutes.chat, element: <Chat/>},
                 {path: homeRoutes.search, element: <Search/>},
                 {path: homeRoutes.settings, element: <Settings/>},

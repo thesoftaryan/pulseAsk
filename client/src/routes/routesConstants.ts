@@ -19,5 +19,6 @@ export const homeRoutes = {
     search: "/search",
     // requires /profile/:userName
     profile: "/profile",
+    bookmarks: "/bookmarks",
     settings: "/settings"
 }

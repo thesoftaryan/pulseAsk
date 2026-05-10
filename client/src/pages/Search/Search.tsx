@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSafeNavigate } from "../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../routes/routesConstants";
 import { RoundedButton } from "../../components/common/RoundedButton/RoundedButton";
-import { Question } from "../../components/common/Question/Question";
+// import { Question } from "../../components/common/Question/Question";
 import { SearchProfileTile } from "./SearchProfileTile/SearchProfileTile";
 
 export type SearchType = "question"|"people";

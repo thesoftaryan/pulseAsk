@@ -50,7 +50,7 @@ export const Tag = ()=>{
                     {
                         questions && 
                         questions.map((question)=>{
-                            return <Question key={question._id} question={question}/>;
+                            return <Question key={question._id} question={question} level1Comments={true}/>;
                         })
                     }
                     <div className={TagStyle["load-more-button"]}>

@@ -41,10 +41,11 @@ const NoAnswerMessage = (question: QuestionInterface)=>{
 
 interface QuestionProps{
     question: QuestionInterface;
+    level1Comments?:boolean;
     onClick?:VoidFunction;
 }
 
-export const Question:React.FC<QuestionProps> = ({question, onClick})=>{
+export const Question:React.FC<QuestionProps> = ({question, onClick, level1Comments=false})=>{
     
     const {safeNavigate} = useSafeNavigate();
 
@@ -64,7 +65,7 @@ export const Question:React.FC<QuestionProps> = ({question, onClick})=>{
                 <div className={QuestionStyle["wrapper"]}>
                     {
                         (question.bestAnswer)?
-                        <Answer answer={question.bestAnswer}/>
+                        <Answer answer={question.bestAnswer} level1Comments={level1Comments}/>
                         :
                         NoAnswerMessage(question)
                     }

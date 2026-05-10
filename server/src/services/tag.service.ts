@@ -119,8 +119,10 @@ export const fetchQuestionsByTagService = async (tagId : Types.ObjectId)=>{
         {tags: tagId}
     ).populate([
         {path:"tags"},
-        {path:"author", select:"_id userName firstName lastName profile reputationScore"},
-        {path:"bestAnswer"},
+        {path:"bestAnswer", populate:[
+                {path:"author", select:"_id userName firstName lastName profile college"},
+            ],
+        },
     ]);
 
     return questions;
