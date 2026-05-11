@@ -1,4 +1,4 @@
-import { UserAnswerTile } from "./UserAnswerTile/UserAnswerTile";
+import { UserAnswerTile } from "../../../../components/common/UserAnswerTile/UserAnswerTile";
 import type { AnswerInterface } from "../../../../types/ApiResponse/answer.type";
 import UserAnswerStyle from "./UserAnswers.module.css";
 

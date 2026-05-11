@@ -58,7 +58,7 @@ export const Header = ()=>{
 
     const handleLogout = async ()=>{
         try{
-            dispatch(logoutThunk()).unwrap();
+            await dispatch(logoutThunk()).unwrap();
             replaceNavigate(authRoutes.login);
         }catch(error){
             console.log("logout : ", error);

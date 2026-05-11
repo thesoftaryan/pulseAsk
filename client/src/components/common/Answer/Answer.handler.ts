@@ -7,6 +7,7 @@ import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiR
 import type { FetchCommentsPayload, PostCommentPayload } from "../../../types/ApiRequest/comment.type";
 import { fetchAnswerCommentsService, postAnswerCommentService } from "../../../services/answer/answerComment.service";
 import type { PostCommentResponse, CommentInterface, FetchCommentsResponse } from "../../../types/ApiResponse/comment.typs";
+import { addBookmarkService, isBookmarkedService, removeBookmarkService } from "../../../services/bookmarks.service";
 
 
 
@@ -14,9 +15,53 @@ export const useAnswerHandler = (
     setVoting: React.Dispatch<React.SetStateAction<boolean>>,
     setVoteCount: React.Dispatch<React.SetStateAction<number>>,
     setComments: React.Dispatch<React.SetStateAction<CommentInterface[]>>,
+    setBookmarked: React.Dispatch<React.SetStateAction<boolean>>,
 )=>{
 
     const auth = useAppSelector(state=>state.auth);
+
+    const isBookmarkedHandler = async (tid:string)=>{
+        try{
+            const data = {
+                type: "answer",
+                targetId: tid,
+            }
+            const response = await isBookmarkedService(data);
+            const result = parseSuccessResponse<{bookmarked: boolean}>(response);
+            setBookmarked(result.data?.bookmarked??false);
+        }catch(err){
+            const error = parseErrorResponse(err);
+            // showToast.error(error.message);
+            console.error(error.message);
+        }
+    }
+
+    const toggleBookmarkHandler = async (tid:string, bookmark:boolean)=>{
+        try{
+            if(bookmark){
+                const data = {
+                    type: "answer",
+                    targetId: tid,
+                };
+                const response = await addBookmarkService(data);
+                const result = parseSuccessResponse(response);
+                showToast.success(result.message);
+                setBookmarked(true);
+            }else{
+                const data = {
+                    type: "answer",
+                    targetId: tid,
+                };
+                const response = await removeBookmarkService(data);
+                const result = parseSuccessResponse(response);
+                showToast.warning(result.message);
+                setBookmarked(false);
+            }
+        }catch(err){
+            const error = parseErrorResponse(err);
+            showToast.error(error.message);
+        }
+    }
 
     const voteAnswerHandler = async (
         vote: VoteType, 
@@ -94,6 +139,8 @@ export const useAnswerHandler = (
     }
 
     return {
+        isBookmarkedHandler,
+        toggleBookmarkHandler,
         voteAnswerHandler,
         fetchAnswerCommentsHandler,
         postAnswerCommentHandler,

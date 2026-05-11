@@ -2,6 +2,7 @@ import AnswerStyle from "./Answer.module.css";
 
 import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
+import BookmarkFillIcon from "../../../assets/icons/general/bookmark_fill.svg?react";
 import ShareIcon from "../../../assets/icons/general/share.svg?react"
 
 import UpvoteIcon from "../../../assets/icons/general/upvote.svg?react";
@@ -40,6 +41,8 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
+    const [bookmarked, setBookmarked] = useState(true);
+
     const [commentContent, setCommentContent] = useState("");
     const [isComment, setIsComment] = useState(false);
     const [comments, setComments] = useState<CommentInterface[]>([]);
@@ -49,13 +52,21 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
     const [voting, setVoting] = useState(false);
     const [voteCount, setVoteCount] = useState(answer.voteCount);
 
-    const {voteAnswerHandler, fetchAnswerCommentsHandler, postAnswerCommentHandler} = useAnswerHandler(
+    const {
+        isBookmarkedHandler,
+        toggleBookmarkHandler,
+        voteAnswerHandler, 
+        fetchAnswerCommentsHandler, 
+        postAnswerCommentHandler
+    } = useAnswerHandler(
         setVoting,
         setVoteCount,
         setComments,
+        setBookmarked,
     );
 
     useEffect(()=>{
+        isBookmarkedHandler(answer._id);
         fetchAnswerCommentsHandler(answer._id, setFetching);
     }, []);
 
@@ -67,6 +78,10 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
         }
         await postAnswerCommentHandler(answer._id, commentContent, setPostingComment, setCommentContent);
         await fetchAnswerCommentsHandler(answer._id, setFetching);
+    }
+
+    const handleToggleBookmark = ()=>{
+        toggleBookmarkHandler(answer._id, !bookmarked);
     }
 
     return (
@@ -105,7 +120,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                     </div>
                     <div className={AnswerStyle["right"]}>
                         <Icon level2={level1} IconData={ReportIcon}/>
-                        <Icon level2={level1} IconData={BookmarkIcon}/>
+                        <Icon  onClick={handleToggleBookmark} level2={level1} IconData={bookmarked? BookmarkFillIcon:BookmarkIcon}/>
                         <Icon level2={level1} IconData={ShareIcon}/>
                     </div>
                 </div>
