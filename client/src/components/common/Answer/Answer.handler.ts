@@ -7,7 +7,7 @@ import { parseErrorResponse, parseSuccessResponse } from "../../../services/apiR
 import type { FetchCommentsPayload, PostCommentPayload } from "../../../types/ApiRequest/comment.type";
 import { fetchAnswerCommentsService, postAnswerCommentService } from "../../../services/answer/answerComment.service";
 import type { PostCommentResponse, CommentInterface, FetchCommentsResponse } from "../../../types/ApiResponse/comment.typs";
-import { addBookmarkService, isBookmarkedService, removeBookmarkService } from "../../../services/bookmarks.service";
+import { useBookmark } from "../../../hooks/bookmark.hook";
 
 
 
@@ -20,47 +20,24 @@ export const useAnswerHandler = (
 
     const auth = useAppSelector(state=>state.auth);
 
+    const {isBookmarked, toggleBookmark} = useBookmark();
+
     const isBookmarkedHandler = async (tid:string)=>{
-        try{
-            const data = {
-                type: "answer",
-                targetId: tid,
-            }
-            const response = await isBookmarkedService(data);
-            const result = parseSuccessResponse<{bookmarked: boolean}>(response);
-            setBookmarked(result.data?.bookmarked??false);
-        }catch(err){
-            const error = parseErrorResponse(err);
-            // showToast.error(error.message);
-            console.error(error.message);
+        const data = {
+            type: "answer",
+            targetId: tid,
         }
+        const bookmarked = (await isBookmarked(data))??false;
+        setBookmarked(bookmarked);
     }
 
     const toggleBookmarkHandler = async (tid:string, bookmark:boolean)=>{
-        try{
-            if(bookmark){
-                const data = {
-                    type: "answer",
-                    targetId: tid,
-                };
-                const response = await addBookmarkService(data);
-                const result = parseSuccessResponse(response);
-                showToast.success(result.message);
-                setBookmarked(true);
-            }else{
-                const data = {
-                    type: "answer",
-                    targetId: tid,
-                };
-                const response = await removeBookmarkService(data);
-                const result = parseSuccessResponse(response);
-                showToast.warning(result.message);
-                setBookmarked(false);
-            }
-        }catch(err){
-            const error = parseErrorResponse(err);
-            showToast.error(error.message);
-        }
+        const data = {
+            type: "answer",
+            targetId: tid,
+        };
+        const bookmarkValue = (await toggleBookmark(data, bookmark))?? false;
+        setBookmarked(bookmarkValue);
     }
 
     const voteAnswerHandler = async (

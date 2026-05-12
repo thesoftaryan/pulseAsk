@@ -40,14 +40,47 @@ export const Bookmarks = ()=>{
             </div>
             <FilterBar/>
             <div className={BookmarksStyle["result-count"]}>
-                928 results found
+                {
+                    (activeBookmarkType==="question")
+                    &&
+                    !(questions.length===0)
+                    &&
+                    <span>
+                        <span className={BookmarksStyle["bold-text"]}>
+                            {
+                                `${questions.length}`
+                            }
+                        </span>
+                         question found
+                    </span>
+                }
+                {
+                    (activeBookmarkType==="answer")
+                    &&
+                    !(answers.length===0)
+                    &&
+                    <span>
+                        <span className={BookmarksStyle["bold-text"]}>
+                            {
+                                `${answers.length}`
+                            }
+                        </span>
+                         answers found
+                    </span>
+                }
             </div>
             <div className={BookmarksStyle["result-container"]}>
                 {
                     activeBookmarkType==="question" && 
                     (
                         <div className={BookmarksStyle["questions-container"]}>
-                            Your bookmarked questions
+                            {
+                                questions.length===0
+                                &&
+                                <p className={BookmarksStyle["label"]}>
+                                    No Questions are bookmarked yet.
+                                </p>
+                            }
                             {
                                 questions.map((question)=>{
                                     return <Question key={question._id} question={question}/>
@@ -62,7 +95,7 @@ export const Bookmarks = ()=>{
                         <div className={BookmarksStyle["answers-container"]}>
                             {
                                 answers.map(answer=>{
-                                    return <UserAnswerTile answer={answer}/>
+                                    return <UserAnswerTile key={answer._id} answer={answer} level1={true}/>
                                 })
                             }
                         </div>

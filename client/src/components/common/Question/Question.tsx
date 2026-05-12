@@ -10,6 +10,7 @@ import RankIcon from "../../../assets/icons/general/rank.svg?react";
 
 import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
+import BookmarkFillIcon from "../../../assets/icons/general/bookmark_fill.svg?react";
 import { Icon } from "../Icon/Icon";
 // import type { User } from "../../../types/user.types";
 // import type { ReactElement } from "react";
@@ -20,6 +21,8 @@ import { relativeTimeFormat } from "../../../utils/formatDateTime.util";
 import { Answer } from "../Answer/Answer";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
+import { useQuestionHandler } from "./Question.handler";
+import { useEffect, useState } from "react";
 // import { UserProfile } from "../UserProfile/UserProfile";
 
 const NoAnswerMessage = (question: QuestionInterface)=>{
@@ -49,6 +52,20 @@ export const Question:React.FC<QuestionProps> = ({question, onClick, level1Comme
     
     const {safeNavigate} = useSafeNavigate();
 
+    const [bookmarked, setBookmarked] = useState(false);
+    const {
+        isBookmarkedHandler,
+        toggleBookmarkHandler
+    } = useQuestionHandler(setBookmarked);
+
+    useEffect(()=>{
+        isBookmarkedHandler(question._id);
+    }, []);
+
+    const handleToggleBookmark = ()=>{
+        toggleBookmarkHandler(question._id, !bookmarked);
+    }
+
     return (
         <>
             <div className={QuestionStyle["container"]} onClick={onClick}>
@@ -58,7 +75,7 @@ export const Question:React.FC<QuestionProps> = ({question, onClick, level1Comme
                     </div>
                     <div className={QuestionStyle["actions"]}>
                         <Icon level2={true} IconData={ReportIcon}/>
-                        <Icon level2={true} IconData={BookmarkIcon}/>
+                        <Icon onClick={handleToggleBookmark} level2={true} IconData={(bookmarked)?BookmarkFillIcon:BookmarkIcon}/>
                     </div>
                     <div className={QuestionStyle["meta-data"]}>{relativeTimeFormat(question.askedAt)}</div>
                 </div>
@@ -79,13 +96,6 @@ export const Question:React.FC<QuestionProps> = ({question, onClick, level1Comme
                             })
                         }
                     </div>
-                    {/* <UserProfile className={QuestionStyle["user-profile"]}/>
-                    <div className={QuestionStyle["user-data"]}>
-                        {question.author.firstName + " " + (question.author.lastName??"")}
-                        <div className={QuestionStyle["user-education"]}>
-                            {question.author.college??""}
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </>

@@ -1,3 +1,4 @@
+import { useBookmark } from "../../../hooks/bookmark.hook";
 import { useAppSelector } from "../../../hooks/store.hook";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
@@ -18,9 +19,28 @@ import { showToast } from "../../../utils/toast.util";
 export const useShowQuestionHandler = (
     setQuestion : React.Dispatch<React.SetStateAction<QuestionInterface>>,
     setAnswers : React.Dispatch<React.SetStateAction<AnswerInterface[]>>,
+    setBookmarked: React.Dispatch<React.SetStateAction<boolean>>,
 )=>{
     const auth = useAppSelector(state=>state.auth);
     const {replaceNavigate} = useSafeNavigate();
+
+    const {isBookmarked, toggleBookmark} = useBookmark();
+    const isBookmarkedHandler = async (targetId: string)=>{
+        const data = {
+            type: "question",
+            targetId,
+        }
+        const bookmarked = (await isBookmarked(data))??false;
+        setBookmarked(bookmarked);
+    }
+    const toggleBookmarkHandler = async (targetId: string, bookmark: boolean)=>{
+        const data = {
+            type: "question",
+            targetId,
+        }
+        const bookmarkValue = (await toggleBookmark(data, bookmark));
+        setBookmarked(bookmarkValue);
+    }
     
     const fetchQuestionHandler = async (qid:string, slug:string)=>{
         try{
@@ -104,6 +124,8 @@ export const useShowQuestionHandler = (
         fetchAnswersHandler,
         postAnswerHandler,
         voteQuestionHandler,
+        isBookmarkedHandler,
+        toggleBookmarkHandler,
     }
 
 }

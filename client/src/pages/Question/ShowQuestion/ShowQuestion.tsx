@@ -5,6 +5,7 @@ import QuestionIcon from "../../../assets/icons/general/question.svg?react";
 import UpvoteIcon from "../../../assets/icons/general/upvote.svg?react";
 import DownvoteIcon from "../../../assets/icons/general/downvote.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
+import BookmarkFillIcon from "../../../assets/icons/general/bookmark_fill.svg?react";
 import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import ReputationIcon from "../../../assets/icons/general/reputation.svg?react";
 import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
@@ -71,10 +72,19 @@ export const ShowQuestion = ()=>{
     const [answers, setAnswers] = useState<AnswerInterface[]>([]);
     
     const [errors, setErrors] = useState<Partial<PostAnswerPayload>>({});
-
+    
     const [posting, setPosting] = useState(false);
 
-    const{fetchQuestionHandler, fetchAnswersHandler, postAnswerHandler, voteQuestionHandler} = useShowQuestionHandler(setQuestion, setAnswers);
+    const [bookmarked, setBookmarked] = useState(false);
+
+    const{
+        fetchQuestionHandler, 
+        fetchAnswersHandler, 
+        postAnswerHandler, 
+        voteQuestionHandler,
+        isBookmarkedHandler,
+        toggleBookmarkHandler,
+    } = useShowQuestionHandler(setQuestion, setAnswers, setBookmarked);
 
 
     useEffect(()=>{
@@ -85,6 +95,12 @@ export const ShowQuestion = ()=>{
             replaceNavigate(homeRoutes.home);
         }
     }, [qid, slug]);
+
+    useEffect(()=>{
+        if(question._id!==""){
+            isBookmarkedHandler(question._id);
+        }
+    }, [question]);
 
     const handlePostAnswer = async ()=>{
 
@@ -103,15 +119,10 @@ export const ShowQuestion = ()=>{
         }
     }
 
-    // const answerObj : AnswerInterface = {
-    //     _id:"something",
-    //     qid: "asd",
-    //     askedAt:new Date(),
-    //     voteCount: 0,
-    //     author : {_id: "2", email: "thesoftaryan@gmail.com", firstName:"Aryan", lastName:"Maurya"},
-    //     content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
-    //     contentHTML : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
-    // }
+
+    const handleToggleBookmark = ()=>{
+        toggleBookmarkHandler(question._id, !bookmarked);
+    }
     
 
     return (
@@ -122,7 +133,7 @@ export const ShowQuestion = ()=>{
                             <QuestionIcon className={ShowQuestionStyle["question-icon"]}/>
                             <div className={ShowQuestionStyle["title-text"]}>{question.title}</div>
                             <div className={ShowQuestionStyle["actions-container"]}>
-                                <Icon isLarge={true} IconData={BookmarkIcon} />
+                                <Icon onClick={handleToggleBookmark} isLarge={true} IconData={(bookmarked)?BookmarkFillIcon:BookmarkIcon}/>
                                 <Icon isLarge={true} IconData={ReportIcon}/>
                             </div>
                         </div>
@@ -142,7 +153,7 @@ export const ShowQuestion = ()=>{
                                 }}/>
                             </div>
                             <div  onClick={()=>{safeNavigate(homeRoutes.profile+`/${question.author.userName}`)}}  className={ShowQuestionStyle["right"]}>
-                                <UserProfile small={true} src={question.author.profile} className={ShowQuestionStyle["user-profile"]}/>
+                                <UserProfile small={true} src={(question.author.profile!=="")? question.author.profile:undefined} className={ShowQuestionStyle["user-profile"]}/>
                                 <div className={ShowQuestionStyle["user-data"]}>
                                     <div className={ShowQuestionStyle["user-name"]}>
                                         {question.author.firstName} {question.author.lastName} 
