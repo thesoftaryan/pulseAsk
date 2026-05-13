@@ -62,4 +62,10 @@ const QuestionSchema = new Schema<QuestionInterface>(
     {timestamps: false,},
 );
 
+QuestionSchema.index({
+   title: "text",
+   description: "text",
+   tags: "text",
+});
+
 export const Question = model<QuestionInterface>("Question", QuestionSchema);

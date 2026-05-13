@@ -250,7 +250,7 @@ const chatPreferencesSchema = new Schema(
 );
 
 
-const userSchema = new Schema<UserInterface>(
+const UserSchema = new Schema<UserInterface>(
     {
         // ********** Profile Information ************ //
         profile : {
@@ -399,7 +399,7 @@ const userSchema = new Schema<UserInterface>(
     {timestamps:true,}
 );
 
-userSchema.pre("save", function(next){
+UserSchema.pre("save", function(next){
     if(!this.userName){
         // console.log("creating username: ",`${slugifyText(this.firstName)}_${this._id.toString().slice(-10)}`);
         this.userName = `${slugifyText(this.firstName)}_${this._id.toString().slice(-10)}`.slice(-20);
@@ -407,4 +407,14 @@ userSchema.pre("save", function(next){
     next();
 });
 
-export const User = model<UserInterface>("User", userSchema);
+UserSchema.index({
+    descriptionHTML: "text",
+    userName: "text",
+    firstName: "text",
+    lastName: "text",
+    degree: "text",
+    college: "text",
+    tags: "text",
+});
+
+export const User = model<UserInterface>("User", UserSchema);

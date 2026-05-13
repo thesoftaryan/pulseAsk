@@ -43,4 +43,8 @@ const AnswerSchema = new Schema<AnswerInterface>(
     {timestamps: false},
 );
 
+AnswerSchema.index({
+   content: "text",
+});
+
 export const Answer = model<AnswerInterface>("Answer", AnswerSchema);
