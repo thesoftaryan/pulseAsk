@@ -3,28 +3,31 @@ import SearchProfileTileStyle from "./SearchProfileTile.module.css";
 
 import EducationIcon from "../../../assets/icons/general/education.svg?react";
 import ReputationIcon from "../../../assets/icons/general/reputation.svg?react";
-
-export const SearchProfileTile = ()=>{
+import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../routes/routesConstants";
+interface SearchProfileTileProps{
+    profile:any;
+}
+export const SearchProfileTile:React.FC<SearchProfileTileProps> = ({profile})=>{
+    const {safeNavigate} = useSafeNavigate();
     return (
-        <div className={SearchProfileTileStyle["container"]}>
-            <div className={SearchProfileTileStyle["user-profile"]}>
-                <UserProfile/>
-            </div>
+        <div className={SearchProfileTileStyle["container"]} onClick={()=>safeNavigate(homeRoutes.profile+`/${profile.userName}`)}>
+            <UserProfile src={profile.profile} className={SearchProfileTileStyle["user-profile"]}/>
             <div className={SearchProfileTileStyle["user-data"]}>
                 <div className={SearchProfileTileStyle["user-name"]}>
-                    Aryan Maurya
+                    {profile.firstName} {profile.lastName}
                 </div>
                 <div className={SearchProfileTileStyle["user-education"]}>
                     <EducationIcon className={SearchProfileTileStyle["icon"]}/>
                     <div className={SearchProfileTileStyle["user-education-name"]}>
-                        Indian Institute of Technology, Bhilai
+                        {profile.college}
                     </div>
                 </div>
             </div>
             <div className={SearchProfileTileStyle["user-reputation"]}>
                 <ReputationIcon className={SearchProfileTileStyle["icon"]}/>
                 <div className={SearchProfileTileStyle["user-reputation-score"]}>
-                    93K
+                    {profile.reputationScore}
                 </div>
             </div>
         </div>

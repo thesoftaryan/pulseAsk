@@ -49,3 +49,19 @@
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-md);
 }
+
+.count-text{
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin: 0px var(--spacing-sm);
+}
+
+.label{
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-subheading-text);
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}

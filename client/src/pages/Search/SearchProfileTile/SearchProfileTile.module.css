@@ -11,8 +11,8 @@
 
 .user-profile{
     flex-shrink: 0;
-    width: var(--size-icon-xl);
-    height: var(--size-icon-xl);
+    width: var(--size-icon-lg);
+    height: var(--size-icon-lg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,8 +43,9 @@
 
 .user-reputation{
     position: absolute;
-    right: 0;
-    top: 0;
+    right: calc(-1*var(--spacing-sm));
+    top: calc(-1*var(--spacing-sm));
+    background-color: var(--color-level1-bg);
     margin: var(--spacing-md);
     display: flex;
     justify-content: center;
