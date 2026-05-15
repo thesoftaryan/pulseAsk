@@ -4,6 +4,7 @@ import { User } from "../models/User.model";
 
 
 export const getQASearchResultService = async (query : string)=>{
+    
     const questionResult = await Question.find(
         {
             $text:{
@@ -15,7 +16,14 @@ export const getQASearchResultService = async (query : string)=>{
                 $meta: "textScore",
             }
         }
-    ).sort({score:-1}).populate([
+    )
+    .limit(50)
+    .sort({
+        score: {
+            $meta: "textScore"
+        }
+    })
+    .populate([
             {path: "author", select:"_id userName profile firstName lastName reputationScore college"},
             {path: "tags"},
             {
@@ -25,7 +33,12 @@ export const getQASearchResultService = async (query : string)=>{
                 ]
             }
     ]);
-    const answerResult = await Answer.find(
+
+    const existingQuestionIds = new Set(
+        questionResult.map((question) => question._id.toString())
+    );
+
+    let answerResult = await Answer.find(
        {
             $text:{
                 $search : query,
@@ -37,9 +50,41 @@ export const getQASearchResultService = async (query : string)=>{
                 $meta: "textScore",
             }
         }
-    ).sort({score:-1});
-    // console.log("answers : ", answerResult, "\n\nquestions: ", questionResult);
-    return questionResult;
+    )
+    .limit(50)
+    .sort({
+        score: {
+            $meta: "textScore"
+        }
+    });
+    answerResult = answerResult.filter(
+        (answer) => !existingQuestionIds.has(answer.qid.toString())
+    );
+    const remainingQuestionIds = [
+        ...new Set(
+            answerResult.map((answer) => answer.qid.toString())
+        )
+    ];
+
+    const answerQuestions = await Question.find({
+        _id: {
+            $in: remainingQuestionIds
+        }
+    })
+    .populate([
+        {path: "author", select:"_id userName profile firstName lastName reputationScore college"},
+        {path: "tags"},
+        {
+            path:"bestAnswer",
+            populate: [
+                {path:"author", select:"_id userName profile firstName lastName reputationScore college"}
+            ]
+        }
+    ]);
+    return [
+        ...questionResult,
+        ...answerQuestions
+    ];
 }
 
 export const getPeopleSearchResultService = async (query: string)=>{
