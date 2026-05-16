@@ -11,6 +11,7 @@ export interface NotificationInterface extends Document{
     title: string;
     content: string;
     actionUrl: string;
+    isRead: boolean;
 }
 
 const NotificationSchema = new Schema<NotificationInterface>(
@@ -39,6 +40,10 @@ const NotificationSchema = new Schema<NotificationInterface>(
         },
         actionUrl: {
             type: String,
+        },
+        isRead: {
+            type: Boolean,
+            default: false,
         }
     }
 );
