@@ -87,6 +87,9 @@ export const markAsSeenService = async (uid: Types.ObjectId, conversationId: Typ
         await ChatMessage.updateMany({conversationId, status:"sent"}, {
             status: "seen",
         });
+        await User.updateOne({_id: uid}, {
+            $inc: { unreadChatCount: -conversation.unreadCount}
+        });
         conversation.unreadCount = 0;
         await conversation.save();
     }
@@ -138,6 +141,10 @@ export const createChatMessageService = async (data : any) : Promise<ChatMessage
             caption,
         },
         unreadCount : ((conversation.unreadCount as number)+1),
+    });
+
+    await User.updateOne({_id:receiverId}, {
+        $inc: {unreadChatCount: 1}
     });
 
     // await conversation.save();

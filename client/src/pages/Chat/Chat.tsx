@@ -26,12 +26,16 @@ import { relativeDateFormat, relativeTimeFormat } from "../../utils/formatDateTi
 import { TimelineTile } from "./TimelineTile/TimelineTile";
 import { PreviewImageTile } from "./PreviewImageTile/PreviewImageTile";
 import { useUploadImage } from "../../hooks/uploadImage.hook";
+import { homeRoutes } from "../../routes/routesConstants";
+import { useSafeNavigate } from "../../hooks/useSafeNavigate.hook";
 
 export interface ChatsMapInterface{
     [conversationId: string] : ChatMessageInterface[],
 }
 
 export const Chat = ()=>{
+
+    const {safeNavigate} = useSafeNavigate();
 
     const messageEndRef = useRef<HTMLDivElement>(null);
     
@@ -259,7 +263,7 @@ export const Chat = ()=>{
                     <div className={ChatStyle["header"]}>
                         <div className={ChatStyle["person-profile-status"]}>
                             <div className={ChatStyle["person-profile-container"]}>
-                                <img src={activeContact.person.profile??defaultImage} className={`${ChatStyle["person-profile"]} ${activeContact.person.status==="online"? ChatStyle["person-online"]:""}`}/>
+                                <img src={activeContact.person.profile??defaultImage} onClick={()=>safeNavigate(homeRoutes.profile + `/${activeContact.person.userName}`)} className={`${ChatStyle["person-profile"]} ${activeContact.person.status==="online"? ChatStyle["person-online"]:""}`}/>
                                 
                             </div>
                             <div className={ChatStyle["person-data"]}>

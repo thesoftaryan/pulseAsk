@@ -30,7 +30,7 @@ import { useShowQuestionHandler } from "./ShowQuestion.handler";
 import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
-import { relativeTimeFormat } from "../../../utils/formatDateTime.util";
+import { formatDate } from "../../../utils/formatDateTime.util";
 import type { PostAnswerPayload } from "../../../types/ApiRequest/answer.type";
 import { postAnswerValidator } from "./ShowQuestion.validator";
 import InlineError from "../../../components/common/InlineError/InlineError";
@@ -142,7 +142,7 @@ export const ShowQuestion = ()=>{
                         </div>
                         <div className={ShowQuestionStyle["question-meta"]}>
                             <div className={ShowQuestionStyle["left"]}>
-                                <div className={ShowQuestionStyle["question-time"]}>Asked <span className={ShowQuestionStyle["time-val"]}>{relativeTimeFormat(question.askedAt)}</span></div>
+                                <div className={ShowQuestionStyle["question-time"]}>Asked on <span className={ShowQuestionStyle["time-val"]}>{formatDate(question.askedAt)}</span></div>
                                 <Icon disabled={voting} active={(question.voteCount>=0)?true:false} IconData={UpvoteIcon} text={(question.voteCount === 0)? "Upvote":(question.voteCount>0)?question.voteCount.toString():""} 
                                 onClick={()=>{
                                     voteQuestionHandler(1, question._id, question.author._id??"", setVoting);

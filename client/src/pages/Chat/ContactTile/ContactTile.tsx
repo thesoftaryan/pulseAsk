@@ -4,7 +4,6 @@ import defaultImage from "../../../assets/images/user.png";
 import type { ContactInterface } from "../../../types/ApiResponse/chat.type";
 import { useAppSelector } from "../../../hooks/store.hook";
 
-
 interface ContactTileProps{
     contact: ContactInterface,
     onClick?: ()=>void,
@@ -14,6 +13,7 @@ interface ContactTileProps{
 export const ContactTile:React.FC<ContactTileProps> = ({contact, onClick, active})=>{
     if(!contact) return "";
     const user = useAppSelector(state=>state.auth.user);
+
     // console.log(contact);
     let lastMessagePreview = "";
     

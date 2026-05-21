@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../hooks/store.hook";
 import type { ApiError } from "../../../types/ApiResponse/index.type";
 import { resetPasswordThunk } from "../../../store/auth/thunks/resetPassword.thunk";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
-import { homeRoutes } from "../../../routes/routesConstants";
+import { authRoutes } from "../../../routes/routesConstants";
 
 
 export const useResetPasswordHandler = ()=>{
@@ -16,7 +16,7 @@ export const useResetPasswordHandler = ()=>{
         try{
             const response = await dispatch(resetPasswordThunk(data)).unwrap();
             showToast.success(response.message);
-            safeNavigate(homeRoutes.home);
+            safeNavigate(authRoutes.login);
         }catch(error){
             const err = error as ApiError;
             showToast.error(err.message);    

@@ -58,6 +58,7 @@
 .person-profile-status{
     display: flex;
     gap: var(--spacing-sm);
+    cursor: default;
 }
 
 .person-profile-container{
@@ -71,6 +72,7 @@
     border-radius: var(--size-radius-circle);
     border: var(--size-border-lg) solid transparent;
     object-fit:cover;
+    cursor: pointer;
 }
 .person-online{
     border: var(--size-border-lg) solid var(--color-success);

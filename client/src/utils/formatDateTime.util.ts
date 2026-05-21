@@ -1,10 +1,15 @@
 export const formatDate = (time : Date):string =>{
     time = new Date(time);
-    return time.toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-    });
+    if(time.getFullYear() == (new Date(Date.now())).getFullYear()){
+        return time.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+        });
+    }else return time.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+        });
 }
 
 export const formatTime = (time : Date):string => {
@@ -38,7 +43,7 @@ export const relativeTimeFormat = (time : Date): string=>{
     if (days < 7) return `${days}d ago`;
 
     const weeks = Math.floor(days / 7);
-    if (weeks < 4) return `${weeks}w ago`;
+    if (weeks < 5) return `${weeks}w ago`;
 
     const months = Math.floor(days / 30);
     if (months < 12) return `${months}mo ago`;

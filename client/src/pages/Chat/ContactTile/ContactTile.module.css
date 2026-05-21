@@ -27,6 +27,7 @@
     object-fit:cover;
     padding: 0;
     border: var(--size-border-lg) solid transparent;
+    cursor: pointer;
 }
 .person-online{
     border: var(--size-border-lg) solid var(--color-success);
@@ -39,6 +40,7 @@
     justify-content: center;
     /* background-color:brown; */
     padding: var(--spacing-sm);
+    cursor: pointer;
 }
 
 .person-name{
