@@ -108,6 +108,8 @@ export interface UserInterface{
     reputationScore: number;
     lastSeen: Date;
     status: "online" | "offline";
+    unreadNotificationCount: number;
+    unreadChatCount: number;
     
     //************* Payment Information ********** //
     paymentAccounts : PaymentAccountsInterface;

@@ -7,18 +7,20 @@ import { registerChatSocket } from './socket/chat.socket';
 
 const PORT = process.env.PORT || 2903;
 
+// first creating the server for socket
+const server = http.createServer(app);
+export const io = new Server(server, {
+    cors:{
+        origin: process.env.CLIENT_URL,
+        credentials: true,
+    }
+});
+
 connectDB()
 .then(()=>{
     console.log("Database Connected Successfully!");
 
-    const server = http.createServer(app);
 
-    const io = new Server(server, {
-        cors:{
-            origin: process.env.CLIENT_URL,
-            credentials: true,
-        }
-    });
 
     // We have to initialize socket here.
     registerChatSocket(io);

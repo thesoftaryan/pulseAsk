@@ -5,8 +5,9 @@ type NotificationType = "Answer" | "Chat" | "Payment" | "Announcement" | "Promot
 
 export interface NotificationInterface extends Document{
     _id: Types.ObjectId;
+    sender: UserInterface;
     recipient: UserInterface;
-    type: NotificationType;
+    notificationType: NotificationType;
     sentAt: Date;
     title: string;
     content: string;
@@ -16,12 +17,16 @@ export interface NotificationInterface extends Document{
 
 const NotificationSchema = new Schema<NotificationInterface>(
     {
+        sender:{
+            type: Schema.Types.ObjectId,
+            ref:"User",
+        },
         recipient:{
             type: Schema.Types.ObjectId,
             ref:"User",
             required: true,
         },
-        type: {
+        notificationType: {
             type: String,
             enum: ["Answer", "Chat", "Payment", "Announcement", "Promotional"],
             default: "Announcement",

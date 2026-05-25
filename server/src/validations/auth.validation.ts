@@ -10,7 +10,7 @@ export const validateRegister = (body : RegisterPayload) => {
     if(!isValidName(firstName)){
         errors.firstName = "Invalid First Name";
     }
-    else if(!isValidName(lastName)){
+    else if(lastName && !isValidName(lastName)){
         errors.lastName = "Invalid Last Name";
     }
 

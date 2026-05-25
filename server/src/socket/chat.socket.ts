@@ -5,9 +5,8 @@ of chat system of the app
 
 import { Server, Socket } from "socket.io";
 import { createChatMessageService, updateUserStatus } from "../services/chat.service";
-import { Types } from "mongoose";
+import { onlineUsers } from ".";
 
-const onlineUsers = new Map<string, string>();
 
 export const registerChatSocket = (io:Server)=>{
     io.on("connection", (socket: Socket)=>{
@@ -22,19 +21,10 @@ export const registerChatSocket = (io:Server)=>{
 
         socket.on("send_message", async (data)=>{
             const {receiverId} = data;
-            // console.log("user: ",senderId, ", has sent a message (", content,") to : ", receiverId);
-            
             //* We also need to verify that the senderId is mapped to this socket
 
             // real message part
             const message = await createChatMessageService(data);
-
-            //test message part
-            // const message = {
-            //     senderId: senderId,
-            //     content: content,
-            //     sentAt: new Date(),
-            // }
 
             // Now checking if the receiver is online and sending the message to his socket
             const receiverSocket = onlineUsers.get(receiverId);

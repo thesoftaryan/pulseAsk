@@ -7,7 +7,7 @@ export const registerFormValidator = (data : RegisterFormData)=>{
     const errors : Partial<RegisterFormData> = {};
 
     if(!data.firstName || !isValidName(data.firstName)) errors.firstName="Invalid First Name";
-    else if(!data.lastName || !isValidName(data.lastName)) errors.lastName="Invalid Last Name";
+    else if(data.lastName && !isValidName(data.lastName)) errors.lastName="Invalid Last Name";
 
     else if(!data.email) errors.email = "Email is required";
     else if(!isValidEmail(data.email)) errors.email = "Email isn't valid";

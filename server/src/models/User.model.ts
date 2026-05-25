@@ -380,6 +380,14 @@ const UserSchema = new Schema<UserInterface>(
             type: String,
             enum: ["online", "offline"],
         },
+        unreadNotificationCount:{
+            type: Number,
+            default: 0,
+        },
+        unreadChatCount:{
+            type: Number,
+            default: 0,
+        },
         
         //************* Payment Information ********** //
         paymentAccounts : {

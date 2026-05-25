@@ -1,10 +1,3 @@
-import { Server } from "socket.io";
+export const onlineUsers = new Map<string, string>();
 
-/*
-Creating an index file to keep the things clean 
-and keep the design open for any other kind of
-modifications.
-*/
-export const initSockets = (io : Server)=>{
-
-}
+export const getUserSocket = (uid:string)=>onlineUsers.get(uid);

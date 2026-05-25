@@ -87,11 +87,16 @@ export const markAsSeenService = async (uid: Types.ObjectId, conversationId: Typ
         await ChatMessage.updateMany({conversationId, status:"sent"}, {
             status: "seen",
         });
-        await User.updateOne({_id: uid}, {
-            $inc: { unreadChatCount: -conversation.unreadCount}
-        });
+        const prevUnreadCount = conversation.unreadCount as number;
         conversation.unreadCount = 0;
         await conversation.save();
+        // console.log("resetting the chatCount for user: ", uid);
+        
+        const user = await User.findOne({_id: uid});
+        if(user?.unreadChatCount){
+            user.unreadChatCount = 0;
+            await user.save();
+        }
     }
 }
 
@@ -116,9 +121,6 @@ export const resetUnreadCountService = async (conversationId: Types.ObjectId)=>{
 export const createChatMessageService = async (data : any) : Promise<ChatMessageInterface>=>{
     const {senderId, receiverId, content, caption, type} = data;
     
-    // if(!)
-    // console.log("data received: ", data);
-
     const conversation = await getOrCreateConversationService(senderId, receiverId);
 
     const message = await (await ChatMessage.create({
@@ -143,6 +145,10 @@ export const createChatMessageService = async (data : any) : Promise<ChatMessage
         unreadCount : ((conversation.unreadCount as number)+1),
     });
 
+    // console.log("receiverId to update: ",receiverId);
+    // const user = await User.findOne({_id:receiverId});
+    // console.log("user: ", user);
+    
     await User.updateOne({_id:receiverId}, {
         $inc: {unreadChatCount: 1}
     });
