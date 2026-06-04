@@ -9,6 +9,7 @@ import { Question } from "../models/Question.model";
 import { User } from "../models/User.model";
 import { reputationPolicy } from "../constants/reputation.constants";
 import { updateUserStatsService } from "./profile.service";
+import { appEventEmitter } from "../emitter/emitter";
 
 
 /**
@@ -42,17 +43,22 @@ export const postAnswerService = async (author:Types.ObjectId, data : PostAnswer
         await question.save();
     }
 
+    
     await updateUserStatsService(author, {
         reputationChange: reputationPolicy.answerPosted,
         answersGivenChange: 1,
     });
-
-    // await User.updateOne({_id: author},{
-    //     $inc: {
-    //         reputationScore: reputationPolicy.answerPosted,
-    //         answersGiven: 1,
-    //     }
-    // });
+    
+    appEventEmitter.emit(
+        "answer.created",
+        {
+            senderId: author,
+            receiverId: question?.author,
+            answerId: answer._id,
+            questionId: question?._id,
+        }
+    );
+    
 }
 
 /**

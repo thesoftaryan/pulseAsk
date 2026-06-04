@@ -17,6 +17,8 @@ import generalRoutes from "./routes/general.route";
 import { errorMiddleware } from "./middlewares/error.middleware";
 import { authMiddleware } from "./middlewares/auth.middleware";
 
+import "./listeners/notification.listener"
+
 const app = express();
 
 // Middlewares

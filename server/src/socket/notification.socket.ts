@@ -5,6 +5,7 @@ import { io } from "../server";
 export const emitSocketNotification = (
     uid: string,
     notification: any,
+    type: string = "system",
 )=>{
     const socketId = getUserSocket(uid);
     if(socketId){
