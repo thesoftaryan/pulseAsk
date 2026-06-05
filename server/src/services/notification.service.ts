@@ -1,5 +1,13 @@
+import { Types } from "mongoose";
 import { Notification } from "../models/Notification.model"
 import { User } from "../models/User.model"
+
+
+export const fetchNotificationsService = async (uid:Types.ObjectId)=>{
+    const notifications = await Notification.find({recipient: uid});
+    return notifications;
+}
+
 
 export const createAnswerNotificationService = async (
     data : any
@@ -13,7 +21,7 @@ export const createAnswerNotificationService = async (
         sentAt: new Date(Date.now()),
         title: "Received an answer",
         content: `${sender?.firstName} answered your question`,
-        actionUrl: `${process.env.CLIENT_URL}/question/${questionId}`,
+        actionUrl: `/question/${questionId}/slug`,
     });
     await User.updateOne({_id:receiverId}, {
         $inc: {unreadNotificationCount: 1},
