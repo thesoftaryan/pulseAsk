@@ -8,6 +8,11 @@ export const fetchNotificationsService = async (uid:Types.ObjectId)=>{
     return notifications;
 }
 
+export const markNotificationAsSeenService = async (uid:Types.ObjectId, notificationId: Types.ObjectId)=>{
+    await Notification.updateOne({_id: notificationId, recipient: uid}, {
+        isRead: true,
+    });
+}
 
 export const createAnswerNotificationService = async (
     data : any

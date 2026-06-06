@@ -4,6 +4,7 @@ export const formatDate = (time : Date):string =>{
         return time.toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
+            weekday:"short",
         });
     }else return time.toLocaleDateString("en-US", {
             month: "long",

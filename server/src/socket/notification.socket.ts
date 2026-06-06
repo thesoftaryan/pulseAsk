@@ -7,7 +7,9 @@ export const emitSocketNotification = (
     notification: any,
     type: string = "system",
 )=>{
+    // console.log("calling getUserSocket");
     const socketId = getUserSocket(uid);
+    // console.log(socketId, uid, notification);
     if(socketId){
         io.to(socketId).emit(
             "notification:new",

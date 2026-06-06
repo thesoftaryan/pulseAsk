@@ -6,6 +6,6 @@ appEventEmitter.on(
     "answer.created",
     async (data)=>{
         const notification = await createAnswerNotificationService(data);
-        emitSocketNotification(data.senderId, notification, "answer");
+        emitSocketNotification(data.receiverId, notification, "answer");
     }
 )

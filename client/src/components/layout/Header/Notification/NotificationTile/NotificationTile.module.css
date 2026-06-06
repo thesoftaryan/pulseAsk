@@ -5,22 +5,23 @@
     padding: var(--spacing-sm);
     border-radius: var(--size-radius-sm);
     color: var(--color-text);
+    cursor:default;
 }
 .left{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: var(--spacing-sm);
     font-size: var(--font-size-sm);
     /* color: var(--color-subheading-text); */
 }
+.left .date{
+    display: flex;
+    width: max-content;
+}
 .left .time{
     display: flex;
-    align-items: flex-start;
     gap: var(--spacing-xs);
-}
-
-.left .time-specifier{
-    font-size: var(--font-size-xs);
 }
 
 .separator{
@@ -47,12 +48,15 @@
     align-items: center;
     justify-content: center;
     gap: var(--spacing-sm);
-    margin-left: var(--spacing-md);
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
     font-size: var(--font-size-sm);
     cursor: pointer;
     color: var(--color-subheading-text);
+    /* background-color: purple; */
 }
 .icon{
+    /* background-color: red; */
     height: var(--size-icon-sm);
     width: var(--size-icon-sm);
     transform: rotateY(180deg);
@@ -60,6 +64,8 @@
 
 .unread{
     position: absolute;
+    /* top: var(--spacing-xs);
+    right: var(--spacing-xs); */
     top: 0;
     right: 0;
     margin: var(--spacing-sm);

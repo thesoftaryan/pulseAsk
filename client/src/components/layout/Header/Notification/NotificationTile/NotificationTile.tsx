@@ -6,16 +6,19 @@ import { useSafeNavigate } from "../../../../../hooks/useSafeNavigate.hook";
 
 interface NotificationTileProps{
     notification: any;
+    markAsRead: (notificationId: string) => Promise<void>;
 }
 
-export const NotificationTile : React.FC<NotificationTileProps> = ({notification})=>{
+export const NotificationTile : React.FC<NotificationTileProps> = ({notification, markAsRead})=>{
     const {safeNavigate} = useSafeNavigate();
     return (
         <div  className={NotificationTileStyle["container"]}>
             <div  className={NotificationTileStyle["left"]}>
-                {<p>{formatDate(notification.sentAt)}</p>}
+                <div className={NotificationTileStyle["date"]}>
+                    {formatDate(notification.sentAt)}
+                </div>
                 <div  className={NotificationTileStyle["time"]}>
-                    {<p>{formatTime(notification.sentAt)}</p>}
+                    {formatTime(notification.sentAt)}
                 </div>
             </div>
             <div  className={NotificationTileStyle["separator"]}></div>
@@ -23,10 +26,14 @@ export const NotificationTile : React.FC<NotificationTileProps> = ({notification
                 <div  className={NotificationTileStyle["notification-type"]}>{notification.title}</div>
                 <div  className={NotificationTileStyle["notification-message"]}>{notification.content}</div>
             </div>
-            <div  className={NotificationTileStyle["right"]}>
-                <div onClick={()=>safeNavigate(notification.actionUrl)} className={NotificationTileStyle["action"]}>View Now</div>
-                <ChevronLeftIcon  className={NotificationTileStyle["icon"]}/>
-            </div>
+            {
+                notification.actionUrl
+                &&
+                <div onClick={()=>{safeNavigate(notification.actionUrl); if(!notification.isRead)markAsRead(notification._id);}} className={NotificationTileStyle["right"]}>
+                    {/* <div onClick={()=>safeNavigate(notification.actionUrl)} className={NotificationTileStyle["action"]}></div> */}
+                    <ChevronLeftIcon  className={NotificationTileStyle["icon"]}/>
+                </div>
+            }
             {
                 !notification.isRead
                 &&
