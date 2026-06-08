@@ -12,6 +12,11 @@ export const markNotificationAsSeenService = async (uid:Types.ObjectId, notifica
     await Notification.updateOne({_id: notificationId, recipient: uid}, {
         isRead: true,
     });
+    await User.updateOne({_id: uid, unreadNotificationCount: {$gt: 0}}, {
+        $inc:{
+            unreadNotificationCount: -1,
+        }
+    });
 }
 
 export const createAnswerNotificationService = async (
@@ -25,7 +30,7 @@ export const createAnswerNotificationService = async (
         notificationType: "Answer",
         sentAt: new Date(Date.now()),
         title: "Received an answer",
-        content: `${sender?.firstName} answered your question`,
+        content: `${sender?.userName} answered your question`,
         actionUrl: `/question/${questionId}/slug`,
     });
     await User.updateOne({_id:receiverId}, {

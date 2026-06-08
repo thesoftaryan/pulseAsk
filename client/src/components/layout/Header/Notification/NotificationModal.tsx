@@ -3,18 +3,20 @@ import NotificationModalStyle from "./NotificationModal.module.css";
 import { NotificationTile } from "./NotificationTile/NotificationTile";
 import { useNotificationModal } from "./NotificationModal.handler";
 import { Spinner } from "../../../common/Spinner/Spinner";
-import { getSocket } from "../../../../services/socket.service";
 
-export const NotificationModal = (
+interface NotificationModalProps{
+    notifications: any[],
+    setNotifications: React.Dispatch<React.SetStateAction<any[]>>,
+}
 
-)=>{
-
-    const socket = getSocket();
+export const NotificationModal:React.FC<NotificationModalProps> = ({
+    notifications,
+    setNotifications,
+})=>{
 
     const [fetching, setFetching] = useState(false);
-    const [notifications, setNotifications] = useState<any[]>([]);
+    // const [notifications, setNotifications] = useState<any[]>([]);
     const {fetchNotifications, markNotificationAsSeenHandler} = useNotificationModal(
-        socket,
         setNotifications,
         setFetching,
     );

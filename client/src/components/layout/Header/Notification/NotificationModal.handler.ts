@@ -1,27 +1,15 @@
-import type { Socket } from "socket.io-client";
 import { parseErrorResponse, parseSuccessResponse } from "../../../../services/apiResponseParser.service";
 import { fetchNotificationsService, markNotificationAsSeenService } from "../../../../services/notification.service"
-import { useEffect } from "react";
+import { useAppDispatch } from "../../../../hooks/store.hook";
+import { updateUnreadNotificationCount } from "../../../../store/auth/auth.slice";
 
 
 export const useNotificationModal = (
-    socket: Socket | null,
     setNotifications : React.Dispatch<React.SetStateAction<any[]>>,
     setWorking : React.Dispatch<React.SetStateAction<boolean>>,
 )=>{
 
-    // registering for socket notification
-    useEffect(()=>{
-        if(!socket) return;
-        
-        const handler = (data: any) => {
-            setNotifications(prev => [...prev, data]);
-        };
-        socket.on("notification:new", handler);
-        return () => {
-            socket.off("notification:new", handler);
-        };
-    }, [socket]);
+    const dispatch = useAppDispatch();
 
     // fetching initial notifications
     const fetchNotifications = async ()=>{
@@ -29,7 +17,9 @@ export const useNotificationModal = (
             setWorking(true);
             const response = await fetchNotificationsService();
             const result = parseSuccessResponse<any>(response);
-            setNotifications(result.data.notifications);
+            let notifications = result.data.notifications;
+            notifications.reverse();
+            setNotifications(notifications);
             console.log(result.data);
         }catch(error){
             const err = parseErrorResponse(error);
@@ -43,6 +33,7 @@ export const useNotificationModal = (
         try{
             const response = await markNotificationAsSeenService({notificationId});
             const result = parseSuccessResponse<any>(response);
+            dispatch(updateUnreadNotificationCount({change: -1}));
             setNotifications((prev)=>{
                 let notifications=[];
                 for(let notification of prev){

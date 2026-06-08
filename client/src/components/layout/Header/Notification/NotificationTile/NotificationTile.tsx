@@ -3,6 +3,7 @@ import NotificationTileStyle from "./NotificationTile.module.css";
 import ChevronLeftIcon from "../../../../../assets/icons/Chevron left.svg?react";
 import { formatDate, formatTime } from "../../../../../utils/formatDateTime.util";
 import { useSafeNavigate } from "../../../../../hooks/useSafeNavigate.hook";
+import { homeRoutes } from "../../../../../routes/routesConstants";
 
 interface NotificationTileProps{
     notification: any;
@@ -11,6 +12,7 @@ interface NotificationTileProps{
 
 export const NotificationTile : React.FC<NotificationTileProps> = ({notification, markAsRead})=>{
     const {safeNavigate} = useSafeNavigate();
+    const userName = ((notification.content as string).split(" "))[0];
     return (
         <div  className={NotificationTileStyle["container"]}>
             <div  className={NotificationTileStyle["left"]}>
@@ -24,7 +26,7 @@ export const NotificationTile : React.FC<NotificationTileProps> = ({notification
             <div  className={NotificationTileStyle["separator"]}></div>
             <div  className={NotificationTileStyle["notification"]}>
                 <div  className={NotificationTileStyle["notification-type"]}>{notification.title}</div>
-                <div  className={NotificationTileStyle["notification-message"]}>{notification.content}</div>
+                <div  className={NotificationTileStyle["notification-message"]} onClick={()=>safeNavigate(homeRoutes.profile+`/${userName}`)}>{notification.content}</div>
             </div>
             {
                 notification.actionUrl

@@ -4,11 +4,12 @@ import { getContactsService, getUserContactDetailsService } from "../../services
 import { showToast } from "../../utils/toast.util";
 import type { ChatMessageInterface, ContactInterface, FetchMessagesResponse, GetContactsResponse, GetUserContactDetailsResponse } from "../../types/ApiResponse/chat.type";
 // import { connectSocket } from "../../services/socket.service";
-import { useAppSelector } from "../../hooks/store.hook";
+import { useAppDispatch, useAppSelector } from "../../hooks/store.hook";
 import { useEffect} from "react";
 import type { Socket } from "socket.io-client";
 import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
 import type { ChatsMapInterface } from "./Chat";
+import { updateUnreadChatCount } from "../../store/auth/auth.slice";
 
 export const useChatHandler = (
     socket: Socket | null,
@@ -19,6 +20,8 @@ export const useChatHandler = (
     setFetching: React.Dispatch<React.SetStateAction<boolean>>,
     setActiveContact: React.Dispatch<React.SetStateAction<ContactInterface | undefined>>,
 )=>{
+
+    const dispatch = useAppDispatch();
 
     const user = useAppSelector(state=>state.auth.user);
 
@@ -259,14 +262,15 @@ export const useChatHandler = (
                     return prev.map((cont)=>{
                         if(cont.conversationId === conversationId){
                             // if(cont.person._id === activeContact?.person._id){
-                            //     setActiveContact((prev)=>{
-                            //         if(!prev) return;
-                            //         return {
-                            //             ...prev,
-                            //             unreadCount:0,
-                            //         }
-                            //     });
-                            // }
+                                //     setActiveContact((prev)=>{
+                                    //         if(!prev) return;
+                                    //         return {
+                                        //             ...prev,
+                                        //             unreadCount:0,
+                                        //         }
+                                        //     });
+                                        // }
+                            dispatch(updateUnreadChatCount({change: -cont.unreadCount}));
                             return {
                                 ...cont,
                                 unreadCount: 0,

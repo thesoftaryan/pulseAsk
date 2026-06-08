@@ -43,6 +43,20 @@ const authSlice = createSlice({
             }
         },
 
+        updateUnreadChatCount(state, action){
+            if(state.user){
+                state.user.unreadChatCount = (state.user.unreadChatCount??0) + action.payload.change;
+                console.log("Updated chat count: ", state.user.unreadChatCount);
+            }
+        },
+
+        updateUnreadNotificationCount(state, action){
+            if(state.user){
+                state.user.unreadNotificationCount = (state.user.unreadNotificationCount??0) + action.payload.change;
+                console.log("Updated notification count: ", state.user.unreadNotificationCount);
+            }
+        },
+
         updatePaymentPreferences(state, action){
             if(state.user) state.user.paymentPreferences = action.payload;
         },
@@ -175,5 +189,5 @@ const authSlice = createSlice({
     }
 });
 
-export const {clearAuthError, updateChatPreferences, updateNotificationPreferences, updatePaymentPreferences, updateUserProfileImage, addKTag, removeKTag} = authSlice.actions;
+export const {clearAuthError, updateChatPreferences, updateNotificationPreferences, updatePaymentPreferences, updateUserProfileImage, addKTag, removeKTag, updateUnreadChatCount, updateUnreadNotificationCount} = authSlice.actions;
 export default authSlice.reducer;

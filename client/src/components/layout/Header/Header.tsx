@@ -22,6 +22,8 @@ import { authRoutes, homeRoutes } from "../../../routes/routesConstants";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { NotificationModal } from "./Notification/NotificationModal";
 import { SearchBar } from "../SearchBar/SearchBar";
+import { updateUnreadNotificationCount } from "../../../store/auth/auth.slice";
+import { getSocket } from "../../../services/socket.service";
 
 
 export const Header = ()=>{
@@ -56,6 +58,23 @@ export const Header = ()=>{
     }, []);
 
 
+    // registering for socket notification
+    const [notifications, setNotifications] = useState<any[]>([]);    
+    const socket = getSocket();
+    useEffect(()=>{
+        if(!socket) return;
+        
+        const handler = (data: any) => {
+            // console.log("Received a new notification");
+            dispatch(updateUnreadNotificationCount({change: 1}));
+            setNotifications(prev => [data, ...prev]);
+        };
+        socket.on("notification:new", handler);
+        return () => {
+            socket.off("notification:new", handler);
+        };
+    }, [socket]);
+
     const handleLogout = async ()=>{
         try{
             await dispatch(logoutThunk()).unwrap();
@@ -75,7 +94,14 @@ export const Header = ()=>{
                 <PulseAskIcon className={HeaderStyle["site-icon"]}/>
                 <div className={HeaderStyle["left-container"]}>
                     <HomeIcon className={HeaderStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.home)}}/>
-                    <MessageIcon className={HeaderStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat)}}/>
+                    <div className={HeaderStyle["message-icon-wrapper"]}>
+                        <MessageIcon className={HeaderStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat)}}/>
+                        {
+                            ((Boolean)(user?.unreadChatCount))
+                            &&
+                            <div className={HeaderStyle["unread-indicator"]}></div>
+                        }
+                    </div>
                     {/* <TagIcon className={HeaderStyle["icon"]}  onClick={()=>{safeNavigate(homeRoutes.tag)}}/> */}
                 </div>
                 <div className={HeaderStyle["middle-container"]}>
@@ -85,11 +111,16 @@ export const Header = ()=>{
                     {theme === "light"? <LightTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>:<DarkTheme onClick={()=>{dispatch(toggleTheme())}} className={HeaderStyle["icon"]}/>}
                     
                     <div ref={notificationRef} className={HeaderStyle["notification-modal-wrapper"]}>
+                        {
+                            ((Boolean)(user?.unreadNotificationCount))
+                            &&
+                            <div className={HeaderStyle["unread-indicator"]}></div>
+                        }
                         <NotificationIcon className={HeaderStyle["icon"]} onClick={()=>{setIsNotificationOpen(!isNotificationOpen)}}/>
                         {
                             isNotificationOpen && (
                                 <div className={HeaderStyle["notification-modal"]}>
-                                    <NotificationModal/>
+                                    <NotificationModal notifications={notifications} setNotifications={setNotifications}/>
                                 </div>
                             )
                         }

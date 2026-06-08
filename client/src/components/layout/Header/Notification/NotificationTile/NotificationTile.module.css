@@ -40,6 +40,7 @@
     font-weight: var(--font-weight-medium);
 }
 .notification-message{
+    cursor: pointer;
     font-size: var(--font-size-sm);
     /* color: var(--color-subheading-text); */
 }
