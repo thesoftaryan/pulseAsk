@@ -35,7 +35,7 @@ import type { PostAnswerPayload } from "../../../types/ApiRequest/answer.type";
 import { postAnswerValidator } from "./ShowQuestion.validator";
 import InlineError from "../../../components/common/InlineError/InlineError";
 
-
+import DOMPurify from "dompurify";
 
 type QuestionParams = {
     qid: string;
@@ -137,9 +137,12 @@ export const ShowQuestion = ()=>{
                                 <Icon isLarge={true} IconData={ReportIcon}/>
                             </div>
                         </div>
-                        <div className={ShowQuestionStyle["question-content"]}>
-                            {question.descriptionHTML}
-                        </div>
+                        <div 
+                            className={ShowQuestionStyle["question-content"]}
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(question.descriptionHTML),
+                            }}
+                        />
                         <div className={ShowQuestionStyle["question-meta"]}>
                             <div className={ShowQuestionStyle["left"]}>
                                 <div className={ShowQuestionStyle["question-time"]}>Asked on <span className={ShowQuestionStyle["time-val"]}>{formatDate(question.askedAt)}</span></div>

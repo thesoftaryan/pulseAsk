@@ -29,6 +29,8 @@ import InlineError from "../InlineError/InlineError";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
 
+import DOMPurify from "dompurify";
+
 interface AnswerProps{
     answer: AnswerInterface,
     level1?: boolean;
@@ -101,9 +103,12 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                     </div>
 
                 </div>
-                <div className={AnswerStyle["answer-wrapper"]}>
-                    {answer.contentHTML}
-                </div>
+                <div 
+                    className={AnswerStyle["answer-wrapper"]}
+                    dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(answer.contentHTML),
+                    }}
+                />
                 <div className={AnswerStyle["footer"]}>
                     <div className={AnswerStyle["left"]}>
                         <Icon disabled={voting} active={(voteCount>=0)? true:false} text={(voteCount>0)? voteCount.toString():"Upvote"} level2={level1} IconData={UpvoteIcon} 
