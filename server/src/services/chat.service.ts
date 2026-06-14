@@ -149,9 +149,11 @@ export const createChatMessageService = async (data : any) : Promise<ChatMessage
     // const user = await User.findOne({_id:receiverId});
     // console.log("user: ", user);
     
-    await User.updateOne({_id:receiverId}, {
-        $inc: {unreadChatCount: 1}
-    });
+    if(senderId != receiverId){
+        await User.updateOne({_id:receiverId}, {
+            $inc: {unreadChatCount: 1}
+        });
+    }
 
     // await conversation.save();
 

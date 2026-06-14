@@ -8,6 +8,8 @@ import type { AnswerInterface } from "../../../types/ApiResponse/answer.type";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
 
+import DOMPurify from "dompurify";
+
 interface UserAnswerTileProps{
     answer: Partial<AnswerInterface>,
     level1?: boolean;
@@ -31,9 +33,11 @@ export const UserAnswerTile : React.FC<UserAnswerTileProps> = ({answer, level1})
                     </div>
                     <div className={UserAnswerTileStyle["time-asked"]}>{relativeTimeFormat(answer.askedAt!)}</div>
                 </div>
-                <div className={UserAnswerTileStyle["answer-wrapper"]}>
-                    {answer.contentHTML}
-                </div>
+                <div className={UserAnswerTileStyle["answer-wrapper"]}
+                    dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(answer.contentHTML??""),
+                    }}
+                />
                 <div className={UserAnswerTileStyle["footer"]}>
                     <Button text="See Question" isSmall={true} onClick={()=>safeNavigate(homeRoutes.question+`/${answer.qid?._id}/${answer.qid?.slug}`)}/>
                 </div>

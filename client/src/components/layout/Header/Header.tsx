@@ -134,6 +134,7 @@ export const Header = ()=>{
                                 <ul>
                                     <li onClick={()=>{safeNavigate(homeRoutes.profile+`/${user?.userName}`)}}>Profile</li>
                                     <li onClick={()=>{safeNavigate(homeRoutes.bookmarks)}}>Bookmarks</li>
+                                    <li onClick={()=>{safeNavigate(homeRoutes.wallet)}}>Wallet</li>
                                     <li onClick={()=>{safeNavigate(homeRoutes.settings)}}>Settings</li>
                                     <li onClick={handleLogout}>Logout</li>
                                 </ul>

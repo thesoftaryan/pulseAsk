@@ -28,7 +28,7 @@ export const ChatSettings = ()=>{
         <div className={ChatSettingsStyle["container"]}>
             <Divider text="Set your chat preferences"/>
             <div className={ChatSettingsStyle["preferences"]}>
-                <PreferenceTile onClick={updating?undefined:handleChatSettingsChange} text="Enable users to message you" active={chatPreferences.enableChat}/>
+                <PreferenceTile onClick={updating?undefined:handleChatSettingsChange} text="Enable new users to message you" active={chatPreferences.enableChat}/>
                 <div className={ChatSettingsStyle["blocked-user-container"]}>
                     <div className={ChatSettingsStyle["text"]}>See the users you have blocked</div>
                     <ChevronleftIcon className={ChatSettingsStyle["chevron-left"]}/>

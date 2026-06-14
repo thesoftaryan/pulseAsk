@@ -12,6 +12,7 @@ import { Chat } from "../pages/Chat/Chat";
 import { Search } from "../pages/Search/Search";
 import { Settings } from "../pages/Settings/Settings";
 import { Bookmarks } from "../pages/Bookmarks/Bookmarks";
+import { Wallet } from "../pages/Wallet/Wallet";
 
 
 const router = createBrowserRouter([
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
                 {path: homeRoutes.askQuestion, element: <AskQuestion/>},
                 {path: homeRoutes.profile+"/:userName", element: <Profile/>},
                 {path: homeRoutes.bookmarks, element: <Bookmarks/>},
+                {path: homeRoutes.wallet, element: <Wallet/>},
                 {path: homeRoutes.chat, element: <Chat/>},
                 {path: homeRoutes.search, element: <Search/>},
                 {path: homeRoutes.settings, element: <Settings/>},

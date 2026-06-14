@@ -20,5 +20,6 @@ export const homeRoutes = {
     // requires /profile/:userName
     profile: "/profile",
     bookmarks: "/bookmarks",
+    wallet: "/wallet",
     settings: "/settings"
 }
