@@ -270,7 +270,9 @@ export const useChatHandler = (
                                         //         }
                                         //     });
                                         // }
-                            dispatch(updateUnreadChatCount({change: -cont.unreadCount}));
+                            if(cont.lastMessage?.sender != user?._id){                                
+                                dispatch(updateUnreadChatCount({change: -cont.unreadCount}));
+                            }
                             return {
                                 ...cont,
                                 unreadCount: 0,

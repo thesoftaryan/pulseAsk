@@ -45,14 +45,14 @@ const authSlice = createSlice({
 
         updateUnreadChatCount(state, action){
             if(state.user){
-                state.user.unreadChatCount = (state.user.unreadChatCount??0) + action.payload.change;
+                state.user.unreadChatCount = Math.max((state.user.unreadChatCount??0) + action.payload.change, 0);
                 console.log("Updated chat count: ", state.user.unreadChatCount);
             }
         },
 
         updateUnreadNotificationCount(state, action){
             if(state.user){
-                state.user.unreadNotificationCount = (state.user.unreadNotificationCount??0) + action.payload.change;
+                state.user.unreadNotificationCount = Math.max((state.user.unreadNotificationCount??0) + action.payload.change, 0);
                 console.log("Updated notification count: ", state.user.unreadNotificationCount);
             }
         },

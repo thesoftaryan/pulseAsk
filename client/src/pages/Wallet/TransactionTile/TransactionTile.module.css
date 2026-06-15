@@ -1,0 +1,40 @@
+.container{
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: var(--color-text);
+    /* background-color: red; */
+}
+
+.time{
+    font-size: var(--font-size-sm);
+    color: var(--color-subheading-text);
+}
+
+.transaction-id{
+    color: var(--color-subheading-text);
+}
+
+.other-party{
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.user-profile{
+    width: var(--size-icon-md);
+    height: var(--size-icon-md);
+    border-radius: var(--size-radius-circle);
+    background-color: red;
+}
+
+.amount{
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-danger);
+}
+
+.received{
+    color: var(--color-green);
+}
