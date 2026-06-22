@@ -14,6 +14,7 @@ import leaderboardRoute from "./routes/leaderboard.route";
 import bookmarksRoute from "./routes/bookmarks.route";
 import searchRoute from "./routes/search.route";
 import notificationRoute from "./routes/notification.route";
+import paymentRoute from "./routes/payment.route";
 import generalRoutes from "./routes/general.route";
 import { errorMiddleware } from "./middlewares/error.middleware";
 import { authMiddleware } from "./middlewares/auth.middleware";
@@ -76,6 +77,9 @@ app.use("/search", authMiddleware, searchRoute);
 
 // ********** Notification Route *********** \\
 app.use("/notification", authMiddleware, notificationRoute);
+
+// ********** Payment Route *********** \\
+app.use("/payment", authMiddleware, paymentRoute);
 
 // ********** General Routes *********** \\
 app.use("/", authMiddleware, generalRoutes);

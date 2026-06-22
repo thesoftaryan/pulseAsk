@@ -21,6 +21,7 @@ import type { QuestionInterface } from "../../types/ApiResponse/question.type";
 import type { AnswerInterface } from "../../types/ApiResponse/answer.type";
 import { useSafeNavigate } from "../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../routes/routesConstants";
+import { PaymentModal } from "./PaymentModal/PaymentModal";
 
 
 
@@ -41,6 +42,7 @@ export const Profile = ()=>{
     const [questions, setQuestions] = useState<QuestionInterface[]>([]);
     const [answers, setAnswers] = useState<AnswerInterface[]>([]);
 
+    const [openPayment, setOpenPayment] = useState(false);
 
     const {fetchProfileHandler} = useProfileHandler(setUser, setQuestions, setAnswers, setFetchingProfile);
 
@@ -72,7 +74,18 @@ export const Profile = ()=>{
 
                     <div className={ProfileStyle["user-actions"]}>
                         {user?.chatPreferences?.enableChat && <ChatIcon className={ProfileStyle["icon"]} onClick={()=>{safeNavigate(homeRoutes.chat+`?user=${user._id}`)}}/>}
-                        {user?.paymentPreferences?.enablePayment && <DonateIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["donate-icon"]}`}/>}
+                        {user?.paymentPreferences?.enablePayment && 
+                            <div className={ProfileStyle["donate-icon-container"]}>
+                                <DonateIcon onClick={()=>setOpenPayment((prev)=>!prev)} className={`${ProfileStyle["icon"]} ${ProfileStyle["donate-icon"]}`}/>
+                                {
+                                    openPayment
+                                    &&
+                                    <div className={ProfileStyle["payment-modal"]}>
+                                        <PaymentModal setOpenPaymentModal={setOpenPayment} receiver={user._id??""}/>
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className={ProfileStyle["right"]}>

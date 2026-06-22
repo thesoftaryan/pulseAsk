@@ -1,5 +1,6 @@
 .container{
     flex-grow: 1;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,10 +76,25 @@
     /* background-color: green; */
 }
 
+.user-actions .icon{
+    cursor: pointer;
+}
+
+.donate-icon-container{
+    position: relative;
+}
+
 .donate-icon{
     color: var(--color-error);
 }
 
+.payment-modal{
+    display: flex;
+    position: absolute;
+    top: 101%;
+    left: 102%;
+    z-index: 1001;
+}
 
 .right{
     flex-grow: 1;

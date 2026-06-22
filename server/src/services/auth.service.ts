@@ -11,6 +11,7 @@ import { ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPaylo
 import { generateHash } from "../utils/hash.util";
 import { signToken, verifyToken } from "../utils/jwt.util";
 import { updateLeaderboardService } from "./leaderboard.service";
+import { Wallet } from "../models/wallet.model";
 
 
 /**
@@ -87,6 +88,13 @@ export const registerUserService = async (payload : RegisterPayload) => {
             Date.now() + 10*60*1000 // 10 minutes
         ),
     });
+
+    await Wallet.create(
+        {
+            uid: user._id,
+            balance: 1000,
+        }
+    )
 
     updateLeaderboardService(user._id);
 

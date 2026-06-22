@@ -10,6 +10,7 @@ export interface WalletInterface{
 const WalletSchema = new Schema<WalletInterface>({
     uid: {
         type: Schema.Types.ObjectId,
+        ref:"User",
         required: true,
     },
     balance:{
@@ -18,9 +19,11 @@ const WalletSchema = new Schema<WalletInterface>({
     },
     totalSent:{
         type: Number,
+        default: 0,
     },
     totalReceived: {
         type: Number,
+        default: 0,
     }
 });
 

@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    background-color: var(--color-level1-bg);
+    border-radius: var(--size-radius-md);
+    box-shadow: 2px 2px 10px var(--color-primary);
+}
+
+.heading{
+    display: flex;
+    justify-content: center;
+    margin: var(--spacing-md) 0px;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+}
+
+.tip-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
