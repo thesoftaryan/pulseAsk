@@ -15,6 +15,11 @@
     color: var(--color-subheading-text);
 }
 
+.exact-time{
+    font-size: var(--font-size-xs);
+    margin-top: var(--spacing-xs);
+}
+
 .transaction-id{
     color: var(--color-subheading-text);
 }
@@ -23,13 +28,17 @@
     display: flex;
     gap: var(--spacing-sm);
     align-items: center;
+    justify-self: start;
+    cursor: pointer;
 }
 
 .user-profile{
+    object-fit: cover;
+    object-position: top;
     width: var(--size-icon-md);
     height: var(--size-icon-md);
     border-radius: var(--size-radius-circle);
-    background-color: red;
+    /* background-color: red; */
 }
 
 .amount{

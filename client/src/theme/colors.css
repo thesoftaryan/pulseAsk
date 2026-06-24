@@ -100,7 +100,7 @@
 
   /* Button */
   --color-button-primary : #1aa5ae;
-  --color-button-disabled :  #a1e8ed;
+  --color-button-disabled :  #000000;
   
   /* Switch */
   --color-switch-head: #ffffff;

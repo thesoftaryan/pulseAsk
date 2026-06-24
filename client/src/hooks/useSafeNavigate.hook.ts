@@ -9,9 +9,11 @@ export const useSafeNavigate = ()=>{
         navigate(-1);
     }
 
-    const safeNavigate = (path : string)=>{
+    const safeNavigate = (path : string, refresh:boolean=false)=>{
         if(location.pathname !== path){
             navigate(path);
+        }else{
+          if(refresh) navigate(0);  
         }
     };
 

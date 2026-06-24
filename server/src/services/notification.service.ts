@@ -38,3 +38,23 @@ export const createAnswerNotificationService = async (
     });
     return notification;
 }
+
+export const createTransactionNotificationService = async (
+    data : any
+)=>{
+    const {senderId,receiverId,amount} = data;
+    const sender = await User.findById(senderId).select("_id userName firstName lastName");
+    const notification = await Notification.create({
+        sender: senderId,
+        recipient: receiverId,
+        notificationType: "Payment",
+        sentAt: new Date(Date.now()),
+        title: "Received PulsePoints",
+        content: `${sender?.userName} sent you ${amount} PulsePoints`,
+        actionUrl: `/wallet/`,
+    });
+    await User.updateOne({_id:receiverId}, {
+        $inc: {unreadNotificationCount: 1},
+    });
+    return notification;
+}

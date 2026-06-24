@@ -1,4 +1,4 @@
-import { createAnswerNotificationService } from "../services/notification.service";
+import { createAnswerNotificationService, createTransactionNotificationService } from "../services/notification.service";
 import { emitSocketNotification } from "../socket/notification.socket";
 import { appEventEmitter } from "../emitter/emitter";
 
@@ -8,4 +8,12 @@ appEventEmitter.on(
         const notification = await createAnswerNotificationService(data);
         emitSocketNotification(data.receiverId, notification, "answer");
     }
-)
+);
+
+appEventEmitter.on(
+    "payment.made",
+    async (data)=>{
+        const notification = await createTransactionNotificationService(data);
+        emitSocketNotification(data.receiverId, notification, "payment");
+    }
+);

@@ -9,7 +9,7 @@ interface PaymentModalProps{
 
 export const PaymentModal:React.FC<PaymentModalProps> = ({setOpenPaymentModal, receiver})=>{
 
-    const {sendPayment} = usePaymentModalHandler(setOpenPaymentModal);
+    const {sending, sendPayment} = usePaymentModalHandler(setOpenPaymentModal);
 
     return (
         <div className={PaymentModalStyle["container"]}>
@@ -17,10 +17,10 @@ export const PaymentModal:React.FC<PaymentModalProps> = ({setOpenPaymentModal, r
                 Tip this user
             </div>
             <div className={PaymentModalStyle["tip-container"]}>
-                <RoundedButton onClick={()=>{sendPayment(50, receiver)}} level2={true} text="50"/>
-                <RoundedButton onClick={()=>{sendPayment(100, receiver)}} level2={true} text="150"/>
-                <RoundedButton onClick={()=>{sendPayment(150, receiver)}} level2={true} text="100"/>
-                <RoundedButton onClick={()=>{sendPayment(200, receiver)}} level2={true} text="200"/>
+                <RoundedButton disabled={sending} onClick={()=>{sendPayment(50, receiver)}} level2={true} text="50"/>
+                <RoundedButton disabled={sending} onClick={()=>{sendPayment(100, receiver)}} level2={true} text="100"/>
+                <RoundedButton disabled={sending} onClick={()=>{sendPayment(150, receiver)}} level2={true} text="150"/>
+                <RoundedButton disabled={sending} onClick={()=>{sendPayment(200, receiver)}} level2={true} text="200"/>
             </div>
         </div>
     );

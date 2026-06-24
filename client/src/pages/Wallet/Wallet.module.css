@@ -77,3 +77,11 @@
     gap: var(--spacing-md);
     margin-top: var(--spacing-lg);
 }
+
+.label{
+    margin-left: var(--spacing-md);
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-subheading-text);
+}

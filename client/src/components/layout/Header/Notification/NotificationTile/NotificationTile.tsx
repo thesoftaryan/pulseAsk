@@ -31,7 +31,7 @@ export const NotificationTile : React.FC<NotificationTileProps> = ({notification
             {
                 notification.actionUrl
                 &&
-                <div onClick={()=>{safeNavigate(notification.actionUrl); if(!notification.isRead)markAsRead(notification._id);}} className={NotificationTileStyle["right"]}>
+                <div onClick={()=>{safeNavigate(notification.actionUrl, true); if(!notification.isRead)markAsRead(notification._id);}} className={NotificationTileStyle["right"]}>
                     {/* <div onClick={()=>safeNavigate(notification.actionUrl)} className={NotificationTileStyle["action"]}></div> */}
                     <ChevronLeftIcon  className={NotificationTileStyle["icon"]}/>
                 </div>

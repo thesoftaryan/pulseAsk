@@ -25,6 +25,6 @@ const WalletSchema = new Schema<WalletInterface>({
         type: Number,
         default: 0,
     }
-});
+}, {timestamps: true});
 
 export const Wallet = model<WalletInterface>("Wallet", WalletSchema);

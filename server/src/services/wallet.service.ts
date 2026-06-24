@@ -3,6 +3,7 @@ import { Transaction } from "../models/transaction.model";
 import { Wallet } from "../models/wallet.model";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes.constants";
+import { appEventEmitter } from "../emitter/emitter";
 
 
 export const sendPaymentService = async (uid:Types.ObjectId, data : any)=>{
@@ -32,14 +33,48 @@ export const sendPaymentService = async (uid:Types.ObjectId, data : any)=>{
         );
     }
     await walletSender.updateOne({
-        $inc:{balance: -amount},
+        $inc:{balance: -amount, totalSent: amount},
     });
     await walletReceiver.updateOne({
-        $inc: {balance: amount},
+        $inc: {balance: amount, totalReceived: amount},
     });
     await Transaction.create({
         amount,
-        receiverId: receiver,
-        senderId: uid,
+        receiver: receiver,
+        sender: uid,
     });
+
+    appEventEmitter.emit(
+        "payment.made",
+        {
+            senderId: uid,
+            receiverId: receiver,
+            amount: amount,
+        }
+    );
+
+}
+
+export const getWalletStatsService = async (uid:Types.ObjectId)=>{
+    let wallet = await Wallet.findOne({uid: uid});
+    if(!wallet){
+        wallet = await Wallet.create({
+            uid: uid,
+            balance:1000,
+        });
+    }
+    return wallet;
+}
+
+export const getTransactionsService = async (uid:Types.ObjectId)=>{
+    const transactions = await Transaction.find({
+        $or: [
+            {sender: uid},
+            {receiver: uid},
+        ]
+    }).populate([
+        {path: "sender", select:"_id userName profile firstName lastName"},
+        {path: "receiver", select:"_id userName profile firstName lastName"},
+    ]);
+    return transactions;
 }
