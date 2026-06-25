@@ -125,6 +125,33 @@ export const ShowQuestion = ()=>{
     }
     
 
+        const sortByMostRecent = ()=>{
+        setAnswers((prev)=>{
+            return [...prev].sort((a, b)=>{
+                return new Date(b.askedAt).getTime() - new Date(a.askedAt).getTime();
+            });
+        })
+    }
+
+    const sortByMostUpvotes = ()=>{
+        setAnswers((prev)=>{
+            return [...prev].sort((a, b)=>{
+                return b.voteCount - a.voteCount;
+            });
+        })
+    }
+
+    const options = [
+        {
+            title: "Most Recent",
+            function: sortByMostRecent,
+        },
+        {
+            title: "Most Upvotes",
+            function: sortByMostUpvotes,
+        },
+    ];
+
     return (
         <div className={ShowQuestionStyle["container"]}>
             <div className={ShowQuestionStyle["main-content"]}>
@@ -179,7 +206,7 @@ export const ShowQuestion = ()=>{
                     </div>
                     <div className={ShowQuestionStyle["answers-container"]}>
                         <div className={ShowQuestionStyle["answers"]}>
-                            <FilterBar reverse={true} text={`${answers.length} Answers Found`}/>
+                            <FilterBar options={options} reverse={true} text={`${answers.length} Answers Found`}/>
                             {/* <Answer author={answerObj.author} content={answerObj.content} level1={true}/> */}
                             {
                                 (answers.length===0)

@@ -59,6 +59,13 @@
     text-overflow: ellipsis;
 }
 
+.answer-wrapper img{
+    max-height: var(--size-image-height);
+    max-width: var(--size-image-width);
+    border-radius: var(--size-radius-md);
+    padding: var(--spacing-sm) 0px;
+}
+
 /* Answer Wrapper : End */
 
 /* Footer : Start */

@@ -158,7 +158,8 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                                 {
                                     comments.length!==0
                                     &&
-                                    <FilterBar text={`${comments.length} comments`} reverse={true} noFilter={true} level2={!level1Comments}/>
+                                    // <Divider text={`${comments.length} comments`}/>
+                                    <FilterBar text={`${comments.length} comments`} reverse={true} noFilter={true} noSort={true} level2={!level1Comments}/>
                                 }
                             <div className={AnswerStyle["comments"]}>
                                 {

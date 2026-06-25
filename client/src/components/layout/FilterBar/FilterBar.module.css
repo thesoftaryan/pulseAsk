@@ -10,6 +10,7 @@
 }
 
 .buttons{
+    position: relative;
     display: flex;
     /* margin-left: var(--spacing-sm); */
     /* min-width: fit-content; */
@@ -28,4 +29,28 @@
     align-items: center;
     font-size: var(--font-size-md);
     color: var(--color-subheading-text);
+}
+
+.option-modal{
+    display: flex;
+    position: absolute;
+    top: 101%;
+    left: 50%;
+    z-index: 1001;
+    background-color: var(--color-level1-bg);
+    border-radius: var(--size-radius-md);
+    color: var(--color-subheading-text);
+}
+
+.options{
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: max-content;
+}
+
+.option{
+    border-bottom: var(--size-border-sm) solid var(--color-subheading-text);
+    cursor: pointer;
 }

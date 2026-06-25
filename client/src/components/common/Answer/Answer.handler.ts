@@ -78,7 +78,11 @@ export const useAnswerHandler = (
             setFetching(true);
             const response = await fetchAnswerCommentsService(reqObj);
             const result = parseSuccessResponse<FetchCommentsResponse>(response);
-            setComments(result.data?.comments??[]);
+            let comments = result.data?.comments??[];
+            comments.sort((a, b)=>{
+                return new Date(b.commentedAt).getTime() - new Date(a.commentedAt).getTime();
+            });
+            setComments(comments);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);

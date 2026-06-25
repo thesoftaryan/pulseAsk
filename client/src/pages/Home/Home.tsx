@@ -44,6 +44,32 @@ export const Home = ()=>{
     //     content : "Steps important for CPR: First of all make the person lie on his back and then you can do one thing and that is you have to search on youtube and then see there the actual steps, it is better to see than read.",
     // }
 
+    const sortByMostRecent = ()=>{
+        setQuestions((prev)=>{
+            return [...prev].sort((a, b)=>{
+                return new Date(b.askedAt).getTime() - new Date(a.askedAt).getTime();
+            });
+        })
+    }
+
+    const sortByMostUpvotes = ()=>{
+        setQuestions((prev)=>{
+            return [...prev].sort((a, b)=>{
+                return b.voteCount - a.voteCount;
+            });
+        })
+    }
+
+    const options = [
+        {
+            title: "Most Recent",
+            function: sortByMostRecent,
+        },
+        {
+            title: "Most Upvotes",
+            function: sortByMostUpvotes,
+        },
+    ];
 
     return (
         <>
@@ -61,7 +87,7 @@ export const Home = ()=>{
 
             <div className={HomeStyle["main-section"]}>
                 <div className={HomeStyle["filters-section"]}>
-                    <FilterBar/>
+                    <FilterBar options={options}/>
                 </div>
                 <div className={HomeStyle["question-leaderboard-section"]}>
                     <div className={HomeStyle["question-section"]}>

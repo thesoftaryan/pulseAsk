@@ -32,3 +32,22 @@
     color: var(--color-placeholder-text);
     margin: 0 var(--spacing-lg);
 }
+
+.search-input{
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: var(--color-input-area);
+    color: var(--color-text);
+    height: var(--size-input-height);
+    border-radius:  var(--size-radius-lg);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+}
+
+/* .level1{
+    border-radius: var(--size-radius-md);
+    background-color: var(--color-input-area-level1);
+} */

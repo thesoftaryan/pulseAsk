@@ -29,6 +29,49 @@ export const Bookmarks = ()=>{
         }else fetchBookmarkedQuestions();
     }, [activeBookmarkType]);
 
+    const sortByMostRecent = ()=>{
+        if(activeBookmarkType==="question"){
+            setQuestions((prev)=>{
+                return [...prev].sort((a, b)=>{
+                    return new Date(b.askedAt).getTime() - new Date(a.askedAt).getTime();
+                });
+            });
+        }else{
+            setAnswers((prev)=>{
+                return [...prev].sort((a, b)=>{
+                    return new Date(b.askedAt??Date.now()).getTime() - new Date(a.askedAt??Date.now()).getTime();
+                });
+            });
+        }
+    }
+
+    const sortByMostUpvotes = ()=>{
+        if(activeBookmarkType==="question"){
+            setQuestions((prev)=>{
+                return [...prev].sort((a, b)=>{
+                    return b.voteCount - a.voteCount;
+                });
+            });
+        }else{
+            setAnswers((prev)=>{
+            return [...prev].sort((a, b)=>{
+                    return (b.voteCount??0) - (a.voteCount??0);
+                });
+            })
+        }
+    }
+
+    const options = [
+        {
+            title: "Most Recent",
+            function: sortByMostRecent,
+        },
+        {
+            title: "Most Upvotes",
+            function: sortByMostUpvotes,
+        },
+    ];
+
     return (
         <div className={BookmarksStyle["container"]}>
             <div className={BookmarksStyle["title"]}>
@@ -38,7 +81,7 @@ export const Bookmarks = ()=>{
                 <RoundedButton text="Questions" active={activeBookmarkType==="question"} onClick={()=>setActiveBookmarkType("question")}/>
                 <RoundedButton text="Answers" active={activeBookmarkType==="answer"} onClick={()=>setActiveBookmarkType("answer")}/>
             </div>
-            <FilterBar/>
+            <FilterBar options={options}/>
             <div className={BookmarksStyle["result-count"]}>
                 {
                     (activeBookmarkType==="question")
