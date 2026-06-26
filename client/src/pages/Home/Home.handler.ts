@@ -27,7 +27,11 @@ export const useHomeHandler = ()=>{
             // console.log("calling api");
             const response = await fetchQuestionsService();
             const result = parseSuccessResponse<QuestionInterface[]>(response);
-            setQuestions(result.data!);
+            let questions = result.data!;
+            questions.sort((a,b)=>{
+                return new Date(b.askedAt).getTime() - new Date(a.askedAt).getTime();
+            });
+            setQuestions(questions);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);

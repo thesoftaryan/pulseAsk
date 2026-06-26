@@ -152,3 +152,9 @@
     border-radius: var(--size-radius-md);
     padding: var(--spacing-sm) 0px;
 }
+
+.label{
+    margin-left: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-subheading-text);
+}

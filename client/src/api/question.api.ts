@@ -7,6 +7,10 @@ export const askQuestionAPI = (data : AskQuestionPayload)=>{
     return api.post("/question/ask", data);
 }
 
+export const quickAskQuestionAPI = (data : any)=>{
+    return api.post("/question/quick-ask", data);
+}
+
 export const fetchQuestionAPI = (data : FetchQuestionPayload)=>{
     return api.post("question/fetch", data);
 }

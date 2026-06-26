@@ -9,6 +9,8 @@ const router = Router();
 
 router.post("/ask", validate(validateAskQuestion),askQuestionController);
 
+router.post("/quick-ask", askQuestionController);
+
 router.post("/fetch", validate(validateFetchQuestion),fetchQuestionController);
 
 router.post("/vote", validate(validateVote), voteQuestionController);

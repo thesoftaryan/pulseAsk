@@ -8,6 +8,7 @@ import QuestionStyle from "./Question.module.css";
 import TagIcon from "../../../assets/icons/tag.svg?react";
 import RankIcon from "../../../assets/icons/general/rank.svg?react";
 
+import ShareIcon from "../../../assets/icons/general/share.svg?react";
 import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
 import BookmarkFillIcon from "../../../assets/icons/general/bookmark_fill.svg?react";
@@ -23,6 +24,7 @@ import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
 import { useQuestionHandler } from "./Question.handler";
 import { useEffect, useState } from "react";
+import { showToast } from "../../../utils/toast.util";
 // import { UserProfile } from "../UserProfile/UserProfile";
 
 const NoAnswerMessage = (question: QuestionInterface)=>{
@@ -66,9 +68,27 @@ export const Question:React.FC<QuestionProps> = ({question, onClick, level1Comme
         toggleBookmarkHandler(question._id, !bookmarked);
     }
 
+    const shareQuestion = async () => {
+        const url = window.location.href+`#${question._id}`;
+
+        if (navigator.share) {
+            try {
+            await navigator.share({
+                title: "PulseAsk",
+                text: question.title,
+                url,
+            });
+            return;
+            } catch {
+            }
+        }
+        await navigator.clipboard.writeText(url);
+        showToast.success("Link copied to clipboard!");
+    };
+
     return (
         <>
-            <div className={QuestionStyle["container"]} onClick={onClick}>
+            <div id={question._id} className={QuestionStyle["container"]} onClick={onClick}>
                 <div className={QuestionStyle["header"]}>
                     <div className={QuestionStyle["title"]} onClick={()=>{safeNavigate(homeRoutes.question+`/${question._id}/${question.slug}`)}}>
                         {question.title}
@@ -76,6 +96,7 @@ export const Question:React.FC<QuestionProps> = ({question, onClick, level1Comme
                     <div className={QuestionStyle["actions"]}>
                         <Icon level2={true} IconData={ReportIcon}/>
                         <Icon onClick={handleToggleBookmark} level2={true} IconData={(bookmarked)?BookmarkFillIcon:BookmarkIcon}/>
+                        <Icon level2={true} IconData={ShareIcon} onClick={shareQuestion}/>
                     </div>
                     <div className={QuestionStyle["meta-data"]}>{relativeTimeFormat(question.askedAt)}</div>
                 </div>
@@ -90,6 +111,11 @@ export const Question:React.FC<QuestionProps> = ({question, onClick, level1Comme
                 <div className={QuestionStyle["footer"]}>
                     <TagIcon className={QuestionStyle["icon"]}/>
                     <div className={QuestionStyle["tags"]}>
+                        {
+                            question.tags.length===0
+                            &&
+                            <div className={QuestionStyle["label"]}>No tags available</div>
+                        }
                         {
                             question.tags.map((tag)=>{
                                 return <TagChip slug={tag.slug} key={tag._id} text={tag.name} color={tag.color} />

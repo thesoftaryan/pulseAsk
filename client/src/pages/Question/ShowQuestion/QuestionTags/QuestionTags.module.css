@@ -33,3 +33,11 @@
     max-width: var(--size-sidebar-max-width);
     gap: var(--spacing-sm);
 }
+
+.label{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-subheading-text);
+}

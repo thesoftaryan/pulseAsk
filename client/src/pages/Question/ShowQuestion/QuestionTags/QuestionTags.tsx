@@ -21,6 +21,11 @@ export const QuestionTags:React.FC<QuestionTagsProps> = ({tags})=>{
             </div>
             <div className={QuestionTagsStyle["tags"]}>
                 {
+                    tags.length===0
+                    &&
+                    <p className={QuestionTagsStyle["label"]}>No tags available</p>
+                }
+                {
                     tags.map((tag)=>{
                         return <TagChip key={tag._id} slug={tag.slug} color={tag.color} text={tag.name}/>
                     })

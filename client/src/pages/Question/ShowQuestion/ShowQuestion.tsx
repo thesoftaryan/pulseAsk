@@ -5,10 +5,11 @@ import QuestionIcon from "../../../assets/icons/general/question.svg?react";
 import UpvoteIcon from "../../../assets/icons/general/upvote.svg?react";
 import DownvoteIcon from "../../../assets/icons/general/downvote.svg?react";
 import BookmarkIcon from "../../../assets/icons/general/bookmark.svg?react";
+import ShareIcon from "../../../assets/icons/general/share.svg?react";
 import BookmarkFillIcon from "../../../assets/icons/general/bookmark_fill.svg?react";
 import ReportIcon from "../../../assets/icons/general/report.svg?react";
 import ReputationIcon from "../../../assets/icons/general/reputation.svg?react";
-import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
+// import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
 
 import { Icon } from "../../../components/common/Icon/Icon";
 
@@ -36,6 +37,7 @@ import { postAnswerValidator } from "./ShowQuestion.validator";
 import InlineError from "../../../components/common/InlineError/InlineError";
 
 import DOMPurify from "dompurify";
+import { showToast } from "../../../utils/toast.util";
 
 type QuestionParams = {
     qid: string;
@@ -123,9 +125,26 @@ export const ShowQuestion = ()=>{
     const handleToggleBookmark = ()=>{
         toggleBookmarkHandler(question._id, !bookmarked);
     }
-    
 
-        const sortByMostRecent = ()=>{
+    const shareQuestion = async () => {
+        const url = window.location.href+`#${question._id}`;
+
+        if (navigator.share) {
+            try {
+            await navigator.share({
+                title: "PulseAsk",
+                text: question.title,
+                url,
+            });
+            return;
+            } catch {
+            }
+        }
+        await navigator.clipboard.writeText(url);
+        showToast.success("Link copied to clipboard!");
+    };
+
+    const sortByMostRecent = ()=>{
         setAnswers((prev)=>{
             return [...prev].sort((a, b)=>{
                 return new Date(b.askedAt).getTime() - new Date(a.askedAt).getTime();
@@ -162,6 +181,8 @@ export const ShowQuestion = ()=>{
                             <div className={ShowQuestionStyle["actions-container"]}>
                                 <Icon onClick={handleToggleBookmark} isLarge={true} IconData={(bookmarked)?BookmarkFillIcon:BookmarkIcon}/>
                                 <Icon isLarge={true} IconData={ReportIcon}/>
+                                <Icon isLarge={true} IconData={ShareIcon} onClick={shareQuestion}/>
+
                             </div>
                         </div>
                         <div 
@@ -224,13 +245,13 @@ export const ShowQuestion = ()=>{
                                 }
                                 </>
                             }
-                            {
+                            {/* {
                                 (answers.length!==0)
                                 &&
                                 <div className={ShowQuestionStyle["load-more-answers"]}>
                                 <Button text="Show More Answers" isSmall={true} level1={true}  Icon={LoadMoreIcon}/>
                                 </div>
-                            }
+                            } */}
                         </div>
                         <div className={ShowQuestionStyle["question-tags"]}>
                             <QuestionTags tags={question.tags}/>

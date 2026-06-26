@@ -8,7 +8,7 @@ import ShareIcon from "../../../assets/icons/general/share.svg?react"
 import UpvoteIcon from "../../../assets/icons/general/upvote.svg?react";
 import DownvoteIcon from "../../../assets/icons/general/downvote.svg?react";
 import CommentIcon from "../../../assets/icons/general/comment.svg?react";
-import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
+// import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
 
 
 import { UserProfile } from "../UserProfile/UserProfile";
@@ -30,6 +30,7 @@ import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
 
 import DOMPurify from "dompurify";
+import { showToast } from "../../../utils/toast.util";
 
 interface AnswerProps{
     answer: AnswerInterface,
@@ -86,9 +87,27 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
         toggleBookmarkHandler(answer._id, !bookmarked);
     }
 
+    const shareAnswer = async () => {
+        const url = window.location.href+`#${answer._id}`;
+
+        if (navigator.share) {
+            try {
+            await navigator.share({
+                title: "PulseAsk",
+                text: "Look into this answer on pulseAsk",
+                url,
+            });
+            return;
+            } catch {
+            }
+        }
+        await navigator.clipboard.writeText(url);
+        showToast.success("Link copied to clipboard!");
+    };
+
     return (
         <>
-            <div className={`${AnswerStyle["container"]} ${level1? AnswerStyle["level1-container"]:""}`}>
+            <div id={answer._id} className={`${AnswerStyle["container"]} ${level1? AnswerStyle["level1-container"]:""}`}>
                 <div className={AnswerStyle["time-answered"]}>
                     {relativeTimeFormat(answer.askedAt)}
                 </div>
@@ -126,7 +145,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                     <div className={AnswerStyle["right"]}>
                         <Icon level2={level1} IconData={ReportIcon}/>
                         <Icon  onClick={handleToggleBookmark} level2={level1} IconData={bookmarked? BookmarkFillIcon:BookmarkIcon}/>
-                        <Icon level2={level1} IconData={ShareIcon}/>
+                        <Icon level2={level1} IconData={ShareIcon} onClick={shareAnswer}/>
                     </div>
                 </div>
                 {
@@ -176,13 +195,13 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                                     })
                                 }
                             </div>
-                            {
+                            {/* {
                                 comments.length!==0
                                 &&
                                 <div className={AnswerStyle["load-more-button"]}>
                                 <Button text="Show More Comments" isSmall={true} level1={level1Comments} level2={!level1Comments} Icon={LoadMoreIcon}/>
                                 </div>
-                            }
+                            } */}
                         </div>
                     )
                 }

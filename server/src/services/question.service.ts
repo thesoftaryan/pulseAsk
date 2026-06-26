@@ -29,6 +29,11 @@ export const askQuestionService = async (data : AskQuestionPayload, uid: Types.O
             }
         );
     }
+    
+    if(!data.descriptionHTML || !data.description){
+        data.description="No description provided";
+        data.descriptionHTML = "<p>No description provided</p>";
+    }
 
     if(!data.tags || data.tags.length == 0){
         data.tags = await generateTagService({
@@ -36,6 +41,7 @@ export const askQuestionService = async (data : AskQuestionPayload, uid: Types.O
             description: data.description,
         });
     }
+
 
     const tags = await createTagService(data.tags, true);
     // console.log("tags from create service: ",tags);

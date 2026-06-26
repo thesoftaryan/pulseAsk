@@ -6,7 +6,7 @@ import Button from "../../components/common/Button/Button";
 
 // import ExploreIcon from "../../assets/icons/home/explore.svg?react";
 import QuestionIcon from "../../assets/icons/home/question.svg?react";
-import LoadMoreIcon from "../../assets/icons/general/load_more.svg?react";
+// import LoadMoreIcon from "../../assets/icons/general/load_more.svg?react";
 import { QuickAsk } from "./QuickAsk/QuickAsk";
 
 import HomeStyle from "./Home.module.css";
@@ -105,9 +105,9 @@ export const Home = ()=>{
 
                         {/* <Question onClick={()=>{safeNavigate(homeRoutes.question)}} best_answer={<Answer level1Comments={true} author={answerObj.author!} content={answerObj.content!}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/> */}
 
-                        <div className={HomeStyle["load-more-button"]}>
+                        {/* <div className={HomeStyle["load-more-button"]}>
                             <Button text="Show More Questions" isSmall={true} level1={true} Icon={LoadMoreIcon}/>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={HomeStyle["leaderboard-section"]}>
                         <Leaderboard/>
