@@ -25,6 +25,7 @@ import InlineError from "../../../components/common/InlineError/InlineError";
 import { TagChip } from "../../../components/common/TagChip/TagChip";
 import { useUploadImage } from "../../../hooks/uploadImage.hook";
 import { Spinner } from "../../../components/common/Spinner/Spinner";
+import { showToast } from "../../../utils/toast.util";
 
 interface BasicProfileProps{
     userName: string;
@@ -268,7 +269,7 @@ export const AccountSettings = ()=>{
             </div>
             <Divider text="Danger Zone" color={color.colorDanger}/>
             <div className={AccountSettingsStyle["danger-zone"]}>
-                <SettingsActionButton text="Delete Account" Icon={DeleteIcon} color={color.colorDanger}/>
+                <SettingsActionButton onClick={()=>showToast.warning("You can't delete your account")} text="Delete Account" Icon={DeleteIcon} color={color.colorDanger}/>
                 <SettingsActionButton onClick={()=>{safeNavigate(authRoutes.forgotPassword+`?userEmail=${user?.email}`)}} text="Change Password" Icon={passwordIcon} color={color.colorOrange}/>
             </div>
         </div>

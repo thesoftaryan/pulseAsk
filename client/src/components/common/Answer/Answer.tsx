@@ -143,7 +143,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                         <Icon active={isComment} level2={level1} IconData={CommentIcon} onClick={()=>{setIsComment(!isComment)}}/>
                     </div>
                     <div className={AnswerStyle["right"]}>
-                        <Icon level2={level1} IconData={ReportIcon}/>
+                        <Icon level2={level1} IconData={ReportIcon} onClick={()=>showToast.info("Thanks for reporting, we'll look into it")}/>
                         <Icon  onClick={handleToggleBookmark} level2={level1} IconData={bookmarked? BookmarkFillIcon:BookmarkIcon}/>
                         <Icon level2={level1} IconData={ShareIcon} onClick={shareAnswer}/>
                     </div>

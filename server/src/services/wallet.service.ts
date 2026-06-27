@@ -4,11 +4,21 @@ import { Wallet } from "../models/wallet.model";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes.constants";
 import { appEventEmitter } from "../emitter/emitter";
+import { User, UserInterface } from "../models/User.model";
 
 
 export const sendPaymentService = async (uid:Types.ObjectId, data : any)=>{
     const {amount, receiver} = data;
-    let walletReceiver = await Wallet.findOne({uid: receiver});
+    const user = await User.findById(receiver);
+    if(!user?.paymentPreferences.enablePayment){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.FORBIDDEN,
+            `${user?.firstName} isn't accepting payments`,
+        );
+    }
+    let walletReceiver = await Wallet.findOne({uid: receiver}).populate([
+        {path: "uid", select: "paymentPreferences"},
+    ]);
     let walletSender = await Wallet.findOne({uid: uid});
     if(!walletReceiver){
         walletReceiver = await Wallet.create({
@@ -44,14 +54,16 @@ export const sendPaymentService = async (uid:Types.ObjectId, data : any)=>{
         sender: uid,
     });
 
-    appEventEmitter.emit(
-        "payment.made",
-        {
-            senderId: uid,
-            receiverId: receiver,
-            amount: amount,
-        }
-    );
+    if(user.notificationPreferences.payment){
+        appEventEmitter.emit(
+            "payment.made",
+            {
+                senderId: uid,
+                receiverId: receiver,
+                amount: amount,
+            }
+        );
+    }
 
 }
 

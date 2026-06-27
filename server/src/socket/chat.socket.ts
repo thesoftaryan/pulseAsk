@@ -6,6 +6,7 @@ of chat system of the app
 import { Server, Socket } from "socket.io";
 import { createChatMessageService, updateUserStatus } from "../services/chat.service";
 import { onlineUsers } from ".";
+import { ApiError } from "../utils/error.util";
 
 
 export const registerChatSocket = (io:Server)=>{
@@ -24,15 +25,23 @@ export const registerChatSocket = (io:Server)=>{
             //* We also need to verify that the senderId is mapped to this socket
 
             // real message part
-            const message = await createChatMessageService(data);
-
-            // Now checking if the receiver is online and sending the message to his socket
-            const receiverSocket = onlineUsers.get(receiverId);
-
-            if(receiverSocket){
-                io.to(receiverSocket).emit("receive_message", message);
+            try{
+                const message = await createChatMessageService(data);
+    
+                // Now checking if the receiver is online and sending the message to his socket
+                const receiverSocket = onlineUsers.get(receiverId);
+    
+                if(receiverSocket){
+                    io.to(receiverSocket).emit("receive_message", message);
+                }
+                socket.emit("message_sent", message);
+            }catch(error){
+                if(error instanceof ApiError){
+                    socket.emit("sending_error", error.message);
+                }else {
+                    socket.emit("sending_error", "Unexpected error occured, try later");
+                }
             }
-            socket.emit("message_sent", message);
         });
 
 

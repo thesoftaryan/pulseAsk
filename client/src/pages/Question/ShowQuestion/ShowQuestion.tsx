@@ -180,7 +180,7 @@ export const ShowQuestion = ()=>{
                             <div className={ShowQuestionStyle["title-text"]}>{question.title}</div>
                             <div className={ShowQuestionStyle["actions-container"]}>
                                 <Icon onClick={handleToggleBookmark} isLarge={true} IconData={(bookmarked)?BookmarkFillIcon:BookmarkIcon}/>
-                                <Icon isLarge={true} IconData={ReportIcon}/>
+                                <Icon isLarge={true} IconData={ReportIcon} onClick={()=>showToast.info("Thanks for reporting, we'll look into it")}/>
                                 <Icon isLarge={true} IconData={ShareIcon} onClick={shareQuestion}/>
 
                             </div>

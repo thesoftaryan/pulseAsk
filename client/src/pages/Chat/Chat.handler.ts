@@ -179,7 +179,9 @@ export const useChatHandler = (
             // })
         }
 
-        
+        const errorHandler = (error : string)=>{
+            showToast.error(error);
+        }
 
         socket.on("receive_message", receiveHandler);
 
@@ -187,10 +189,13 @@ export const useChatHandler = (
 
         socket.on("user_status", updateUserStatusHandler);
 
+        socket.on("sending_error", errorHandler);
+
         return ()=>{
             socket.off("receive_message");
             socket.off("message_sent");
             socket.off("user_status");
+            socket.off("sending_error");
         }
     }, [user, activeContact]);
 

@@ -31,7 +31,7 @@ export const createAnswerNotificationService = async (
         sentAt: new Date(Date.now()),
         title: "Received an answer",
         content: `${sender?.userName} answered your question`,
-        actionUrl: `/question/${questionId}/slug`,
+        actionUrl: `/question/${questionId}/slug#${answerId}`,
     });
     await User.updateOne({_id:receiverId}, {
         $inc: {unreadNotificationCount: 1},

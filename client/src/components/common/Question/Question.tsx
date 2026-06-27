@@ -94,7 +94,7 @@ export const Question:React.FC<QuestionProps> = ({question, onClick, level1Comme
                         {question.title}
                     </div>
                     <div className={QuestionStyle["actions"]}>
-                        <Icon level2={true} IconData={ReportIcon}/>
+                        <Icon level2={true} IconData={ReportIcon}  onClick={()=>showToast.info("Thanks for reporting, we'll look into it")}/>
                         <Icon onClick={handleToggleBookmark} level2={true} IconData={(bookmarked)?BookmarkFillIcon:BookmarkIcon}/>
                         <Icon level2={true} IconData={ShareIcon} onClick={shareQuestion}/>
                     </div>

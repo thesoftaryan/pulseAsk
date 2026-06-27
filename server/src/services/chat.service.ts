@@ -4,6 +4,7 @@ import { ApiError } from "../utils/error.util";
 import { User } from "../models/User.model";
 import { ContactInterface, ContactPersonInterface } from "../types/response/chat.type";
 import { log } from "console";
+import { STATUS } from "../constants/statusCodes.constants";
 
 
 
@@ -121,6 +122,14 @@ export const resetUnreadCountService = async (conversationId: Types.ObjectId)=>{
 export const createChatMessageService = async (data : any) : Promise<ChatMessageInterface>=>{
     const {senderId, receiverId, content, caption, type} = data;
     
+    const receiver = await User.findById(receiverId);
+    if(!receiver?.chatPreferences.enableChat){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.FORBIDDEN,
+            `${receiver?.firstName} isn't accepting messages`,
+        );
+    }
+
     const conversation = await getOrCreateConversationService(senderId, receiverId);
 
     const message = await (await ChatMessage.create({

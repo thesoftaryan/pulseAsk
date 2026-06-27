@@ -30,7 +30,9 @@ export const postAnswerService = async (author:Types.ObjectId, data : PostAnswer
     };
     const answer = await Answer.create(answerObj);
 
-    const question = await Question.findById(data.qid);
+    const question = await Question.findById(data.qid).populate([
+        {path: "author", select: "notificationPreferences"}
+    ]);
     if(question){
         if(question.bestAnswer){
             const curr = await Answer.findById(question.bestAnswer);
@@ -49,15 +51,18 @@ export const postAnswerService = async (author:Types.ObjectId, data : PostAnswer
         answersGivenChange: 1,
     });
     
-    appEventEmitter.emit(
-        "answer.created",
-        {
-            senderId: author,
-            receiverId: question?.author,
-            answerId: answer._id,
-            questionId: question?._id,
-        }
-    );
+    if(question?.author.notificationPreferences.answer){
+        // console.log("sending answer notification to the user : ", question.author.firstName);
+        appEventEmitter.emit(
+            "answer.created",
+            {
+                senderId: author,
+                receiverId: question?.author,
+                answerId: answer._id,
+                questionId: question?._id,
+            }
+        );
+    }
     
 }
 

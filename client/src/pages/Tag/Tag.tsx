@@ -32,6 +32,33 @@ export const Tag = ()=>{
         }
     }, [slug]);
 
+        const sortByMostRecent = ()=>{
+        setQuestions((prev)=>{
+            return [...prev].sort((a, b)=>{
+                return new Date(b.askedAt).getTime() - new Date(a.askedAt).getTime();
+            });
+        })
+    }
+
+    const sortByMostUpvotes = ()=>{
+        setQuestions((prev)=>{
+            return [...prev].sort((a, b)=>{
+                return b.voteCount - a.voteCount;
+            });
+        })
+    }
+
+    const options = [
+        {
+            title: "Most Recent",
+            function: sortByMostRecent,
+        },
+        {
+            title: "Most Upvotes",
+            function: sortByMostUpvotes,
+        },
+    ];
+
     return (
         <div className={TagStyle["container"]}>
             <div className={TagStyle["tag-section"]}>
@@ -42,7 +69,7 @@ export const Tag = ()=>{
             </div>
             <div className={TagStyle["filters-main-section"]}>
                 <div className={TagStyle["filters-section"]}>
-                    <FilterBar/>
+                    <FilterBar options={options}/>
                 </div>
                 <div className={TagStyle["main-content"]}>
                     {/* <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/>

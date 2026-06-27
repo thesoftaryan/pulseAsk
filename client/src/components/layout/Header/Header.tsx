@@ -9,6 +9,11 @@ import PulseAskIcon from "../../../assets/PulseAskIcon.svg?react";
 import HomeIcon from "../../../assets/icons/header/home.svg?react";
 // import TagIcon from "../../../assets/icons/tag.svg?react"
 
+import ProfileIcon from "../../../assets/icons/header/profile_header.svg?react";
+import BookmarksIcon from "../../../assets/icons/header/bookmarks_header.svg?react";
+import WalletIcon from "../../../assets/icons/header/wallet_header.svg?react";
+import SettingsIcon from "../../../assets/icons/header/settings_header.svg?react";
+import LogoutIcon from "../../../assets/icons/header/logout_header.svg?react";
 import NotificationIcon from "../../../assets/icons/header/notification.svg?react";
 import MessageIcon from "../../../assets/icons/header/message.svg?react";
 
@@ -132,11 +137,26 @@ export const Header = ()=>{
                             isProfileOpen && (
                             <div className={HeaderStyle["user-action"]}>
                                 <ul>
-                                    <li onClick={()=>{safeNavigate(homeRoutes.profile+`/${user?.userName}`)}}>Profile</li>
-                                    <li onClick={()=>{safeNavigate(homeRoutes.bookmarks)}}>Bookmarks</li>
-                                    <li onClick={()=>{safeNavigate(homeRoutes.wallet)}}>Wallet</li>
-                                    <li onClick={()=>{safeNavigate(homeRoutes.settings)}}>Settings</li>
-                                    <li onClick={handleLogout}>Logout</li>
+                                    <li onClick={()=>{safeNavigate(homeRoutes.profile+`/${user?.userName}`)}}>
+                                        <ProfileIcon className={HeaderStyle["header-icon"]}/>
+                                        <div className={HeaderStyle["header-title"]}>Profile</div>
+                                    </li>
+                                    <li onClick={()=>{safeNavigate(homeRoutes.bookmarks)}}>
+                                        <BookmarksIcon className={HeaderStyle["header-icon"]}/>
+                                        <div className={HeaderStyle["header-title"]}>Bookmarks</div>
+                                    </li>
+                                    <li onClick={()=>{safeNavigate(homeRoutes.wallet)}}>
+                                        <WalletIcon className={HeaderStyle["header-icon"]}/>
+                                        <div className={HeaderStyle["header-title"]}>Wallet</div>
+                                    </li>
+                                    <li onClick={()=>{safeNavigate(homeRoutes.settings)}}>
+                                        <SettingsIcon className={HeaderStyle["header-icon"]}/>
+                                        <div className={HeaderStyle["header-title"]}>Settings</div>
+                                    </li>
+                                    <li onClick={handleLogout} className={HeaderStyle["upper-border-divider"]}>
+                                        <LogoutIcon className={HeaderStyle["header-icon"]}/>
+                                        <div className={HeaderStyle["header-title"]}>Logout</div>
+                                    </li>
                                 </ul>
                             </div>
                             )
