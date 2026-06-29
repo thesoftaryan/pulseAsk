@@ -22,7 +22,7 @@ export const useSocket = ()=>{
 
         if(!socket.connected){
             socket.on("connect", ()=>{
-                console.log("Connected to socket: ", socket.id);
+                // console.log("Connected to socket: ", socket.id);
                 socket.emit("register", user._id);
             });
         }

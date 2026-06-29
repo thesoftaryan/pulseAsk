@@ -9,6 +9,7 @@
 }
 
 .wallet-stats{
+    position: relative;
     margin-top: var(--spacing-lg);
     display: flex;
     padding: var(--spacing-md);
@@ -72,6 +73,7 @@
 }
 
 .transactions-container{
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);

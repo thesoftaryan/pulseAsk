@@ -1,29 +1,31 @@
 import { useState } from "react";
 import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResponseParser.service"
 import { getTransactionsService, getWalletStatsService } from "../../services/wallet.service";
+import { showToast } from "../../utils/toast.util";
 
 export const useWalletHandler = (
     setWalletStats: React.Dispatch<any>,
     setTransactions: React.Dispatch<React.SetStateAction<any[]>>,
 )=>{
-    const [fetching, setFetching] = useState(false);
+    const [fetchingWallet, setFetchingWallet] = useState(false);
+    const [fetchingTransactions, setFetchingTransactions] = useState(false);
     const getWalletStatsHandler = async ()=>{
         try{
-            setFetching(true);
+            setFetchingWallet(true);
             const response = await getWalletStatsService();
             const result = parseSuccessResponse<any>(response);
             setWalletStats(result.data)
         }catch(err){
             const error = parseErrorResponse(err);
-            console.log(error.message);
+            showToast.error(error.message);
         }finally{
-            setFetching(false);
+            setFetchingWallet(false);
         }
     }
 
     const getTransactionsHandler = async ()=>{
         try{
-            setFetching(true);
+            setFetchingTransactions(true);
             const response = await getTransactionsService();
             const result = parseSuccessResponse<any>(response);
             let transactions  = result.data.transactions as Array<any>;
@@ -37,14 +39,15 @@ export const useWalletHandler = (
             // console.log(result.data.transactions);
         }catch(err){
             const error = parseErrorResponse(err);
-            console.log(error.message);
+            showToast.error(error.message);
         }finally{
-            setFetching(false);
+            setFetchingTransactions(false);
         }
     }
 
     return {
-        fetching,
+        fetchingWallet,
+        fetchingTransactions,
         getWalletStatsHandler,
         getTransactionsHandler,
     }

@@ -22,6 +22,7 @@ import type { AnswerInterface } from "../../types/ApiResponse/answer.type";
 import { useSafeNavigate } from "../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../routes/routesConstants";
 import { PaymentModal } from "./PaymentModal/PaymentModal";
+import { LoaderScreen } from "../../components/common/LoaderScreen/LoaderScreen";
 
 
 
@@ -50,10 +51,13 @@ export const Profile = ()=>{
         fetchProfileHandler(userName);
     }, [userName]);
 
-    if(fetchingProfile) return "Loading";
-
     return (
         <div className={ProfileStyle["container"]}>
+            {
+                fetchingProfile
+                &&
+                <LoaderScreen/>
+            }
             <div className={ProfileStyle["top-profile"]}>
                 <div className={ProfileStyle["left"]}>
                     <ReportUserIcon className={`${ProfileStyle["icon"]} ${ProfileStyle["report-user"]}`}/>

@@ -9,6 +9,7 @@ import { RoundedButton } from "../../components/common/RoundedButton/RoundedButt
 import { SearchProfileTile } from "./SearchProfileTile/SearchProfileTile";
 import { useSearchHandler } from "./Search.handler";
 import { Question } from "../../components/common/Question/Question";
+import { LoaderScreen } from "../../components/common/LoaderScreen/LoaderScreen";
 
 export type SearchType = "question"|"people";
 
@@ -22,6 +23,7 @@ export const Search = ()=>{
     const [people, setPeople]=useState<any[]>([]);
 
     const {
+        fetching,
         fetchQAResultsHandler,
         fetchPeopleResultsHandler,
     } = useSearchHandler(
@@ -73,7 +75,13 @@ export const Search = ()=>{
                 &&
                 <FilterBar/>
             }
-            <div className={SearchStyle["result-count"]}>
+            <div className={SearchStyle["result-container"]}>
+                {
+                    fetching
+                    &&
+                    <LoaderScreen/>
+                }
+                <div className={SearchStyle["result-count"]}>
                 {
                     activeSearchType==="people"
                     &&
@@ -116,8 +124,7 @@ export const Search = ()=>{
                     &&
                     <p  className={SearchStyle["label"]}> No question found </p>
                 }
-            </div>
-            <div className={SearchStyle["result-container"]}>
+                </div>
                 {
                     activeSearchType==="question" && 
                     (

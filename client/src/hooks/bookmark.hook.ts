@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { parseSuccessResponse, parseErrorResponse } from "../services/apiResponseParser.service";
 import { isBookmarkedService, addBookmarkService, removeBookmarkService, fetchBookmarkedQuestionsService, fetchBookmarkedAnswersService } from "../services/bookmarks.service";
 import type { AnswerInterface } from "../types/ApiResponse/answer.type";
@@ -6,6 +7,7 @@ import { showToast } from "../utils/toast.util";
 
 export const useBookmark = ()=>{
 
+    const [fetching, setFetching] = useState(false);
 
     const isBookmarked = async (data:any)=>{
         try{
@@ -43,6 +45,7 @@ export const useBookmark = ()=>{
 
     const fetchBookmarked = async (type:string)=>{
         try{
+            setFetching(true);
             if(type==="answer"){
                 const response = await fetchBookmarkedAnswersService();
                 const result = parseSuccessResponse<{answers:Partial<AnswerInterface>[]}>(response);
@@ -56,10 +59,13 @@ export const useBookmark = ()=>{
             const error = parseErrorResponse(err);
             showToast.error(error.message);
             return [];
+        }finally{
+            setFetching(false);
         }
     }
 
     return {
+        fetching,
         isBookmarked,
         toggleBookmark,
         fetchBookmarked,

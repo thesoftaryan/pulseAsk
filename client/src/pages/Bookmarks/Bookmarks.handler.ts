@@ -6,7 +6,7 @@ export const useBookmarksHandler = (
     setQuestions : React.Dispatch<React.SetStateAction<QuestionInterface[]>>,
     setAnswers : React.Dispatch<React.SetStateAction<Partial<AnswerInterface>[]>>,
 )=>{
-    const {fetchBookmarked} = useBookmark();
+    const {fetching, fetchBookmarked} = useBookmark();
 
     const fetchBookmarkedQuestions = async ()=>{
         const questions = (await fetchBookmarked("question"))as QuestionInterface[];
@@ -19,6 +19,7 @@ export const useBookmarksHandler = (
     }
 
     return {
+        fetching,
         fetchBookmarkedQuestions,
         fetchBookmarkedAnswers,
     }

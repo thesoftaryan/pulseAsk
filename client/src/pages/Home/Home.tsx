@@ -17,6 +17,7 @@ import { Leaderboard } from "./Leaderboard/Leaderboard";
 import { useSafeNavigate } from "../../hooks/useSafeNavigate.hook";
 import type { QuestionInterface } from "../../types/ApiResponse/question.type";
 import { useHomeHandler } from "./Home.handler";
+import { LoaderScreen } from "../../components/common/LoaderScreen/LoaderScreen";
 
 export const Home = ()=>{
 
@@ -34,7 +35,7 @@ export const Home = ()=>{
     const [questions, setQuestions] = useState<QuestionInterface[]>([]);
 
 
-    const {fetchQuestionsHandler} = useHomeHandler();
+    const {fetching, fetchQuestionsHandler} = useHomeHandler();
 
     useEffect(()=>{
         fetchQuestionsHandler(setQuestions);
@@ -92,6 +93,11 @@ export const Home = ()=>{
                 <div className={HomeStyle["question-leaderboard-section"]}>
                     <div className={HomeStyle["question-section"]}>
                         {/* <Question onClick={()=>{safeNavigate(homeRoutes.question)}} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/> */}
+                        {
+                            fetching
+                            &&
+                            <LoaderScreen/>
+                        }
                         {
                             questions.length===0
                             &&

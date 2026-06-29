@@ -29,6 +29,7 @@
 }
 
 .persons{
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
@@ -42,6 +43,7 @@
 
 
 .right{
+    position: relative;
     flex-grow: 1;
     /* width: 100%; */
     display: flex;

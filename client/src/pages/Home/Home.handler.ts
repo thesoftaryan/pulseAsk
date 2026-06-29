@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { getHomeMessageAPI } from "../../api/home.api";
 import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResponseParser.service";
 import { fetchQuestionsService } from "../../services/question/fetchQuestion.service";
@@ -7,11 +8,13 @@ import { showToast } from "../../utils/toast.util";
 
 export const useHomeHandler = ()=>{
 
+    const [fetching, setFetching] = useState(false);
+
     const homeHandler = async ( setBackendMessage : React.Dispatch<React.SetStateAction<string>>)=>{
         try{
             // console.log("calling api");
             const response = await getHomeMessageAPI();
-            console.log(response);
+            // console.log(response);
             const parsed = parseSuccessResponse(response);
             setBackendMessage(parsed.message);
         }catch(error){
@@ -24,6 +27,7 @@ export const useHomeHandler = ()=>{
         setQuestions: React.Dispatch<React.SetStateAction<QuestionInterface[]>>
     ) => {
         try{
+            setFetching(true);
             // console.log("calling api");
             const response = await fetchQuestionsService();
             const result = parseSuccessResponse<QuestionInterface[]>(response);
@@ -35,10 +39,13 @@ export const useHomeHandler = ()=>{
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
+        }finally{
+            setFetching(false);
         }
     }
 
     return {
+        fetching,
         homeHandler,
         fetchQuestionsHandler,
     };

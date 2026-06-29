@@ -100,7 +100,18 @@ export const AccountSettings = ()=>{
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    const {removeUserProfileImageHandler, updateUserProfileImageHandler,updateBasicProfileHandler, updateSocialProfileHandler, addKTagHandler, removeKTagHandler} = useAccountSettingsHandler(setBasicProfile, setSocialProfile, setErrors);
+    const {
+        removeUserProfileImageHandler,
+        updateUserProfileImageHandler,
+        updateBasicProfileHandler,
+        updateSocialProfileHandler,
+        addKTagHandler,
+        removeKTagHandler
+    } = useAccountSettingsHandler(
+        setBasicProfile,
+        setSocialProfile,
+        setErrors
+    );
 
     const {uploadImageHandler} = useUploadImage();
 

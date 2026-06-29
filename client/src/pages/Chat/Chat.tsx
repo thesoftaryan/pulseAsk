@@ -28,6 +28,7 @@ import { PreviewImageTile } from "./PreviewImageTile/PreviewImageTile";
 import { useUploadImage } from "../../hooks/uploadImage.hook";
 import { homeRoutes } from "../../routes/routesConstants";
 import { useSafeNavigate } from "../../hooks/useSafeNavigate.hook";
+import { LoaderScreen } from "../../components/common/LoaderScreen/LoaderScreen";
 
 export interface ChatsMapInterface{
     [conversationId: string] : ChatMessageInterface[],
@@ -39,9 +40,10 @@ export const Chat = ()=>{
 
     const messageEndRef = useRef<HTMLDivElement>(null);
     
+    const [fetching, setFetching] = useState(false);
+    
     const [contacts, setContacts] = useState<ContactInterface[]>([]);
     const [activeContact, setActiveContact] = useState<ContactInterface | undefined>();
-    const [fetching, setFetching] = useState(false);
     const [chats, setChats] = useState<ChatMessageInterface[]>([]);
     const [chatsMap, setChatsMap] = useState<ChatsMapInterface>({});
     
@@ -112,6 +114,8 @@ export const Chat = ()=>{
     
     // Importing functions from Handler
     const {
+        fetchingContacts,
+        fetchingConversation,
         sendMessageHandler,
         initChatHandler,
         getContactsHandler,
@@ -237,6 +241,11 @@ export const Chat = ()=>{
                 </div>
                 <div className={ChatStyle["persons"]}>
                     {
+                        fetchingContacts
+                        &&
+                        <LoaderScreen/>
+                    }
+                    {
                         (contacts.length===0 && !chatUserId)
                         &&
                         <p className={ChatStyle["label"]}>You haven't talked with anyone</p>
@@ -248,7 +257,7 @@ export const Chat = ()=>{
                     }
                     {
                         currentContacts.map((contact)=>{
-                            return <ContactTile active={contact.conversationId === activeContact?.conversationId} onClick={()=>{setActiveContact(contact); console.log("setting :", contact, " as active");}} contact={contact} key={contact.conversationId}/>
+                            return <ContactTile active={contact.conversationId === activeContact?.conversationId} onClick={()=>{setActiveContact(contact);}} contact={contact} key={contact.conversationId}/>
                         })
                     }
                     
@@ -260,6 +269,11 @@ export const Chat = ()=>{
             {
                 activeContact?
                 <div className={ChatStyle["right"]}>
+                    {
+                        fetchingConversation
+                        &&
+                        <LoaderScreen/>
+                    }
                     <div className={ChatStyle["header"]}>
                         <div className={ChatStyle["person-profile-status"]}>
                             <div className={ChatStyle["person-profile-container"]}>

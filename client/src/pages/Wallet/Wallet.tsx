@@ -3,12 +3,18 @@ import { useEffect, useState } from "react";
 import Divider from "../../components/common/Divider/Divider";
 import { TransactionTile } from "./TransactionTile/TransactionTile";
 import { useWalletHandler } from "./Wallet.handler";
+import { LoaderScreen } from "../../components/common/LoaderScreen/LoaderScreen";
 
 export const Wallet = ()=>{
     const [walletStats, setWalletStats] = useState<any>({});
     const [transactions, setTransactions] = useState<any[]>([]);
 
-    const {getWalletStatsHandler, getTransactionsHandler} 
+    const {
+        fetchingWallet,
+        fetchingTransactions,
+        getWalletStatsHandler,
+        getTransactionsHandler
+    } 
     = useWalletHandler(
         setWalletStats,
         setTransactions,
@@ -22,6 +28,11 @@ export const Wallet = ()=>{
     return (
         <div className={WalletStyle["wallet-container"]}>
             <div className={WalletStyle["wallet-stats"]}>
+                {
+                    fetchingWallet
+                    &&
+                    <LoaderScreen/>
+                }
                 <div className={WalletStyle["wallet-balance"]}>
                     <div className={WalletStyle["heading"]}>
                         PulsePoints
@@ -48,6 +59,11 @@ export const Wallet = ()=>{
             <div className={WalletStyle["transactions-container"]}>
                 {/* <TransactionTile received={true} amount={5000}/>
                 <TransactionTile received={false}/> */}
+                {
+                    fetchingTransactions
+                    &&
+                    <LoaderScreen/>
+                }
                 {
                     !transactions.length
                     &&

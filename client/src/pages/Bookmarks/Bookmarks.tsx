@@ -7,6 +7,7 @@ import type { AnswerInterface } from "../../types/ApiResponse/answer.type";
 import type { QuestionInterface } from "../../types/ApiResponse/question.type";
 import { Question } from "../../components/common/Question/Question";
 import { useBookmarksHandler } from "./Bookmarks.handler";
+import { LoaderScreen } from "../../components/common/LoaderScreen/LoaderScreen";
 
 export const Bookmarks = ()=>{
     const [activeBookmarkType, setActiveBookmarkType] = useState<"question" | "answer">("question");
@@ -15,6 +16,7 @@ export const Bookmarks = ()=>{
     const [questions, setQuestions] = useState<QuestionInterface[]>([]);
 
     const {
+        fetching,
         fetchBookmarkedQuestions,
         fetchBookmarkedAnswers,
     } = useBookmarksHandler(setQuestions, setAnswers);
@@ -113,6 +115,11 @@ export const Bookmarks = ()=>{
                 }
             </div>
             <div className={BookmarksStyle["result-container"]}>
+                {
+                    fetching
+                    &&
+                    <LoaderScreen/>
+                }
                 {
                     activeBookmarkType==="question" && 
                     (

@@ -16,6 +16,10 @@
     padding: var(--spacing-ls);
 }
 
+.show-question-container{
+    position: relative;
+}
+
 .question-title{
     display: flex;    
     align-items: center;
@@ -155,6 +159,7 @@
 } */
 
 .answers-container{
+    position: relative;
     flex-grow: 1;
     display: flex;
     margin-top: var(--spacing-xl);

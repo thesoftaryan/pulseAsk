@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResponseParser.service"
 import { getPeopleSearchResultService, getQASearchResultService } from "../../services/search.service";
 import { showToast } from "../../utils/toast.util";
@@ -7,8 +8,11 @@ export const useSearchHandler = (
     setPeople: React.Dispatch<any>,
 )=>{
 
+    const [fetching, setFetching] = useState(false);
+
     const fetchQAResultsHandler = async (query:string)=>{
         try{
+            setFetching(true);
             const response = await getQASearchResultService({query});
             const result = parseSuccessResponse<{results:any}>(response);
             // console.log(result);
@@ -16,10 +20,13 @@ export const useSearchHandler = (
         }catch(err){
             const error = parseErrorResponse(err);
             showToast.error(error.message);
+        }finally{
+            setFetching(false);
         }
     }
     const fetchPeopleResultsHandler = async (query:string)=>{
         try{
+            setFetching(true);
             const response = await getPeopleSearchResultService({query});
             const result = parseSuccessResponse<{results:any}>(response);
             // console.log("people: ",result);
@@ -27,9 +34,12 @@ export const useSearchHandler = (
         }catch(err){
             const error = parseErrorResponse(err);
             showToast.error(error.message);
+        }finally{
+            setFetching(false);
         }
     }
     return {
+        fetching,
         fetchQAResultsHandler,
         fetchPeopleResultsHandler,
     }

@@ -47,6 +47,7 @@
 }
 
 .question-section{
+    position:relative;
     flex-grow: 3;
     display: flex;
     flex-direction: column;

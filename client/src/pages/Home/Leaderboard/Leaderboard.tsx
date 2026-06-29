@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useLeaderboardHandler } from "./Leaderboard.handler";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
 import { homeRoutes } from "../../../routes/routesConstants";
+import { LoaderScreen } from "../../../components/common/LoaderScreen/LoaderScreen";
 
 interface UserProfileInterface{
     userName?:string;
@@ -78,7 +79,7 @@ export const Leaderboard = ()=>{
 
     const [entries, setEntries] = useState<any[]>([]);
 
-    const {getLeaderboardHandler} = useLeaderboardHandler(setEntries);
+    const {fetching, getLeaderboardHandler} = useLeaderboardHandler(setEntries);
 
     useEffect(()=>{
         getLeaderboardHandler();
@@ -87,6 +88,11 @@ export const Leaderboard = ()=>{
     return (
         <>
             <div className={LeaderboardStyle["container"]}>
+                {
+                    fetching
+                    &&
+                    <LoaderScreen/>
+                }
                 <div className={LeaderboardStyle["header"]}>
                     <LeaderboardIcon className={LeaderboardStyle["leaderboard-icon"]}/>
                     <div className={LeaderboardStyle["heading"]}>Leaderboard</div>

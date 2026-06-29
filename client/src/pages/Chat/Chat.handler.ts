@@ -5,7 +5,7 @@ import { showToast } from "../../utils/toast.util";
 import type { ChatMessageInterface, ContactInterface, FetchMessagesResponse, GetContactsResponse, GetUserContactDetailsResponse } from "../../types/ApiResponse/chat.type";
 // import { connectSocket } from "../../services/socket.service";
 import { useAppDispatch, useAppSelector } from "../../hooks/store.hook";
-import { useEffect} from "react";
+import { useEffect, useState} from "react";
 import type { Socket } from "socket.io-client";
 import type { SendMessagePayload } from "../../types/ApiRequest/chat.type";
 import type { ChatsMapInterface } from "./Chat";
@@ -20,6 +20,9 @@ export const useChatHandler = (
     setFetching: React.Dispatch<React.SetStateAction<boolean>>,
     setActiveContact: React.Dispatch<React.SetStateAction<ContactInterface | undefined>>,
 )=>{
+
+    const [fetchingContacts, setFetchingContacts] = useState(false);
+    const [fetchingConversation, setFetchingConversation] = useState(false);
 
     const dispatch = useAppDispatch();
 
@@ -216,7 +219,7 @@ export const useChatHandler = (
 
     const getContactsHandler = async ()=>{
         try{
-            setFetching(true);
+            setFetchingContacts(true);
             const response = await getContactsService();
             const result = parseSuccessResponse<GetContactsResponse>(response);
             setContacts(result.data?.contacts??[]);
@@ -225,7 +228,7 @@ export const useChatHandler = (
             const err = parseErrorResponse(error);
             showToast.error(err.message);
         }finally{
-            setFetching(false);
+            setFetchingContacts(false);
         }
     }
 
@@ -295,6 +298,7 @@ export const useChatHandler = (
 
     const fetchMessagesHandler = async (conversationId: string)=>{
         try{
+            setFetchingConversation(true);
             if(conversationId==="new_conversation"){
                 // console.log("new_conversation request, contact: ", activeContact);
                 return;
@@ -303,11 +307,13 @@ export const useChatHandler = (
             const response = await fetchMessagesService({conversationId});
             const result = parseSuccessResponse<FetchMessagesResponse>(response);
             // setChats(result.data?.messages);
-            console.log(result);
+            // console.log(result);
             setMultipleChatsHandler(conversationId, result.data?.messages??[]);
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
+        }finally{
+            setFetchingConversation(false);
         }
     }
 
@@ -320,7 +326,7 @@ export const useChatHandler = (
             setFetching(true);
             const response = await getUserContactDetailsService({userId: chatUser});
             const result = parseSuccessResponse<GetUserContactDetailsResponse>(response);
-            console.log(result.data);
+            // console.log(result.data);
             setInitContact(result.data);
             setActiveContact(result.data);
         }catch(error){
@@ -333,6 +339,8 @@ export const useChatHandler = (
 
 
     return {
+        fetchingContacts,
+        fetchingConversation,
         sendMessageHandler,
         initChatHandler,
         getContactsHandler,

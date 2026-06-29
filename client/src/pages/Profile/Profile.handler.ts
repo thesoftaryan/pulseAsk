@@ -15,7 +15,6 @@ export const useProfileHandler = (
     setFetchingProfile : React.Dispatch<React.SetStateAction<boolean>>,
 )=>{
 
-
     const {backNavigate} = useSafeNavigate();
 
     const fetchProfileHandler = async (userName? : string)=>{

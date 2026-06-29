@@ -38,6 +38,7 @@ import InlineError from "../../../components/common/InlineError/InlineError";
 
 import DOMPurify from "dompurify";
 import { showToast } from "../../../utils/toast.util";
+import { LoaderScreen } from "../../../components/common/LoaderScreen/LoaderScreen";
 
 type QuestionParams = {
     qid: string;
@@ -80,6 +81,8 @@ export const ShowQuestion = ()=>{
     const [bookmarked, setBookmarked] = useState(false);
 
     const{
+        fetchingQuestion,
+        fetchingAnswers,
         fetchQuestionHandler, 
         fetchAnswersHandler, 
         postAnswerHandler, 
@@ -175,6 +178,11 @@ export const ShowQuestion = ()=>{
         <div className={ShowQuestionStyle["container"]}>
             <div className={ShowQuestionStyle["main-content"]}>
                     <div className={ShowQuestionStyle["show-question-container"]}>
+                        {
+                            fetchingQuestion
+                            &&
+                            <LoaderScreen/>
+                        }
                         <div className={ShowQuestionStyle["question-title"]}>
                             <QuestionIcon className={ShowQuestionStyle["question-icon"]}/>
                             <div className={ShowQuestionStyle["title-text"]}>{question.title}</div>
@@ -223,9 +231,14 @@ export const ShowQuestion = ()=>{
                         {/* <textarea className={ShowQuestionStyle["submit-answer-textarea"]}/> */}
                         <TextEditor onChange={setAnswerContent} placeholder="Enter your Answer here!!"/>
                         {errors.content && <InlineError message={errors.content}/>}
-                        <Button loading={posting} text="Post Answer" onClick={()=>{console.log(answerContent); handlePostAnswer();}}/>
+                        <Button loading={posting} text="Post Answer" onClick={()=>{handlePostAnswer();}}/>
                     </div>
                     <div className={ShowQuestionStyle["answers-container"]}>
+                        {
+                            fetchingAnswers
+                            &&
+                            <LoaderScreen/>
+                        }
                         <div className={ShowQuestionStyle["answers"]}>
                             <FilterBar options={options} reverse={true} text={`${answers.length} Answers Found`}/>
                             {/* <Answer author={answerObj.author} content={answerObj.content} level1={true}/> */}

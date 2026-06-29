@@ -11,6 +11,7 @@ import { checkAuthThunk } from "./store/auth/thunks/checkAuth.thunk";
 import { useApplyTheme } from "./hooks/useApplyTheme.hook";
 import { useSafeNavigate } from "./hooks/useSafeNavigate.hook";
 import { useSocket } from "./hooks/useSocket.hook";
+// import { LoaderScreen } from "./components/common/LoaderScreen/LoaderScreen";
 // import type { Socket } from "socket.io-client";
 // import { toggleTheme } from "./store/theme/theme.slice";
 
@@ -45,9 +46,9 @@ const App = ()=>{
   }, [dispatch]);
   
   // if(state.status==="loading") return "Loading...";
-
   return (
     <>
+    {/* <LoaderScreen transparent={true}/>; */}
     <Outlet/>
     <Toaster/>
     </>

@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useTagHandler } from "./Tag.handler";
 import type { TagInterface } from "../../types/ApiResponse/tag.type";
 import type { QuestionInterface } from "../../types/ApiResponse/question.type";
+import { LoaderScreen } from "../../components/common/LoaderScreen/LoaderScreen";
 
 
 export const Tag = ()=>{
@@ -21,7 +22,11 @@ export const Tag = ()=>{
     const [tag, setTag] = useState<TagInterface>();
     const [questions, setQuestions] = useState<QuestionInterface[]>([]);
 
-    const {initPage} = useTagHandler(
+    const {
+        fetchingTag,
+        fetchingQuestions,
+        initPage
+    } = useTagHandler(
         setQuestions,
         setTag,
     );
@@ -62,6 +67,11 @@ export const Tag = ()=>{
     return (
         <div className={TagStyle["container"]}>
             <div className={TagStyle["tag-section"]}>
+                {
+                    fetchingTag
+                    &&
+                    <LoaderScreen/>
+                }
                 <TagChip slug={tag?.slug} color={tag?.color??""} text={tag?.name??""} isLarge={true} level1={true}/>
                 <div className={TagStyle["question-count"]}>
                     {tag?.usageCount} Questions
@@ -72,6 +82,11 @@ export const Tag = ()=>{
                     <FilterBar options={options}/>
                 </div>
                 <div className={TagStyle["main-content"]}>
+                    {
+                        fetchingQuestions
+                        &&
+                        <LoaderScreen/>
+                    }
                     {/* <Question id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/>
                     <Question best_answer={<Answer level1Comments={true} author={answerObj.author!} content={answerObj.content!}/>} id="" title="How to do CPR correctly, Urgent help needed!" author={{_id: "1", email: "", firstName:"", lastName:""}}/> */}
                     {

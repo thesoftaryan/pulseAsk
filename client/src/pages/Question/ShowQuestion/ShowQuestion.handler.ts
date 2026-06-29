@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useBookmark } from "../../../hooks/bookmark.hook";
 import { useAppSelector } from "../../../hooks/store.hook";
 import { useSafeNavigate } from "../../../hooks/useSafeNavigate.hook";
@@ -41,13 +42,16 @@ export const useShowQuestionHandler = (
         const bookmarkValue = (await toggleBookmark(data, bookmark));
         setBookmarked(bookmarkValue);
     }
+
+    const [fetchingQuestion, setFetchingQuestion] = useState(false);
+    const [fetchingAnswers, setFetchingAnswers] = useState(false);
     
     const fetchQuestionHandler = async (qid:string, slug:string)=>{
         try{
-            // console.log(qid);
+            setFetchingQuestion(true);
             const response = await fetchQuestionService({qid});
             const result = parseSuccessResponse<QuestionInterface>(response);
-            console.log(result);
+            // console.log(result);
             if(result.data?.slug !== slug){
                 replaceNavigate(homeRoutes.question+`/${qid}/${result.data?.slug}`);
             }
@@ -56,18 +60,23 @@ export const useShowQuestionHandler = (
             const err = parseErrorResponse(error);
             showToast.error(err.message);
             replaceNavigate(homeRoutes.home);
+        }finally{
+            setFetchingQuestion(false);
         }
     }
 
     const fetchAnswersHandler = async (data : FetchAnswersPayload)=>{
         try{
+            setFetchingAnswers(true);
             const response = await fetchAnswersService(data);
             const result = parseSuccessResponse<FetchAnswersResponse>(response);
-            console.log(result.data?.answers);
+            // console.log(result.data?.answers);
             setAnswers(result.data!.answers)
         }catch(error){
             const err = parseErrorResponse(error);
             showToast.error(err.message);
+        }finally{
+            setFetchingAnswers(false);
         }
     }
 
@@ -120,6 +129,8 @@ export const useShowQuestionHandler = (
 
 
     return {
+        fetchingQuestion,
+        fetchingAnswers,
         fetchQuestionHandler,
         fetchAnswersHandler,
         postAnswerHandler,

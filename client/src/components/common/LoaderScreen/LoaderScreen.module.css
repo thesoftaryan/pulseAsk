@@ -1,0 +1,24 @@
+
+.container {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height:200px;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-radius: var(--size-radius-md);
+
+    z-index: 9999;
+}
+
+.container img{
+    height: var(--size-icon-xl);
+    border-radius: var(--size-radius-circle);
+}
