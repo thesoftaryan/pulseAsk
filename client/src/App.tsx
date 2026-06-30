@@ -4,13 +4,14 @@ import { Outlet } from "react-router-dom";
 
 import {Toaster} from "react-hot-toast";
 import { useEffect } from "react";
-import { useAppDispatch } from "./hooks/store.hook";
+import { useAppDispatch, useAppSelector } from "./hooks/store.hook";
 import { logoutThunk } from "./store/auth/thunks/logout.thunk";
 import { authRoutes } from "./routes/routesConstants";
 import { checkAuthThunk } from "./store/auth/thunks/checkAuth.thunk";
 import { useApplyTheme } from "./hooks/useApplyTheme.hook";
 import { useSafeNavigate } from "./hooks/useSafeNavigate.hook";
 import { useSocket } from "./hooks/useSocket.hook";
+import { LoaderScreen } from "./components/common/LoaderScreen/LoaderScreen";
 // import { LoaderScreen } from "./components/common/LoaderScreen/LoaderScreen";
 // import type { Socket } from "socket.io-client";
 // import { toggleTheme } from "./store/theme/theme.slice";
@@ -45,10 +46,15 @@ const App = ()=>{
     }
   }, [dispatch]);
   
+  const state = useAppSelector(state=>state.auth);
   // if(state.status==="loading") return "Loading...";
   return (
     <>
-    {/* <LoaderScreen transparent={true}/>; */}
+    {
+      state.status==="loading"
+      &&
+      <LoaderScreen/>
+    }
     <Outlet/>
     <Toaster/>
     </>

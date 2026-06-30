@@ -1,14 +1,15 @@
 import { addBookmarkAPI, fetchBookmarkedAnswersAPI, fetchBookmarkedQuestionsAPI, isBookmarkedAPI, removeBookmarkAPI } from "../api/bookmarks.api"
+import type { BookmarkPayload } from "../types/ApiRequest/bookmarks.type";
 
-export const addBookmarkService = (data : any)=>{
+export const addBookmarkService = (data : BookmarkPayload)=>{
     return addBookmarkAPI(data);
 }
 
-export const removeBookmarkService = (data:any)=>{
+export const removeBookmarkService = (data:BookmarkPayload)=>{
     return removeBookmarkAPI(data);
 }
 
-export const isBookmarkedService = (data : any)=>{
+export const isBookmarkedService = (data : BookmarkPayload)=>{
     return isBookmarkedAPI(data);
 }
 

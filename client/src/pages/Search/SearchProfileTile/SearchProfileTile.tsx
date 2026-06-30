@@ -17,12 +17,16 @@ export const SearchProfileTile:React.FC<SearchProfileTileProps> = ({profile})=>{
                 <div className={SearchProfileTileStyle["user-name"]}>
                     {profile.firstName} {profile.lastName}
                 </div>
-                <div className={SearchProfileTileStyle["user-education"]}>
-                    <EducationIcon className={SearchProfileTileStyle["icon"]}/>
-                    <div className={SearchProfileTileStyle["user-education-name"]}>
-                        {profile.college}
+                {
+                    profile.college
+                    &&
+                    <div className={SearchProfileTileStyle["user-education"]}>
+                        <EducationIcon className={SearchProfileTileStyle["icon"]}/>
+                        <div className={SearchProfileTileStyle["user-education-name"]}>
+                            {profile.college}
+                        </div>
                     </div>
-                </div>
+                }
             </div>
             <div className={SearchProfileTileStyle["user-reputation"]}>
                 <ReputationIcon className={SearchProfileTileStyle["icon"]}/>

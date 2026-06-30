@@ -1,10 +1,11 @@
 import { Answer } from "../models/Answer.model";
 import { Question } from "../models/Question.model";
 import { User } from "../models/User.model";
+import { SearchPayload } from "../types/search.type";
 
 
-export const getQASearchResultService = async (query : string)=>{
-    
+export const getQASearchResultService = async (payload : SearchPayload)=>{
+    const {query} = payload;
     const questionResult = await Question.find(
         {
             $text:{
@@ -87,8 +88,9 @@ export const getQASearchResultService = async (query : string)=>{
     ];
 }
 
-export const getPeopleSearchResultService = async (query: string)=>{
-    const user = await User.find(
+export const getPeopleSearchResultService = async (payload : SearchPayload)=>{
+    const {query} = payload;
+    const users = await User.find(
     {
         $text: {
             $search: query
@@ -100,5 +102,5 @@ export const getPeopleSearchResultService = async (query: string)=>{
         }
     }).sort({score: -1})
     .select("_id userName profile firstName lastName reputationScore college");
-    return user;
+    return users;
 }

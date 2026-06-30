@@ -10,6 +10,8 @@ import { SearchProfileTile } from "./SearchProfileTile/SearchProfileTile";
 import { useSearchHandler } from "./Search.handler";
 import { Question } from "../../components/common/Question/Question";
 import { LoaderScreen } from "../../components/common/LoaderScreen/LoaderScreen";
+import type { QuestionInterface } from "../../types/ApiResponse/question.type";
+import type { UserInterface } from "../../types/ApiResponse/user.type";
 
 export type SearchType = "question"|"people";
 
@@ -19,8 +21,8 @@ export const Search = ()=>{
     const {safeNavigate} = useSafeNavigate();
     const [activeSearchType, setActiveSearchType] = useState<SearchType>("question");
     
-    const [questions, setQuestions]=useState<any[]>([]);
-    const [people, setPeople]=useState<any[]>([]);
+    const [questions, setQuestions]=useState<QuestionInterface[]>([]);
+    const [people, setPeople]=useState<Partial<UserInterface>[]>([]);
 
     const {
         fetching,

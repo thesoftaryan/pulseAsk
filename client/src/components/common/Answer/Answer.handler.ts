@@ -8,6 +8,7 @@ import type { FetchCommentsPayload, PostCommentPayload } from "../../../types/Ap
 import { fetchAnswerCommentsService, postAnswerCommentService } from "../../../services/answer/answerComment.service";
 import type { PostCommentResponse, CommentInterface, FetchCommentsResponse } from "../../../types/ApiResponse/comment.typs";
 import { useBookmark } from "../../../hooks/bookmark.hook";
+import type { BookmarkPayload } from "../../../types/ApiRequest/bookmarks.type";
 
 
 
@@ -26,7 +27,7 @@ export const useAnswerHandler = (
         const data = {
             type: "answer",
             targetId: tid,
-        }
+        } as BookmarkPayload;
         const bookmarked = (await isBookmarked(data))??false;
         setBookmarked(bookmarked);
     }
@@ -35,7 +36,7 @@ export const useAnswerHandler = (
         const data = {
             type: "answer",
             targetId: tid,
-        };
+        } as BookmarkPayload;
         const bookmarkValue = (await toggleBookmark(data, bookmark))?? false;
         setBookmarked(bookmarkValue);
     }

@@ -13,3 +13,7 @@ export interface SendMessagePayload{
     caption?:string;
     type: "text" | "image";
 }
+
+export interface MarkAsSeenPayload{
+    conversationId: string;
+}

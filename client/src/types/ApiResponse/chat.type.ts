@@ -45,7 +45,3 @@ export interface GetContactsResponse{
 export interface FetchMessagesResponse{
     messages: ChatMessageInterface[];
 }
-
-export interface GetUserContactDetailsResponse extends ContactInterface{
-
-}

@@ -1,4 +1,4 @@
-import type { FetchMessagesPayload, GetUserContactDetailsPayload } from "../types/ApiRequest/chat.type";
+import type { FetchMessagesPayload, GetUserContactDetailsPayload, MarkAsSeenPayload } from "../types/ApiRequest/chat.type";
 import api from "./axios"
 
 export const getContactsAPI = ()=>{
@@ -13,6 +13,6 @@ export const fetchMessagesAPI = (data:FetchMessagesPayload)=>{
     return api.post("/chat/fetchMessages", data);
 }
 
-export const markAsSeenAPI = (data : any)=>{
+export const markAsSeenAPI = (data : MarkAsSeenPayload)=>{
     return api.post("/chat/markAsSeen", data);
 }

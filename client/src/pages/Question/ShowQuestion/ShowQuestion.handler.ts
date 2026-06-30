@@ -14,6 +14,7 @@ import type { AnswerInterface, FetchAnswersResponse, PostAnswerResponse } from "
 import type { QuestionInterface } from "../../../types/ApiResponse/question.type";
 import type { VoteResponse } from "../../../types/ApiResponse/vote.type";
 import { showToast } from "../../../utils/toast.util";
+import type { BookmarkPayload } from "../../../types/ApiRequest/bookmarks.type";
 // import { showToast } from "../../../utils/toast.util";
 
 
@@ -27,7 +28,7 @@ export const useShowQuestionHandler = (
 
     const {isBookmarked, toggleBookmark} = useBookmark();
     const isBookmarkedHandler = async (targetId: string)=>{
-        const data = {
+        const data:BookmarkPayload = {
             type: "question",
             targetId,
         }
@@ -35,7 +36,7 @@ export const useShowQuestionHandler = (
         setBookmarked(bookmarked);
     }
     const toggleBookmarkHandler = async (targetId: string, bookmark: boolean)=>{
-        const data = {
+        const data:BookmarkPayload = {
             type: "question",
             targetId,
         }

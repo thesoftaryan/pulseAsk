@@ -1,3 +1,4 @@
+import type { BookmarkPayload } from "../types/ApiRequest/bookmarks.type";
 import api from "./axios";
 
 export const addBookmarkAPI = (data : any)=>{
@@ -8,7 +9,7 @@ export const removeBookmarkAPI = (data: any)=>{
     return api.post("/bookmarks/remove", data);
 }
 
-export const isBookmarkedAPI = (data: any)=>{
+export const isBookmarkedAPI = (data: BookmarkPayload)=>{
     return api.post("/bookmarks/check", data);
 }
 

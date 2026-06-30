@@ -2,9 +2,12 @@ import { Types } from "mongoose";
 import { ChatMessageInterface, ChatMessage, ConversationInterface, Conversation } from "../models/Chat.model";
 import { ApiError } from "../utils/error.util";
 import { User } from "../models/User.model";
-import { ContactInterface, ContactPersonInterface } from "../types/response/chat.type";
+import { ContactInterface, ContactPersonInterface, LastMessageInterface } from "../types/response/chat.type";
 import { log } from "console";
 import { STATUS } from "../constants/statusCodes.constants";
+import { SendMessagePayload } from "../types/chat.type";
+import { validate } from "../middlewares/validation.middleware";
+import { validateCreateChatMessage } from "../validations/chat.validation";
 
 
 
@@ -19,19 +22,17 @@ export const getContactsService = async (uid: Types.ObjectId)=>{
 
     // console.log(conversations);
 
-    const contacts = [];
+    const contacts:ContactInterface[] = [];
     for(let conversation of conversations){
         const conversationUser = ((conversation.participants[0]._id==uid)? 
             conversation.participants[1]
             :
             conversation.participants[0])as unknown as ContactPersonInterface;
         const obj = {
-            conversationId: conversation._id,
+            conversationId: conversation._id.toString(),
             person: conversationUser,
-            lastMessage : conversation.lastMessage,
+            lastMessage : conversation.lastMessage as (LastMessageInterface | undefined),
             unreadCount: conversation.unreadCount,
-            status: conversationUser.status,
-            lastSeen: conversationUser.lastSeen,
         };
         contacts.push(obj);
     }
@@ -47,16 +48,16 @@ export const getContactsService = async (uid: Types.ObjectId)=>{
 export const userContactDetailsService = async (uid:Types.ObjectId, userId: Types.ObjectId)=>{
     const user = await User.findById(userId).select("_id userName profile firstName lastName status lastSeen");
     const conversationId = await getConversationIdService(uid, userId);
-    const obj = {
+    const obj : ContactInterface = {
         conversationId,
         person: {
-            _id: user?._id,
-            firstName: user?.firstName,
+            _id: user?._id.toString()!,
+            firstName: user?.firstName!,
             lastName: user?.lastName,
             profile: user?.profile,
-            userName: user?.userName,
-            status: user?.status,
-            lastSeen: user?.lastSeen,
+            userName: user?.userName!,
+            status: user?.status!,
+            lastSeen: user?.lastSeen!,
         },
         unreadCount:0,
     };
@@ -119,7 +120,14 @@ export const resetUnreadCountService = async (conversationId: Types.ObjectId)=>{
  * @param data of type any (as of now)
  * @returns the Object of type ChatMessageInterface
  */
-export const createChatMessageService = async (data : any) : Promise<ChatMessageInterface>=>{
+export const createChatMessageService = async (data : SendMessagePayload) : Promise<ChatMessageInterface>=>{
+    const errors = validate(validateCreateChatMessage);
+    if(Object.keys(errors).length > 0){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.BAD_REQUEST,
+            "Invalid request",
+        );
+    }
     const {senderId, receiverId, content, caption, type} = data;
     
     const receiver = await User.findById(receiverId);

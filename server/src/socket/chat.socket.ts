@@ -7,6 +7,9 @@ import { Server, Socket } from "socket.io";
 import { createChatMessageService, updateUserStatus } from "../services/chat.service";
 import { onlineUsers } from ".";
 import { ApiError } from "../utils/error.util";
+import { SendMessagePayload } from "../types/chat.type";
+import { validate } from "../middlewares/validation.middleware";
+import { validateCreateChatMessage } from "../validations/chat.validation";
 
 
 export const registerChatSocket = (io:Server)=>{
@@ -20,7 +23,7 @@ export const registerChatSocket = (io:Server)=>{
             socket.broadcast.emit("user_status", {userId, status:"online"});
         });
 
-        socket.on("send_message", async (data)=>{
+        socket.on("send_message",async (data:SendMessagePayload)=>{
             const {receiverId} = data;
             //* We also need to verify that the senderId is mapped to this socket
 
@@ -29,7 +32,7 @@ export const registerChatSocket = (io:Server)=>{
                 const message = await createChatMessageService(data);
     
                 // Now checking if the receiver is online and sending the message to his socket
-                const receiverSocket = onlineUsers.get(receiverId);
+                const receiverSocket = onlineUsers.get(receiverId.toString());
     
                 if(receiverSocket){
                     io.to(receiverSocket).emit("receive_message", message);

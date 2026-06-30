@@ -40,7 +40,7 @@ export const Chat = ()=>{
 
     const messageEndRef = useRef<HTMLDivElement>(null);
     
-    const [fetching, setFetching] = useState(false);
+    // const [fetching, setFetching] = useState(false);
     
     const [contacts, setContacts] = useState<ContactInterface[]>([]);
     const [activeContact, setActiveContact] = useState<ContactInterface | undefined>();
@@ -126,7 +126,6 @@ export const Chat = ()=>{
         // contactsMap,
         setChatsMap,
         setContacts,
-        setFetching,
         setActiveContact,
     );
     
@@ -224,10 +223,6 @@ export const Chat = ()=>{
         }
         sendMessageHandler(message, imageUrl);
         setMessage("");
-    }
-
-    if(fetching){
-        return "Loading";
     }
 
     return (

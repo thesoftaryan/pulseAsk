@@ -19,15 +19,12 @@ export interface LastMessageInterface{
 }
 
 export interface ContactInterface{
-    conversationId: Types.ObjectId,
+    conversationId: string,
     person: ContactPersonInterface,
     lastMessage? : LastMessageInterface,
+    unreadCount: Number,
 }
 
 export interface FetchMessagesResponse{
     messages: ChatMessageInterface[];
 }
-
-// export interface GetUserContactDetailsResponse extends ContactInterface{
-
-// }

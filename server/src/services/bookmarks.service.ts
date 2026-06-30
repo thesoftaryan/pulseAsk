@@ -4,9 +4,11 @@ import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes.constants";
 import { AnswerInterface } from "../models/Answer.model";
 import { populate } from "dotenv";
+import { BookmarkPayload } from "../types/bookmarks.type";
+import { QuestionInterface } from "../models/Question.model";
 
 
-export const addBookmarkService = async (uid: Types.ObjectId, data: any)=>{
+export const addBookmarkService = async (uid: Types.ObjectId, data: BookmarkPayload)=>{
     const {type, targetId} = data;
     // console.log("type: ", type, ", targetId: ", targetId);
     const bookmark = await Bookmark.findOne({
@@ -26,7 +28,7 @@ export const addBookmarkService = async (uid: Types.ObjectId, data: any)=>{
     });
 }
 
-export const removeBookmarkService = async (uid: Types.ObjectId, data : any)=>{
+export const removeBookmarkService = async (uid: Types.ObjectId, data : BookmarkPayload)=>{
     const {type, targetId} = data;
     await Bookmark.deleteOne({
         userId: uid,
@@ -35,7 +37,7 @@ export const removeBookmarkService = async (uid: Types.ObjectId, data : any)=>{
     });
 }
 
-export const isBookmarkedService = async (uid:Types.ObjectId, data : any)=>{
+export const isBookmarkedService = async (uid:Types.ObjectId, data : BookmarkPayload)=>{
     const {type, targetId} = data;
     const bookmark = await Bookmark.findOne({
         userId:uid,
@@ -65,9 +67,9 @@ export const fetchBookmarkedAnswersService = async (uid: Types.ObjectId)=>{
             ]
         }
     ]);
-    let answers=[];
+    let answers:Partial<AnswerInterface>[]=[];
     for(let elem of bookmarks){
-        answers.push(elem.targetId);
+        answers.push(elem.targetId as unknown as Partial<AnswerInterface>);
     }
     return answers;
 }
@@ -98,9 +100,9 @@ export const fetchBookmarkedQuestionsService = async (uid: Types.ObjectId)=>{
             ]
         }
     ]);
-    let questions=[];
+    let questions:QuestionInterface[]=[];
     for(let elem of bookmarks){
-        questions.push(elem.targetId);
+        questions.push(elem.targetId as unknown as QuestionInterface);
     }
     return questions;
 }

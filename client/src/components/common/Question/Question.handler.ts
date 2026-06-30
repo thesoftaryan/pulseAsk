@@ -1,12 +1,13 @@
 import type { SetStateAction } from "react";
 import { useBookmark } from "../../../hooks/bookmark.hook"
+import type { BookmarkPayload } from "../../../types/ApiRequest/bookmarks.type";
 
 export const useQuestionHandler = (
     setBookmarked : React.Dispatch<SetStateAction<boolean>>,
 )=>{
     const {isBookmarked, toggleBookmark} = useBookmark();
     const isBookmarkedHandler = async (targetId: string)=>{
-        const data = {
+        const data:BookmarkPayload = {
             type: "question",
             targetId,
         }
@@ -14,7 +15,7 @@ export const useQuestionHandler = (
         setBookmarked(bookmarked);
     }
     const toggleBookmarkHandler = async (targetId: string, bookmark: boolean)=>{
-        const data = {
+        const data:BookmarkPayload = {
             type: "question",
             targetId,
         }

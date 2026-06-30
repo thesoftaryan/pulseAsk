@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { parseSuccessResponse, parseErrorResponse } from "../services/apiResponseParser.service";
 import { isBookmarkedService, addBookmarkService, removeBookmarkService, fetchBookmarkedQuestionsService, fetchBookmarkedAnswersService } from "../services/bookmarks.service";
-import type { AnswerInterface } from "../types/ApiResponse/answer.type";
-import type { QuestionInterface } from "../types/ApiResponse/question.type";
 import { showToast } from "../utils/toast.util";
+import type { BookmarkedAnswersResponse, IsBookmarkedResponse, BookmarkedQuestionsResponse } from "../types/ApiResponse/bookmark.type";
+import type { BookmarkPayload } from "../types/ApiRequest/bookmarks.type";
 
 export const useBookmark = ()=>{
 
     const [fetching, setFetching] = useState(false);
 
-    const isBookmarked = async (data:any)=>{
+    const isBookmarked = async (data:BookmarkPayload)=>{
         try{
             const response = await isBookmarkedService(data);
-            const result = parseSuccessResponse<{bookmarked: boolean}>(response);
+            const result = parseSuccessResponse<IsBookmarkedResponse>(response);
             return (result.data?.bookmarked??false);
         }catch(err){
             const error = parseErrorResponse(err);
@@ -22,7 +22,7 @@ export const useBookmark = ()=>{
         }
     }
     
-    const toggleBookmark = async (data : any, bookmark : boolean)=>{
+    const toggleBookmark = async (data : BookmarkPayload, bookmark : boolean)=>{
         
         try{
             if(bookmark){
@@ -48,11 +48,11 @@ export const useBookmark = ()=>{
             setFetching(true);
             if(type==="answer"){
                 const response = await fetchBookmarkedAnswersService();
-                const result = parseSuccessResponse<{answers:Partial<AnswerInterface>[]}>(response);
+                const result = parseSuccessResponse<BookmarkedAnswersResponse>(response);
                 return (result.data!.answers);
             }else{
                 const response = await fetchBookmarkedQuestionsService();
-                const result = parseSuccessResponse<{questions:QuestionInterface[]}>(response);
+                const result = parseSuccessResponse<BookmarkedQuestionsResponse>(response);
                 return (result.data!.questions);
             }
         }catch(err){
