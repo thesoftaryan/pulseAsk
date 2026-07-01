@@ -4,13 +4,18 @@ import { Leaderboard } from "../models/Leaderboard.model";
 import { User } from "../models/User.model";
 import { ApiError } from "../utils/error.util";
 
-export const updateLeaderboardService = async (targetId:Types.ObjectId)=>{
+
+/**
+ * 
+ * @param uid user Id for which leaderboad has to be updated 
+ */
+export const updateLeaderboardService = async (uid:Types.ObjectId)=>{
     
     const session = await mongoose.startSession();
     session.startTransaction();
 
     try{
-        const user = await User.findById(targetId).session(session);
+        const user = await User.findById(uid).session(session);
         if(!user){
             throw new ApiError(
                 STATUS.CLIENT_ERROR.NOT_FOUND,
@@ -19,7 +24,7 @@ export const updateLeaderboardService = async (targetId:Types.ObjectId)=>{
         }
         const newScore = user.reputationScore;
         await Leaderboard.updateOne(
-            {uid: targetId},
+            {uid},
             {$set : {reputationScore: newScore}},
             {upsert: true, session}
         );
@@ -48,6 +53,10 @@ export const updateLeaderboardService = async (targetId:Types.ObjectId)=>{
 };
 
 
+/**
+ * 
+ * @returns Leaderboard
+ */
 export const getLeaderboardService = async ()=>{
     const leaderboard = await Leaderboard.find().populate(
         {path:"uid", select:"_id userName profile firstName lastName reputationScore"}

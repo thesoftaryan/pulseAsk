@@ -9,7 +9,7 @@ import UpvoteIcon from "../../../assets/icons/general/upvote.svg?react";
 import DownvoteIcon from "../../../assets/icons/general/downvote.svg?react";
 import CommentIcon from "../../../assets/icons/general/comment.svg?react";
 // import LoadMoreIcon from "../../../assets/icons/general/load_more.svg?react";
-
+import ProfileImage from "../../../assets/images/user.png"
 
 import { UserProfile } from "../UserProfile/UserProfile";
 import { Icon } from "../Icon/Icon";
@@ -31,6 +31,7 @@ import { homeRoutes } from "../../../routes/routesConstants";
 
 import DOMPurify from "dompurify";
 import { showToast } from "../../../utils/toast.util";
+import { useAppSelector } from "../../../hooks/store.hook";
 
 interface AnswerProps{
     answer: AnswerInterface,
@@ -105,6 +106,8 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
         showToast.success("Link copied to clipboard!");
     };
 
+    const user = useAppSelector(state=>state.auth.user);
+
     return (
         <>
             <div id={answer._id} className={`${AnswerStyle["container"]} ${level1? AnswerStyle["level1-container"]:""}`}>
@@ -152,7 +155,7 @@ export const Answer : React.FC<AnswerProps> = ({answer, level1, level1Comments})
                     isComment && (
                         <div className={AnswerStyle["comment-container"]}>
                             <div className={`${AnswerStyle["post-comment"]} ${level1Comments? AnswerStyle["level1-comments"]:""}`}>
-                                <UserProfile small={true} src={answer.author.profile} className={AnswerStyle["user-profile-small"]}/>
+                                <UserProfile small={true} src={user?.profile??ProfileImage} className={AnswerStyle["user-profile-small"]}/>
 
                                 <input value={commentContent} type="text" placeholder="Add your comment !" className={AnswerStyle["input-field"]}
                                     onChange={(e)=>{

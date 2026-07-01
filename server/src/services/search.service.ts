@@ -4,6 +4,11 @@ import { User } from "../models/User.model";
 import { SearchPayload } from "../types/search.type";
 
 
+/**
+ * 
+ * @param payload of type SearchPayload
+ * @returns Questions list which matches the given query
+ */
 export const getQASearchResultService = async (payload : SearchPayload)=>{
     const {query} = payload;
     const questionResult = await Question.find(
@@ -88,6 +93,11 @@ export const getQASearchResultService = async (payload : SearchPayload)=>{
     ];
 }
 
+/**
+ * 
+ * @param payload of type SearchPayload
+ * @returns people list which matches the given query
+ */
 export const getPeopleSearchResultService = async (payload : SearchPayload)=>{
     const {query} = payload;
     const users = await User.find(

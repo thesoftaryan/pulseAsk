@@ -1,6 +1,7 @@
+import type { SendPaymentPayload } from "../types/ApiRequest/wallet.type";
 import api from "./axios";
 
-export const sendPaymentAPI = (data : any)=>{
+export const sendPaymentAPI = (data : SendPaymentPayload)=>{
     return api.post("/wallet/send", data);
 }
 

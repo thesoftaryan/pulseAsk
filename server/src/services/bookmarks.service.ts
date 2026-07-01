@@ -8,6 +8,12 @@ import { BookmarkPayload } from "../types/bookmarks.type";
 import { QuestionInterface } from "../models/Question.model";
 
 
+/**
+ * 
+ * @param uid user Id
+ * @param data of Type BookmaryPayload
+ * @returns nothing
+ */
 export const addBookmarkService = async (uid: Types.ObjectId, data: BookmarkPayload)=>{
     const {type, targetId} = data;
     // console.log("type: ", type, ", targetId: ", targetId);
@@ -28,6 +34,12 @@ export const addBookmarkService = async (uid: Types.ObjectId, data: BookmarkPayl
     });
 }
 
+/**
+ * 
+ * @param uid user Id
+ * @param data of Type BookmaryPayload
+ * @returns nothing
+ */
 export const removeBookmarkService = async (uid: Types.ObjectId, data : BookmarkPayload)=>{
     const {type, targetId} = data;
     await Bookmark.deleteOne({
@@ -37,6 +49,12 @@ export const removeBookmarkService = async (uid: Types.ObjectId, data : Bookmark
     });
 }
 
+/**
+ * 
+ * @param uid user Id
+ * @param data of type BookmarkPayload
+ * @returns if the given target is bookmarked by user
+ */
 export const isBookmarkedService = async (uid:Types.ObjectId, data : BookmarkPayload)=>{
     const {type, targetId} = data;
     const bookmark = await Bookmark.findOne({

@@ -7,3 +7,11 @@ export interface TagPayload{
     name: string;
     color?: string;
 }
+
+export interface FetchTagPayload{
+    tagSlug: string;
+}
+
+export interface FetchQuestionsByTagPayload{
+    tagId: string;
+}

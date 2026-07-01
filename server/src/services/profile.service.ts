@@ -54,8 +54,14 @@ interface UserStatsUpdateInterface {
     answersGivenChange?: number;
 }
 
+/**
+ * 
+ * @param uid user Id 
+ * @param updates change in stats
+ * @returns nothing
+ */
 export const updateUserStatsService = async (
-    targetId: Types.ObjectId, 
+    uid: Types.ObjectId, 
     updates: UserStatsUpdateInterface,
 )=>{
 
@@ -68,7 +74,7 @@ export const updateUserStatsService = async (
     } = updates;
 
     await User.updateOne(
-        {_id: targetId},
+        {_id: uid},
         {
             $inc:{
                 reputationScore: reputationChange,
@@ -80,7 +86,7 @@ export const updateUserStatsService = async (
         }
     );
 
-    updateLeaderboardService(targetId);
+    updateLeaderboardService(uid);
 
     return;
 }

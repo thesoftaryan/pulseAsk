@@ -11,7 +11,7 @@ import { ForgotPasswordPayload, LoginPayload, RefreshTokenPayload, RegisterPaylo
 import { generateHash } from "../utils/hash.util";
 import { signToken, verifyToken } from "../utils/jwt.util";
 import { updateLeaderboardService } from "./leaderboard.service";
-import { Wallet } from "../models/wallet.model";
+import { Wallet } from "../models/Wallet.model";
 
 
 /**

@@ -1,13 +1,20 @@
 import { Types } from "mongoose";
-import { Transaction } from "../models/transaction.model";
-import { Wallet } from "../models/wallet.model";
+import { Transaction } from "../models/Transaction.model";
+import { Wallet } from "../models/Wallet.model";
 import { ApiError } from "../utils/error.util";
 import { STATUS } from "../constants/statusCodes.constants";
 import { appEventEmitter } from "../emitter/emitter";
 import { User, UserInterface } from "../models/User.model";
+import { SendPaymentPayload } from "../types/wallet.type";
 
 
-export const sendPaymentService = async (uid:Types.ObjectId, data : any)=>{
+/**
+ * 
+ * @param uid user Id
+ * @param data of type SendPaymentPayload
+ * @returns nothing
+ */
+export const sendPaymentService = async (uid:Types.ObjectId, data : SendPaymentPayload)=>{
     const {amount, receiver} = data;
     const user = await User.findById(receiver);
     if(!user?.paymentPreferences.enablePayment){
@@ -67,6 +74,11 @@ export const sendPaymentService = async (uid:Types.ObjectId, data : any)=>{
 
 }
 
+/**
+ * 
+ * @param uid user Id
+ * @returns wallet information of user with given uid
+ */
 export const getWalletStatsService = async (uid:Types.ObjectId)=>{
     let wallet = await Wallet.findOne({uid: uid});
     if(!wallet){
@@ -78,6 +90,11 @@ export const getWalletStatsService = async (uid:Types.ObjectId)=>{
     return wallet;
 }
 
+/**
+ * 
+ * @param uid user Id
+ * @returns returns Transactions of type TransactionInterface
+ */
 export const getTransactionsService = async (uid:Types.ObjectId)=>{
     const transactions = await Transaction.find({
         $or: [

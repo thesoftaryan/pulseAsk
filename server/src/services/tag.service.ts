@@ -1,4 +1,4 @@
-import { GenerateTagPayload, TagPayload } from "../types/tag.type";
+import { FetchQuestionsByTagPayload, FetchTagPayload, GenerateTagPayload, TagPayload } from "../types/tag.type";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ApiError } from "../utils/error.util";
@@ -7,7 +7,7 @@ import { generateTagColor } from "../utils/tag.util";
 import { Tag } from "../models/Tag.model";
 import { Types } from "mongoose";
 import { slugifyText } from "../utils/general.util";
-import { GenerateTagResponse } from "../types/response/tag.type";
+import { GenerateTagResponse, QuestionsByTagResponse } from "../types/response/tag.type";
 import { Question } from "../models/Question.model";
 
 
@@ -108,13 +108,28 @@ export const createTagService = async (data : TagPayload[], update: boolean = fa
     return response;
 }
 
-
-export const fetchTagBySlugService = async (tagSlug: string)=>{
+/**
+ * @param payload of type FetchTagPayload
+ * @returns Tag which has the given slug
+ */
+export const fetchTagBySlugService = async (payload: FetchTagPayload)=>{
+    const {tagSlug} = payload;
     const tag = await Tag.findOne({slug: tagSlug});
+    if(!tag){
+        throw new ApiError(
+            STATUS.CLIENT_ERROR.NOT_FOUND,
+            "Tag not found",
+        )
+    }
     return tag;
 }
 
-export const fetchQuestionsByTagService = async (tagId : Types.ObjectId)=>{
+/**
+ * @param payload of type FetchQuestionByTagPayload
+ * @returns questions having given tag
+ */
+export const fetchQuestionsByTagService = async (payload: FetchQuestionsByTagPayload)=>{
+    const {tagId} = payload;
     const questions = await Question.find(
         {tags: tagId}
     ).populate([

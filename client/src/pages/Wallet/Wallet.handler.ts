@@ -2,6 +2,7 @@ import { useState } from "react";
 import { parseErrorResponse, parseSuccessResponse } from "../../services/apiResponseParser.service"
 import { getTransactionsService, getWalletStatsService } from "../../services/wallet.service";
 import { showToast } from "../../utils/toast.util";
+import type { FetchTransactionsResponse, WalletStatsResponse } from "../../types/ApiResponse/wallet.type";
 
 export const useWalletHandler = (
     setWalletStats: React.Dispatch<any>,
@@ -13,8 +14,8 @@ export const useWalletHandler = (
         try{
             setFetchingWallet(true);
             const response = await getWalletStatsService();
-            const result = parseSuccessResponse<any>(response);
-            setWalletStats(result.data)
+            const result = parseSuccessResponse<WalletStatsResponse>(response);
+            setWalletStats(result.data?.wallet)
         }catch(err){
             const error = parseErrorResponse(err);
             showToast.error(error.message);
@@ -27,8 +28,8 @@ export const useWalletHandler = (
         try{
             setFetchingTransactions(true);
             const response = await getTransactionsService();
-            const result = parseSuccessResponse<any>(response);
-            let transactions  = result.data.transactions as Array<any>;
+            const result = parseSuccessResponse<FetchTransactionsResponse>(response);
+            let transactions  = result.data?.transactions??[];
             transactions.sort(
                 (a, b) =>
                     new Date(b.createdAt).getTime() -

@@ -1,5 +1,10 @@
 import mailTransporter from "../config/mail.config";
 
+/**
+ * 
+ * @param email of user to whom we will send mail.
+ * @param token of email verification
+ */
 export const sendVerificationMail = async (email: string, token: string)=>{
     const verificationURL = `${process.env.BACKEND_URL}/auth/verify-email?token=${token}`;
 
@@ -16,6 +21,11 @@ export const sendVerificationMail = async (email: string, token: string)=>{
     });
 };
 
+/**
+ * 
+ * @param email of user to whom we will send mail.
+ * @param token of reset password
+ */
 export const sendResetPasswordMail = async (email : string, token : string)=>{
   const resetPasswordURL = `${process.env.CLIENT_URL}/auth/reset-password?token=${token}`;
   await mailTransporter.sendMail({

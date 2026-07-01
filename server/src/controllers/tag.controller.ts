@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
-import { GenerateTagPayload } from "../types/tag.type";
+import { FetchQuestionsByTagPayload, FetchTagPayload, GenerateTagPayload } from "../types/tag.type";
 import { fetchQuestionsByTagService, fetchTagBySlugService, generateTagService } from "../services/tag.service";
 import { successResponse } from "../utils/response.util";
 import { STATUS } from "../constants/statusCodes.constants";
 import { generateTagColor } from "../utils/tag.util";
-import { GenerateTagResponse } from "../types/response/tag.type";
+import { GenerateTagResponse, QuestionsByTagResponse, TagBySlugResponse } from "../types/response/tag.type";
 
 
 export const generateTagController = async (req : Request, res: Response)=>{
@@ -22,27 +22,25 @@ export const generateTagController = async (req : Request, res: Response)=>{
 }
 
 export const fetchTagBySlugController = async (req:Request, res:Response)=>{
-    const {tagSlug} = req.body;
-    const tag = await fetchTagBySlugService(tagSlug);
+    const data = req.body as FetchTagPayload;
+    const tag = await fetchTagBySlugService(data);
+    const response:TagBySlugResponse = {tag};
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "Tag fetched successfully",
-        {
-            tag,
-        }
+        response,
     );
 }
 
 export const fetchQuestionsByTagController = async (req: Request, res:Response)=>{
-    const {tagId} = req.body;
-    const questions = await fetchQuestionsByTagService(tagId);
+    const data = req.body as FetchQuestionsByTagPayload;
+    const questions = await fetchQuestionsByTagService(data);
+    const response:QuestionsByTagResponse={questions};
     return successResponse(
         res,
         STATUS.SUCCESS.OK,
         "Questions fetched successfully",
-        {
-            questions,
-        },
+        response,
     );
 }

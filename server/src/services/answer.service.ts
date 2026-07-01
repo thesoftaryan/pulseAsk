@@ -10,28 +10,29 @@ import { User } from "../models/User.model";
 import { reputationPolicy } from "../constants/reputation.constants";
 import { updateUserStatsService } from "./profile.service";
 import { appEventEmitter } from "../emitter/emitter";
+import { AnswerNotificationPayload } from "../types/notification.type";
 
 
 /**
- * @param data of type PostAnswerPayload
+ * @param payload of type PostAnswerPayload
  * @returns answer object of type AnswerInterface
  */
-export const postAnswerService = async (author:Types.ObjectId, data : PostAnswerPayload)=>{
-    if(!Types.ObjectId.isValid(data.qid)){
+export const postAnswerService = async (author:Types.ObjectId, payload : PostAnswerPayload)=>{
+    if(!Types.ObjectId.isValid(payload.qid)){
         throw new ApiError(
             STATUS.CLIENT_ERROR.NOT_FOUND,
             "Question not found, it might be deleted",
         );
     }
     const answerObj = {
-        ...data,
+        ...payload,
         author,
         askedAt: Date.now(),
     };
     const answer = await Answer.create(answerObj);
 
-    const question = await Question.findById(data.qid).populate([
-        {path: "author", select: "notificationPreferences"}
+    const question = await Question.findById(payload.qid).populate([
+        {path: "author", select: "_id notificationPreferences"}
     ]);
     if(question){
         if(question.bestAnswer){
@@ -53,32 +54,33 @@ export const postAnswerService = async (author:Types.ObjectId, data : PostAnswer
     
     if(question?.author.notificationPreferences.answer){
         // console.log("sending answer notification to the user : ", question.author.firstName);
-        appEventEmitter.emit(
-            "answer.created",
-            {
+        const data : AnswerNotificationPayload = {
                 senderId: author,
-                receiverId: question?.author,
+                receiverId: question?.author._id,
                 answerId: answer._id,
                 questionId: question?._id,
-            }
+            };
+        appEventEmitter.emit(
+            "answer.created",
+            data,
         );
     }
     
 }
 
 /**
- * @param data of type FetchAnswersPayload
+ * @param payload of type FetchAnswersPayload
  * @returns array of answer objects for that particular question.
  */
-export const fetchAnswersService = async (data : FetchAnswersPayload)=>{
-    if(!Types.ObjectId.isValid(data.qid)){
+export const fetchAnswersService = async (payload : FetchAnswersPayload)=>{
+    if(!Types.ObjectId.isValid(payload.qid)){
         throw new ApiError(
             STATUS.CLIENT_ERROR.NOT_FOUND,
             "Question not found, it might be deleted",
         );
     }
 
-    const answers = await Answer.find({qid: data.qid}).populate([
+    const answers = await Answer.find({qid: payload.qid}).populate([
         {path: "author", select:"_id userName firstName lastName profile college"},
         {path: "qid", select:"_id slug"},
     ]).sort(
@@ -88,34 +90,34 @@ export const fetchAnswersService = async (data : FetchAnswersPayload)=>{
 }
 
 /**
- * @param data of type FetchCommentsPayload
+ * @param payload of type FetchCommentsPayload
  * @returns array of comments for given answer
  */
-export const fetchAnswerCommentsService = async (data : FetchCommentsPayload)=>{
-    if(!Types.ObjectId.isValid(data.targetId)){
+export const fetchAnswerCommentsService = async (payload : FetchCommentsPayload)=>{
+    if(!Types.ObjectId.isValid(payload.targetId)){
         throw new ApiError(
             STATUS.CLIENT_ERROR.NOT_FOUND,
             "Answer not found, it might be deleted",
         );
     }
-    const comments = await Comment.find({answerId: data.targetId}).populate([
+    const comments = await Comment.find({answerId: payload.targetId}).populate([
         {path:"author", select:"_id userName profile firstName lastName"},
     ]);
     return comments;
 }
 
 /**
- * @param data of type PostCommentsPayload
+ * @param payload of type PostCommentsPayload
  * @returns nothing
  */
-export const postAnswerCommentService = async (author:Types.ObjectId, data : PostCommentPayload)=>{
+export const postAnswerCommentService = async (author:Types.ObjectId, payload : PostCommentPayload)=>{
     const commentObj = {
-        answerId: data.targetId,
+        answerId: payload.targetId,
         author,
-        content: data.content,
+        content: payload.content,
         commentedAt: Date.now(),
     };
-    if(!Types.ObjectId.isValid(data.targetId)){
+    if(!Types.ObjectId.isValid(payload.targetId)){
         throw new ApiError(
             STATUS.CLIENT_ERROR.NOT_FOUND,
             "Answer not found, it might be deleted",

@@ -1,6 +1,7 @@
 import { getTransactionsAPI, getWalletStatsAPI, sendPaymentAPI } from "../api/wallet.api"
+import type { SendPaymentPayload } from "../types/ApiRequest/wallet.type";
 
-export const sendPaymentService = (data : any)=>{
+export const sendPaymentService = (data : SendPaymentPayload)=>{
     return sendPaymentAPI(data);
 }
 

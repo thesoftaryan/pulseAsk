@@ -1,6 +1,6 @@
 import {Schema, Types, Document, model} from "mongoose";
 
-interface TransactionInterface{
+export interface TransactionInterface{
     sender: Types.ObjectId,
     receiver: Types.ObjectId,
     amount: Number,

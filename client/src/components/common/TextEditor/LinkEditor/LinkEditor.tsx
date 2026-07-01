@@ -29,6 +29,9 @@ export const LinkEditor = ({editor} : {editor: Editor})=>{
             editor.chain().focus().unsetLink().run();
             return;
         }
+        if(!url.startsWith("http")){
+            setUrl((prev)=>"http://"+prev);
+        }
         editor.chain().focus().setLink({href: url}).run();
     }
 

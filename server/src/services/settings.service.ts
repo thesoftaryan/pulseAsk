@@ -142,8 +142,8 @@ export const updateUserProfileImageService = async (uid:Types.ObjectId, data : U
 }
 
 /**
- * @param "None"
- * @returns "NULL"
+ * @param uid userId
+ * @returns nothing
  */
 export const removeUserProfileImageService = async (uid:Types.ObjectId)=>{
     const user = await User.findById(uid);
