@@ -1,4 +1,4 @@
-import mailTransporter from "../config/mail.config";
+import {sendMail} from "../config/mail.config";
 
 /**
  * 
@@ -8,8 +8,7 @@ import mailTransporter from "../config/mail.config";
 export const sendVerificationMail = async (email: string, token: string)=>{
     const verificationURL = `${process.env.BACKEND_URL}/auth/verify-email?token=${token}`;
 
-    await mailTransporter.sendMail({
-        from: process.env.EMAIL_FROM,
+    await sendMail({
         to: email,
         subject : "Verify your email - PulseAsk",
         html: `
@@ -28,8 +27,7 @@ export const sendVerificationMail = async (email: string, token: string)=>{
  */
 export const sendResetPasswordMail = async (email : string, token : string)=>{
   const resetPasswordURL = `${process.env.CLIENT_URL}/auth/reset-password?token=${token}`;
-  await mailTransporter.sendMail({
-    from : process.env.EMAIL_FROM,
+  await sendMail({
     to : email,
     subject: "Reset Password - PulseAsk",
     html:`
@@ -39,5 +37,5 @@ export const sendResetPasswordMail = async (email : string, token : string)=>{
       <a href="${resetPasswordURL}">Reset Password</a>
       <p>This link expires in 10 minutes.</p>
     `
-  })
+  });
 }

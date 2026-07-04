@@ -1,12 +1,44 @@
-import nodemailer from "nodemailer";
+import { ApiError } from "../utils/error.util";
+import { STATUS } from "../constants/statusCodes.constants";
 
-const mailTransporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: Number(process.env.EMAIL_PORT),
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-});
 
-export default mailTransporter;
+interface SendMailOptions {
+    to: string;
+    subject: string;
+    html: string;
+}
+
+export const sendMail = async ({
+    to,
+    subject,
+    html,
+}: SendMailOptions) => {
+    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "api-key": process.env.BREVO_API_KEY!,
+        },
+        body: JSON.stringify({
+            sender: {
+                email: process.env.EMAIL_FROM,
+                name: "PulseAsk",
+            },
+            to: [
+                {
+                    email: to,
+                },
+            ],
+            subject,
+            htmlContent: html,
+        }),
+    });
+
+    if (!response.ok) {
+        const error = await response.text();
+        throw new ApiError(
+            STATUS.SERVER_ERROR.BAD_GATEWAY,
+            `Brevo API Error (${response.status}): ${error}`
+        );
+    }
+}

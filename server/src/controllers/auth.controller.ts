@@ -80,14 +80,14 @@ export const googleOAuthCallbackController = async (req : Request, res : Respons
     return res
     .cookie("access_token", accessToken, {
         httpOnly:true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
         // 15 minutes (in milliseconds)
         maxAge: 15 * 60 * 1000,
     })
     .cookie("refresh_token", refreshToken, {
         httpOnly : true,
-        secure : process.env.NODE_ENV === "production",
+        secure: true,
         sameSite : "strict",
         // 30 days (in milliseconds)
         // undefined is used to create a session cookie
@@ -115,8 +115,8 @@ export const refreshTokenController = async (req : Request, res : Response)=>{
     const newAccessToken = await refreshTokenService({refreshToken : refreshToken??""});
     res.cookie("access_token", newAccessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
         // 15 minutes (in milliseconds)
         maxAge: 15 * 60 * 1000,
     });
@@ -168,16 +168,16 @@ export const loginController = async (req: Request, res: Response)=>{
     
     res.cookie("access_token", accessToken, {
         httpOnly:true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
         // 15 minutes (in milliseconds)
         maxAge: 15 * 60 * 1000,
     });
     
     res.cookie("refresh_token", refreshToken, {
         httpOnly : true,
-        secure : process.env.NODE_ENV==="production",
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
         // 30 days (in milliseconds)
         // 60 minutes for refresh_token cookie
         maxAge : payload.rememberMe? 30*24*60*60*1000 : 60*60*1000,
